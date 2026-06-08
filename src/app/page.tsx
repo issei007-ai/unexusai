@@ -9,7 +9,6 @@ import ParticleCanvas from "@/components/ui/ParticleCanvas";
 import TypingText from "@/components/ui/TypingText";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Marquee from "@/components/ui/Marquee";
-import CustomCursor from "@/components/ui/CustomCursor";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Preloader from "@/components/ui/Preloader";
 import { TRUST_LOGOS } from "@/lib/constants";
@@ -18,7 +17,6 @@ export default function HomePage() {
   return (
     <>
       <Preloader />
-      <CustomCursor />
       <Nav />
       <main>
 

@@ -4,40 +4,46 @@ import { useEffect, useRef } from "react";
 export default function CustomCursor() {
   const dotRef  = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const pos  = useRef({ x: 0, y: 0 });
-  const ring = useRef({ x: 0, y: 0 });
+  const target = useRef({ x: 0, y: 0 });
+  const current = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Skip on touch devices — no cursor needed there
+    // Skip entirely on touch devices
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
+    // Show the cursor elements (hidden via CSS until JS confirms pointer:fine)
+    if (dotRef.current)  dotRef.current.style.display  = "block";
+    if (ringRef.current) ringRef.current.style.display = "block";
+
     const onMove = (e: MouseEvent) => {
-      pos.current = { x: e.clientX, y: e.clientY };
+      target.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener("mousemove", onMove, { passive: true });
 
     let raf: number;
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const animate = () => {
-      ring.current.x = lerp(ring.current.x, pos.current.x, 0.14);
-      ring.current.y = lerp(ring.current.y, pos.current.y, 0.14);
+      // Ring lerps toward cursor — 0.25 is snappy but still smooth
+      current.current.x += (target.current.x - current.current.x) * 0.25;
+      current.current.y += (target.current.y - current.current.y) * 0.25;
 
       if (dotRef.current) {
+        // Dot snaps immediately
         dotRef.current.style.transform =
-          `translate(${pos.current.x - 4}px, ${pos.current.y - 4}px)`;
+          `translate3d(${target.current.x - 4}px, ${target.current.y - 4}px, 0)`;
       }
       if (ringRef.current) {
         ringRef.current.style.transform =
-          `translate(${ring.current.x - 18}px, ${ring.current.y - 18}px)`;
+          `translate3d(${current.current.x - 18}px, ${current.current.y - 18}px, 0)`;
       }
       raf = requestAnimationFrame(animate);
     };
-    animate();
+    raf = requestAnimationFrame(animate);
 
-    const grow   = () => ringRef.current?.classList.add("cursor-hover");
-    const shrink = () => ringRef.current?.classList.remove("cursor-hover");
-    document.querySelectorAll("a,button").forEach((el) => {
+    // Scale ring on interactive elements
+    const grow   = () => ringRef.current?.classList.add("cursor-grow");
+    const shrink = () => ringRef.current?.classList.remove("cursor-grow");
+    document.querySelectorAll("a, button, [data-cursor-grow]").forEach((el) => {
       el.addEventListener("mouseenter", grow);
       el.addEventListener("mouseleave", shrink);
     });
@@ -50,43 +56,46 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Dot — solid, no blend mode (blend mode forces full-page recomposite every frame) */}
+      {/* Hidden by default; shown only when JS confirms pointer:fine */}
       <div
         ref={dotRef}
         style={{
-          position:    "fixed",
-          top: 0, left: 0,
-          width: 8, height: 8,
-          borderRadius: "50%",
-          background:  "var(--color-accent-400)",
+          display:       "none",
+          position:      "fixed",
+          top: 0, left:  0,
+          width:         8,
+          height:        8,
+          borderRadius:  "50%",
+          background:    "var(--color-accent-400)",
           pointerEvents: "none",
-          zIndex: 9999,
-          willChange:  "transform",
+          zIndex:        9999,
+          willChange:    "transform",
         }}
       />
-      {/* Ring */}
       <div
         ref={ringRef}
         style={{
-          position: "fixed",
-          top: 0, left: 0,
-          width: 36, height: 36,
-          borderRadius: "50%",
-          border: "1.5px solid rgba(99,102,241,0.55)",
+          display:       "none",
+          position:      "fixed",
+          top: 0, left:  0,
+          width:         36,
+          height:        36,
+          borderRadius:  "50%",
+          border:        "1.5px solid rgba(99,102,241,0.6)",
           pointerEvents: "none",
-          zIndex: 9998,
-          willChange: "transform",
-          transition: "width 0.2s, height 0.2s, border-color 0.2s",
+          zIndex:        9998,
+          willChange:    "transform",
+          transition:    "width 0.18s, height 0.18s, border-color 0.18s",
         }}
       />
       <style>{`
         @media (pointer: fine) { * { cursor: none !important; } }
-        .cursor-hover {
-          width: 52px !important;
-          height: 52px !important;
-          border-color: rgba(99,102,241,0.85) !important;
-          margin-left: -8px;
-          margin-top: -8px;
+        .cursor-grow {
+          width:        52px !important;
+          height:       52px !important;
+          border-color: rgba(99,102,241,0.9) !important;
+          margin-left:  -8px;
+          margin-top:   -8px;
         }
       `}</style>
     </>
