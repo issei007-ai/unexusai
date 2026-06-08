@@ -1,44 +1,52 @@
 import { TESTIMONIALS } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
+import SplitText from "@/components/ui/SplitText";
 
-const AVATAR_COLORS = ["#6366F1", "#7C3AED", "#0EA5E9"];
+const ACCENT = ["#818cf8", "#a78bfa", "#67e8f9"];
 
 export default function TestimonialsGrid() {
   return (
-    <section className="section relative overflow-hidden">
-      <div
-        className="absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%,rgba(99,102,241,0.06) 0%,transparent 70%)" }}
-      />
+    <section className="section relative overflow-hidden" style={{ background: "var(--color-bg)" }}>
+      <div className="orb orb-secondary absolute" style={{ width: 600, height: 600, bottom: "-200px", left: "-100px", opacity: 0.1 }} />
+      <div className="orb orb-teal absolute" style={{ width: 400, height: 400, top: "-100px", right: "-80px", opacity: 0.08 }} />
+      <div className="absolute inset-0 bg-grid" style={{ opacity: 0.25 }} />
 
       <div className="container relative z-10">
         <div className="text-center mb-16">
           <ScrollReveal>
-            <span className="badge badge-accent mb-5 inline-flex">What clients say</span>
+            <span className="badge badge-accent mb-5 inline-flex">Social proof</span>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h2 className="text-h2 mb-4">
-              Don&apos;t take{" "}
-              <span className="highlight-line">our word</span> for it
+            <h2 className="text-h2">
+              <SplitText>Don&apos;t take our word for it</SplitText>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-lead max-w-md mx-auto">
+            <p className="text-lead mt-4 max-w-md mx-auto">
               Real results from real businesses — no cherry-picked numbers.
             </p>
           </ScrollReveal>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-5">
           {TESTIMONIALS.map((t, i) => (
-            <ScrollReveal key={t.name} delay={i * 0.12} direction="up">
-              <TiltCard intensity={6} className="h-full">
-                <div className="card p-8 flex flex-col gap-6 relative overflow-hidden h-full">
-                  {/* Decorative quote */}
+            <ScrollReveal key={t.name} delay={i * 0.12}>
+              <TiltCard intensity={5} className="h-full">
+                <div
+                  className="glow-card h-full flex flex-col p-7 gap-5 relative overflow-hidden cursor-default"
+                  style={{ border: "1px solid var(--color-border)" }}
+                >
+                  {/* Glow accent line at top */}
                   <div
-                    className="absolute top-3 right-5 text-7xl font-serif leading-none select-none pointer-events-none"
-                    style={{ color: "rgba(99,102,241,0.07)" }}
+                    className="absolute top-0 left-6 right-6 h-px"
+                    style={{ background: `linear-gradient(90deg, transparent, ${ACCENT[i]}, transparent)`, opacity: 0.4 }}
+                  />
+
+                  {/* Quote mark */}
+                  <div
+                    className="absolute -top-1 right-5 text-8xl font-serif leading-none select-none"
+                    style={{ color: "rgba(99,102,241,0.06)" }}
                   >
                     &ldquo;
                   </div>
@@ -46,29 +54,27 @@ export default function TestimonialsGrid() {
                   {/* Stars */}
                   <div className="flex gap-1">
                     {Array.from({ length: 5 }).map((_, si) => (
-                      <svg key={si} width="13" height="13" viewBox="0 0 24 24" fill="var(--color-warning)">
+                      <svg key={si} width="12" height="12" viewBox="0 0 24 24" fill={ACCENT[i]}>
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
                     ))}
                   </div>
 
-                  {/* Quote */}
-                  <p className="text-sm leading-relaxed flex-1 italic" style={{ color: "var(--color-brand-700)" }}>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: "var(--color-brand-300)" }}>
                     &ldquo;{t.quote}&rdquo;
                   </p>
 
-                  {/* Author */}
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                      style={{ background: AVATAR_COLORS[i % AVATAR_COLORS.length] }}
+                      className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+                      style={{ background: `linear-gradient(135deg, ${ACCENT[i]}, var(--color-glow))` }}
                     >
                       {t.name.charAt(0)}
                     </div>
                     <div>
-                      <div className="font-semibold text-sm">{t.name}</div>
+                      <div className="text-sm font-semibold text-white">{t.name}</div>
                       <div className="text-xs" style={{ color: "var(--color-brand-500)" }}>
-                        {t.role}, {t.company}
+                        {t.role} · {t.company}
                       </div>
                     </div>
                   </div>

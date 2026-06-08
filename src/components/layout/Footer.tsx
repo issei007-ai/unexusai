@@ -1,88 +1,99 @@
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import Marquee from "@/components/ui/Marquee";
+
 const FOOTER_COLS = [
-  {
-    title: "Services",
-    links: [
-      { label: "Digital Marketing", href: "/services/digital-marketing" },
-      { label: "Website Development", href: "/services/website-development" },
-      { label: "AI Automation", href: "/services/ai-automation" },
-      { label: "AI Training", href: "/services/ai-training" },
-      { label: "Market Research", href: "/services/market-research" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Work with us",
-    links: [
-      { label: "Get a Free Audit", href: "/audit" },
-      { label: "Book a Call", href: "/book" },
-      { label: "Get a Quote", href: "/quote" },
-      { label: "Resources", href: "/resources" },
-    ],
-  },
+  { title: "Services", links: [
+    { label: "Digital Marketing", href: "/services/digital-marketing" },
+    { label: "Website Development", href: "/services/website-development" },
+    { label: "AI Automation", href: "/services/ai-automation" },
+    { label: "AI Training", href: "/services/ai-training" },
+    { label: "Market Research", href: "/services/market-research" },
+  ]},
+  { title: "Company", links: [
+    { label: "About", href: "/about" },
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
+  ]},
+  { title: "Work with us", links: [
+    { label: "Get a Free Audit", href: "/audit" },
+    { label: "Book a Call", href: "/book" },
+    { label: "Get a Quote", href: "/quote" },
+    { label: "Resources", href: "/resources" },
+  ]},
 ];
 
-const LEGAL_LINKS = [
+const LEGAL = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Service", href: "/terms-of-service" },
   { label: "Cookie Policy", href: "/cookie-policy" },
 ];
 
+const MARQUEE_ITEMS = ["Digital Marketing", "AI Automation", "Website Development", "AI Training", "Market Research", "Growth Strategy", "SEO & GEO", "Paid Media"];
+
 export default function Footer() {
   return (
-    <footer
-      className="bg-[var(--color-brand-950)]"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-    >
-      <div className="container py-14">
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
+    <footer style={{ background: "var(--color-surface)", borderTop: "1px solid var(--color-border)" }}>
+      {/* Scrolling text strip */}
+      <div className="py-5" style={{ borderBottom: "1px solid var(--color-border)" }}>
+        <Marquee speed={30} gap="4rem">
+          {MARQUEE_ITEMS.map((item) => (
+            <span key={item} className="text-xs font-semibold uppercase tracking-widest flex-shrink-0 flex items-center gap-4"
+              style={{ color: "var(--color-brand-600)" }}>
+              {item}
+              <span style={{ color:"var(--color-accent-500)", opacity:0.4 }}>◆</span>
+            </span>
+          ))}
+        </Marquee>
+      </div>
+
+      <div className="container py-16">
+        <div className="grid md:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
-          <div>
-            <a href="/" className="font-bold text-xl tracking-tight text-white block mb-3" style={{ fontFamily: "var(--font-display)" }}>
-              richa<span style={{ color: "var(--color-accent-400)" }}>.</span>
+          <ScrollReveal direction="up">
+            <a href="/" className="inline-flex items-center gap-2 mb-4"
+              style={{ fontFamily:"var(--font-display)", fontWeight:700, fontSize:"1.25rem", color:"#fff", letterSpacing:"-0.03em" }}>
+              <span style={{
+                width:30, height:30, borderRadius:8, display:"inline-flex", alignItems:"center", justifyContent:"center",
+                background:"linear-gradient(135deg,var(--color-accent-500),var(--color-glow))",
+                fontSize:"0.85rem", fontWeight:800, color:"#fff",
+              }}>R</span>
+              richa<span style={{ color:"var(--color-accent-400)" }}>.</span>
             </a>
-            <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-500)" }}>
+            <p className="text-sm leading-relaxed" style={{ color:"var(--color-brand-500)" }}>
               AI-native digital agency helping ambitious businesses grow faster.
             </p>
-          </div>
+          </ScrollReveal>
 
-          {/* Columns */}
-          {FOOTER_COLS.map((col) => (
-            <div key={col.title}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--color-brand-500)" }}>
+          {FOOTER_COLS.map((col, ci) => (
+            <ScrollReveal key={col.title} delay={ci * 0.1 + 0.1} direction="up">
+              <div className="text-xs font-semibold uppercase tracking-widest mb-5"
+                style={{ color:"var(--color-brand-500)" }}>
                 {col.title}
               </div>
-              <ul className="space-y-2.5">
+              <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm hover:text-white transition-colors" style={{ color: "var(--color-brand-300)" }}>
+                    <a href={link.href}
+                      className="text-sm transition-colors duration-200 hover:text-white"
+                      style={{ color:"var(--color-brand-400)" }}>
                       {link.label}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)", color: "var(--color-brand-500)" }}
-        >
+        <div className="divider mb-8" />
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs"
+          style={{ color:"var(--color-brand-600)" }}>
           <span>© {new Date().getFullYear()} Richa. All rights reserved.</span>
           <div className="flex gap-6">
-            {LEGAL_LINKS.map((link) => (
-              <a key={link.label} href={link.href} className="hover:text-white transition-colors">
-                {link.label}
-              </a>
+            {LEGAL.map((link) => (
+              <a key={link.label} href={link.href} className="hover:text-white transition-colors">{link.label}</a>
             ))}
           </div>
         </div>

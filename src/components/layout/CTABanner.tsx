@@ -1,4 +1,8 @@
-interface CTABannerProps {
+import MagneticButton from "@/components/ui/MagneticButton";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import SplitText from "@/components/ui/SplitText";
+
+interface Props {
   heading?: string;
   body?: string;
   primaryLabel?: string;
@@ -14,72 +18,65 @@ export default function CTABanner({
   primaryHref = "/audit",
   secondaryLabel = "Book a Call",
   secondaryHref = "/book",
-}: CTABannerProps) {
+}: Props) {
   return (
-    <section className="section relative overflow-hidden" style={{ background: "var(--color-brand-950)" }}>
+    <section className="section relative overflow-hidden" style={{ background: "var(--color-surface)" }}>
       {/* Orbs */}
-      <div className="orb orb-primary absolute" style={{ width: 500, height: 500, bottom: "-200px", left: "-100px", opacity: 0.4 }} />
-      <div className="orb orb-secondary absolute" style={{ width: 400, height: 400, top: "-100px", right: "-80px", opacity: 0.3 }} />
+      <div className="orb orb-primary absolute" style={{ width: 600, height: 600, bottom: "-200px", left: "-100px", opacity: 0.18 }} />
+      <div className="orb orb-pink absolute" style={{ width: 400, height: 400, top: "-100px", right: "5%", opacity: 0.12 }} />
+      <div className="absolute inset-0 bg-grid" style={{ opacity: 0.3 }} />
 
-      {/* Grid */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
-
-      {/* Glow behind content */}
+      {/* Glowing circle behind content */}
       <div
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-48 mx-auto max-w-2xl rounded-full blur-3xl"
-        style={{ background: "rgba(99,102,241,0.12)" }}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl pointer-events-none"
+        style={{ width: 500, height: 200, background: "rgba(99,102,241,0.1)" }}
       />
 
       <div className="container relative z-10 text-center">
-        {/* Tag */}
-        <span className="badge badge-dark mb-6 inline-flex">Ready to grow?</span>
+        <ScrollReveal>
+          <span className="badge badge-accent mb-7 inline-flex">Start today</span>
+        </ScrollReveal>
 
-        <h2
-          className="text-h2 text-white mb-5 max-w-2xl mx-auto"
-          style={{ textShadow: "0 0 60px rgba(99,102,241,0.3)" }}
-        >
-          {heading}
-        </h2>
+        <ScrollReveal delay={0.1}>
+          <h2 className="text-h2 mb-6 max-w-2xl mx-auto">
+            <SplitText stagger={0.04}>{heading}</SplitText>
+          </h2>
+        </ScrollReveal>
 
-        <p
-          className="text-lead mb-10 max-w-xl mx-auto"
-          style={{ color: "var(--color-brand-300)" }}
-        >
-          {body}
-        </p>
+        <ScrollReveal delay={0.2}>
+          <p className="text-lead mb-10 max-w-lg mx-auto">{body}</p>
+        </ScrollReveal>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a href={primaryHref} className="btn btn-primary btn-lg">
-            {primaryLabel}
-          </a>
-          <a href={secondaryHref} className="btn btn-ghost-white btn-lg">
-            {secondaryLabel}
-          </a>
-        </div>
+        <ScrollReveal delay={0.3}>
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+            <MagneticButton href={primaryHref} className="btn btn-primary btn-lg">
+              {primaryLabel}
+            </MagneticButton>
+            <MagneticButton href={secondaryHref} className="btn btn-secondary btn-lg">
+              {secondaryLabel}
+            </MagneticButton>
+          </div>
+        </ScrollReveal>
 
-        {/* Bottom trust strip */}
-        <div
-          className="mt-14 pt-8 flex flex-wrap items-center justify-center gap-8"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-        >
-          {[
-            "No lock-in contracts",
-            "Senior-only delivery",
-            "Response within 24h",
-            "Free strategy session",
-          ].map((item) => (
-            <div
-              key={item}
-              className="flex items-center gap-2 text-xs"
-              style={{ color: "var(--color-brand-400)" }}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              {item}
-            </div>
-          ))}
-        </div>
+        {/* Trust strip */}
+        <ScrollReveal delay={0.4}>
+          <div className="divider mb-10" />
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {[
+              { icon: "✓", text: "No lock-in contracts" },
+              { icon: "✓", text: "Senior-only delivery" },
+              { icon: "✓", text: "Response within 24h" },
+              { icon: "✓", text: "Free strategy session" },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-2 text-xs" style={{ color: "var(--color-brand-400)" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {item.text}
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
