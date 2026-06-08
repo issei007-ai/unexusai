@@ -9,6 +9,7 @@
   --color-brand-700: #334155;
   --color-brand-600: #475569;
   --color-brand-500: #64748B;
+  --color-brand-400: #94A3B8;
   --color-brand-300: #CBD5E1;
   --color-brand-200: #E2E8F0;
   --color-brand-100: #F1F5F9;
@@ -106,6 +107,17 @@
 @keyframes count-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes hero-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 0.8;  transform: scale(1.12); }
 }
 
 /* ─── BASE ───────────────────────────────────────────────────────────────── */
@@ -481,6 +493,13 @@ body {
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+/* Animated gradient background */
+.bg-gradient-animated {
+  background: linear-gradient(-45deg, #0A0F1E, #0f1535, #1a0f35, #0a1520);
+  background-size: 400% 400%;
+  animation: gradient-shift 18s ease infinite;
+}
 
 /* ─── GLOW EFFECTS ───────────────────────────────────────────────────────── */
 
