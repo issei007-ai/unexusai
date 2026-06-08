@@ -24,7 +24,7 @@
   --color-brand-700: #1e2d44;
   --color-brand-600: #2d3f5c;
   --color-brand-500: #4a5e7a;
-  --color-brand-400: #6b7fa0;
+  --color-brand-400: #94a3b8;
   --color-brand-300: #8fa3c0;
   --color-brand-200: #b8c8db;
   --color-brand-100: #dde6f0;
@@ -160,20 +160,7 @@ body {
   position: relative;
 }
 
-/* ─── NOISE GRAIN TEXTURE ────────────────────────────────────────────────── */
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.028;
-  pointer-events: none;
-  z-index: 9000;
-  animation: noise 8s steps(10) infinite;
-}
+/* Noise removed — was causing full-screen repaint every 0.8s */
 
 /* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
 
@@ -312,8 +299,8 @@ body::before {
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background var(--dur-base), border-color var(--dur-base), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base);
 }
 .card:hover {
@@ -322,13 +309,13 @@ body::before {
   transform: translateY(-3px);
 }
 
-/* Glow border card — animated conic gradient border */
+/* Glow border card — animated conic gradient border (only runs on hover to save GPU) */
 .glow-card {
   position: relative;
   border-radius: var(--radius-xl);
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .glow-card::before {
   content: '';
@@ -336,9 +323,10 @@ body::before {
   inset: -1px;
   border-radius: calc(var(--radius-xl) + 1px);
   background: conic-gradient(from var(--angle), transparent 70%, var(--color-accent-500) 85%, var(--color-glow) 92%, var(--color-accent-500) 98%, transparent 100%);
-  animation: border-rotate 4s linear infinite;
+  /* Animation paused by default — starts on hover, no constant @property updates */
+  animation: none;
   opacity: 0;
-  transition: opacity 0.35s;
+  transition: opacity 0.3s;
   z-index: 0;
 }
 .glow-card::after {
@@ -350,16 +338,19 @@ body::before {
   z-index: 1;
 }
 .glow-card > * { position: relative; z-index: 2; }
-.glow-card:hover::before { opacity: 1; }
+.glow-card:hover::before {
+  animation: border-rotate 4s linear infinite;
+  opacity: 1;
+}
 
 /* Stat card */
 .stat-card {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(8px);
   padding: 1.1rem 1.25rem;
-  animation: float 6s ease-in-out infinite;
+  /* float animation removed — 4 concurrent transform animations in hero were causing jank */
 }
 
 /* ─── BADGES ─────────────────────────────────────────────────────────────── */
@@ -407,9 +398,10 @@ body::before {
 /* ─── BACKGROUNDS ────────────────────────────────────────────────────────── */
 
 .bg-gradient-animated {
-  background: linear-gradient(-45deg, #030712, #080d1e, #0d0624, #030e1a);
-  background-size: 400% 400%;
-  animation: gradient-shift 20s ease infinite;
+  /* Static gradient — animated version caused a full paint every frame at 400% bg-size */
+  background: radial-gradient(ellipse 80% 60% at 30% 20%, rgba(99,102,241,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 75% 60%, rgba(124,58,237,0.06) 0%, transparent 60%),
+              var(--color-bg);
 }
 
 /* Dot grid */
@@ -431,24 +423,21 @@ body::before {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(72px);
+  filter: blur(48px);  /* was 72px — reduced to cut GPU load */
   pointer-events: none;
+  /* Static orbs — no pulse animation (animations cause repaint every frame) */
 }
 .orb-primary {
-  background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 70%);
-  animation: pulse-orb 9s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(99,102,241,0.38) 0%, transparent 70%);
 }
 .orb-secondary {
-  background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%);
-  animation: pulse-orb 11s ease-in-out infinite reverse;
+  background: radial-gradient(circle, rgba(124,58,237,0.28) 0%, transparent 70%);
 }
 .orb-teal {
-  background: radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%);
-  animation: pulse-orb 13s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(6,182,212,0.22) 0%, transparent 70%);
 }
 .orb-pink {
-  background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, transparent 70%);
-  animation: pulse-orb 15s ease-in-out infinite reverse;
+  background: radial-gradient(circle, rgba(236,72,153,0.16) 0%, transparent 70%);
 }
 
 /* ─── DIVIDER ────────────────────────────────────────────────────────────── */

@@ -18,6 +18,13 @@ export default function TiltCard({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
+  const onEnter = () => {
+    const el = ref.current;
+    if (!el) return;
+    // Only set willChange on hover — avoids permanently promoting every card to a GPU layer
+    el.style.willChange = "transform";
+  };
+
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
@@ -34,14 +41,19 @@ export default function TiltCard({
     const el = ref.current;
     if (!el) return;
     el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
-    el.style.transition = "transform 0.55s cubic-bezier(0.22,1,0.36,1)";
+    el.style.transition = "transform 0.5s cubic-bezier(0.22,1,0.36,1)";
+    // Reset willChange after animation settles
+    setTimeout(() => {
+      if (ref.current) ref.current.style.willChange = "auto";
+    }, 550);
   };
 
   return (
     <div
       ref={ref}
       className={className}
-      style={{ ...style, willChange: "transform", transformStyle: "preserve-3d" }}
+      style={{ ...style, transformStyle: "preserve-3d" }}
+      onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >

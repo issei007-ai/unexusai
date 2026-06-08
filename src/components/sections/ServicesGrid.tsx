@@ -102,8 +102,13 @@ export default function ServicesGrid() {
                   {/* Content */}
                   <div>
                     <h3
-                      className="text-h3 mb-2 transition-colors duration-300 group-hover:text-gradient"
-                      style={{ fontFamily: "var(--font-display)" }}
+                      className="text-h3 mb-2"
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        transition: "color 0.3s",
+                      }}
+                      /* group-hover:text-gradient removed — Tailwind v4 can't generate
+                         multi-property custom class variants; caused -webkit-text-fill-color:transparent */
                     >
                       {service.title}
                     </h3>

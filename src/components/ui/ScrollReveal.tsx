@@ -43,7 +43,7 @@ export default function ScrollReveal({
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold, rootMargin: "0px 0px -30px 0px" }
+      { threshold, rootMargin: "0px 0px 60px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();

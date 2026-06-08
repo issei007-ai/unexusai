@@ -30,11 +30,9 @@ export default function HomePage() {
           {/* Particle canvas */}
           <ParticleCanvas />
 
-          {/* Orbs */}
-          <div className="orb orb-primary"  style={{ width:800, height:800, top:"-250px", left:"-200px", opacity:0.5 }} />
-          <div className="orb orb-secondary" style={{ width:600, height:600, top:"50px", right:"-150px", opacity:0.35 }} />
-          <div className="orb orb-teal"      style={{ width:400, height:400, bottom:"0", left:"30%", opacity:0.2 }} />
-          <div className="orb orb-pink"      style={{ width:300, height:300, bottom:"10%", right:"10%", opacity:0.15 }} />
+          {/* Orbs — 2 max in hero (blur is GPU-expensive) */}
+          <div className="orb orb-primary"  style={{ width:700, height:700, top:"-220px", left:"-180px", opacity:0.45 }} />
+          <div className="orb orb-secondary" style={{ width:500, height:500, top:"60px", right:"-130px", opacity:0.3 }} />
 
           {/* Grid overlay */}
           <div className="absolute inset-0 bg-grid" style={{ opacity:0.35 }} />
