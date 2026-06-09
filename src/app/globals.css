@@ -48,10 +48,10 @@
   --color-warning: #f59e0b;
   --color-error:   #ef4444;
 
-  /* Typography */
-  --font-display: var(--font-syne), "Syne", sans-serif;
-  --font-body:    var(--font-inter), "Inter", sans-serif;
-  --font-mono:    var(--font-jetbrains), "JetBrains Mono", monospace;
+  /* Typography — Geist (Vercel) */
+  --font-display: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-body:    var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono:    var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
 
   /* Radii */
   --radius-sm:   6px;
