@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Syne, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import CustomCursor from "@/components/ui/CustomCursor";
 
 const syne = Syne({ variable: "--font-syne", subsets: ["latin"], weight: ["700","800"], display: "swap" });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["400","500","600"], display: "swap" });
@@ -17,7 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${syne.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body>
-        <CustomCursor />
         <ScrollProgress />
         {children}
       </body>

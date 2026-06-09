@@ -63,16 +63,15 @@ export default function StatsStrip() {
 function TiltCardShell({ children, color }: { children: React.ReactNode; color: string }) {
   return (
     <div
-      className="h-full"
+      className="h-full rounded-2xl"
       style={{
-        filter: `drop-shadow(0 0 0 transparent)`,
-        transition: "filter 0.3s",
+        transition: "box-shadow 0.3s",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.filter = `drop-shadow(0 0 20px ${color}22)`;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 26px ${color}22`;
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.filter = "drop-shadow(0 0 0 transparent)";
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
       }}
     >
       {children}

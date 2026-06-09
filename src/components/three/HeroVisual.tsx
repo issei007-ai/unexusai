@@ -1,32 +1,25 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useAdaptive3D } from "@/lib/useAdaptive3D";
 import AuroraBg from "@/components/ui/AuroraBg";
 
-// WebGL bundle is desktop-only and lazy — phones never download or run it.
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
-  ssr: false,
-  loading: () => null,
-});
-
 /**
- * Picks the right hero visual for the device:
- *  • Aurora (CSS) always renders as the base layer — cheap, premium everywhere.
- *  • The WebGL 3D blob layers on top ONLY when the machine proves it can run it
- *    smoothly (see useAdaptive3D). If frame rate is poor, it's removed and the
- *    page falls back to aurora-only for the rest of the session.
+ * Pure-CSS hero visual — runs at 60fps on phones and low-end laptops.
+ * No WebGL, no canvas, no blur filters. Soft glows use radial-gradients
+ * (already soft, so no expensive blur), and the only continuous motion is
+ * transform/opacity on small sharp layers — composited on the GPU for free.
  */
 export default function HeroVisual() {
-  const { enabled, reportBad, reportStable } = useAdaptive3D();
-
   return (
-    <>
+    <div className="hero-visual" aria-hidden>
+      {/* Soft color depth */}
       <AuroraBg />
-      {enabled && (
-        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-          <HeroScene onUnsupported={reportBad} onStable={reportStable} />
-        </div>
-      )}
-    </>
+
+      {/* Slowly rotating halo ring — sharp, rasterized once, just rotated */}
+      <span className="hero-ring" />
+
+      {/* Sharp floating accents (no blur → essentially free to animate) */}
+      <span className="float-shape float-shape--1" />
+      <span className="float-shape float-shape--2" />
+      <span className="float-shape float-shape--3" />
+      <span className="float-shape float-shape--4" />
+    </div>
   );
 }

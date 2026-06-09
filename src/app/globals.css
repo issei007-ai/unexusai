@@ -417,9 +417,9 @@ body {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(48px);  /* was 72px — reduced to cut GPU load */
   pointer-events: none;
-  /* Static orbs — no pulse animation (animations cause repaint every frame) */
+  /* No blur filter: the radial-gradient fill is already soft, so blur was
+     redundant AND expensive. Static (no animation) → rasterized once, free. */
 }
 .orb-primary {
   background: radial-gradient(circle, rgba(99,102,241,0.38) 0%, transparent 70%);
@@ -561,10 +561,9 @@ body {
 .aurora__blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.5;
-  /* No mix-blend-mode — blend modes force a full re-composite each frame on
-     weak GPUs. Plain alpha over the dark bg looks nearly identical. */
+  opacity: 0.6;
+  /* No blur filter, no blend mode. The radial-gradient is soft on its own;
+     we only animate transform on the cached layer → cheap on phones too. */
   will-change: transform;
 }
 .aurora__blob--1 {
@@ -609,6 +608,87 @@ body {
   50%     { transform: translate(-16%,-10%) scale(1.1); }
 }
 
+/* ─── HERO VISUAL (CSS-only, 60fps everywhere) ───────────────────────────── */
+
+.hero-visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Slowly rotating halo ring — sharp conic gradient masked to a ring, then just
+   rotated via transform (the layer is cached, so rotation is nearly free). */
+.hero-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: min(720px, 92vw);
+  height: min(720px, 92vw);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(129,140,248,0.0) 180deg,
+    rgba(129,140,248,0.16) 290deg,
+    rgba(124,58,237,0.24) 335deg,
+    rgba(34,211,238,0.12) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 57%, #000 60%, #000 70%, transparent 73%);
+          mask: radial-gradient(circle, transparent 57%, #000 60%, #000 70%, transparent 73%);
+  animation: ring-spin 38s linear infinite;
+  will-change: transform;
+  opacity: 0.85;
+}
+@keyframes ring-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Sharp floating accents — tiny, so the small glow is negligible; only transform
+   animates, on a cached layer → free even on phones. */
+.float-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+.float-shape--1 {
+  width: 10px; height: 10px; top: 26%; left: 15%;
+  background: rgba(129,140,248,0.7);
+  box-shadow: 0 0 12px rgba(129,140,248,0.7);
+  animation: drift-1 15s ease-in-out infinite;
+}
+.float-shape--2 {
+  width: 6px; height: 6px; top: 60%; left: 80%;
+  background: rgba(34,211,238,0.7);
+  box-shadow: 0 0 10px rgba(34,211,238,0.7);
+  animation: drift-2 19s ease-in-out infinite;
+}
+.float-shape--3 {
+  width: 16px; height: 16px; top: 72%; left: 20%;
+  border: 1.5px solid rgba(167,139,250,0.5);
+  animation: drift-3 17s ease-in-out infinite;
+}
+.float-shape--4 {
+  width: 22px; height: 22px; top: 18%; left: 83%;
+  border: 1.5px solid rgba(99,102,241,0.35);
+  animation: drift-1 22s ease-in-out infinite reverse;
+}
+@keyframes drift-1 {
+  0%,100% { transform: translate(0,0); }
+  50%     { transform: translate(20px,-28px); }
+}
+@keyframes drift-2 {
+  0%,100% { transform: translate(0,0); }
+  50%     { transform: translate(-24px,20px); }
+}
+@keyframes drift-3 {
+  0%,100% { transform: translate(0,0) rotate(0deg); }
+  50%     { transform: translate(14px,22px) rotate(180deg); }
+}
+
 /* ─── 3D TEXT REVEAL ─────────────────────────────────────────────────────── */
 
 .r3d { display: inline; }
@@ -639,9 +719,9 @@ body {
 
 @media (max-width: 640px) {
   .section { padding-block: 4.25rem; }
-  .orb { filter: blur(40px); }
-  .aurora__blob { filter: blur(52px); opacity: 0.5; }
-  .aurora__blob--4 { display: none; }   /* one fewer blended layer on phones */
+  .aurora__blob--4 { display: none; }       /* one fewer layer on phones */
+  .float-shape--3, .float-shape--4 { display: none; }
+  .hero-ring { opacity: 0.5; }
 }
 
 /* ─── REDUCED MOTION: kill heavy animation, keep content visible ──────────── */

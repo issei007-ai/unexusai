@@ -47,7 +47,7 @@ export default function TypingText() {
 
   return (
     <span>
-      <span className="text-gradient-flow">{displayed}</span>
+      <span className="text-gradient">{displayed}</span>
       <span
         style={{
           display: "inline-block",

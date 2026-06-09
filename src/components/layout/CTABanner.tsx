@@ -26,10 +26,10 @@ export default function CTABanner({
       <div className="orb orb-pink absolute" style={{ width: 400, height: 400, top: "-100px", right: "5%", opacity: 0.12 }} />
       <div className="absolute inset-0 bg-grid" style={{ opacity: 0.3 }} />
 
-      {/* Glowing circle behind content */}
+      {/* Glowing circle behind content — radial gradient (no blur filter) */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl pointer-events-none"
-        style={{ width: 500, height: 200, background: "rgba(99,102,241,0.1)" }}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+        style={{ width: 640, height: 300, background: "radial-gradient(ellipse, rgba(99,102,241,0.16) 0%, transparent 70%)" }}
       />
 
       <div className="container relative z-10 text-center">

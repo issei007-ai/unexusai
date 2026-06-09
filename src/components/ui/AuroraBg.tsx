@@ -1,8 +1,8 @@
 /**
  * Aurora background — pure CSS, GPU-cheap.
- * Each blob is blurred ONCE then animated with transform only, so the browser
- * caches the blurred layer as a texture and just moves it (no per-frame reblur).
- * This is what makes it smooth even on phones. No JS, no canvas, no WebGL.
+ * Each blob is a soft radial-gradient (no blur filter needed — the gradient is
+ * already feathered). Only transform animates, on a cached layer, so it's smooth
+ * even on phones. No JS, no canvas, no WebGL, no blur, no blend modes.
  */
 export default function AuroraBg({ className = "" }: { className?: string }) {
   return (
