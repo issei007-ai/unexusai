@@ -8,15 +8,29 @@ export default function ScrollProgress() {
     const bar = barRef.current;
     if (!bar) return;
 
+    // Cache doc height — reading scrollHeight per scroll frame forces a reflow.
+    let docHeight = 1;
+    const measure = () => {
+      docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    };
+    measure();
+
+    let ticking = false;
     const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? scrollTop / docHeight : 0;
-      bar.style.transform = `scaleX(${pct})`;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        bar.style.transform = `scaleX(${Math.min(1, window.scrollY / docHeight)})`;
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   return (

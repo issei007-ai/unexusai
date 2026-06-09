@@ -17,11 +17,12 @@ export default function Nav() {
     <nav
       className="sticky top-0 z-50 transition-all"
       style={{
+        // Solid-ish bg instead of backdrop-filter blur — a sticky blurred bar
+        // re-samples the whole page behind it every scroll frame (very laggy on
+        // integrated GPUs). Opaque background looks the same on a dark theme.
         background: scrolled
-          ? "rgba(10,15,30,0.92)"
-          : "rgba(10,15,30,0.7)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
+          ? "rgba(8,12,24,0.96)"
+          : "rgba(8,12,24,0.82)",
         borderBottom: scrolled
           ? "1px solid rgba(255,255,255,0.08)"
           : "1px solid transparent",

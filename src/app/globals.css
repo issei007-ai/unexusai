@@ -259,10 +259,9 @@ body {
 .btn-primary:active { transform: scale(0.98); }
 
 .btn-secondary {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.08);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
 }
 .btn-secondary:hover {
   background: rgba(255,255,255,0.1);
@@ -271,10 +270,9 @@ body {
 }
 
 .btn-ghost-white {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.08);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
 }
 .btn-ghost-white:hover {
   background: rgba(255,255,255,0.1);
@@ -294,13 +292,11 @@ body {
 
 /* ─── CARDS ──────────────────────────────────────────────────────────────── */
 
-/* Base glass card */
+/* Base card — solid translucent fill (no backdrop-filter; it tanks scroll fps) */
 .card {
-  background: rgba(255,255,255,0.04);
+  background: rgba(20,27,45,0.6);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   transition: background var(--dur-base), border-color var(--dur-base), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base);
 }
 .card:hover {
@@ -314,8 +310,7 @@ body {
   position: relative;
   border-radius: var(--radius-xl);
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* No backdrop-filter: the opaque ::after panel hides it anyway — it was pure waste */
 }
 .glow-card::before {
   content: '';
@@ -345,12 +340,11 @@ body {
 
 /* Stat card */
 .stat-card {
-  background: rgba(255,255,255,0.05);
+  background: rgba(20,27,45,0.55);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(8px);
   padding: 1.1rem 1.25rem;
-  /* float animation removed — 4 concurrent transform animations in hero were causing jank */
+  /* no backdrop-filter / float animation — both were per-frame costs */
 }
 
 /* ─── BADGES ─────────────────────────────────────────────────────────────── */
@@ -482,7 +476,6 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-brand-300);
-  backdrop-filter: blur(8px);
 }
 .feature-pill .dot {
   width: 6px;
@@ -556,14 +549,6 @@ body {
 .animate-spin-slow  { animation: spin-slow 20s linear infinite; }
 .animate-shimmer    { animation: shimmer-sweep 3s linear infinite; }
 
-/* ─── LENIS SMOOTH SCROLL ────────────────────────────────────────────────── */
-
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: clip; }
-.lenis.lenis-smooth iframe { pointer-events: none; }
-
 /* ─── AURORA BACKGROUND (GPU-cheap: blur once, animate transform only) ─────── */
 
 .aurora {
@@ -576,9 +561,10 @@ html.lenis, html.lenis body { height: auto; }
 .aurora__blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.55;
-  mix-blend-mode: screen;
+  filter: blur(60px);
+  opacity: 0.5;
+  /* No mix-blend-mode — blend modes force a full re-composite each frame on
+     weak GPUs. Plain alpha over the dark bg looks nearly identical. */
   will-change: transform;
 }
 .aurora__blob--1 {

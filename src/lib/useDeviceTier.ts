@@ -25,6 +25,32 @@ function detectWebGL(): boolean {
   return cachedWebGL;
 }
 
+let cachedHwGPU: boolean | null = null;
+/** True only for a real hardware GPU. Software renderers (SwiftShader/llvmpipe/
+ *  Microsoft Basic) are always too slow for WebGL — reject them outright. */
+function hasHardwareGPU(): boolean {
+  if (cachedHwGPU !== null) return cachedHwGPU;
+  try {
+    const c = document.createElement("canvas");
+    const gl = (c.getContext("webgl") ||
+      c.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+    if (!gl) {
+      cachedHwGPU = false;
+      return cachedHwGPU;
+    }
+    const ext = gl.getExtension("WEBGL_debug_renderer_info");
+    const renderer = ext
+      ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL))
+      : "";
+    cachedHwGPU = !/swiftshader|llvmpipe|software|basic render|microsoft basic/i.test(
+      renderer
+    );
+  } catch {
+    cachedHwGPU = false;
+  }
+  return cachedHwGPU;
+}
+
 /**
  * Decides whether the device can afford the rich WebGL experience.
  * Desktop tier = fine pointer + wide viewport + enough RAM/cores + WebGL.
@@ -50,7 +76,8 @@ export function useDeviceTier(): DeviceInfo {
       const mem = nav.deviceMemory ?? 8;
       const cores = nav.hardwareConcurrency ?? 8;
       const webgl = detectWebGL();
-      const capable = fine && wide && mem >= 4 && cores >= 4 && webgl;
+      const capable =
+        fine && wide && mem >= 4 && cores >= 4 && webgl && hasHardwareGPU();
       setInfo({
         mounted: true,
         tier: capable ? "desktop" : "mobile",
