@@ -51,7 +51,7 @@ export default function ServicePageTemplate({
     <>
       <Nav />
       <main>
-        <PageHero eyebrow={badge} title={headline} subtitle={body} pills={specialisms}>
+        <PageHero eyebrow={badge} title={headline} subtitle={body} pills={specialisms} accent={accent}>
           <a href="/quote" className="btn btn-primary btn-lg">Get a Custom Quote</a>
           <a href="/book" className="btn btn-secondary btn-lg">Book a Call →</a>
         </PageHero>

@@ -97,6 +97,11 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        {/* Giant gradient wordmark */}
+        <div style={{ overflow: "hidden", marginTop: "3rem" }}>
+          <div className="footer-wordmark">richa.</div>
+        </div>
       </div>
     </footer>
   );

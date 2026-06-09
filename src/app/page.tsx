@@ -119,6 +119,12 @@ export default function HomePage() {
               </Marquee>
             </div>
           </div>
+
+          {/* Scroll cue */}
+          <div className="scroll-cue">
+            <span className="scroll-cue__mouse" />
+            Scroll
+          </div>
         </section>
 
         <StatsStrip />

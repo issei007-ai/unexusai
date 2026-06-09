@@ -9,6 +9,7 @@ interface Props {
   subtitle?: string;
   pills?: string[];
   align?: "left" | "center";
+  accent?: string; // per-page accent colour for tint + eyebrow
   children?: React.ReactNode; // CTAs / extras
 }
 
@@ -20,12 +21,20 @@ export default function PageHero({
   subtitle,
   pills,
   align = "left",
+  accent,
   children,
 }: Props) {
   const center = align === "center";
   return (
     <section className="page-hero">
       <AuroraBg />
+      {accent && (
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ background: `radial-gradient(60% 55% at 50% 0%, ${accent}26, transparent 70%)`, zIndex: 0 }}
+        />
+      )}
       <div className="absolute inset-0 bg-grid" style={{ opacity: 0.25, zIndex: 1 }} />
       <div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
@@ -37,7 +46,12 @@ export default function PageHero({
       >
         {eyebrow && (
           <ScrollReveal direction="none">
-            <span className="badge badge-accent mb-5 inline-flex">{eyebrow}</span>
+            <span
+              className={`badge mb-5 inline-flex ${accent ? "" : "badge-accent"}`}
+              style={accent ? { background: `${accent}1f`, color: accent, border: `1px solid ${accent}40` } : undefined}
+            >
+              {eyebrow}
+            </span>
           </ScrollReveal>
         )}
 

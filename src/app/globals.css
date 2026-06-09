@@ -788,6 +788,114 @@ body {
 .prose-dark a { color: var(--color-accent-300); text-decoration: underline; text-underline-offset: 2px; }
 .prose-dark strong { color: #fff; font-weight: 600; }
 
+/* ─── VISUAL POLISH (all static or transform-only → stays smooth) ────────── */
+
+/* Static film grain over everything — one-time paint, own layer (no scroll repaint) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  transform: translateZ(0);
+}
+
+/* Crafted top-edge highlight on cards */
+.card { box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); }
+.stat-card { box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); }
+
+/* Shine sweep across primary buttons on hover */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-220%) skewX(-18deg);
+  transition: transform 0.7s var(--ease-smooth);
+  pointer-events: none;
+}
+.btn-primary:hover::after { transform: translateX(320%) skewX(-18deg); }
+
+/* Second, counter-rotating hero ring for depth */
+.hero-ring--2 {
+  width: min(900px, 112vw);
+  height: min(900px, 112vw);
+  opacity: 0.5;
+  background: conic-gradient(
+    from 180deg,
+    transparent 0deg,
+    rgba(34,211,238,0.10) 270deg,
+    rgba(99,102,241,0.18) 330deg,
+    transparent 360deg
+  );
+  animation: ring-spin-rev 52s linear infinite;
+}
+@keyframes ring-spin-rev { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.75rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-brand-400);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 4;
+}
+.scroll-cue__mouse {
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid var(--color-border-bright);
+  border-radius: 12px;
+  position: relative;
+}
+.scroll-cue__mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-accent-300);
+  transform: translateX(-50%);
+  animation: scroll-dot 1.8s ease-in-out infinite;
+}
+@keyframes scroll-dot {
+  0%   { opacity: 0; transform: translate(-50%, 0); }
+  30%  { opacity: 1; }
+  60%  { opacity: 1; transform: translate(-50%, 11px); }
+  100% { opacity: 0; transform: translate(-50%, 13px); }
+}
+
+/* Giant gradient wordmark in the footer */
+.footer-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 17vw, 14rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  pointer-events: none;
+}
+
 /* ─── MOBILE TUNING ──────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -795,6 +903,9 @@ body {
   .aurora__blob--4 { display: none; }       /* one fewer layer on phones */
   .float-shape--3, .float-shape--4 { display: none; }
   .hero-ring { opacity: 0.5; }
+  .hero-ring--2 { display: none; }
+  .scroll-cue { display: none; }
+  .footer-wordmark { font-size: clamp(3rem, 22vw, 6rem); }
 }
 
 /* ─── REDUCED MOTION: kill heavy animation, keep content visible ──────────── */

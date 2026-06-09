@@ -12,8 +12,9 @@ export default function HeroVisual() {
       {/* Soft color depth */}
       <AuroraBg />
 
-      {/* Slowly rotating halo ring — sharp, rasterized once, just rotated */}
+      {/* Slowly rotating halo rings (counter-rotating) — sharp, just rotated */}
       <span className="hero-ring" />
+      <span className="hero-ring hero-ring--2" />
 
       {/* Sharp floating accents (no blur → essentially free to animate) */}
       <span className="float-shape float-shape--1" />
