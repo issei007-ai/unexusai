@@ -1,0 +1,106 @@
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
+import PageHero from "@/components/sections/PageHero";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import LeadForm from "@/components/ui/LeadForm";
+
+export const metadata = {
+  title: "Get a Quote — Richa",
+  description: "Tell us what you need and we'll send a clear scope, timeline, and price within 48 hours.",
+};
+
+const SERVICES = ["Digital Marketing", "Website Development", "AI Automation", "AI Training", "Market Research", "Multiple / not sure"];
+const BUDGETS = ["Under £2k / mo", "£2k–£5k / mo", "£5k–£10k / mo", "£10k+ / mo", "One-off project"];
+const TIMELINES = ["As soon as possible", "Within a month", "This quarter", "Just exploring"];
+
+const STEPS = [
+  { step: "01", title: "You send the brief", desc: "The form below is enough — we'll ask anything else we need." },
+  { step: "02", title: "We scope it properly", desc: "A clear proposal: deliverables, timeline, and a fixed price." },
+  { step: "03", title: "You get it in 48 hours", desc: "No drawn-out sales process. Read it, and decide in your own time." },
+];
+
+export default function QuotePage() {
+  return (
+    <>
+      <Nav />
+      <main>
+        <PageHero
+          eyebrow="Get a Quote"
+          title="Get a custom proposal in 48 hours"
+          subtitle="Tell us what you need. We'll come back with a clear scope, timeline, and price — no fluff, no drawn-out sales process."
+        />
+
+        <section className="section" style={{ paddingTop: "1rem" }}>
+          <div className="container grid lg:grid-cols-[1.5fr_1fr] gap-8 items-start" style={{ maxWidth: "64rem" }}>
+            {/* Form */}
+            <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
+              <LeadForm submitLabel="Request my proposal" note="We'll reply within 48 hours with a clear, fixed-scope proposal.">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="form-label">Name</label>
+                    <input className="form-input" type="text" placeholder="Your name" required />
+                  </div>
+                  <div>
+                    <label className="form-label">Email</label>
+                    <input className="form-input" type="email" placeholder="you@company.com" required />
+                  </div>
+                </div>
+                <div>
+                  <label className="form-label">Company</label>
+                  <input className="form-input" type="text" placeholder="Your company" />
+                </div>
+                <div>
+                  <label className="form-label">What do you need?</label>
+                  <select className="form-select">
+                    {SERVICES.map((s) => <option key={s}>{s}</option>)}
+                  </select>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="form-label">Budget</label>
+                    <select className="form-select">
+                      {BUDGETS.map((b) => <option key={b}>{b}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="form-label">Timeline</label>
+                    <select className="form-select">
+                      {TIMELINES.map((t) => <option key={t}>{t}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="form-label">Tell us about the project</label>
+                  <textarea className="form-textarea" placeholder="What are you trying to achieve, and where are you stuck?" />
+                </div>
+              </LeadForm>
+            </div>
+
+            {/* What happens next */}
+            <ScrollReveal direction="left">
+              <div className="p-2">
+                <h2 className="text-h3 mb-6" style={{ fontFamily: "var(--font-display)" }}>What happens next</h2>
+                <div className="space-y-5">
+                  {STEPS.map((s) => (
+                    <div key={s.step} className="flex gap-4 items-start">
+                      <div className="text-sm font-bold flex-shrink-0" style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-400)" }}>{s.step}</div>
+                      <div>
+                        <div className="font-semibold text-white mb-1">{s.title}</div>
+                        <p className="text-sm" style={{ color: "var(--color-brand-400)" }}>{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="divider my-7" />
+                <p className="text-sm" style={{ color: "var(--color-brand-300)" }}>
+                  Prefer to talk it through first? <a href="/book" style={{ color: "var(--color-accent-300)", textDecoration: "underline" }}>Book a free call →</a>
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

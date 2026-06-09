@@ -1,55 +1,47 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/layout/CTABanner";
-import { SERVICES, WHY_US } from "@/lib/constants";
+import PageHero from "@/components/sections/PageHero";
+import ServicesGrid from "@/components/sections/ServicesGrid";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import { WHY_US } from "@/lib/constants";
+
+export const metadata = {
+  title: "Services — Richa",
+  description: "Digital marketing, website development, AI automation, AI training and market research — one integrated team.",
+};
 
 export default function ServicesPage() {
   return (
     <>
       <Nav />
       <main>
-        <section className="section-dark" style={{ paddingBlock: "6rem 4rem" }}>
-          <div className="container max-w-3xl">
-            <span className="badge badge-dark mb-6 inline-flex">Services</span>
-            <h1 className="text-h1 text-white mb-6">Everything you need to grow online</h1>
-            <p className="text-lead mb-8" style={{ color: "var(--color-brand-300)" }}>
-              Five services. One team. One strategy. Whether you need all of them or just one,
-              everything connects.
-            </p>
-            <a href="/book" className="btn btn-primary btn-lg">Book a Free Strategy Call</a>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Services"
+          title="Everything you need to grow online"
+          subtitle="Five services. One team. One strategy. Whether you need all of them or just one, everything connects."
+        >
+          <a href="/book" className="btn btn-primary btn-lg">Book a Strategy Call</a>
+          <a href="/audit" className="btn btn-secondary btn-lg">Get a Free Audit →</a>
+        </PageHero>
 
-        <section className="section">
-          <div className="container">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SERVICES.map((service) => (
-                <a key={service.num} href={service.href} className="card p-8 group block">
-                  <div className="text-xs tracking-widest mb-4" style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-400)" }}>
-                    {service.num}
-                  </div>
-                  <h3 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>{service.title}</h3>
-                  <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--color-brand-500)" }}>{service.desc}</p>
-                  <span className="text-sm font-semibold" style={{ color: "var(--color-accent-500)" }}>Explore →</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServicesGrid />
 
-        {/* Why us */}
-        <section className="section" style={{ background: "var(--color-brand-50)" }}>
+        {/* Why Richa */}
+        <section className="section section-alt">
           <div className="container">
             <div className="text-center mb-14">
-              <span className="badge badge-accent mb-4 inline-flex">Why Richa</span>
+              <span className="badge badge-accent mb-5 inline-flex">Why Richa</span>
               <h2 className="text-h2">Different by design</h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {WHY_US.map((item) => (
-                <div key={item.title} className="card p-6">
-                  <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-500)" }}>{item.desc}</p>
-                </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {WHY_US.map((item, i) => (
+                <ScrollReveal key={item.title} delay={i * 0.08}>
+                  <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
+                    <h3 className="font-bold mb-2 text-white" style={{ fontFamily: "var(--font-display)" }}>{item.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-400)" }}>{item.desc}</p>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
