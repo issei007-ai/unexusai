@@ -79,7 +79,7 @@ export const TRUST_LOGOS = ["Acme Corp", "Velocity", "Nexus AI", "Orbit", "Strat
 
 export const WHY_US = [
   { title: "No lock-in contracts", desc: "Monthly rolling engagements. We earn your business every month." },
-  { title: "Senior-only delivery", desc: "Your work is never passed to a junior. The people who pitch are the people who deliver." },
+  { title: "AI-native by default", desc: "AI isn't a bolt-on for us — it's built into how we research, build, and run every campaign." },
   { title: "Integrated, not siloed", desc: "Your SEO team talks to your dev team. Your paid media team talks to your AI team. Always." },
   { title: "Transparent reporting", desc: "Weekly Slack updates. Monthly performance reviews. No black boxes." },
 ];
