@@ -1,7 +1,7 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/layout/CTABanner";
-import StatsStrip from "@/components/sections/StatsStrip";
+import WhyRicha from "@/components/sections/WhyRicha";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import TestimonialsGrid from "@/components/sections/TestimonialsGrid";
@@ -76,32 +76,6 @@ export default function HomePage() {
                 </div>
               </ScrollReveal>
 
-              {/* Floating stat cards */}
-              <ScrollReveal delay={0.4} direction="up">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {[
-                    { value: "312%", label: "Lead increase",  delay: "0s",    color:"#818cf8" },
-                    { value: "£24M+", label: "Revenue driven", delay: "1.2s",  color:"#34d399" },
-                    { value: "98%",  label: "Retention rate", delay: "2.4s",  color:"#f59e0b" },
-                    { value: "80+",  label: "Clients served",  delay: "3.6s",  color:"#67e8f9" },
-                  ].map((s) => (
-                    <div key={s.label} className="stat-card text-center" style={{ animationDelay: s.delay }}>
-                      <div style={{
-                        fontFamily:"var(--font-display)",
-                        fontWeight:800,
-                        fontSize:"1.6rem",
-                        letterSpacing:"-0.035em",
-                        color: s.color,
-                        marginBottom:"0.2rem",
-                        textShadow:`0 0 20px ${s.color}66`,
-                      }}>
-                        {s.value}
-                      </div>
-                      <div className="text-xs" style={{ color:"var(--color-brand-400)" }}>{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
             </div>
 
             {/* Trust marquee */}
@@ -127,7 +101,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <StatsStrip />
+        <WhyRicha />
         <ServicesGrid />
         <ProcessSteps />
         <TestimonialsGrid />
