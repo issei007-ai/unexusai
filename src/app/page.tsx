@@ -5,7 +5,8 @@ import StatsStrip from "@/components/sections/StatsStrip";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import TestimonialsGrid from "@/components/sections/TestimonialsGrid";
-import ParticleCanvas from "@/components/ui/ParticleCanvas";
+import HeroVisual from "@/components/three/HeroVisual";
+import RevealText3D from "@/components/ui/RevealText3D";
 import TypingText from "@/components/ui/TypingText";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Marquee from "@/components/ui/Marquee";
@@ -25,19 +26,15 @@ export default function HomePage() {
           className="bg-gradient-animated relative overflow-hidden flex items-center"
           style={{ minHeight: "100svh", paddingBlock: "9rem 5rem" }}
         >
-          {/* Particle canvas */}
-          <ParticleCanvas />
-
-          {/* Orbs — 2 max in hero (blur is GPU-expensive) */}
-          <div className="orb orb-primary"  style={{ width:700, height:700, top:"-220px", left:"-180px", opacity:0.45 }} />
-          <div className="orb orb-secondary" style={{ width:500, height:500, top:"60px", right:"-130px", opacity:0.3 }} />
+          {/* Hero visual: WebGL 3D blob on desktop, CSS aurora on mobile */}
+          <HeroVisual />
 
           {/* Grid overlay */}
-          <div className="absolute inset-0 bg-grid" style={{ opacity:0.35 }} />
+          <div className="absolute inset-0 bg-grid" style={{ opacity:0.35, zIndex:2 }} />
 
-          {/* Bottom fade */}
+          {/* Bottom fade — above the 3D blob so it melts into the next section */}
           <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-            style={{ background:"linear-gradient(to bottom, transparent, var(--color-bg))" }} />
+            style={{ background:"linear-gradient(to bottom, transparent, var(--color-bg))", zIndex:3 }} />
 
           <div className="container relative z-10 w-full">
             <div className="max-w-5xl mx-auto">
@@ -52,14 +49,12 @@ export default function HomePage() {
                 </div>
               </ScrollReveal>
 
-              {/* Headline */}
-              <ScrollReveal delay={0.1} direction="up">
-                <h1 className="text-hero text-center mb-6">
-                  Grow faster with
-                  <br />
-                  <TypingText />
-                </h1>
-              </ScrollReveal>
+              {/* Headline — 3D flip-in reveal */}
+              <h1 className="text-hero text-center mb-6">
+                <RevealText3D text="Grow faster with" splitBy="char" stagger={0.03} delay={0.05} />
+                <br />
+                <TypingText />
+              </h1>
 
               {/* Sub */}
               <ScrollReveal delay={0.2} direction="up">

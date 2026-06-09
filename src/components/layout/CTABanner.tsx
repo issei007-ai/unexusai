@@ -1,6 +1,6 @@
 import MagneticButton from "@/components/ui/MagneticButton";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import SplitText from "@/components/ui/SplitText";
+import RevealText3D from "@/components/ui/RevealText3D";
 
 interface Props {
   heading?: string;
@@ -39,7 +39,7 @@ export default function CTABanner({
 
         <ScrollReveal delay={0.1}>
           <h2 className="text-h2 mb-6 max-w-2xl mx-auto">
-            <SplitText stagger={0.04}>{heading}</SplitText>
+            <RevealText3D text={heading} splitBy="word" stagger={0.04} />
           </h2>
         </ScrollReveal>
 

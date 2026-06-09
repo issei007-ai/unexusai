@@ -1,7 +1,7 @@
 import { SERVICES } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
-import SplitText from "@/components/ui/SplitText";
+import RevealText3D from "@/components/ui/RevealText3D";
 
 const SERVICE_ICONS: Record<string, React.ReactNode> = {
   "Digital Marketing": (
@@ -55,7 +55,7 @@ export default function ServicesGrid() {
           </ScrollReveal>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <h2 className="text-h2" style={{ maxWidth: "28rem" }}>
-              <SplitText delay={0.05} stagger={0.06}>One agency. Every growth lever.</SplitText>
+              <RevealText3D text="One agency. Every growth lever." splitBy="word" stagger={0.06} />
             </h2>
             <ScrollReveal delay={0.2} direction="left">
               <p className="text-lead" style={{ maxWidth: "26rem" }}>

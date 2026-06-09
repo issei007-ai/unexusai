@@ -1,7 +1,7 @@
 import { TESTIMONIALS } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
-import SplitText from "@/components/ui/SplitText";
+import RevealText3D from "@/components/ui/RevealText3D";
 
 const ACCENT = ["#818cf8", "#a78bfa", "#67e8f9"];
 
@@ -19,7 +19,7 @@ export default function TestimonialsGrid() {
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 className="text-h2">
-              <SplitText>Don&apos;t take our word for it</SplitText>
+              <RevealText3D text="Don't take our word for it" splitBy="word" />
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>

@@ -555,3 +555,117 @@ body {
 .animate-float-b    { animation: float-b 7s ease-in-out infinite; }
 .animate-spin-slow  { animation: spin-slow 20s linear infinite; }
 .animate-shimmer    { animation: shimmer-sweep 3s linear infinite; }
+
+/* ─── LENIS SMOOTH SCROLL ────────────────────────────────────────────────── */
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* ─── AURORA BACKGROUND (GPU-cheap: blur once, animate transform only) ─────── */
+
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.aurora__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.aurora__blob--1 {
+  width: 540px; height: 540px;
+  top: -12%; left: -8%;
+  background: radial-gradient(circle, #6366f1 0%, transparent 68%);
+  animation: aurora-a 22s ease-in-out infinite;
+}
+.aurora__blob--2 {
+  width: 480px; height: 480px;
+  top: 4%; right: -6%;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 68%);
+  animation: aurora-b 27s ease-in-out infinite;
+}
+.aurora__blob--3 {
+  width: 440px; height: 440px;
+  bottom: -14%; left: 26%;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 68%);
+  animation: aurora-c 24s ease-in-out infinite;
+}
+.aurora__blob--4 {
+  width: 380px; height: 380px;
+  top: 32%; right: 18%;
+  background: radial-gradient(circle, #db2777 0%, transparent 70%);
+  animation: aurora-d 30s ease-in-out infinite;
+  opacity: 0.4;
+}
+@keyframes aurora-a {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(18%,12%) scale(1.18); }
+}
+@keyframes aurora-b {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(-14%,16%) scale(1.12); }
+}
+@keyframes aurora-c {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(12%,-14%) scale(1.2); }
+}
+@keyframes aurora-d {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(-16%,-10%) scale(1.1); }
+}
+
+/* ─── 3D TEXT REVEAL ─────────────────────────────────────────────────────── */
+
+.r3d { display: inline; }
+.r3d-word { display: inline-block; }   /* keeps a word intact; line wraps between words */
+.r3d-unit { display: inline-block; perspective: 600px; }
+.r3d-inner {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1),
+              opacity   0.7s ease;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* ─── ANIMATED GRADIENT-FLOW TEXT ────────────────────────────────────────── */
+
+.text-gradient-flow {
+  background: linear-gradient(100deg, #a5b4fc, #818cf8, #c084fc, #22d3ee, #818cf8);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-flow 6s linear infinite;
+}
+@keyframes text-flow { to { background-position: 300% center; } }
+
+/* ─── MOBILE TUNING ──────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .section { padding-block: 4.25rem; }
+  .orb { filter: blur(40px); }
+  .aurora__blob { filter: blur(52px); opacity: 0.5; }
+  .aurora__blob--4 { display: none; }   /* one fewer blended layer on phones */
+}
+
+/* ─── REDUCED MOTION: kill heavy animation, keep content visible ──────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .aurora__blob { animation: none !important; }
+}
