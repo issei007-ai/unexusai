@@ -10,12 +10,12 @@ export const metadata = {
 };
 
 const CASES = [
-  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "Velocity SaaS", blurb: "We unified their SEO and paid media into one compounding growth engine — and the pipeline followed.", accent: "#6366f1" },
-  { tag: "AI", metric: "1,400h", label: "saved per year", company: "Nexus AI", blurb: "Built an AI agent that qualifies inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed" },
-  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "Orbit", blurb: "Deep customer research repositioned the brand. Conversion rate doubled within a quarter.", accent: "#f59e0b" },
-  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "Stratford", blurb: "We rebuilt the funnel and the website. Leads got cheaper, and noticeably better quality.", accent: "#06b6d4" },
-  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Ledgerline", blurb: "A Next.js rebuild fixed Core Web Vitals, lifted rankings, and cut bounce dramatically.", accent: "#10b981" },
-  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Caretrace", blurb: "GEO plus a lifecycle email engine turned passive organic traffic into booked demos.", accent: "#ec4899" },
+  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "Velocity SaaS", blurb: "We unified their SEO and paid media into one compounding growth engine — and the pipeline followed.", accent: "#6366f1", seed: "case-velocity" },
+  { tag: "AI", metric: "1,400h", label: "saved per year", company: "Nexus AI", blurb: "Built an AI agent that qualifies inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed", seed: "case-nexus" },
+  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "Orbit", blurb: "Deep customer research repositioned the brand. Conversion rate doubled within a quarter.", accent: "#f59e0b", seed: "case-orbit" },
+  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "Stratford", blurb: "We rebuilt the funnel and the website. Leads got cheaper, and noticeably better quality.", accent: "#06b6d4", seed: "case-stratford" },
+  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Ledgerline", blurb: "A Next.js rebuild fixed Core Web Vitals, lifted rankings, and cut bounce dramatically.", accent: "#10b981", seed: "case-ledger" },
+  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Caretrace", blurb: "GEO plus a lifecycle email engine turned passive organic traffic into booked demos.", accent: "#ec4899", seed: "case-caretrace" },
 ];
 
 export default function CaseStudiesPage() {
@@ -36,20 +36,25 @@ export default function CaseStudiesPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {CASES.map((c, i) => (
                 <ScrollReveal key={c.company} delay={(i % 3) * 0.08}>
-                  <div className="glow-card h-full p-7 flex flex-col" style={{ border: "1px solid var(--color-border)" }}>
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="badge badge-dark">{c.tag}</span>
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: c.accent, boxShadow: `0 0 12px ${c.accent}` }} />
+                  <article
+                    className="rounded-2xl overflow-hidden h-full flex flex-col group"
+                    style={{ background: "var(--color-panel)", border: "1px solid var(--color-border)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}
+                  >
+                    <div className="media-frame" style={{ aspectRatio: "16 / 10", borderRadius: 0, border: "none" }}>
+                      <img src={`https://picsum.photos/seed/${c.seed}/800/500`} alt={`${c.company} case study`} loading="lazy" />
+                      <span className="cover-chip text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: "rgba(3,7,18,0.6)", color: c.accent, border: `1px solid ${c.accent}55` }}>{c.tag}</span>
                     </div>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.6rem", letterSpacing: "-0.04em", lineHeight: 1, color: c.accent }}>
-                      {c.metric}
+                    <div className="p-7 flex flex-col flex-1">
+                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.4rem", letterSpacing: "-0.04em", lineHeight: 1, color: c.accent }}>
+                        {c.metric}
+                      </div>
+                      <div className="text-sm mb-5 mt-1" style={{ color: "var(--color-brand-400)" }}>{c.label}</div>
+                      <div className="mt-auto">
+                        <div className="font-semibold text-white mb-1" style={{ fontFamily: "var(--font-display)" }}>{c.company}</div>
+                        <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{c.blurb}</p>
+                      </div>
                     </div>
-                    <div className="text-sm mb-5 mt-1" style={{ color: "var(--color-brand-400)" }}>{c.label}</div>
-                    <div className="mt-auto">
-                      <div className="font-semibold text-white mb-1" style={{ fontFamily: "var(--font-display)" }}>{c.company}</div>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{c.blurb}</p>
-                    </div>
-                  </div>
+                  </article>
                 </ScrollReveal>
               ))}
             </div>

@@ -18,10 +18,10 @@ const VALUES = [
 ];
 
 const TEAM = [
-  { name: "Alex Carter", role: "Founder & Strategy Director", bio: "Former head of growth at a Series B SaaS. Built and exited two startups.", color: "#6366f1" },
-  { name: "Mia Patel", role: "Head of AI & Automation", bio: "Previously at a leading AI lab. Builds production AI systems for ambitious companies.", color: "#7c3aed" },
-  { name: "James Okafor", role: "Head of Digital Marketing", bio: "10 years running paid and organic for scale-ups across SaaS and e-commerce.", color: "#06b6d4" },
-  { name: "Lena Müller", role: "Lead Developer", bio: "Next.js specialist obsessed with performance, accessibility, and CRO.", color: "#10b981" },
+  { name: "Alex Carter", role: "Founder & Strategy Director", bio: "Former head of growth at a Series B SaaS. Built and exited two startups.", color: "#6366f1", img: 12 },
+  { name: "Mia Patel", role: "Head of AI & Automation", bio: "Previously at a leading AI lab. Builds production AI systems for ambitious companies.", color: "#7c3aed", img: 5 },
+  { name: "James Okafor", role: "Head of Digital Marketing", bio: "10 years running paid and organic for scale-ups across SaaS and e-commerce.", color: "#06b6d4", img: 13 },
+  { name: "Lena Müller", role: "Lead Developer", bio: "Next.js specialist obsessed with performance, accessibility, and CRO.", color: "#10b981", img: 9 },
 ];
 
 const STATS = [
@@ -108,10 +108,10 @@ export default function AboutPage() {
                 <ScrollReveal key={member.name} delay={i * 0.08}>
                   <div className="glow-card h-full p-6 text-center" style={{ border: "1px solid var(--color-border)" }}>
                     <div
-                      className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-xl font-bold text-white"
-                      style={{ background: `linear-gradient(135deg, ${member.color}, var(--color-glow))` }}
+                      className="team-photo-wrap mx-auto mb-4"
+                      style={{ width: 84, height: 84, borderRadius: "50%", overflow: "hidden", border: `2px solid ${member.color}` }}
                     >
-                      {member.name.charAt(0)}
+                      <img className="team-photo" src={`https://i.pravatar.cc/200?img=${member.img}`} alt={member.name} loading="lazy" />
                     </div>
                     <div className="font-semibold mb-1 text-white">{member.name}</div>
                     <div className="text-xs mb-3" style={{ color: member.color }}>{member.role}</div>

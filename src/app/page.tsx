@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
+import HomeContact from "@/components/sections/HomeContact";
 import WhyRicha from "@/components/sections/WhyRicha";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ProcessSteps from "@/components/sections/ProcessSteps";
@@ -105,7 +105,7 @@ export default function HomePage() {
         <ServicesGrid />
         <ProcessSteps />
         <TestimonialsGrid />
-        <CTABanner />
+        <HomeContact />
       </main>
       <Footer />
     </>
