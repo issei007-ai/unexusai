@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
+import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -21,8 +21,8 @@ export default function ServicesPage() {
           title="Everything you need to grow online"
           subtitle="Five services. One team. One strategy. Whether you need all of them or just one, everything connects."
         >
-          <a href="/book" className="btn btn-primary btn-lg">Book a Strategy Call</a>
-          <a href="/audit" className="btn btn-secondary btn-lg">Get a Free Audit →</a>
+          <a href="#contact" className="btn btn-primary btn-lg">Book a Strategy Call</a>
+          <a href="#contact" className="btn btn-secondary btn-lg">Get a Free Audit →</a>
         </PageHero>
 
         <ServicesGrid />
@@ -47,13 +47,10 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <CTABanner
+        <ContactCTA
           heading="Not sure where to start?"
-          body="Book a free strategy call and we'll help you figure out which services will move the needle fastest for your business."
-          primaryLabel="Book a Strategy Call"
-          primaryHref="/book"
-          secondaryLabel="Get a Free Audit"
-          secondaryHref="/audit"
+          body="Tell us about your business and we'll help you figure out which services will move the needle fastest."
+          imageSeed="digiexperts-team"
         />
       </main>
       <Footer />

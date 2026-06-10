@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
+import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
@@ -52,8 +52,8 @@ export default function ServicePageTemplate({
       <Nav />
       <main>
         <PageHero eyebrow={badge} title={headline} subtitle={body} pills={specialisms} accent={accent}>
-          <a href="/quote" className="btn btn-primary btn-lg">Get a Custom Quote</a>
-          <a href="/book" className="btn btn-secondary btn-lg">Book a Call →</a>
+          <a href="#contact" className="btn btn-primary btn-lg">Get a Custom Quote</a>
+          <a href="#contact" className="btn btn-secondary btn-lg">Book a Call →</a>
         </PageHero>
 
         {/* Outcomes */}
@@ -189,13 +189,10 @@ export default function ServicePageTemplate({
           </div>
         </section>
 
-        <CTABanner
+        <ContactCTA
           heading="Ready to get started?"
           body="Tell us what you need and we'll put together a proposal within 48 hours."
-          primaryLabel="Get a Custom Quote"
-          primaryHref="/quote"
-          secondaryLabel="Book a Call"
-          secondaryHref="/book"
+          imageSeed="digiexperts-office"
         />
       </main>
       <Footer />

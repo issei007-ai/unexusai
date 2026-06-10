@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
+import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
@@ -137,13 +137,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <CTABanner
+        <ContactCTA
           heading="Let's talk about your growth"
           body="No templates. No account managers who've never run a campaign. Just direct access to specialists who care about your results."
-          primaryLabel="Book a Call"
-          primaryHref="/book"
-          secondaryLabel="View Case Studies"
-          secondaryHref="/case-studies"
+          imageSeed="digiexperts-workspace"
         />
       </main>
       <Footer />

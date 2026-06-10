@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import HomeContact from "@/components/sections/HomeContact";
+import ContactCTA from "@/components/sections/ContactCTA";
 import WhyRicha from "@/components/sections/WhyRicha";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ProcessSteps from "@/components/sections/ProcessSteps";
@@ -67,10 +67,10 @@ export default function HomePage() {
               {/* CTAs */}
               <ScrollReveal delay={0.3} direction="up">
                 <div className="flex flex-wrap items-center justify-center gap-5 mb-20">
-                  <MagneticButton href="/audit" className="btn btn-primary btn-lg" strength={0.3}>
+                  <MagneticButton href="#contact" className="btn btn-primary btn-lg" strength={0.3}>
                     Get a Free Audit
                   </MagneticButton>
-                  <MagneticButton href="/book" className="btn btn-secondary btn-lg" strength={0.3}>
+                  <MagneticButton href="#contact" className="btn btn-secondary btn-lg" strength={0.3}>
                     Book a Call →
                   </MagneticButton>
                 </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
         <ServicesGrid />
         <ProcessSteps />
         <TestimonialsGrid />
-        <HomeContact />
+        <ContactCTA />
       </main>
       <Footer />
     </>

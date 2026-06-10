@@ -1,6 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
+import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -28,7 +28,7 @@ export default function CaseStudiesPage() {
           title="Results we're genuinely proud of"
           subtitle="No vanity metrics, no cherry-picking. Here's what happened when ambitious businesses gave us the keys."
         >
-          <a href="/book" className="btn btn-primary btn-lg">Start your story</a>
+          <a href="#contact" className="btn btn-primary btn-lg">Start your story</a>
         </PageHero>
 
         <section className="section section-alt">
@@ -61,13 +61,10 @@ export default function CaseStudiesPage() {
           </div>
         </section>
 
-        <CTABanner
+        <ContactCTA
           heading="Want to be the next case study?"
           body="Tell us where you're stuck. We'll show you, specifically, how we'd fix it."
-          primaryLabel="Book a Call"
-          primaryHref="/book"
-          secondaryLabel="Get a Free Audit"
-          secondaryHref="/audit"
+          imageSeed="digiexperts-results"
         />
       </main>
       <Footer />
