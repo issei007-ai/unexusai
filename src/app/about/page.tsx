@@ -6,8 +6,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
 
 export const metadata = {
-  title: "About — Richa",
-  description: "Built by marketers who got tired of bad agencies. Meet the team behind Richa.",
+  title: "About — DigiExperts",
+  description: "Built by marketers who got tired of bad agencies. Meet the team behind DigiExperts.",
 };
 
 const VALUES = [
@@ -37,9 +37,9 @@ export default function AboutPage() {
       <Nav />
       <main>
         <PageHero
-          eyebrow="About Richa"
+          eyebrow="About DigiExperts"
           title="Built by marketers who got tired of bad agencies"
-          subtitle="Richa exists because we kept seeing the same problem: brilliant businesses working with agencies that were too narrow, too slow, or too in love with vanity metrics. We started Richa to do it differently."
+          subtitle="DigiExperts exists because we kept seeing the same problem: brilliant businesses working with agencies that were too narrow, too slow, or too in love with vanity metrics. We started DigiExperts to do it differently."
         />
 
         {/* Stats */}

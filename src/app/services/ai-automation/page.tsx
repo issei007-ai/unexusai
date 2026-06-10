@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "AI Automation — Richa",
+  title: "AI Automation — DigiExperts",
   description: "Custom AI agents, RAG pipelines, and voice AI that integrate with your stack.",
 };
 

@@ -4,7 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import LeadForm from "@/components/ui/LeadForm";
 
 export const metadata = {
-  title: "Contact — Richa",
+  title: "Contact — DigiExperts",
   description: "Book a call or send a message. You'll hear back from a real person within one business day.",
 };
 

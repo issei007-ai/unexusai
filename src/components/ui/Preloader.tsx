@@ -56,7 +56,7 @@ export default function Preloader() {
             fontFamily: "var(--font-display)",
           }}
         >
-          R
+          D
         </div>
         <span
           style={{
@@ -67,7 +67,7 @@ export default function Preloader() {
             letterSpacing: "-0.03em",
           }}
         >
-          richa
+          digiexperts
           <span style={{ color: "var(--color-accent-400)" }}>.</span>
         </span>
       </div>

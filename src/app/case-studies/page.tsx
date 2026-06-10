@@ -5,7 +5,7 @@ import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
-  title: "Case Studies — Richa",
+  title: "Case Studies — DigiExperts",
   description: "Real results from real businesses — no cherry-picked numbers.",
 };
 

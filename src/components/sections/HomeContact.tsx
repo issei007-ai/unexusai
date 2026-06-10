@@ -38,7 +38,7 @@ export default function HomeContact() {
               ))}
             </ul>
             <div className="media-frame" style={{ aspectRatio: "16 / 9" }}>
-              <img src="https://picsum.photos/seed/richa-studio/900/520" alt="The Richa team at work" loading="lazy" />
+              <img src="https://picsum.photos/seed/richa-studio/900/520" alt="The DigiExperts team at work" loading="lazy" />
             </div>
           </div>
 

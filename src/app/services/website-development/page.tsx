@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Website Development — Richa",
+  title: "Website Development — DigiExperts",
   description: "Fast, accessible, conversion-optimised websites built in Next.js.",
 };
 

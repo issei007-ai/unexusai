@@ -5,7 +5,7 @@ import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
-  title: "Richa — AI-Native Digital Agency",
+  title: "DigiExperts — AI-Native Digital Agency",
   description: "Digital marketing, AI automation, and high-performance web development for ambitious businesses.",
 };
 

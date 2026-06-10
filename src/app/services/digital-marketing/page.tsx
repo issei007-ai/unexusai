@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Digital Marketing — Richa",
+  title: "Digital Marketing — DigiExperts",
   description: "SEO, GEO, paid media and lifecycle marketing that drives revenue, not just traffic.",
 };
 

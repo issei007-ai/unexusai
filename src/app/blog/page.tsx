@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import LeadForm from "@/components/ui/LeadForm";
 
 export const metadata = {
-  title: "Blog — Richa",
+  title: "Blog — DigiExperts",
   description: "Playbooks, field notes, and practical ideas on growth, AI, and marketing.",
 };
 

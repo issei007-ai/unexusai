@@ -4,7 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
-  title: "Book a Call — Richa",
+  title: "Book a Call — DigiExperts",
   description: "Book a free 30-minute strategy call. No pitch, no pressure.",
 };
 

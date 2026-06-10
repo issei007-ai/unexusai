@@ -7,7 +7,7 @@
   inherits: false;
 }
 
-/* ─── RICHA DESIGN SYSTEM — DARK EDITION ────────────────────────────────── */
+/* ─── DIGIEXPERTS DESIGN SYSTEM — DARK EDITION ──────────────────────────── */
 
 @theme {
   /* Core dark palette */
@@ -884,8 +884,8 @@ body::after {
 .footer-wordmark {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3.5rem, 17vw, 14rem);
-  line-height: 0.85;
+  font-size: clamp(1.75rem, 11vw, 7rem);
+  line-height: 0.9;
   letter-spacing: -0.05em;
   text-align: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0));
@@ -948,7 +948,7 @@ body::after {
   .hero-ring { opacity: 0.5; }
   .hero-ring--2 { display: none; }
   .scroll-cue { display: none; }
-  .footer-wordmark { font-size: clamp(3rem, 22vw, 6rem); }
+  .footer-wordmark { font-size: clamp(1.4rem, 13vw, 3.5rem); }
 }
 
 /* ─── REDUCED MOTION: kill heavy animation, keep content visible ──────────── */

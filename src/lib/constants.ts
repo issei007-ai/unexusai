@@ -56,7 +56,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Richa increased our inbound leads by 280% in four months. The SEO and paid media teams worked together like one unit — we'd never seen that before.",
+    quote: "DigiExperts increased our inbound leads by 280% in four months. The SEO and paid media teams worked together like one unit — we'd never seen that before.",
     name: "Sarah M.",
     role: "Marketing Director",
     company: "Velocity SaaS",

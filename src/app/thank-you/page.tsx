@@ -4,7 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
-  title: "Thank you — Richa",
+  title: "Thank you — DigiExperts",
   description: "We've received your request and will be in touch within one business day.",
 };
 

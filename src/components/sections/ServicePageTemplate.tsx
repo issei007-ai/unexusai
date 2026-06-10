@@ -154,7 +154,7 @@ export default function ServicePageTemplate({
           <div className="container max-w-4xl">
             <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
               <div>
-                <span className="badge badge-accent mb-5 inline-flex">Why Richa</span>
+                <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
                 <h2 className="text-h2 mb-4">
                   <RevealText3D text="Why teams pick us for this" splitBy="word" />
                 </h2>

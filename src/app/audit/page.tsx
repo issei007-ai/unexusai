@@ -4,7 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import LeadForm from "@/components/ui/LeadForm";
 
 export const metadata = {
-  title: "Free Growth Audit — Richa",
+  title: "Free Growth Audit — DigiExperts",
   description: "Get a free, no-obligation audit of your website, SEO, ads, and conversion funnel.",
 };
 

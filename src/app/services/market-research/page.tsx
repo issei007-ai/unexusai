@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Market Research — Richa",
+  title: "Market Research — DigiExperts",
   description: "Customer interviews, competitive analysis, and positioning that gives your marketing something real to say.",
 };
 

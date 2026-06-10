@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import LeadForm from "@/components/ui/LeadForm";
 
 export const metadata = {
-  title: "Resources — Richa",
+  title: "Resources — DigiExperts",
   description: "Free tools, templates, and guides to help you grow — no email wall on most of them.",
 };
 

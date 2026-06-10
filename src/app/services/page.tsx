@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { WHY_US } from "@/lib/constants";
 
 export const metadata = {
-  title: "Services — Richa",
+  title: "Services — DigiExperts",
   description: "Digital marketing, website development, AI automation, AI training and market research — one integrated team.",
 };
 
@@ -27,11 +27,11 @@ export default function ServicesPage() {
 
         <ServicesGrid />
 
-        {/* Why Richa */}
+        {/* Why DigiExperts */}
         <section className="section section-alt">
           <div className="container">
             <div className="text-center mb-14">
-              <span className="badge badge-accent mb-5 inline-flex">Why Richa</span>
+              <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
               <h2 className="text-h2">Different by design</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
