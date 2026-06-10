@@ -81,7 +81,7 @@ export default function ServicesGrid() {
                 <a
                   href={service.href}
                   className="group relative block h-full overflow-hidden rounded-3xl border border-white/[0.08] transition-all duration-500 hover:border-indigo-400/40 hover:shadow-[0_10px_40px_-12px_rgba(99,102,241,0.45)]"
-                  style={{ minHeight: BENTO_CONFIG[i].minHeight }}
+                  style={{ minHeight: BENTO_CONFIG[i].minHeight, background: "var(--color-panel)" }}
                 >
                   {/* Background image */}
                   <img
@@ -89,13 +89,13 @@ export default function ServicesGrid() {
                     alt=""
                     aria-hidden
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover grayscale-[0.55] brightness-[0.45] transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-[0.6] group-hover:scale-105"
+                    className="svc-img"
                   />
-                  {/* Dark overlay for legibility */}
+                  {/* Overlay — dark behind the text (bottom), image visible up top */}
                   <span
                     aria-hidden
                     className="absolute inset-0"
-                    style={{ background: "linear-gradient(155deg, rgba(10,15,30,0.78) 0%, rgba(3,7,18,0.9) 75%)" }}
+                    style={{ background: "linear-gradient(to top, rgba(3,7,18,0.93) 0%, rgba(5,10,24,0.5) 55%, rgba(5,10,24,0.28) 100%)" }}
                   />
 
                   {/* Content */}
