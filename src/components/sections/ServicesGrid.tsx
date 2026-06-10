@@ -33,6 +33,14 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
+const SERVICE_IMG: Record<string, string> = {
+  "Digital Marketing": "dx-marketing",
+  "Website Development": "dx-web",
+  "AI Automation": "dx-ai",
+  "AI Training": "dx-training",
+  "Market Research": "dx-research",
+};
+
 const BENTO_CONFIG = [
   { colClass: "bento-wide",   minHeight: "220px" },
   { colClass: "bento-narrow", minHeight: "220px" },
@@ -72,58 +80,68 @@ export default function ServicesGrid() {
               <TiltCard intensity={6} scale={1.02} className="h-full">
                 <a
                   href={service.href}
-                  className="glow-card h-full flex flex-col p-7 group block"
-                  style={{ minHeight: BENTO_CONFIG[i].minHeight, border: "1px solid var(--color-border)" }}
+                  className="group relative block h-full overflow-hidden rounded-3xl border border-white/[0.08] transition-all duration-500 hover:border-indigo-400/40 hover:shadow-[0_10px_40px_-12px_rgba(99,102,241,0.45)]"
+                  style={{ minHeight: BENTO_CONFIG[i].minHeight }}
                 >
-                  {/* Top row */}
-                  <div className="flex items-start justify-between mb-auto">
-                    <div className="icon-wrap">{SERVICE_ICONS[service.title]}</div>
-                    <span
-                      className="text-xs tracking-widest opacity-30"
-                      style={{ fontFamily: "var(--font-mono)", color: "#fff" }}
-                    >
-                      {service.num}
-                    </span>
-                  </div>
-
-                  {/* Decorative large number */}
-                  <div
-                    className="my-4 text-8xl font-black select-none pointer-events-none"
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      color: "rgba(99,102,241,0.06)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.05em",
-                    }}
-                  >
-                    {service.num}
-                  </div>
+                  {/* Background image */}
+                  <img
+                    src={`https://picsum.photos/seed/${SERVICE_IMG[service.title]}/800/600`}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover grayscale-[0.55] brightness-[0.45] transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-[0.6] group-hover:scale-105"
+                  />
+                  {/* Dark overlay for legibility */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(155deg, rgba(10,15,30,0.78) 0%, rgba(3,7,18,0.9) 75%)" }}
+                  />
 
                   {/* Content */}
-                  <div>
-                    <h3
-                      className="text-h3 mb-2"
+                  <div className="relative flex flex-col h-full p-7" style={{ zIndex: 2 }}>
+                    {/* Top row */}
+                    <div className="flex items-start justify-between mb-auto">
+                      <div className="icon-wrap">{SERVICE_ICONS[service.title]}</div>
+                      <span
+                        className="text-xs tracking-widest opacity-40"
+                        style={{ fontFamily: "var(--font-mono)", color: "#fff" }}
+                      >
+                        {service.num}
+                      </span>
+                    </div>
+
+                    {/* Decorative large number */}
+                    <div
+                      className="my-4 text-8xl font-black select-none pointer-events-none"
                       style={{
                         fontFamily: "var(--font-display)",
-                        transition: "color 0.3s",
+                        color: "rgba(255,255,255,0.07)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.05em",
                       }}
-                      /* group-hover:text-gradient removed — Tailwind v4 can't generate
-                         multi-property custom class variants; caused -webkit-text-fill-color:transparent */
                     >
-                      {service.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--color-brand-400)" }}>
-                      {service.desc}
-                    </p>
-                    <span
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 group-hover:gap-3"
-                      style={{ color: "var(--color-accent-400)" }}
-                    >
-                      Explore
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </span>
+                      {service.num}
+                    </div>
+
+                    {/* Text */}
+                    <div>
+                      <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                        {service.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--color-brand-200)" }}>
+                        {service.desc}
+                      </p>
+                      <span
+                        className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 group-hover:gap-3"
+                        style={{ color: "var(--color-accent-300)" }}
+                      >
+                        Explore
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </a>
               </TiltCard>
