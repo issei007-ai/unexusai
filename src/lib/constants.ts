@@ -75,7 +75,24 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export const TRUST_LOGOS = ["Acme Corp", "Velocity", "Nexus AI", "Orbit", "Stratford"];
+export const TRUST_LOGOS = [
+  "British Council Gurgaon",
+  "Mphasis",
+  "GEOX India",
+  "DPS Sirsa",
+  "FlowerAura",
+  "Bakingo",
+  "Amritsari Express",
+  "Café Chennai Delhi",
+  "Rajwada Delhi",
+  "Lilawati Vidya Mandir",
+  "Awake Solar",
+  "Wentworth House",
+  "Richies",
+  "Shaadi Emporio",
+  "5àSec",
+  "Werecle",
+];
 
 export const WHY_US = [
   { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },
