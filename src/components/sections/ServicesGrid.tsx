@@ -34,11 +34,11 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
 };
 
 const SERVICE_IMG: Record<string, string> = {
-  "Digital Marketing": "dx-marketing",
-  "Website Development": "dx-web",
-  "AI Automation": "dx-ai",
-  "AI Training": "dx-training",
-  "Market Research": "dx-research",
+  "Digital Marketing": "/services/digital-marketing.png",
+  "Website Development": "/services/website-development.png",
+  "AI Automation": "/services/ai-automation.png",
+  "AI Training": "/services/ai-training.png",
+  "Market Research": "/services/market-research.png",
 };
 
 const BENTO_CONFIG = [
@@ -85,7 +85,7 @@ export default function ServicesGrid() {
                 >
                   {/* Background image */}
                   <img
-                    src={`https://picsum.photos/seed/${SERVICE_IMG[service.title]}/800/600`}
+                    src={SERVICE_IMG[service.title]}
                     alt=""
                     aria-hidden
                     loading="lazy"
