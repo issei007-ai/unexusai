@@ -79,7 +79,7 @@ export const TRUST_LOGOS = ["Acme Corp", "Velocity", "Nexus AI", "Orbit", "Strat
 
 export const WHY_US = [
   { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },
-  { title: "We use AI ourselves, daily", desc: "It's in our research, our builds, and the daily grind — not just a line we add to a proposal." },
+  { title: "You talk to the people doing the work", desc: "No account manager relaying messages back and forth. When you've got a question, you're talking to whoever's actually building it." },
   { title: "One team, not five vendors", desc: "Your SEO person and your developer actually talk to each other. So does everyone else on the team." },
   { title: "You'll always know what's going on", desc: "A real update in Slack every week, a proper review every month, nothing hidden behind a login you never use." },
 ];
