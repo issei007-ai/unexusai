@@ -129,8 +129,8 @@ export default async function LeadsAdminPage({
 
       {!dbConfigured() && (
         <Notice>
-          Leads are only listed here when the Supabase channel is on. Set <code>SUPABASE_URL</code> and{" "}
-          <code>SUPABASE_SERVICE_KEY</code> to start storing and viewing them.
+          Leads are only listed here when the database channel is on. Set{" "}
+          <code>NEON_DATABASE_URL</code> to start storing and viewing them.
         </Notice>
       )}
 

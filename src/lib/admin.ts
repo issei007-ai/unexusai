@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import { cookies } from "next/headers";
+import { neonConfigured, getSql, ensureLeadsTable } from "./leads/neon";
 
 const SALT = "digiexperts-admin-v1";
 
@@ -48,7 +49,7 @@ export interface LeadRow {
 }
 
 export function dbConfigured(): boolean {
-  return !!process.env.SUPABASE_URL && !!process.env.SUPABASE_SERVICE_KEY;
+  return neonConfigured();
 }
 
 /** Whether the current request carries a valid admin cookie. */
@@ -75,41 +76,45 @@ export interface LeadPage {
   total: number;
 }
 
-/** Reads leads from Supabase with optional filtering + pagination. */
+/** Reads leads from Neon with optional filtering + pagination. */
 export async function fetchLeads(query: LeadQuery = {}): Promise<LeadPage> {
-  if (!dbConfigured()) return { rows: [], total: 0 };
-  const table = process.env.SUPABASE_LEADS_TABLE || "leads";
-  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
+  if (!neonConfigured()) return { rows: [], total: 0 };
+  await ensureLeadsTable();
+  const sql = getSql();
 
-  const params = new URLSearchParams({ select: "*", order: "created_at.desc" });
-  if (query.source) params.set("source", `eq.${query.source}`);
-  if (query.type) params.set("type", `eq.${query.type}`);
-  if (query.from) params.append("created_at", `gte.${query.from}`);
-  if (query.to) params.append("created_at", `lte.${query.to}T23:59:59.999`);
-  params.set("limit", String(query.limit ?? PAGE_SIZE));
-  params.set("offset", String(query.offset ?? 0));
+  const conds: string[] = [];
+  const params: unknown[] = [];
+  let i = 1;
+  if (query.source) { conds.push(`source = $${i++}`); params.push(query.source); }
+  if (query.type) { conds.push(`type = $${i++}`); params.push(query.type); }
+  if (query.from) { conds.push(`created_at >= $${i++}`); params.push(query.from); }
+  if (query.to) { conds.push(`created_at <= $${i++}`); params.push(`${query.to}T23:59:59.999`); }
+  const where = conds.length ? `where ${conds.join(" and ")}` : "";
 
-  const res = await fetch(`${base}/rest/v1/${table}?${params.toString()}`, {
-    headers: {
-      apikey: process.env.SUPABASE_SERVICE_KEY!,
-      Authorization: `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
-      Prefer: "count=exact",
-    },
-    cache: "no-store",
-  });
+  const limitIdx = i++; params.push(query.limit ?? PAGE_SIZE);
+  const offsetIdx = i++; params.push(query.offset ?? 0);
 
-  if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
+  const text = `
+    select id, created_at, type, source, name, email, fields,
+           count(*) over()::int as _total
+    from leads
+    ${where}
+    order by created_at desc
+    limit $${limitIdx} offset $${offsetIdx}
+  `;
 
-  const rows: LeadRow[] = await res.json();
-  const total = parseContentRangeTotal(res.headers.get("content-range"));
+  const result = (await sql.query(text, params)) as Array<LeadRow & { _total: number }>;
+  const total = result.length ? Number(result[0]._total) : 0;
+  const rows: LeadRow[] = result.map((r) => ({
+    id: r.id,
+    created_at: r.created_at,
+    type: r.type,
+    source: r.source,
+    name: r.name,
+    email: r.email,
+    fields: r.fields,
+  }));
   return { rows, total };
-}
-
-/** Parses the "0-49/123" Content-Range header into the total count. */
-function parseContentRangeTotal(header: string | null): number {
-  if (!header) return 0;
-  const match = header.match(/\/(\d+)\s*$/);
-  return match ? parseInt(match[1], 10) : 0;
 }
 
 /** Serialises leads to CSV, with one column per distinct captured field. */

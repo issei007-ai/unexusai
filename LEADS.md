@@ -22,7 +22,7 @@ independently and failures are logged server-side.
 |-----------|------------------------|-------------------|
 | email     | Resend                 | `RESEND_API_KEY`, `LEAD_EMAIL_FROM`, `LEAD_EMAIL_TO` |
 | whatsapp  | Meta WhatsApp Cloud API| `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_TO` |
-| database  | Supabase               | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` |
+| database  | Neon (serverless PG)   | `NEON_DATABASE_URL` |
 
 ## WhatsApp: approved template (production)
 
@@ -50,8 +50,8 @@ if not `en`). The code fills the four variables in this exact order:
 ## Admin: viewing leads
 
 A protected dashboard lives at **`/admin/leads`**. Set `ADMIN_PASSWORD` to unlock
-it (leave it blank and the page stays locked). It reads straight from Supabase,
-so it shows data only when the database channel is configured. Sign-in sets an
+it (leave it blank and the page stays locked). It reads straight from Neon, so it
+shows data only when the database channel is configured. Sign-in sets an
 httpOnly cookie for 8 hours; there's a sign-out button.
 
 The dashboard supports:
@@ -61,13 +61,28 @@ The dashboard supports:
   the current filters, one column per distinct captured field. The export
   endpoint (`/api/admin/leads/export`) requires the same admin cookie.
 
-## Supabase table
+## Database (Neon)
 
-Run this once in the Supabase SQL editor before enabling the database channel:
+Neon's free tier is genuinely free (no card) and, unlike some free tiers, the
+compute **auto-resumes** in well under a second after idling — so leads are never
+lost waiting for a database to wake.
+
+Setup:
+
+1. Go to [console.neon.tech](https://console.neon.tech) and click **New Project**
+   (create a fresh one — don't reuse an existing project). Name it e.g.
+   `digiexperts-leads`.
+2. Open **Connection Details** and copy the **Pooled connection** string (its host
+   contains `-pooler`). Use the pooled one — it's the right choice for serverless.
+3. Set it as `NEON_DATABASE_URL` in Vercel → Settings → Environment Variables.
+4. Redeploy. That's it — the `leads` table is created automatically on the first
+   submission, so there's no SQL to run.
+
+For reference, the table the app creates is:
 
 ```sql
-create table leads (
-  id          bigint generated always as identity primary key,
+create table if not exists leads (
+  id          bigserial primary key,
   created_at  timestamptz default now(),
   type        text,
   source      text,
