@@ -2,6 +2,7 @@ import type { NavLink, Service, Stat, ProcessStep, Testimonial } from "./types";
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },
+  { label: "Clients", href: "/clients" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
@@ -75,24 +76,30 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export const TRUST_LOGOS = [
-  "British Council Gurgaon",
-  "Mphasis",
-  "GEOX India",
-  "DPS Sirsa",
-  "FlowerAura",
-  "Bakingo",
-  "Amritsari Express",
-  "Café Chennai Delhi",
-  "Rajwada Delhi",
-  "Lilawati Vidya Mandir",
-  "Awake Solar",
-  "Wentworth House",
-  "Richies",
-  "Shaadi Emporio",
-  "5àSec",
-  "Werecle",
+export type Client = { name: string; logo?: string };
+
+// `logo` points to a file in /public/clients. Clients without a usable logo
+// fall back to a styled monogram (handled by the ClientLogo component).
+export const CLIENTS: Client[] = [
+  { name: "British Council Gurgaon", logo: "/clients/british-council.png" },
+  { name: "Mphasis", logo: "/clients/mphasis.png" },
+  { name: "GEOX India", logo: "/clients/geox.png" },
+  { name: "DPS Sirsa", logo: "/clients/dps-sirsa.png" },
+  { name: "FlowerAura", logo: "/clients/floweraura.png" },
+  { name: "Bakingo", logo: "/clients/bakingo.png" },
+  { name: "Amritsari Express", logo: "/clients/amritsari-express.png" },
+  { name: "5àSec", logo: "/clients/5asec.png" },
+  { name: "Werecle", logo: "/clients/werecle.png" },
+  { name: "Awake Solar" },
+  { name: "Wentworth House" },
+  { name: "Shaadi Emporio" },
+  { name: "Café Chennai Delhi" },
+  { name: "Rajwada Delhi" },
+  { name: "Lilawati Vidya Mandir" },
+  { name: "Richies" },
 ];
+
+export const TRUST_LOGOS = CLIENTS.map((c) => c.name);
 
 export const WHY_US = [
   { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },

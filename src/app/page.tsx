@@ -12,7 +12,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Marquee from "@/components/ui/Marquee";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Preloader from "@/components/ui/Preloader";
-import { TRUST_LOGOS } from "@/lib/constants";
+import { CLIENTS } from "@/lib/constants";
+import ClientLogo from "@/components/ui/ClientLogo";
 
 export default function HomePage() {
   return (
@@ -84,11 +85,8 @@ export default function HomePage() {
                 Some of the teams we've worked with
               </p>
               <Marquee speed={24}>
-                {TRUST_LOGOS.map((name) => (
-                  <span key={name} className="text-sm font-semibold tracking-wide flex-shrink-0"
-                    style={{ color:"rgba(255,255,255,0.2)" }}>
-                    {name}
-                  </span>
+                {CLIENTS.map((c, i) => (
+                  <ClientLogo key={c.name} client={c} index={i} size={48} />
                 ))}
               </Marquee>
             </div>
