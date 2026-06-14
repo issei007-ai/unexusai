@@ -1,5 +1,14 @@
 import { cookies } from "next/headers";
-import { adminToken, ADMIN_COOKIE, dbConfigured, fetchLeads, type LeadRow } from "@/lib/admin";
+import {
+  adminToken,
+  ADMIN_COOKIE,
+  dbConfigured,
+  fetchLeads,
+  KNOWN_SOURCES,
+  LEAD_TYPES,
+  PAGE_SIZE,
+  type LeadRow,
+} from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -10,9 +19,9 @@ export const metadata = {
 export default async function LeadsAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; source?: string; type?: string; page?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, source: sourceParam, type: typeParam, page: pageParam } = await searchParams;
   const token = adminToken();
   const cookieStore = await cookies();
   const authed = !!token && cookieStore.get(ADMIN_COOKIE)?.value === token;
@@ -44,15 +53,26 @@ export default async function LeadsAdminPage({
     );
   }
 
+  const source = sourceParam && KNOWN_SOURCES.includes(sourceParam as never) ? sourceParam : undefined;
+  const type = typeParam && LEAD_TYPES.includes(typeParam as never) ? typeParam : undefined;
+  const page = Math.max(1, Number.parseInt(pageParam ?? "1", 10) || 1);
+
   let leads: LeadRow[] = [];
+  let total = 0;
   let loadError: string | null = null;
   if (dbConfigured()) {
     try {
-      leads = await fetchLeads();
+      const result = await fetchLeads({ source, type, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
+      leads = result.rows;
+      total = result.total;
     } catch (e) {
       loadError = e instanceof Error ? e.message : String(e);
     }
   }
+
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const exportQs = buildQuery({ source, type });
+  const filtered = !!source || !!type;
 
   return (
     <Shell>
@@ -60,13 +80,41 @@ export default async function LeadsAdminPage({
         <div>
           <h1 className="text-h2" style={{ fontFamily: "var(--font-display)" }}>Leads</h1>
           <p className="text-sm" style={{ color: "var(--color-brand-400)" }}>
-            {dbConfigured() ? `${leads.length} most recent` : "Database channel not configured"}
+            {dbConfigured()
+              ? `${total} total${filtered ? " (filtered)" : ""}`
+              : "Database channel not configured"}
           </p>
         </div>
-        <form action="/api/admin/logout" method="POST">
-          <button type="submit" className="btn btn-secondary btn-sm">Sign out</button>
-        </form>
+        <div className="flex items-center gap-2">
+          {dbConfigured() && leads.length > 0 && (
+            <a className="btn btn-secondary btn-sm" href={`/api/admin/leads/export${exportQs}`}>Export CSV</a>
+          )}
+          <form action="/api/admin/logout" method="POST">
+            <button type="submit" className="btn btn-secondary btn-sm">Sign out</button>
+          </form>
+        </div>
       </div>
+
+      {dbConfigured() && (
+        <form method="GET" className="flex flex-wrap items-end gap-3 mb-6">
+          <div>
+            <label className="form-label">Source</label>
+            <select className="form-select" name="source" defaultValue={source ?? ""} style={{ minWidth: "11rem" }}>
+              <option value="">All sources</option>
+              {KNOWN_SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="form-label">Type</label>
+            <select className="form-select" name="type" defaultValue={type ?? ""} style={{ minWidth: "9rem" }}>
+              <option value="">All types</option>
+              {LEAD_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+          <button type="submit" className="btn btn-primary btn-sm">Filter</button>
+          {filtered && <a className="btn btn-secondary btn-sm" href="/admin/leads">Clear</a>}
+        </form>
+      )}
 
       {!dbConfigured() && (
         <Notice>
@@ -78,7 +126,11 @@ export default async function LeadsAdminPage({
       {loadError && <Notice>Couldn&apos;t load leads: {loadError}</Notice>}
 
       {dbConfigured() && !loadError && leads.length === 0 && (
-        <Notice>No leads yet. They&apos;ll show up here as forms get submitted.</Notice>
+        <Notice>
+          {filtered
+            ? "No leads match that filter."
+            : "No leads yet. They'll show up here as forms get submitted."}
+        </Notice>
       )}
 
       {leads.length > 0 && (
@@ -121,8 +173,34 @@ export default async function LeadsAdminPage({
           </table>
         </div>
       )}
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-7">
+          {page > 1 ? (
+            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, page: page - 1 })}`}>← Prev</a>
+          ) : (
+            <span className="btn btn-secondary btn-sm" style={{ opacity: 0.4, pointerEvents: "none" }}>← Prev</span>
+          )}
+          <span className="text-sm" style={{ color: "var(--color-brand-400)" }}>Page {page} of {totalPages}</span>
+          {page < totalPages ? (
+            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, page: page + 1 })}`}>Next →</a>
+          ) : (
+            <span className="btn btn-secondary btn-sm" style={{ opacity: 0.4, pointerEvents: "none" }}>Next →</span>
+          )}
+        </div>
+      )}
     </Shell>
   );
+}
+
+/** Builds a "?source=..&type=..&page=.." string, omitting empty values. */
+function buildQuery(parts: { source?: string; type?: string; page?: number }): string {
+  const qs = new URLSearchParams();
+  if (parts.source) qs.set("source", parts.source);
+  if (parts.type) qs.set("type", parts.type);
+  if (parts.page && parts.page > 1) qs.set("page", String(parts.page));
+  const s = qs.toString();
+  return s ? `?${s}` : "";
 }
 
 function formatWhen(iso: string): string {

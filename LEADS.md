@@ -54,6 +54,13 @@ it (leave it blank and the page stays locked). It reads straight from Supabase,
 so it shows data only when the database channel is configured. Sign-in sets an
 httpOnly cookie for 8 hours; there's a sign-out button.
 
+The dashboard supports:
+- **Filtering** by source and type (dropdowns at the top).
+- **Pagination** — 50 leads per page with Prev/Next.
+- **CSV export** — the "Export CSV" button downloads up to 5,000 leads matching
+  the current filters, one column per distinct captured field. The export
+  endpoint (`/api/admin/leads/export`) requires the same admin cookie.
+
 ## Supabase table
 
 Run this once in the Supabase SQL editor before enabling the database channel:

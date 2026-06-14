@@ -1,6 +1,23 @@
 import { createHash } from "crypto";
+import { cookies } from "next/headers";
 
 const SALT = "digiexperts-admin-v1";
+
+/** Form sources used across the site — drives the admin filter dropdown. */
+export const KNOWN_SOURCES = [
+  "audit",
+  "contact",
+  "contact-cta",
+  "quote",
+  "resources",
+  "blog",
+  "book",
+  "contact-book",
+] as const;
+
+export const LEAD_TYPES = ["lead", "booking", "newsletter"] as const;
+
+export const PAGE_SIZE = 50;
 
 /**
  * Derived auth token kept in the admin cookie. We store a hash of the password
@@ -29,21 +46,81 @@ export function dbConfigured(): boolean {
   return !!process.env.SUPABASE_URL && !!process.env.SUPABASE_SERVICE_KEY;
 }
 
-/** Reads the most recent leads straight from Supabase (server-side only). */
-export async function fetchLeads(limit = 200): Promise<LeadRow[]> {
-  if (!dbConfigured()) return [];
+/** Whether the current request carries a valid admin cookie. */
+export async function isAdminAuthed(): Promise<boolean> {
+  const token = adminToken();
+  if (!token) return false;
+  const store = await cookies();
+  return store.get(ADMIN_COOKIE)?.value === token;
+}
+
+export interface LeadQuery {
+  source?: string;
+  type?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export interface LeadPage {
+  rows: LeadRow[];
+  total: number;
+}
+
+/** Reads leads from Supabase with optional filtering + pagination. */
+export async function fetchLeads(query: LeadQuery = {}): Promise<LeadPage> {
+  if (!dbConfigured()) return { rows: [], total: 0 };
   const table = process.env.SUPABASE_LEADS_TABLE || "leads";
   const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
-  const url = `${base}/rest/v1/${table}?select=*&order=created_at.desc&limit=${limit}`;
 
-  const res = await fetch(url, {
+  const params = new URLSearchParams({ select: "*", order: "created_at.desc" });
+  if (query.source) params.set("source", `eq.${query.source}`);
+  if (query.type) params.set("type", `eq.${query.type}`);
+  params.set("limit", String(query.limit ?? PAGE_SIZE));
+  params.set("offset", String(query.offset ?? 0));
+
+  const res = await fetch(`${base}/rest/v1/${table}?${params.toString()}`, {
     headers: {
       apikey: process.env.SUPABASE_SERVICE_KEY!,
       Authorization: `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
+      Prefer: "count=exact",
     },
     cache: "no-store",
   });
 
   if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
-  return res.json();
+
+  const rows: LeadRow[] = await res.json();
+  const total = parseContentRangeTotal(res.headers.get("content-range"));
+  return { rows, total };
+}
+
+/** Parses the "0-49/123" Content-Range header into the total count. */
+function parseContentRangeTotal(header: string | null): number {
+  if (!header) return 0;
+  const match = header.match(/\/(\d+)\s*$/);
+  return match ? parseInt(match[1], 10) : 0;
+}
+
+/** Serialises leads to CSV, with one column per distinct captured field. */
+export function leadsToCsv(rows: LeadRow[]): string {
+  const fieldKeys = Array.from(new Set(rows.flatMap((r) => Object.keys(r.fields ?? {}))));
+  const headers = ["created_at", "type", "source", "name", "email", ...fieldKeys];
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) {
+    const row = [
+      r.created_at,
+      r.type,
+      r.source,
+      r.name,
+      r.email,
+      ...fieldKeys.map((k) => r.fields?.[k] ?? ""),
+    ];
+    lines.push(row.map(csvCell).join(","));
+  }
+  return lines.join("\r\n");
+}
+
+function csvCell(value: unknown): string {
+  const s = value == null ? "" : String(value);
+  return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
