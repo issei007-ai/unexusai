@@ -96,7 +96,7 @@ export const CLIENTS: Client[] = [
   { name: "Café Chennai Delhi" },
   { name: "Rajwada Delhi" },
   { name: "Lilawati Vidya Mandir" },
-  { name: "Richies" },
+  { name: "Richies Laundry", logo: "/clients/richies.png" },
 ];
 
 export const TRUST_LOGOS = CLIENTS.map((c) => c.name);
