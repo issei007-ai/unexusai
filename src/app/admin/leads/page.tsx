@@ -7,6 +7,7 @@ import {
   KNOWN_SOURCES,
   LEAD_TYPES,
   PAGE_SIZE,
+  safeDate,
   type LeadRow,
 } from "@/lib/admin";
 
@@ -19,9 +20,9 @@ export const metadata = {
 export default async function LeadsAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; source?: string; type?: string; page?: string }>;
+  searchParams: Promise<{ error?: string; source?: string; type?: string; from?: string; to?: string; page?: string }>;
 }) {
-  const { error, source: sourceParam, type: typeParam, page: pageParam } = await searchParams;
+  const { error, source: sourceParam, type: typeParam, from: fromParam, to: toParam, page: pageParam } = await searchParams;
   const token = adminToken();
   const cookieStore = await cookies();
   const authed = !!token && cookieStore.get(ADMIN_COOKIE)?.value === token;
@@ -55,6 +56,8 @@ export default async function LeadsAdminPage({
 
   const source = sourceParam && KNOWN_SOURCES.includes(sourceParam as never) ? sourceParam : undefined;
   const type = typeParam && LEAD_TYPES.includes(typeParam as never) ? typeParam : undefined;
+  const from = safeDate(fromParam);
+  const to = safeDate(toParam);
   const page = Math.max(1, Number.parseInt(pageParam ?? "1", 10) || 1);
 
   let leads: LeadRow[] = [];
@@ -62,7 +65,7 @@ export default async function LeadsAdminPage({
   let loadError: string | null = null;
   if (dbConfigured()) {
     try {
-      const result = await fetchLeads({ source, type, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
+      const result = await fetchLeads({ source, type, from, to, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
       leads = result.rows;
       total = result.total;
     } catch (e) {
@@ -71,8 +74,8 @@ export default async function LeadsAdminPage({
   }
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  const exportQs = buildQuery({ source, type });
-  const filtered = !!source || !!type;
+  const exportQs = buildQuery({ source, type, from, to });
+  const filtered = !!source || !!type || !!from || !!to;
 
   return (
     <Shell>
@@ -110,6 +113,14 @@ export default async function LeadsAdminPage({
               <option value="">All types</option>
               {LEAD_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
+          </div>
+          <div>
+            <label className="form-label">From</label>
+            <input className="form-input" type="date" name="from" defaultValue={from ?? ""} style={{ minWidth: "9.5rem" }} />
+          </div>
+          <div>
+            <label className="form-label">To</label>
+            <input className="form-input" type="date" name="to" defaultValue={to ?? ""} style={{ minWidth: "9.5rem" }} />
           </div>
           <button type="submit" className="btn btn-primary btn-sm">Filter</button>
           {filtered && <a className="btn btn-secondary btn-sm" href="/admin/leads">Clear</a>}
@@ -177,13 +188,13 @@ export default async function LeadsAdminPage({
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-4 mt-7">
           {page > 1 ? (
-            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, page: page - 1 })}`}>← Prev</a>
+            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, from, to, page: page - 1 })}`}>← Prev</a>
           ) : (
             <span className="btn btn-secondary btn-sm" style={{ opacity: 0.4, pointerEvents: "none" }}>← Prev</span>
           )}
           <span className="text-sm" style={{ color: "var(--color-brand-400)" }}>Page {page} of {totalPages}</span>
           {page < totalPages ? (
-            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, page: page + 1 })}`}>Next →</a>
+            <a className="btn btn-secondary btn-sm" href={`/admin/leads${buildQuery({ source, type, from, to, page: page + 1 })}`}>Next →</a>
           ) : (
             <span className="btn btn-secondary btn-sm" style={{ opacity: 0.4, pointerEvents: "none" }}>Next →</span>
           )}
@@ -193,11 +204,13 @@ export default async function LeadsAdminPage({
   );
 }
 
-/** Builds a "?source=..&type=..&page=.." string, omitting empty values. */
-function buildQuery(parts: { source?: string; type?: string; page?: number }): string {
+/** Builds a "?source=..&type=..&from=..&to=..&page=.." string, omitting empties. */
+function buildQuery(parts: { source?: string; type?: string; from?: string; to?: string; page?: number }): string {
   const qs = new URLSearchParams();
   if (parts.source) qs.set("source", parts.source);
   if (parts.type) qs.set("type", parts.type);
+  if (parts.from) qs.set("from", parts.from);
+  if (parts.to) qs.set("to", parts.to);
   if (parts.page && parts.page > 1) qs.set("page", String(parts.page));
   const s = qs.toString();
   return s ? `?${s}` : "";

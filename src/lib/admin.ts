@@ -19,6 +19,11 @@ export const LEAD_TYPES = ["lead", "booking", "newsletter"] as const;
 
 export const PAGE_SIZE = 50;
 
+/** Accepts only well-formed YYYY-MM-DD strings; returns undefined otherwise. */
+export function safeDate(value: string | undefined): string | undefined {
+  return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : undefined;
+}
+
 /**
  * Derived auth token kept in the admin cookie. We store a hash of the password
  * (not the password itself), and the page recomputes + compares it. Returns
@@ -57,6 +62,10 @@ export async function isAdminAuthed(): Promise<boolean> {
 export interface LeadQuery {
   source?: string;
   type?: string;
+  /** Inclusive start date, YYYY-MM-DD. */
+  from?: string;
+  /** Inclusive end date, YYYY-MM-DD (covers the whole day). */
+  to?: string;
   limit?: number;
   offset?: number;
 }
@@ -75,6 +84,8 @@ export async function fetchLeads(query: LeadQuery = {}): Promise<LeadPage> {
   const params = new URLSearchParams({ select: "*", order: "created_at.desc" });
   if (query.source) params.set("source", `eq.${query.source}`);
   if (query.type) params.set("type", `eq.${query.type}`);
+  if (query.from) params.append("created_at", `gte.${query.from}`);
+  if (query.to) params.append("created_at", `lte.${query.to}T23:59:59.999`);
   params.set("limit", String(query.limit ?? PAGE_SIZE));
   params.set("offset", String(query.offset ?? 0));
 

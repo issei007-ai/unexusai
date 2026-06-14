@@ -766,6 +766,7 @@ body {
   box-shadow: 0 0 0 3px rgba(99,102,241,0.18);
 }
 .form-textarea { resize: vertical; min-height: 120px; }
+.form-input[type="date"] { color-scheme: dark; }
 .form-select { appearance: none; cursor: pointer; }
 .form-select option { background: var(--color-panel); color: #fff; }
 

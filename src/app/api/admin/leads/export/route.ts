@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isAdminAuthed, fetchLeads, leadsToCsv } from "@/lib/admin";
+import { isAdminAuthed, fetchLeads, leadsToCsv, safeDate } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +11,10 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const source = searchParams.get("source") || undefined;
   const type = searchParams.get("type") || undefined;
+  const from = safeDate(searchParams.get("from") || undefined);
+  const to = safeDate(searchParams.get("to") || undefined);
 
-  const { rows } = await fetchLeads({ source, type, limit: 5000, offset: 0 });
+  const { rows } = await fetchLeads({ source, type, from, to, limit: 5000, offset: 0 });
   const csv = leadsToCsv(rows);
 
   const date = new Date().toISOString().slice(0, 10);
