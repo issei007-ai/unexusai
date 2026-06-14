@@ -84,9 +84,9 @@ export default function BlogPage() {
               <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>Get the weekly playbook</h3>
               <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>One useful thing a week on growth, AI, and marketing. We try to keep it short.</p>
               <div className="mx-auto" style={{ maxWidth: "22rem" }}>
-                <LeadForm submitLabel="Subscribe" note="No spam. Unsubscribe anytime.">
+                <LeadForm source="blog" type="newsletter" submitLabel="Subscribe" note="No spam. Unsubscribe anytime.">
                   <div>
-                    <input className="form-input" type="email" placeholder="you@company.com" required />
+                    <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                   </div>
                 </LeadForm>
               </div>

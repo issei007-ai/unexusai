@@ -34,44 +34,44 @@ export default function QuotePage() {
           <div className="container grid lg:grid-cols-[1.5fr_1fr] gap-8 items-start" style={{ maxWidth: "64rem" }}>
             {/* Form */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
-              <LeadForm submitLabel="Request my proposal" note="We'll reply within 48 hours with a clear, fixed-scope proposal.">
+              <LeadForm source="quote" submitLabel="Request my proposal" note="We'll reply within 48 hours with a clear, fixed-scope proposal.">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="form-label">Name</label>
-                    <input className="form-input" type="text" placeholder="Your name" required />
+                    <input className="form-input" name="name" type="text" placeholder="Your name" required />
                   </div>
                   <div>
                     <label className="form-label">Email</label>
-                    <input className="form-input" type="email" placeholder="you@company.com" required />
+                    <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                   </div>
                 </div>
                 <div>
                   <label className="form-label">Company</label>
-                  <input className="form-input" type="text" placeholder="Your company" />
+                  <input className="form-input" name="company" type="text" placeholder="Your company" />
                 </div>
                 <div>
                   <label className="form-label">What do you need?</label>
-                  <select className="form-select">
+                  <select className="form-select" name="service">
                     {SERVICES.map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="form-label">Budget</label>
-                    <select className="form-select">
+                    <select className="form-select" name="budget">
                       {BUDGETS.map((b) => <option key={b}>{b}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="form-label">Timeline</label>
-                    <select className="form-select">
+                    <select className="form-select" name="timeline">
                       {TIMELINES.map((t) => <option key={t}>{t}</option>)}
                     </select>
                   </div>
                 </div>
                 <div>
                   <label className="form-label">Tell us about the project</label>
-                  <textarea className="form-textarea" placeholder="What are you trying to achieve, and where are you stuck?" />
+                  <textarea className="form-textarea" name="message" placeholder="What are you trying to achieve, and where are you stuck?" />
                 </div>
               </LeadForm>
             </div>

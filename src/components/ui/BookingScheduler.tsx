@@ -19,26 +19,43 @@ function nextWeekdays(count: number): Date[] {
   return days;
 }
 
-export default function BookingScheduler() {
+export default function BookingScheduler({ source = "book" }: { source?: string }) {
   const router = useRouter();
   const days = useMemo(() => nextWeekdays(10), []);
   const [dayIdx, setDayIdx] = useState<number | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const selectedDay = dayIdx !== null ? days[dayIdx] : null;
   const ready = selectedDay && slot && name.trim() && email.trim();
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!ready || submitting) return;
+    setSubmitting(true);
+    setError(null);
+
+    const date = `${DAY_NAMES[selectedDay!.getDay()]} ${selectedDay!.getDate()} ${MONTH_NAMES[selectedDay!.getMonth()]} ${selectedDay!.getFullYear()}`;
+
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "booking", source, name, email, date, time: slot }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      router.push("/thank-you");
+    } catch {
+      setError("Couldn't book that just now. Please try again, or email us directly.");
+      setSubmitting(false);
+    }
+  }
+
   return (
-    <form
-      className="space-y-6"
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!ready) return;
-        router.push("/thank-you");
-      }}
-    >
+    <form className="space-y-6" onSubmit={handleSubmit}>
       {/* Step 1 — pick a day */}
       <div>
         <div className="flex items-center gap-2 mb-3">
@@ -125,12 +142,18 @@ export default function BookingScheduler() {
         </div>
       )}
 
-      <button type="submit" className="btn btn-primary btn-lg w-full" disabled={!ready} style={{ opacity: ready ? 1 : 0.55, cursor: ready ? "pointer" : "not-allowed" }}>
-        {ready ? "Confirm booking" : "Pick a day and time"}
+      <button type="submit" className="btn btn-primary btn-lg w-full" disabled={!ready || submitting} style={{ opacity: ready && !submitting ? 1 : 0.55, cursor: ready && !submitting ? "pointer" : "not-allowed" }}>
+        {submitting ? "Booking…" : ready ? "Confirm booking" : "Pick a day and time"}
       </button>
-      <p className="text-xs text-center" style={{ color: "var(--color-brand-500)" }}>
-        You&apos;ll get a calendar invite by email. Need to reschedule? Just reply to it.
-      </p>
+      {error ? (
+        <p className="text-xs text-center" style={{ color: "#f87171" }}>
+          {error}
+        </p>
+      ) : (
+        <p className="text-xs text-center" style={{ color: "var(--color-brand-500)" }}>
+          You&apos;ll get a calendar invite by email. Need to reschedule? Just reply to it.
+        </p>
+      )}
     </form>
   );
 }

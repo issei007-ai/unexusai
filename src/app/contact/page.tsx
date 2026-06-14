@@ -34,7 +34,7 @@ export default function ContactPage() {
                 tell you what we&apos;d focus on first.
               </p>
               <div className="mb-4">
-                <BookingScheduler />
+                <BookingScheduler source="contact-book" />
               </div>
               <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>
                 You&apos;ll be speaking with Alex Carter, our Strategy Director.
@@ -44,28 +44,28 @@ export default function ContactPage() {
             {/* Message form */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
               <h2 className="text-h3 mb-5" style={{ fontFamily: "var(--font-display)" }}>Send us a message</h2>
-              <LeadForm submitLabel="Send message" note="We respond within one business day. No newsletters, no spam.">
+              <LeadForm source="contact" submitLabel="Send message" note="We respond within one business day. No newsletters, no spam.">
                 <div>
                   <label className="form-label">Name</label>
-                  <input className="form-input" type="text" placeholder="Your name" required />
+                  <input className="form-input" name="name" type="text" placeholder="Your name" required />
                 </div>
                 <div>
                   <label className="form-label">Email</label>
-                  <input className="form-input" type="email" placeholder="you@company.com" required />
+                  <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div>
                   <label className="form-label">Company</label>
-                  <input className="form-input" type="text" placeholder="Your company" />
+                  <input className="form-input" name="company" type="text" placeholder="Your company" />
                 </div>
                 <div>
                   <label className="form-label">What do you need?</label>
-                  <select className="form-select">
+                  <select className="form-select" name="need">
                     {NEEDS.map((opt) => <option key={opt}>{opt}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="form-label">Tell us more</label>
-                  <textarea className="form-textarea" placeholder="A bit about your business and what you're trying to achieve..." />
+                  <textarea className="form-textarea" name="message" placeholder="A bit about your business and what you're trying to achieve..." />
                 </div>
               </LeadForm>
             </div>

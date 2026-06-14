@@ -32,22 +32,22 @@ export default function AuditPage() {
           <div className="container" style={{ maxWidth: "34rem" }}>
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
               <h2 className="text-h3 mb-6" style={{ fontFamily: "var(--font-display)" }}>Request your free audit</h2>
-              <LeadForm submitLabel="Request my free audit" note="We review every submission personally. You'll hear from us within 48 hours.">
+              <LeadForm source="audit" submitLabel="Request my free audit" note="We review every submission personally. You'll hear from us within 48 hours.">
                 <div>
                   <label className="form-label">Name</label>
-                  <input className="form-input" type="text" placeholder="Your name" required />
+                  <input className="form-input" name="name" type="text" placeholder="Your name" required />
                 </div>
                 <div>
                   <label className="form-label">Email</label>
-                  <input className="form-input" type="email" placeholder="you@company.com" required />
+                  <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div>
                   <label className="form-label">Website URL</label>
-                  <input className="form-input" type="url" placeholder="https://yoursite.com" />
+                  <input className="form-input" name="website" type="url" placeholder="https://yoursite.com" />
                 </div>
                 <div>
                   <label className="form-label">What&apos;s your biggest challenge?</label>
-                  <select className="form-select">
+                  <select className="form-select" name="challenge">
                     {CHALLENGES.map((opt) => <option key={opt}>{opt}</option>)}
                   </select>
                 </div>
