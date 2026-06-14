@@ -124,7 +124,7 @@ export function leadsToCsv(rows: LeadRow[]): string {
   const lines = [headers.map(csvCell).join(",")];
   for (const r of rows) {
     const row = [
-      r.created_at,
+      toIso(r.created_at),
       r.type,
       r.source,
       r.name,
@@ -134,6 +134,11 @@ export function leadsToCsv(rows: LeadRow[]): string {
     lines.push(row.map(csvCell).join(","));
   }
   return lines.join("\r\n");
+}
+
+function toIso(value: unknown): string {
+  const d = new Date(value as string | number | Date);
+  return Number.isNaN(d.getTime()) ? String(value ?? "") : d.toISOString();
 }
 
 function csvCell(value: unknown): string {
