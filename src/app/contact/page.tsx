@@ -2,6 +2,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import LeadForm from "@/components/ui/LeadForm";
+import BookingScheduler from "@/components/ui/BookingScheduler";
 
 export const metadata = {
   title: "Contact — DigiExperts",
@@ -32,11 +33,8 @@ export default function ContactPage() {
                 Thirty minutes, no pitch deck. We&apos;ll take an honest look at where things stand and
                 tell you what we&apos;d focus on first.
               </p>
-              <div
-                className="rounded-xl flex items-center justify-center text-sm mb-4"
-                style={{ background: "var(--color-bg)", border: "1px dashed var(--color-border-bright)", height: 240, color: "var(--color-brand-500)" }}
-              >
-                Calendly embed
+              <div className="mb-4">
+                <BookingScheduler />
               </div>
               <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>
                 You&apos;ll be speaking with Alex Carter, our Strategy Director.

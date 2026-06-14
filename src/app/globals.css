@@ -769,6 +769,46 @@ body {
 .form-select { appearance: none; cursor: pointer; }
 .form-select option { background: var(--color-panel); color: #fff; }
 
+/* ─── BOOKING SCHEDULER ──────────────────────────────────────────────────── */
+
+.booking-step {
+  width: 22px; height: 22px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-accent-500), var(--color-glow));
+  color: #fff; font-size: 0.72rem; font-weight: 700;
+}
+.booking-day {
+  flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  width: 58px; padding: 0.55rem 0;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--color-border-bright);
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s;
+}
+.booking-day:hover { border-color: var(--color-accent-400); transform: translateY(-2px); }
+.booking-day[data-active="true"] {
+  background: linear-gradient(135deg, var(--color-accent-500), var(--color-glow));
+  border-color: transparent;
+}
+.booking-slot {
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--color-border-bright);
+  color: var(--color-brand-100);
+  font-size: 0.85rem; font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, color 0.18s;
+}
+.booking-slot:hover { border-color: var(--color-accent-400); }
+.booking-slot[data-active="true"] {
+  background: linear-gradient(135deg, var(--color-accent-500), var(--color-glow));
+  border-color: transparent; color: #fff;
+}
+
 /* ─── LONG-FORM PROSE (legal / blog) ─────────────────────────────────────── */
 
 .prose-dark { color: var(--color-brand-300); line-height: 1.8; font-size: 1rem; }

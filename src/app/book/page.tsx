@@ -2,6 +2,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import BookingScheduler from "@/components/ui/BookingScheduler";
 
 export const metadata = {
   title: "Book a Call — DigiExperts",
@@ -54,16 +55,10 @@ export default function BookPage() {
               </div>
             </ScrollReveal>
 
-            {/* Calendly placeholder */}
+            {/* Scheduler */}
             <ScrollReveal>
-              <div className="glow-card p-3" style={{ border: "1px solid var(--color-border)" }}>
-                <div
-                  className="rounded-xl flex flex-col items-center justify-center text-center gap-2"
-                  style={{ background: "var(--color-bg)", border: "1px dashed var(--color-border-bright)", height: 440, color: "var(--color-brand-500)" }}
-                >
-                  <span className="text-sm font-semibold" style={{ color: "var(--color-brand-300)" }}>Calendly embed</span>
-                  <span className="text-xs">Live scheduling goes here</span>
-                </div>
+              <div className="glow-card p-6 md:p-7" style={{ border: "1px solid var(--color-border)" }}>
+                <BookingScheduler />
               </div>
             </ScrollReveal>
           </div>
