@@ -84,9 +84,14 @@ export default function HomePage() {
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
                 Some of the teams we've worked with
               </p>
-              <Marquee speed={24}>
-                {CLIENTS.map((c, i) => (
-                  <ClientLogo key={c.name} client={c} index={i} size={48} />
+              <Marquee speed={26} gap="2.75rem">
+                {CLIENTS.filter((c) => c.logo).map((c, i) => (
+                  <div key={c.name} className="flex flex-col items-center gap-2.5 flex-shrink-0" style={{ width: 92 }}>
+                    <ClientLogo client={c} index={i} size={64} shape="circle" />
+                    <span className="text-center leading-tight" style={{ fontSize: "0.7rem", color: "var(--color-brand-400)" }}>
+                      {c.name}
+                    </span>
+                  </div>
                 ))}
               </Marquee>
             </div>

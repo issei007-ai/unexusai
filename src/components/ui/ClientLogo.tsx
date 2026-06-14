@@ -15,14 +15,16 @@ interface Props {
   index?: number;
   /** Tile size in px. */
   size?: number;
+  /** Tile shape. */
+  shape?: "rounded" | "circle";
 }
 
 /**
  * Renders a client's logo on a light tile, or a gradient monogram tile when no
  * logo file is available. Uniform tiles keep the wall consistent either way.
  */
-export default function ClientLogo({ client, index = 0, size = 80 }: Props) {
-  const radius = Math.round(size * 0.22);
+export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded" }: Props) {
+  const radius = shape === "circle" ? "50%" : Math.round(size * 0.22);
 
   if (client.logo) {
     return (
