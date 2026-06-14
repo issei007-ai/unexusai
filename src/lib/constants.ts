@@ -57,21 +57,21 @@ export const PROCESS_STEPS: ProcessStep[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote: "Our inbound leads nearly tripled in four months. What actually surprised me was how well the SEO and paid media people talked to each other — most agencies just don't do that.",
-    name: "Sarah M.",
-    role: "Marketing Director",
-    company: "Velocity SaaS",
+    name: "Marketing Director",
+    role: "B2B SaaS company",
+    company: "",
   },
   {
     quote: "They rebuilt our site and set up an agent that screens leads before they even land in our CRM. I genuinely don't know how we managed without it before.",
-    name: "Tom R.",
-    role: "CEO",
-    company: "Nexus AI",
+    name: "Founder & CEO",
+    role: "AI services firm",
+    company: "",
   },
   {
     quote: "The research phase alone was worth the call. It changed how we talk about our product, and our conversion rate had basically doubled by the time we checked again.",
-    name: "Priya K.",
-    role: "Founder",
-    company: "Orbit",
+    name: "Founder",
+    role: "D2C e-commerce brand",
+    company: "",
   },
 ];
 

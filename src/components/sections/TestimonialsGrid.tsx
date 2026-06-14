@@ -24,14 +24,14 @@ export default function TestimonialsGrid() {
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lead mt-4 max-w-md mx-auto">
-              A few words from people we&apos;ve actually worked with.
+              A few words from teams we&apos;ve worked with. Names withheld for confidentiality.
             </p>
           </ScrollReveal>
         </div>
 
         <div className="grid md:grid-cols-3 gap-5">
           {TESTIMONIALS.map((t, i) => (
-            <ScrollReveal key={t.name} delay={i * 0.12}>
+            <ScrollReveal key={t.quote} delay={i * 0.12}>
               <TiltCard intensity={5} className="h-full">
                 <div
                   className="glow-card h-full flex flex-col p-7 gap-5 relative overflow-hidden cursor-default"
@@ -74,7 +74,7 @@ export default function TestimonialsGrid() {
                     <div>
                       <div className="text-sm font-semibold text-white">{t.name}</div>
                       <div className="text-xs" style={{ color: "var(--color-brand-500)" }}>
-                        {t.role} · {t.company}
+                        {t.role}{t.company ? ` · ${t.company}` : ""}
                       </div>
                     </div>
                   </div>

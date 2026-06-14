@@ -6,16 +6,16 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
   title: "Case Studies — DigiExperts",
-  description: "What actually happened when we worked with these businesses — including the numbers.",
+  description: "What actually happened on a handful of projects — including the numbers. Client names withheld for confidentiality.",
 };
 
 const CASES = [
-  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "Velocity SaaS", blurb: "Their SEO and paid media were run by two agencies that had never spoken. We brought both under one plan, and the pipeline followed fairly quickly.", accent: "#6366f1", seed: "case-velocity" },
-  { tag: "AI", metric: "1,400h", label: "saved per year", company: "Nexus AI", blurb: "Built an AI agent that screens inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed", seed: "case-nexus" },
-  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "Orbit", blurb: "A round of customer interviews changed how they talked about the product entirely. Conversion rate had roughly doubled by the next quarter.", accent: "#f59e0b", seed: "case-orbit" },
-  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "Stratford", blurb: "We rebuilt the funnel and the website together. Leads got cheaper, and noticeably better quality too.", accent: "#06b6d4", seed: "case-stratford" },
-  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Ledgerline", blurb: "Their old site took over four seconds to load. A Next.js rebuild fixed that, and rankings and bounce rate both improved alongside it.", accent: "#10b981", seed: "case-ledger" },
-  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Caretrace", blurb: "Organic traffic was decent but going nowhere. GEO work plus an email sequence turned a good chunk of it into booked demos.", accent: "#ec4899", seed: "case-caretrace" },
+  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "B2B SaaS company", blurb: "Their SEO and paid media were run by two agencies that had never spoken. We brought both under one plan, and the pipeline followed fairly quickly.", accent: "#6366f1", seed: "case-velocity" },
+  { tag: "AI", metric: "1,400h", label: "saved per year", company: "AI services firm", blurb: "Built an AI agent that screens inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed", seed: "case-nexus" },
+  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "D2C e-commerce brand", blurb: "A round of customer interviews changed how they talked about the product entirely. Conversion rate had roughly doubled by the next quarter.", accent: "#f59e0b", seed: "case-orbit" },
+  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "B2B services company", blurb: "We rebuilt the funnel and the website together. Leads got cheaper, and noticeably better quality too.", accent: "#06b6d4", seed: "case-stratford" },
+  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Fintech startup", blurb: "Their old site took over four seconds to load. A Next.js rebuild fixed that, and rankings and bounce rate both improved alongside it.", accent: "#10b981", seed: "case-ledger" },
+  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Healthtech company", blurb: "Organic traffic was decent but going nowhere. GEO work plus an email sequence turned a good chunk of it into booked demos.", accent: "#ec4899", seed: "case-caretrace" },
 ];
 
 export default function CaseStudiesPage() {
@@ -26,7 +26,7 @@ export default function CaseStudiesPage() {
         <PageHero
           eyebrow="Case Studies"
           title="Results we're genuinely proud of"
-          subtitle="No vanity metrics. Here's what actually happened on a handful of projects, including the numbers that took longer than we'd hoped."
+          subtitle="No vanity metrics — just what actually happened on a handful of projects, including the numbers that took longer than we'd hoped. Client names withheld for confidentiality."
         >
           <a href="#contact" className="btn btn-primary btn-lg">Start your story</a>
         </PageHero>
@@ -35,7 +35,7 @@ export default function CaseStudiesPage() {
           <div className="container">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {CASES.map((c, i) => (
-                <ScrollReveal key={c.company} delay={(i % 3) * 0.08}>
+                <ScrollReveal key={c.seed} delay={(i % 3) * 0.08}>
                   <article
                     className="rounded-2xl overflow-hidden h-full flex flex-col group"
                     style={{ background: "var(--color-panel)", border: "1px solid var(--color-border)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}
