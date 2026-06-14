@@ -89,7 +89,7 @@ export default function HomePage() {
                   <div key={c.name} className="flex flex-col items-center gap-2.5 flex-shrink-0" style={{ width: 92 }}>
                     <ClientLogo client={c} index={i} size={64} shape="circle" />
                     <span className="text-center leading-tight" style={{ fontSize: "0.7rem", color: "var(--color-brand-400)" }}>
-                      {c.name}
+                      {c.short ?? c.name}
                     </span>
                   </div>
                 ))}

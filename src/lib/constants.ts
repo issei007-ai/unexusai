@@ -76,7 +76,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export type Client = { name: string; logo?: string };
+export type Client = { name: string; logo?: string; short?: string };
 
 // `logo` points to a file in /public/clients. Clients without a usable logo
 // fall back to a styled monogram (handled by the ClientLogo component).
@@ -96,7 +96,7 @@ export const CLIENTS: Client[] = [
   { name: "Café Chennai Delhi" },
   { name: "Rajwada Delhi" },
   { name: "Lilawati Vidya Mandir" },
-  { name: "Richies Laundry", logo: "/clients/richies.png" },
+  { name: "Richies Laundry", logo: "/clients/richies.png", short: "Richies" },
 ];
 
 export const TRUST_LOGOS = CLIENTS.map((c) => c.name);
