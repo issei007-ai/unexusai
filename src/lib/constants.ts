@@ -79,7 +79,7 @@ export const TRUST_LOGOS = ["Acme Corp", "Velocity", "Nexus AI", "Orbit", "Strat
 
 export const WHY_US = [
   { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },
-  { title: "We'll tell you when something's not working", desc: "If part of the plan isn't pulling its weight, we say so and change it — even if that means less billable work for us that month." },
+  { title: "We reply the same day, not next week", desc: "Most agencies take a week to answer a simple email. Message us and expect to hear back within a day — usually sooner." },
   { title: "One team, not five vendors", desc: "Your SEO person and your developer actually talk to each other. So does everyone else on the team." },
   { title: "You'll always know what's going on", desc: "A real update in Slack every week, a proper review every month, nothing hidden behind a login you never use." },
 ];
