@@ -8,17 +8,17 @@ import ClientLogo from "@/components/ui/ClientLogo";
 import { CLIENTS } from "@/lib/constants";
 
 export const metadata = {
-  title: "Clients — DigiExperts",
+  title: "Portfolio — DigiExperts",
   description: "Some of the brands and institutions we've worked with — from schools and D2C brands to enterprise tech.",
 };
 
-export default function ClientsPage() {
+export default function PortfolioPage() {
   return (
     <>
       <Nav />
       <main>
         <PageHero
-          eyebrow="Clients"
+          eyebrow="Portfolio"
           title="The teams we get to work with"
           subtitle="From schools and D2C brands to enterprise tech, here are some of the people who've trusted us with their growth."
         />

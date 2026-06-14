@@ -2,7 +2,7 @@ import type { NavLink, Service, Stat, ProcessStep, Testimonial } from "./types";
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },
-  { label: "Clients", href: "/clients" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },

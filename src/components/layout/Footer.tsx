@@ -11,7 +11,7 @@ const FOOTER_COLS = [
   ]},
   { title: "Company", links: [
     { label: "About", href: "/about" },
-    { label: "Clients", href: "/clients" },
+    { label: "Portfolio", href: "/portfolio" },
     { label: "Case Studies", href: "/case-studies" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
