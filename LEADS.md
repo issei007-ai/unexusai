@@ -24,6 +24,36 @@ independently and failures are logged server-side.
 | whatsapp  | Meta WhatsApp Cloud API| `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_TO` |
 | database  | Supabase               | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` |
 
+## WhatsApp: approved template (production)
+
+Meta only delivers free-form text inside a 24h window, so for reliable lead
+alerts create a **message template** in WhatsApp Manager → Message Templates:
+
+- **Name:** `new_lead` (or anything — match it to `WHATSAPP_TEMPLATE`)
+- **Category:** Utility
+- **Body:**
+  ```
+  New {{1}} from {{2}}.
+
+  {{3}}
+
+  Source: {{4}}
+  ```
+- **Sample values** (Meta asks for these on submit): `lead`, `Jane Doe`,
+  `Email: jane@acme.com · Company: Acme`, `audit`
+
+Once it's approved, set `WHATSAPP_TEMPLATE=new_lead` (and `WHATSAPP_TEMPLATE_LANG`
+if not `en`). The code fills the four variables in this exact order:
+`{{1}}` type · `{{2}}` name/email · `{{3}}` details · `{{4}}` source. Leave
+`WHATSAPP_TEMPLATE` blank to fall back to plain text for local testing.
+
+## Admin: viewing leads
+
+A protected dashboard lives at **`/admin/leads`**. Set `ADMIN_PASSWORD` to unlock
+it (leave it blank and the page stays locked). It reads straight from Supabase,
+so it shows data only when the database channel is configured. Sign-in sets an
+httpOnly cookie for 8 hours; there's a sign-out button.
+
 ## Supabase table
 
 Run this once in the Supabase SQL editor before enabling the database channel:
