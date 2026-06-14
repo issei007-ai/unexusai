@@ -10,12 +10,12 @@ export const metadata = {
 };
 
 const POSTS = [
-  { cat: "AI", title: "GEO is the new SEO: how to get cited by AI answers", excerpt: "Search is splitting in two. Here's how to stay visible when the answer engine, not the search engine, decides what people see.", date: "May 2026", read: "6 min", accent: "#7c3aed", seed: "richa-geo" },
-  { cat: "Paid Media", title: "Why your ROAS is lying to you (and what to track instead)", excerpt: "Return on ad spend is a seductive, incomplete metric. We break down the numbers that actually predict profitable growth.", date: "Apr 2026", read: "5 min", accent: "#6366f1", seed: "richa-roas" },
-  { cat: "Web", title: "The 0.9-second website: a performance checklist", excerpt: "A practical, copy-pasteable checklist we use to ship Next.js sites that load in under a second on mobile.", date: "Apr 2026", read: "8 min", accent: "#06b6d4", seed: "richa-web" },
-  { cat: "Automation", title: "We replaced a 12-hour weekly task with one AI agent", excerpt: "A teardown of a real lead-qualification agent: the architecture, the guardrails, and what broke before it worked.", date: "Mar 2026", read: "7 min", accent: "#10b981", seed: "richa-agent" },
-  { cat: "Research", title: "How to interview customers without leading them", excerpt: "The questions that surface real insight — and the well-meaning ones that quietly poison your research.", date: "Mar 2026", read: "6 min", accent: "#f59e0b", seed: "richa-research" },
-  { cat: "Strategy", title: "The compounding agency: why integrated beats best-in-class", excerpt: "Five specialist services working as one system outperform five disconnected vendors. Here's the math.", date: "Feb 2026", read: "5 min", accent: "#ec4899", seed: "richa-strategy" },
+  { cat: "AI", title: "GEO, explained without the hype", excerpt: "Search is slowly splitting into two: the engine that shows links, and the one that just answers the question for you. Here's what we're doing differently because of it.", date: "May 2026", read: "6 min", accent: "#7c3aed", seed: "richa-geo" },
+  { cat: "Paid Media", title: "Why your ROAS is lying to you (and what to track instead)", excerpt: "ROAS looks great on a slide and tells you almost nothing on its own. Here's what we actually look at with clients, and why.", date: "Apr 2026", read: "5 min", accent: "#6366f1", seed: "richa-roas" },
+  { cat: "Web", title: "The 0.9-second website: a performance checklist", excerpt: "The checklist we run through before launching any Next.js site. Copy it, steal it, ignore the bits that don't apply to you.", date: "Apr 2026", read: "8 min", accent: "#06b6d4", seed: "richa-web" },
+  { cat: "Automation", title: "We replaced a 12-hour weekly task with one AI agent", excerpt: "A teardown of a real lead-qualification agent: the architecture, the guardrails, and everything that broke before it actually worked.", date: "Mar 2026", read: "7 min", accent: "#10b981", seed: "richa-agent" },
+  { cat: "Research", title: "How to interview customers without leading them", excerpt: "The questions that surface something real, and the well-meaning ones that quietly poison the whole interview.", date: "Mar 2026", read: "6 min", accent: "#f59e0b", seed: "richa-research" },
+  { cat: "Strategy", title: "Why we stopped recommending 'best in class' for everything", excerpt: "Five specialists working as one team tends to beat five separate vendors who've never spoken. Here's the reasoning, with some actual numbers.", date: "Feb 2026", read: "5 min", accent: "#ec4899", seed: "richa-strategy" },
 ];
 
 export default function BlogPage() {
@@ -29,7 +29,7 @@ export default function BlogPage() {
         <PageHero
           eyebrow="Blog"
           title="Ideas, playbooks & field notes"
-          subtitle="What we're learning building growth systems for ambitious companies — written to be useful, not to game search engines."
+          subtitle="Notes on what's working, and what isn't, while we build this stuff for clients. Written because it's useful, not to rank for keywords."
         />
 
         <section className="section section-alt">
@@ -82,7 +82,7 @@ export default function BlogPage() {
           <div className="container">
             <div className="glow-card p-8 md:p-10 text-center mx-auto" style={{ border: "1px solid var(--color-border)", maxWidth: "40rem" }}>
               <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>Get the weekly playbook</h3>
-              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>One practical idea a week on growth, AI, and marketing. No fluff.</p>
+              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>One useful thing a week on growth, AI, and marketing. We try to keep it short.</p>
               <div className="mx-auto" style={{ maxWidth: "22rem" }}>
                 <LeadForm submitLabel="Subscribe" note="No spam. Unsubscribe anytime.">
                   <div>

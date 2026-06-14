@@ -24,7 +24,7 @@ export default function TestimonialsGrid() {
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lead mt-4 max-w-md mx-auto">
-              Real results from real businesses — no cherry-picked numbers.
+              A few words from people we&apos;ve actually worked with.
             </p>
           </ScrollReveal>
         </div>

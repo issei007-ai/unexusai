@@ -57,10 +57,11 @@ export default function WhyRicha() {
         <div className="text-center mb-14">
           <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
           <h2 className="text-h2 mb-4">
-            <RevealText3D text="Different by design" splitBy="word" />
+            <RevealText3D text="A few reasons people stick with us" splitBy="word" />
           </h2>
           <p className="text-lead max-w-xl mx-auto">
-            Five services, one team, and a way of working most agencies simply can&apos;t offer.
+            Five services under one roof, run by one team that actually talks to itself.
+            Sounds obvious. It&apos;s rarer than you&apos;d think.
           </p>
         </div>
 

@@ -16,12 +16,12 @@ export default function ProcessSteps() {
             <span className="badge badge-dark mb-5 inline-flex">Our process</span>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h2 className="text-h2 text-white mb-5">Strategy first. Always.</h2>
+            <h2 className="text-h2 text-white mb-5">We plan before we touch anything</h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lead max-w-xl mx-auto" style={{ color: "var(--color-brand-300)" }}>
-              We don&apos;t start building until we understand your business properly.
-              Every engagement begins with a deep discovery — then we move fast.
+              We won&apos;t start a campaign or write a line of code until we actually understand
+              your business. Once we do, things move quickly.
             </p>
           </ScrollReveal>
         </div>

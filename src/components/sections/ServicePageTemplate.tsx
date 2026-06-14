@@ -93,7 +93,7 @@ export default function ServicePageTemplate({
             <div className="mb-14 max-w-2xl">
               <span className="badge badge-accent mb-5 inline-flex">What&apos;s included</span>
               <h2 className="text-h2">
-                <RevealText3D text="Everything you need, run by specialists" splitBy="word" />
+                <RevealText3D text="Here's what's actually in scope" splitBy="word" />
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-5">
@@ -123,7 +123,7 @@ export default function ServicePageTemplate({
             <div className="text-center mb-14">
               <span className="badge badge-dark mb-5 inline-flex">How we work</span>
               <h2 className="text-h2">
-                <RevealText3D text="A clear path from brief to results" splitBy="word" />
+                <RevealText3D text="How a project usually goes" splitBy="word" />
               </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -156,9 +156,9 @@ export default function ServicePageTemplate({
               <div>
                 <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
                 <h2 className="text-h2 mb-4">
-                  <RevealText3D text="Why teams pick us for this" splitBy="word" />
+                  <RevealText3D text="Why people choose us for this" splitBy="word" />
                 </h2>
-                <p className="text-lead">We plug in fast, work transparently, and care about the number that matters: your growth.</p>
+                <p className="text-lead">We get up to speed quickly, we&apos;re straightforward about what&apos;s working and what isn&apos;t, and we care more about your results than our own report.</p>
               </div>
               <div className="space-y-4">
                 {whyUs.map((point, i) => (
@@ -191,7 +191,7 @@ export default function ServicePageTemplate({
 
         <ContactCTA
           heading="Ready to get started?"
-          body="Tell us what you need and we'll put together a proposal within 48 hours."
+          body="Tell us roughly what you need and we'll put together a proposal within 48 hours — no long back-and-forth before that."
           imageSeed="digiexperts-office"
         />
       </main>

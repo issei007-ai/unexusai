@@ -29,8 +29,8 @@ export default function ContactPage() {
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
               <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>Book a free 30-min strategy call</h2>
               <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>
-                No pitch. No pressure. We&apos;ll take an honest look at your current situation and tell you
-                exactly where we think the biggest opportunities are.
+                Thirty minutes, no pitch deck. We&apos;ll take an honest look at where things stand and
+                tell you what we&apos;d focus on first.
               </p>
               <div
                 className="rounded-xl flex items-center justify-center text-sm mb-4"

@@ -24,7 +24,7 @@ export default function AuditPage() {
         <PageHero
           eyebrow="✓ Free — no obligation"
           title="Get your free growth audit"
-          subtitle="We'll review your website, your SEO position, your ad performance, and your conversion funnel — then tell you exactly where the biggest wins are."
+          subtitle="We'll go through your website, SEO, ad performance, and conversion funnel, then tell you straight what we think is worth fixing first."
           pills={["Technical SEO analysis", "Conversion review", "Competitor benchmarking", "Opportunity report"]}
         />
 

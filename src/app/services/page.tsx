@@ -8,7 +8,7 @@ import { WHY_US } from "@/lib/constants";
 
 export const metadata = {
   title: "Services — DigiExperts",
-  description: "Digital marketing, website development, AI automation, AI training and market research — one integrated team.",
+  description: "Digital marketing, website development, AI automation, AI training and market research, run by one team.",
 };
 
 export default function ServicesPage() {
@@ -18,8 +18,8 @@ export default function ServicesPage() {
       <main>
         <PageHero
           eyebrow="Services"
-          title="Everything you need to grow online"
-          subtitle="Five services. One team. One strategy. Whether you need all of them or just one, everything connects."
+          title="Five services. One team that talks to itself."
+          subtitle="Take just one if that's all you need, or combine a few — they're built to work together if you ever want more."
         >
           <a href="#contact" className="btn btn-primary btn-lg">Book a Strategy Call</a>
           <a href="#contact" className="btn btn-secondary btn-lg">Get a Free Audit →</a>
@@ -32,7 +32,7 @@ export default function ServicesPage() {
           <div className="container">
             <div className="text-center mb-14">
               <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
-              <h2 className="text-h2">Different by design</h2>
+              <h2 className="text-h2">What working with us is actually like</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
               {WHY_US.map((item, i) => (
@@ -49,7 +49,7 @@ export default function ServicesPage() {
 
         <ContactCTA
           heading="Not sure where to start?"
-          body="Tell us about your business and we'll help you figure out which services will move the needle fastest."
+          body="Tell us a bit about your business and we'll help you work out where to start — it's often not the thing people expect."
           imageSeed="digiexperts-team"
         />
       </main>

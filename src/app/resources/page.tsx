@@ -10,12 +10,12 @@ export const metadata = {
 };
 
 const RESOURCES = [
-  { type: "Guide", title: "The 2026 AI Marketing Playbook", desc: "A 40-page field guide to using AI across your whole marketing stack — with prompts and workflows.", accent: "#7c3aed" },
-  { type: "Template", title: "Conversion audit checklist", desc: "The exact 60-point checklist we run on every site before recommending changes.", accent: "#6366f1" },
-  { type: "Template", title: "90-day SEO roadmap", desc: "A quarter-by-quarter plan to go from invisible to ranking — copy it into your own tools.", accent: "#10b981" },
-  { type: "Calculator", title: "ROAS & CAC calculator", desc: "Plug in your numbers and see what profitable growth actually looks like for your business.", accent: "#06b6d4" },
-  { type: "Guide", title: "Prompt library for marketers", desc: "100+ battle-tested prompts for copy, research, analysis, and ideation.", accent: "#f59e0b" },
-  { type: "Checklist", title: "Next.js launch checklist", desc: "Everything we verify before shipping a site: performance, SEO, accessibility, analytics.", accent: "#ec4899" },
+  { type: "Guide", title: "The 2026 AI Marketing Playbook", desc: "A 40-page guide to using AI across your marketing — the prompts and workflows we actually use, not theory.", accent: "#7c3aed" },
+  { type: "Template", title: "Conversion audit checklist", desc: "The 60-point checklist we go through on every site before suggesting any changes.", accent: "#6366f1" },
+  { type: "Template", title: "90-day SEO roadmap", desc: "A quarter-by-quarter plan for going from barely-ranking to actually ranking. Copy it into whatever tool you use.", accent: "#10b981" },
+  { type: "Calculator", title: "ROAS & CAC calculator", desc: "Put your numbers in and see what profitable growth would actually look like for your business.", accent: "#06b6d4" },
+  { type: "Guide", title: "Prompt library for marketers", desc: "Over 100 prompts we've tested for copy, research, analysis, and general idea-generation.", accent: "#f59e0b" },
+  { type: "Checklist", title: "Next.js launch checklist", desc: "Everything we check before a site goes live: performance, SEO, accessibility, analytics.", accent: "#ec4899" },
 ];
 
 export default function ResourcesPage() {
@@ -26,7 +26,7 @@ export default function ResourcesPage() {
         <PageHero
           eyebrow="Resources"
           title="Free tools, templates & guides"
-          subtitle="The same resources we use internally. Take them, use them, and grow — no strings attached."
+          subtitle="These are the actual resources we use day to day. Take whatever's useful — there's no catch."
         />
 
         <section className="section section-alt">
@@ -54,7 +54,7 @@ export default function ResourcesPage() {
             <div className="glow-card p-8 md:p-10 text-center mx-auto" style={{ border: "1px solid var(--color-border)", maxWidth: "40rem" }}>
               <span className="badge badge-accent mb-5 inline-flex">The full pack</span>
               <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>Get everything in one download</h3>
-              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>Drop your email and we&apos;ll send the entire resource pack, plus new ones as we publish them.</p>
+              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>Drop your email and we&apos;ll send the whole pack over, plus anything new as we publish it.</p>
               <div className="mx-auto" style={{ maxWidth: "22rem" }}>
                 <LeadForm submitLabel="Send me the pack" note="No spam. Unsubscribe anytime.">
                   <div>

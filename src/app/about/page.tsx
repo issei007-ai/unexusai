@@ -7,21 +7,21 @@ import RevealText3D from "@/components/ui/RevealText3D";
 
 export const metadata = {
   title: "About — DigiExperts",
-  description: "Built by marketers who got tired of bad agencies. Meet the team behind DigiExperts.",
+  description: "A bit about who we are, why we started DigiExperts, and the people doing the work.",
 };
 
 const VALUES = [
-  { title: "Honesty before comfort", desc: "We tell you what's actually happening, not what you want to hear. That's the only way to make real progress." },
-  { title: "Results over activity", desc: "Reports full of impressions and reach don't pay salaries. We care about pipeline, revenue, and retention." },
-  { title: "Specialists, not generalists", desc: "Every service has a dedicated lead. You'll never get a junior who Googled it this morning." },
-  { title: "Speed without sloppiness", desc: "We move quickly because markets don't wait. But we never ship something we're not proud of." },
+  { title: "We'll tell you the truth, even when it's awkward", desc: "If something isn't working, you'll hear it from us before you have to ask. It's the only way any of this actually gets better." },
+  { title: "Activity isn't the same as results", desc: "A report full of impressions doesn't pay anyone's bills. We care about pipeline, revenue, and whether people come back." },
+  { title: "Every service has someone who actually owns it", desc: "You won't get passed to whoever's free that week. Each area has a lead who's been doing this for years, not someone learning on your budget." },
+  { title: "Fast, but not rushed", desc: "We move quickly because markets don't sit still. But we'd rather push a deadline by a few days than ship something we're not happy with." },
 ];
 
 const TEAM = [
-  { name: "Alex Carter", role: "Founder & Strategy Director", bio: "Former head of growth at a Series B SaaS. Built and exited two startups.", color: "#6366f1", img: 12 },
-  { name: "Mia Patel", role: "Head of AI & Automation", bio: "Previously at a leading AI lab. Builds production AI systems for ambitious companies.", color: "#7c3aed", img: 5 },
-  { name: "James Okafor", role: "Head of Digital Marketing", bio: "10 years running paid and organic for scale-ups across SaaS and e-commerce.", color: "#06b6d4", img: 13 },
-  { name: "Lena Müller", role: "Lead Developer", bio: "Next.js specialist obsessed with performance, accessibility, and CRO.", color: "#10b981", img: 9 },
+  { name: "Alex Carter", role: "Founder & Strategy Director", bio: "Ran growth at a Series B SaaS company before this, and started (then sold) two of his own businesses along the way.", color: "#6366f1", img: 12 },
+  { name: "Mia Patel", role: "Head of AI & Automation", bio: "Spent a few years building AI systems at a research lab, then decided to build them for companies that actually need them.", color: "#7c3aed", img: 5 },
+  { name: "James Okafor", role: "Head of Digital Marketing", bio: "About a decade of running paid and organic campaigns for fast-growing companies, mostly in SaaS and e-commerce.", color: "#06b6d4", img: 13 },
+  { name: "Lena Müller", role: "Lead Developer", bio: "Builds in Next.js and cares more than is probably healthy about page speed and accessibility.", color: "#10b981", img: 9 },
 ];
 
 const STATS = [
@@ -38,8 +38,8 @@ export default function AboutPage() {
       <main>
         <PageHero
           eyebrow="About DigiExperts"
-          title="Built by marketers who got tired of bad agencies"
-          subtitle="DigiExperts exists because we kept seeing the same problem: brilliant businesses working with agencies that were too narrow, too slow, or too in love with vanity metrics. We started DigiExperts to do it differently."
+          title="We started this because most agencies frustrated us"
+          subtitle="We kept seeing the same thing: good businesses stuck with agencies that were too narrow, too slow, or way too proud of metrics that didn't actually mean anything. So a few of us left and built the thing we wished we could hire."
         />
 
         {/* Stats */}
@@ -65,13 +65,14 @@ export default function AboutPage() {
           <div className="container max-w-3xl">
             <span className="badge badge-accent mb-5 inline-flex">Our story</span>
             <h2 className="text-h2 mb-6">
-              <RevealText3D text="From a spare room to £24M in client revenue" splitBy="word" />
+              <RevealText3D text="From a spare room to here" splitBy="word" />
             </h2>
             <p className="text-lead">
-              We started in a spare room with three clients and a shared belief that marketing, technology,
-              and AI belong under one roof. Five years later, we&apos;ve worked with over 80 businesses across
-              SaaS, e-commerce, B2B, and professional services — generating more than £24M in attributed
-              revenue. We&apos;re still in the business of doing good work for people who take their growth seriously.
+              Five years ago this was three clients and a spare room, built on the idea that marketing, web,
+              and (a bit later) AI shouldn&apos;t be three separate jobs handled by three people who never speak.
+              Since then we&apos;ve worked with more than 80 businesses across SaaS, e-commerce, B2B, and
+              professional services, and helped them generate upwards of £24M along the way. The room&apos;s
+              bigger now. The idea hasn&apos;t really changed.
             </p>
           </div>
         </section>
@@ -138,8 +139,8 @@ export default function AboutPage() {
         </section>
 
         <ContactCTA
-          heading="Let's talk about your growth"
-          body="No templates. No account managers who've never run a campaign. Just direct access to specialists who care about your results."
+          heading="Want to work with us?"
+          body="No account manager standing between you and the people actually doing the work — just direct access to the team."
           imageSeed="digiexperts-workspace"
         />
       </main>

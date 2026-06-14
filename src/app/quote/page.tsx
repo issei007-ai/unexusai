@@ -14,9 +14,9 @@ const BUDGETS = ["Under £2k / mo", "£2k–£5k / mo", "£5k–£10k / mo", "£
 const TIMELINES = ["As soon as possible", "Within a month", "This quarter", "Just exploring"];
 
 const STEPS = [
-  { step: "01", title: "You send the brief", desc: "The form below is enough — we'll ask anything else we need." },
-  { step: "02", title: "We scope it properly", desc: "A clear proposal: deliverables, timeline, and a fixed price." },
-  { step: "03", title: "You get it in 48 hours", desc: "No drawn-out sales process. Read it, and decide in your own time." },
+  { step: "01", title: "Send us the brief", desc: "The form below covers most of it — we'll follow up if there's anything else we need." },
+  { step: "02", title: "We scope it properly", desc: "Deliverables, timeline, fixed price — written clearly enough that you won't need a call just to understand it." },
+  { step: "03", title: "You'll have it in 48 hours", desc: "Then it's over to you. No countdown, no 'this offer expires Friday'." },
 ];
 
 export default function QuotePage() {
@@ -27,7 +27,7 @@ export default function QuotePage() {
         <PageHero
           eyebrow="Get a Quote"
           title="Get a custom proposal in 48 hours"
-          subtitle="Tell us what you need. We'll come back with a clear scope, timeline, and price — no fluff, no drawn-out sales process."
+          subtitle="Tell us what you need and we'll come back with a clear scope, timeline, and price. We keep the sales process short, because honestly, nobody enjoys a long one."
         />
 
         <section className="section" style={{ paddingTop: "1rem" }}>

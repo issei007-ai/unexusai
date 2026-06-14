@@ -6,16 +6,16 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
   title: "Case Studies — DigiExperts",
-  description: "Real results from real businesses — no cherry-picked numbers.",
+  description: "What actually happened when we worked with these businesses — including the numbers.",
 };
 
 const CASES = [
-  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "Velocity SaaS", blurb: "We unified their SEO and paid media into one compounding growth engine — and the pipeline followed.", accent: "#6366f1", seed: "case-velocity" },
-  { tag: "AI", metric: "1,400h", label: "saved per year", company: "Nexus AI", blurb: "Built an AI agent that qualifies inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed", seed: "case-nexus" },
-  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "Orbit", blurb: "Deep customer research repositioned the brand. Conversion rate doubled within a quarter.", accent: "#f59e0b", seed: "case-orbit" },
-  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "Stratford", blurb: "We rebuilt the funnel and the website. Leads got cheaper, and noticeably better quality.", accent: "#06b6d4", seed: "case-stratford" },
-  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Ledgerline", blurb: "A Next.js rebuild fixed Core Web Vitals, lifted rankings, and cut bounce dramatically.", accent: "#10b981", seed: "case-ledger" },
-  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Caretrace", blurb: "GEO plus a lifecycle email engine turned passive organic traffic into booked demos.", accent: "#ec4899", seed: "case-caretrace" },
+  { tag: "SaaS", metric: "+280%", label: "inbound leads in 4 months", company: "Velocity SaaS", blurb: "Their SEO and paid media were run by two agencies that had never spoken. We brought both under one plan, and the pipeline followed fairly quickly.", accent: "#6366f1", seed: "case-velocity" },
+  { tag: "AI", metric: "1,400h", label: "saved per year", company: "Nexus AI", blurb: "Built an AI agent that screens inbound leads before they ever reach the sales team's CRM.", accent: "#7c3aed", seed: "case-nexus" },
+  { tag: "E-commerce", metric: "4.6x", label: "return on ad spend", company: "Orbit", blurb: "A round of customer interviews changed how they talked about the product entirely. Conversion rate had roughly doubled by the next quarter.", accent: "#f59e0b", seed: "case-orbit" },
+  { tag: "B2B", metric: "−41%", label: "cost per acquisition", company: "Stratford", blurb: "We rebuilt the funnel and the website together. Leads got cheaper, and noticeably better quality too.", accent: "#06b6d4", seed: "case-stratford" },
+  { tag: "Fintech", metric: "0.8s", label: "page load, down from 4.1s", company: "Ledgerline", blurb: "Their old site took over four seconds to load. A Next.js rebuild fixed that, and rankings and bounce rate both improved alongside it.", accent: "#10b981", seed: "case-ledger" },
+  { tag: "Healthtech", metric: "3.2x", label: "qualified demos", company: "Caretrace", blurb: "Organic traffic was decent but going nowhere. GEO work plus an email sequence turned a good chunk of it into booked demos.", accent: "#ec4899", seed: "case-caretrace" },
 ];
 
 export default function CaseStudiesPage() {
@@ -26,7 +26,7 @@ export default function CaseStudiesPage() {
         <PageHero
           eyebrow="Case Studies"
           title="Results we're genuinely proud of"
-          subtitle="No vanity metrics, no cherry-picking. Here's what happened when ambitious businesses gave us the keys."
+          subtitle="No vanity metrics. Here's what actually happened on a handful of projects, including the numbers that took longer than we'd hoped."
         >
           <a href="#contact" className="btn btn-primary btn-lg">Start your story</a>
         </PageHero>
@@ -63,7 +63,7 @@ export default function CaseStudiesPage() {
 
         <ContactCTA
           heading="Want to be the next case study?"
-          body="Tell us where you're stuck. We'll show you, specifically, how we'd fix it."
+          body="Tell us where things feel stuck right now, and we'll talk through specifically what we'd do about it."
           imageSeed="digiexperts-results"
         />
       </main>

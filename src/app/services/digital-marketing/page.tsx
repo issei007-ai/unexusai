@@ -2,7 +2,7 @@ import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
   title: "Digital Marketing — DigiExperts",
-  description: "SEO, GEO, paid media and lifecycle marketing that drives revenue, not just traffic.",
+  description: "SEO, GEO, paid media, and email — run as one plan instead of four separate ones.",
 };
 
 export default function DigitalMarketingPage() {
@@ -11,8 +11,8 @@ export default function DigitalMarketingPage() {
       num="01"
       accent="#6366f1"
       badge="Service 01 — Digital Marketing"
-      headline="Digital marketing that drives revenue, not just traffic"
-      body="Traffic is easy to buy. Customers are hard to earn. We build digital marketing strategies that reach the right people, convert them efficiently, and keep them coming back."
+      headline="Marketing that gets judged on revenue, not traffic"
+      body="Getting traffic is the easy part — you can just buy it. Getting the right people to become customers, and then stick around, is the part that actually takes work. That's where we spend our time."
       specialisms={["SEO", "GEO", "Paid Media", "Lifecycle & Email"]}
       outcomes={[
         { value: "312%", label: "Average lift in qualified leads" },
@@ -20,17 +20,17 @@ export default function DigitalMarketingPage() {
         { value: "−38%", label: "Cost per acquisition" },
       ]}
       subServices={[
-        { title: "Search Engine Optimisation", desc: "Rank for the searches that actually matter. Technical SEO, content strategy, and link building — with a focus on commercial intent." },
-        { title: "Generative Engine Optimisation", desc: "Get found in AI-generated answers, not just search results. GEO is the next frontier of organic visibility." },
-        { title: "Paid Media (PPC & Social)", desc: "Ads that pay for themselves — and then some. Google, Meta, and LinkedIn campaigns with full attribution." },
-        { title: "Lifecycle & Email Marketing", desc: "Turn one-time buyers into lifetime customers with automated sequences that nurture, convert, and retain." },
+        { title: "Search Engine Optimisation", desc: "We focus on the searches that lead to actual revenue, not just traffic for its own sake — technical fixes, content, and link building, prioritised by how likely someone is to buy." },
+        { title: "Generative Engine Optimisation", desc: "AI tools are starting to answer questions before anyone clicks a link. GEO is about making sure your business is part of that answer, not invisible to it." },
+        { title: "Paid Media (PPC & Social)", desc: "Google, Meta, and LinkedIn campaigns, run end to end — strategy, creative, targeting, and reporting that ties back to revenue, not just clicks." },
+        { title: "Lifecycle & Email Marketing", desc: "Most of an email list never buys again unless something nudges it to. We build the sequences that do that nudging on their own." },
       ]}
       faqs={[
-        { q: "How long before we see results from SEO?", a: "Meaningful organic results typically appear within 3–6 months. We set realistic expectations upfront and focus on quick wins alongside longer-term strategy." },
-        { q: "Do you manage ad spend as well as the strategy?", a: "Yes. We manage the full cycle: strategy, creative, targeting, bidding, and reporting. You approve the budget; we handle the rest." },
-        { q: "Can you work alongside our in-house marketing team?", a: "Absolutely. Many of our clients have in-house teams we collaborate with closely. We're flexible about how we plug in." },
-        { q: "What's your minimum contract length?", a: "We work on monthly rolling contracts. No lock-ins. We earn your business every month." },
-        { q: "Do you specialise in any particular industries?", a: "We have deep experience in SaaS, e-commerce, B2B, and professional services." },
+        { q: "How long before we see results from SEO?", a: "Realistically, 3 to 6 months before you see meaningful movement. We won't pretend it's faster than that — but we'll find some quicker wins to work on while the bigger stuff builds." },
+        { q: "Do you manage ad spend as well as the strategy?", a: "Yes — strategy, creative, targeting, bidding, and reporting, all of it. You set the budget and approve the plan; we handle the day-to-day." },
+        { q: "Can you work alongside our in-house marketing team?", a: "Often, yes. Plenty of our clients have their own marketing people and we just slot in alongside them, leading or supporting depending on what's useful." },
+        { q: "What's your minimum contract length?", a: "Month to month, no lock-ins. We'd rather earn the work every month than rely on a contract to keep you around." },
+        { q: "Do you specialise in any particular industries?", a: "Mostly SaaS, e-commerce, B2B, and professional services — that's where most of our experience sits, though we've worked outside those too." },
       ]}
     />
   );

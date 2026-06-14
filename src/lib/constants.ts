@@ -11,64 +11,64 @@ export const SERVICES: Service[] = [
   {
     num: "01",
     title: "Digital Marketing",
-    desc: "From ranking on Google to converting your email list, we run every channel with one goal: more of the right customers, at a lower cost.",
+    desc: "SEO, paid ads, email — the channels that actually bring people to your door, run as one joined-up plan instead of five agencies pulling in different directions.",
     href: "/services/digital-marketing",
   },
   {
     num: "02",
     title: "Website Development",
-    desc: "Your website is your best salesperson. We build fast, conversion-optimised sites in Next.js that actually close.",
+    desc: "We design and build sites in Next.js that load quickly, feel good to use, and are built around getting visitors to actually do something.",
     href: "/services/website-development",
   },
   {
     num: "03",
     title: "AI Automation",
-    desc: "We build AI agents, RAG pipelines, and voice systems that take repetitive work off your team's plate — permanently.",
+    desc: "Agents, RAG pipelines, voice bots — whatever fits. We look at the repetitive stuff eating your team's week and build something that takes it off their plate.",
     href: "/services/ai-automation",
   },
   {
     num: "04",
     title: "AI Training",
-    desc: "Your team has AI tools they're not using properly. We fix that with practical training, prompt engineering, and workflow design.",
+    desc: "Most teams have AI tools sitting half-used. We run practical, hands-on sessions so people actually know what to do with them day to day.",
     href: "/services/ai-training",
   },
   {
     num: "05",
     title: "Market Research",
-    desc: "Before you spend a pound on marketing, you need to know exactly who you're talking to. We find them and figure out what to say.",
+    desc: "Before you spend a penny on marketing, it helps to know exactly who you're talking to. We go and find out, then help you work out what to say.",
     href: "/services/market-research",
   },
 ];
 
 export const STATS: Stat[] = [
-  { value: "312%", label: "Average increase in qualified leads" },
-  { value: "£24M+", label: "Client revenue attributed to our work" },
-  { value: "98%", label: "Client retention rate year-on-year" },
-  { value: "48h", label: "Average time from brief to strategy" },
+  { value: "312%", label: "Average lift in qualified leads" },
+  { value: "£24M+", label: "Revenue we've helped clients generate" },
+  { value: "98%", label: "Clients who stick around year after year" },
+  { value: "48h", label: "From first chat to a working plan" },
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
-  { step: "01", title: "Discover", desc: "We audit your current position: traffic, conversion, tech stack, competitors, customer data." },
-  { step: "02", title: "Strategise", desc: "We build a growth plan specific to your business, not a template." },
-  { step: "03", title: "Build & Launch", desc: "Campaigns, automations, and builds go live with full tracking in place." },
-  { step: "04", title: "Optimise & Grow", desc: "We report weekly, iterate monthly, and compound results over time." },
+  { step: "01", title: "Discover", desc: "We start by looking at where things actually stand — traffic, conversion, tech, competitors, whatever data you've already got." },
+  { step: "02", title: "Plan", desc: "Then we put together a plan built around your business, not a template we run for everyone who walks in." },
+  { step: "03", title: "Build & Launch", desc: "Campaigns, automations, new pages — they go live with proper tracking switched on from the start, not bolted on after." },
+  { step: "04", title: "Improve", desc: "We check in weekly, tweak things monthly, and keep building on whatever's actually moving the needle." },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "DigiExperts increased our inbound leads by 280% in four months. The SEO and paid media teams worked together like one unit — we'd never seen that before.",
+    quote: "Our inbound leads nearly tripled in four months. What actually surprised me was how well the SEO and paid media people talked to each other — most agencies just don't do that.",
     name: "Sarah M.",
     role: "Marketing Director",
     company: "Velocity SaaS",
   },
   {
-    quote: "They built our new site and set up an AI agent that qualifies leads before they hit our CRM. I genuinely don't know how we managed without it.",
+    quote: "They rebuilt our site and set up an agent that screens leads before they even land in our CRM. I genuinely don't know how we managed without it before.",
     name: "Tom R.",
     role: "CEO",
     company: "Nexus AI",
   },
   {
-    quote: "The market research they did changed how we talk about our product entirely. Three months later, our conversion rate doubled.",
+    quote: "The research phase alone was worth the call. It changed how we talk about our product, and our conversion rate had basically doubled by the time we checked again.",
     name: "Priya K.",
     role: "Founder",
     company: "Orbit",
@@ -78,8 +78,8 @@ export const TESTIMONIALS: Testimonial[] = [
 export const TRUST_LOGOS = ["Acme Corp", "Velocity", "Nexus AI", "Orbit", "Stratford"];
 
 export const WHY_US = [
-  { title: "No lock-in contracts", desc: "Monthly rolling engagements. We earn your business every month." },
-  { title: "AI-native by default", desc: "AI isn't a bolt-on for us — it's built into how we research, build, and run every campaign." },
-  { title: "Integrated, not siloed", desc: "Your SEO team talks to your dev team. Your paid media team talks to your AI team. Always." },
-  { title: "Transparent reporting", desc: "Weekly Slack updates. Monthly performance reviews. No black boxes." },
+  { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },
+  { title: "AI is part of how we work, not a pitch", desc: "We use it in research, in builds, in the day-to-day — not as a buzzword we add to a proposal." },
+  { title: "One team, not five vendors", desc: "Your SEO person and your developer actually talk to each other. So does everyone else on the team." },
+  { title: "You'll always know what's going on", desc: "A real update in Slack every week, a proper review every month, nothing hidden behind a login you never use." },
 ];

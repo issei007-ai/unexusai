@@ -5,8 +5,8 @@ import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
-  title: "DigiExperts — AI-Native Digital Agency",
-  description: "Digital marketing, AI automation, and high-performance web development for ambitious businesses.",
+  title: "DigiExperts — Digital Marketing, Web & AI",
+  description: "Digital marketing, AI automation, and fast websites — run by one team that actually talks to itself.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

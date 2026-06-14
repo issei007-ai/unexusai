@@ -9,10 +9,10 @@ export const metadata = {
 };
 
 const EXPECT = [
-  "An honest read on where you are today",
-  "The 2–3 highest-leverage opportunities we see",
-  "A rough sense of timeline and investment",
-  "Zero pressure — leave with value either way",
+  "An honest read on where things stand today",
+  "The two or three things we'd tackle first",
+  "A rough idea of timeline and cost",
+  "No pressure to book anything afterwards",
 ];
 
 export default function BookPage() {
@@ -24,7 +24,7 @@ export default function BookPage() {
           align="center"
           eyebrow="Book a Call"
           title="Book a free 30-minute strategy call"
-          subtitle="No pitch, no pressure — just an honest look at where you are and where you could be."
+          subtitle="Thirty minutes, no pitch deck — just an honest look at where things are and where they could be."
         />
 
         <section className="section" style={{ paddingTop: "1rem" }}>

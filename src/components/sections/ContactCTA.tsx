@@ -3,7 +3,7 @@ import RevealText3D from "@/components/ui/RevealText3D";
 import { SERVICES } from "@/lib/constants";
 
 const NEEDS = [...SERVICES.map((s) => s.title), "Not sure yet"];
-const POINTS = ["Free 30-minute strategy call", "A real response within 24 hours", "No lock-in, no pressure"];
+const POINTS = ["A free 30-minute call to start", "A real reply within 24 hours", "No contracts, no pressure"];
 
 interface Props {
   heading?: string;
@@ -17,8 +17,8 @@ interface Props {
  * navigating to a separate form page.
  */
 export default function ContactCTA({
-  heading = "Let's talk about your growth",
-  body = "Tell us where you are and where you want to be. We'll show you, specifically, how we'd get you there — no pitch, no pressure.",
+  heading = "Got a project in mind?",
+  body = "Tell us a bit about where you are and where you'd like to get to. We'll come back with specific ideas, not a generic pitch.",
   imageSeed = "digiexperts-studio",
 }: Props) {
   return (

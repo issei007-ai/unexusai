@@ -61,7 +61,7 @@ export default function Footer() {
               digiexperts<span style={{ color:"var(--color-accent-400)" }}>.</span>
             </a>
             <p className="text-sm leading-relaxed" style={{ color:"var(--color-brand-500)" }}>
-              AI-native digital agency helping ambitious businesses grow faster.
+              Digital marketing, web development, and AI — run by one team that actually talks to itself.
             </p>
           </ScrollReveal>
 

@@ -44,7 +44,7 @@ export default function HomePage() {
                 <div className="flex justify-center mb-8">
                   <span className="feature-pill">
                     <span className="dot" />
-                    AI-Native Digital Agency — Now accepting new clients
+                    Marketing, web & AI under one roof — currently taking on new clients
                   </span>
                 </div>
               </ScrollReveal>
@@ -59,8 +59,8 @@ export default function HomePage() {
               {/* Sub */}
               <ScrollReveal delay={0.2} direction="up">
                 <p className="text-lead text-center max-w-2xl mx-auto mb-12">
-                  Most agencies pick a lane — SEO or ads or AI or web. We do all of it,
-                  and we make them work together. The result? Growth that compounds.
+                  Most agencies stick to one lane — SEO, or ads, or web, or AI. We do all four
+                  under one roof, and we make sure they actually talk to each other.
                 </p>
               </ScrollReveal>
 
@@ -81,7 +81,7 @@ export default function HomePage() {
             {/* Trust marquee */}
             <div className="mt-20 pt-10" style={{ borderTop:"1px solid rgba(255,255,255,0.07)" }}>
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
-                Trusted by ambitious brands
+                Some of the teams we've worked with
               </p>
               <Marquee speed={24}>
                 {TRUST_LOGOS.map((name) => (
