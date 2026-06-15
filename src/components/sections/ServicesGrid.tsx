@@ -56,7 +56,15 @@ const BENTO_CONFIG = [
   { colClass: "bento-half",   minHeight: "210px" },
 ];
 
-export default function ServicesGrid() {
+interface Props {
+  heading?: string;
+  intro?: string;
+}
+
+export default function ServicesGrid({
+  heading = "Six services. One team. Built to work together.",
+  intro = "Each service is powerful on its own. The real difference is when they connect — your SEO feeds your content, your website converts what your ads bring in, your AI tools make it all faster.",
+}: Props = {}) {
   return (
     <section className="section relative overflow-hidden" style={{ background: "var(--color-surface)" }}>
       <div className="absolute inset-0 bg-grid" style={{ opacity: 0.4 }} />
@@ -70,12 +78,11 @@ export default function ServicesGrid() {
           </ScrollReveal>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <h2 className="text-h2" style={{ maxWidth: "30rem" }}>
-              <RevealText3D text="Six services. One team. Built to work together." splitBy="word" stagger={0.05} />
+              <RevealText3D text={heading} splitBy="word" stagger={0.05} />
             </h2>
             <ScrollReveal delay={0.2} direction="left">
               <p className="text-lead" style={{ maxWidth: "28rem" }}>
-                Each service is powerful on its own. The real difference is when they connect — your SEO feeds
-                your content, your website converts what your ads bring in, your AI tools make it all faster.
+                {intro}
               </p>
             </ScrollReveal>
           </div>

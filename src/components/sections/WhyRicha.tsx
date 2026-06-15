@@ -60,12 +60,12 @@ export default function WhyRicha() {
             <RevealText3D text="A few reasons people stick with us" splitBy="word" />
           </h2>
           <p className="text-lead max-w-xl mx-auto">
-            Five services under one roof, run by one team that actually talks to itself.
+            Six services under one roof, run by one team that actually talks to itself.
             Sounds obvious. It&apos;s rarer than you&apos;d think.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {WHY_US.map((item, i) => {
             const m = META[i % META.length];
             return (

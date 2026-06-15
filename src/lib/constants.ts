@@ -16,37 +16,37 @@ export const SERVICES: Service[] = [
   {
     num: "01",
     title: "Digital Marketing",
-    desc: "SEO, paid ads, and email — run as one joined-up plan. More visibility, more pipeline, less wasted spend.",
+    desc: "SEO, paid ads, and email — run as one joined-up system, not three separate jobs.",
     href: "/services/digital-marketing",
   },
   {
     num: "02",
     title: "Website Development",
-    desc: "Fast, conversion-focused websites built in Next.js. Designed to turn visitors into leads — not just look good.",
+    desc: "Fast, conversion-focused websites built to turn visitors into leads — not just look good.",
     href: "/services/website-development",
   },
   {
     num: "03",
     title: "AI Automation",
-    desc: "We find the repetitive work eating your team's week and build AI agents that take it off their plate — permanently.",
+    desc: "We find the repetitive work eating your team's week and build AI that takes it off their plate — permanently.",
     href: "/services/ai-automation",
   },
   {
     num: "04",
     title: "AI Training",
-    desc: "Practical, hands-on sessions so your team actually knows what to do with AI tools — not just that they exist.",
+    desc: "Practical, hands-on sessions so your team actually uses AI tools — not just knows they exist.",
     href: "/services/ai-training",
   },
   {
     num: "05",
     title: "Market Research",
-    desc: "Before you spend a penny on marketing, know exactly who you're talking to, what they want, and how to reach them.",
+    desc: "Know exactly who you're talking to, what they want, and how to reach them — before you spend a penny on marketing.",
     href: "/services/market-research",
   },
   {
     num: "06",
     title: "GEO — Generative Engine Optimization",
-    desc: "Your customers are now getting answers from ChatGPT, Perplexity, and Gemini — not just Google. We make sure your business shows up there too.",
+    desc: "Get your business recommended by ChatGPT, Perplexity, and Gemini — not just found on Google.",
     href: "/services/geo",
     isNew: true,
   },
@@ -119,8 +119,9 @@ export const CLIENTS: Client[] = [
 export const TRUST_LOGOS = CLIENTS.map((c) => c.name);
 
 export const WHY_US = [
-  { title: "Nothing's locked in", desc: "We work month to month. If it's not working for you, you're free to go — though most people stick around." },
-  { title: "We reply the same day, not next week", desc: "Most agencies take a week to answer a simple email. Message us and expect to hear back within a day — usually sooner." },
-  { title: "One team, not five vendors", desc: "Your SEO person and your developer actually talk to each other. So does everyone else on the team." },
-  { title: "You'll always know what's going on", desc: "A real update in Slack every week, a proper review every month, nothing hidden behind a login you never use." },
+  { title: "One team across everything", desc: "Your SEO, your website, your AI tools, and your paid ads are all handled by the same team — so nothing falls through the gap between vendors." },
+  { title: "Built for the UAE and beyond", desc: "We understand the Middle East market — consumer behaviour, platform preferences, local compliance, and what actually works here. You won't be explaining your market to us." },
+  { title: "GEO-ready before your competitors are", desc: "We're one of the very few agencies in the UAE offering Generative Engine Optimisation — helping businesses show up in ChatGPT, Perplexity, and Gemini answers, not just Google." },
+  { title: "No lock-in, no hiding", desc: "Month to month. A real update every week. A live dashboard you can check anytime. We'd rather earn your business every month than hold you to a contract." },
+  { title: "We talk in revenue, not reports", desc: "Every service we run is measured on what it produces for your business — leads, bookings, sales — not impressions or follower counts." },
 ];

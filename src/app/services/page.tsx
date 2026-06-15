@@ -18,14 +18,17 @@ export default function ServicesPage() {
       <main>
         <PageHero
           eyebrow="Services"
-          title="Five services. One team that talks to itself."
-          subtitle="Take just one if that's all you need, or combine a few — they're built to work together if you ever want more."
+          title="Six services. Every growth lever your business needs."
+          subtitle="Take one service or combine several — they're built to connect. The more they work together, the more your results compound. All delivered by one team in the UAE, serving businesses across the Middle East, India, and beyond."
         >
-          <a href="#contact" className="btn btn-primary btn-lg">Book a Strategy Call</a>
-          <a href="#contact" className="btn btn-secondary btn-lg">Get a Free Audit →</a>
+          <a href="/book" className="btn btn-primary btn-lg">Book a Strategy Call</a>
+          <a href="#contact" className="btn btn-secondary btn-lg">Book a Free Consultation →</a>
         </PageHero>
 
-        <ServicesGrid />
+        <ServicesGrid
+          heading="Six services. Built to work together."
+          intro="SEO without a website built for conversion is wasted. Paid ads without proper tracking is guesswork. AI tools without trained people are just subscriptions. We build all six services to connect — so your growth compounds instead of leaking through the gaps."
+        />
 
         {/* Why Unexus AI */}
         <section className="section section-alt">
@@ -34,7 +37,7 @@ export default function ServicesPage() {
               <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
               <h2 className="text-h2">What working with us is actually like</h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {WHY_US.map((item, i) => (
                 <ScrollReveal key={item.title} delay={i * 0.08}>
                   <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
