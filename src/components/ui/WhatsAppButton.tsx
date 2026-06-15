@@ -74,10 +74,7 @@ export default function WhatsAppButton() {
             <input className="form-input" type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required style={{ fontSize: "0.85rem", padding: "0.55rem 0.75rem" }} />
             <input className="form-input" type="tel" placeholder="Phone (optional)" value={phone} onChange={(e) => setPhone(e.target.value)} style={{ fontSize: "0.85rem", padding: "0.55rem 0.75rem" }} />
             <input className="form-input" type="text" placeholder="What's it about? (optional)" value={topic} onChange={(e) => setTopic(e.target.value)} style={{ fontSize: "0.85rem", padding: "0.55rem 0.75rem" }} />
-            <button type="submit" disabled={submitting} className="w-full" style={{
-              background: "#25D366", color: "#fff", fontWeight: 600, fontSize: "0.85rem",
-              borderRadius: 10, padding: "0.6rem", opacity: submitting ? 0.7 : 1,
-            }}>
+            <button type="submit" disabled={submitting} className="btn btn-primary w-full" style={{ fontSize: "0.85rem", opacity: submitting ? 0.7 : 1 }}>
               {submitting ? "Opening…" : "Start WhatsApp chat"}
             </button>
           </form>
@@ -89,9 +86,10 @@ export default function WhatsAppButton() {
         onClick={() => setOpen((v) => !v)}
         aria-label="Chat with us on WhatsApp"
         style={{
-          width: 56, height: 56, borderRadius: "50%", background: "#25D366",
+          width: 56, height: 56, borderRadius: "50%",
+          background: "linear-gradient(135deg, var(--color-accent-500), var(--color-glow))",
           display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: "0 8px 24px rgba(37,211,102,0.4)", cursor: "pointer",
+          boxShadow: "0 8px 28px rgba(124,58,237,0.45)", cursor: "pointer",
         }}
       >
         <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
