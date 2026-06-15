@@ -38,6 +38,15 @@ interface Props {
   specialisms: string[];
   primaryCta?: Cta;
   secondaryCta?: Cta;
+  heroNote?: string;
+  comparison?: {
+    heading: string;
+    intro: string;
+    query: string;
+    without: string;
+    with: string;
+    footnote: string;
+  };
   outcomes?: Outcome[];
   audience?: Audience[];
   audienceTitle?: string;
@@ -63,6 +72,8 @@ export default function ServicePageTemplate({
   specialisms,
   primaryCta = { label: "Get a Custom Quote", href: "#contact" },
   secondaryCta = { label: "Book a Call →", href: "#contact" },
+  heroNote,
+  comparison,
   outcomes,
   audience,
   audienceTitle = "Who this is for",
@@ -87,6 +98,45 @@ export default function ServicePageTemplate({
           <a href={primaryCta.href} className="btn btn-primary btn-lg">{primaryCta.label}</a>
           <a href={secondaryCta.href} className="btn btn-secondary btn-lg">{secondaryCta.label}</a>
         </PageHero>
+
+        {/* Hero note */}
+        {heroNote && (
+          <section style={{ paddingTop: "1.5rem" }}>
+            <div className="container max-w-3xl">
+              <div className="rounded-xl px-5 py-4 text-center text-sm" style={{ background: `${accent}14`, border: `1px solid ${accent}40`, color: "var(--color-brand-100)" }}>
+                {heroNote}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Comparison (e.g. With/Without GEO) */}
+        {comparison && (
+          <section className="section">
+            <div className="container">
+              <div className="text-center mb-12 max-w-2xl mx-auto">
+                <span className="badge badge-dark mb-5 inline-flex">What is GEO</span>
+                <h2 className="text-h2 mb-4">
+                  <RevealText3D text={comparison.heading} splitBy="word" />
+                </h2>
+                <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{comparison.intro}</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+                <div className="glow-card h-full p-7" style={{ border: "1px solid var(--color-border)" }}>
+                  <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "#f87171" }}>Without GEO</span>
+                  <p className="mt-3 mb-3 text-white" style={{ fontWeight: 600 }}>&ldquo;{comparison.query}&rdquo;</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{comparison.without}</p>
+                </div>
+                <div className="glow-card h-full p-7" style={{ border: `1px solid ${accent}55`, boxShadow: `0 0 0 1px ${accent}33` }}>
+                  <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: accent }}>With GEO</span>
+                  <p className="mt-3 mb-3 text-white" style={{ fontWeight: 600 }}>&ldquo;{comparison.query}&rdquo;</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-200)" }}>{comparison.with}</p>
+                </div>
+              </div>
+              <p className="text-center mt-8 max-w-3xl mx-auto leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{comparison.footnote}</p>
+            </div>
+          </section>
+        )}
 
         {/* Outcomes */}
         {outcomes && outcomes.length > 0 && (
