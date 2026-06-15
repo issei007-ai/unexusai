@@ -2,6 +2,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import ContactCTA from "@/components/sections/ContactCTA";
 import WhyRicha from "@/components/sections/WhyRicha";
+import IndustriesSection from "@/components/sections/IndustriesSection";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import TestimonialsGrid from "@/components/sections/TestimonialsGrid";
@@ -104,6 +105,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        <IndustriesSection />
         <WhyRicha />
         <ServicesGrid />
         <ProcessSteps />
