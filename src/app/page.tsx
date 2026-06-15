@@ -52,7 +52,7 @@ export default function HomePage() {
 
               {/* Headline — 3D flip-in reveal */}
               <h1 className="text-hero text-center mb-6">
-                <RevealText3D text="Grow faster with" splitBy="char" stagger={0.03} delay={0.05} />
+                <RevealText3D text="You're spending on marketing" splitBy="char" stagger={0.02} delay={0.05} />
                 <br />
                 <TypingText />
               </h1>
@@ -60,19 +60,19 @@ export default function HomePage() {
               {/* Sub */}
               <ScrollReveal delay={0.2} direction="up">
                 <p className="text-lead text-center max-w-2xl mx-auto mb-12">
-                  Most agencies stick to one lane — SEO, or ads, or web, or AI. We do all four
-                  under one roof, and we make sure they actually talk to each other.
+                  We fix that — with Marketing, GEO, Google Ads, Meta Ads and website development
+                  built to work together, for businesses across UAE, India, and beyond.
                 </p>
               </ScrollReveal>
 
               {/* CTAs */}
               <ScrollReveal delay={0.3} direction="up">
                 <div className="flex flex-wrap items-center justify-center gap-5 mb-20">
-                  <MagneticButton href="#contact" className="btn btn-primary btn-lg" strength={0.3}>
-                    Get a Free Audit
+                  <MagneticButton href="/book" className="btn btn-primary btn-lg" strength={0.3}>
+                    Book Free Consultation
                   </MagneticButton>
                   <MagneticButton href="#contact" className="btn btn-secondary btn-lg" strength={0.3}>
-                    Book a Call →
+                    Book Free Call →
                   </MagneticButton>
                 </div>
               </ScrollReveal>

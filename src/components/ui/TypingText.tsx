@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react";
 
 const WORDS = [
-  "intelligent marketing",
-  "AI automation",
-  "compound growth",
-  "real results",
+  "You're not seeing it in revenue",
+  "You're not getting enough leads",
+  "You're not showing up on AI search",
 ];
 
 export default function TypingText() {
