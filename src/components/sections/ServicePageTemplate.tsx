@@ -10,6 +10,7 @@ import { PROCESS_STEPS, WHY_US } from "@/lib/constants";
 interface SubService {
   title: string;
   desc: string;
+  points?: string[];
 }
 interface Outcome {
   value: string;
@@ -19,6 +20,14 @@ interface Step {
   title: string;
   desc: string;
 }
+interface Audience {
+  title: string;
+  desc: string;
+}
+interface Cta {
+  label: string;
+  href: string;
+}
 
 interface Props {
   num: string;
@@ -27,33 +36,52 @@ interface Props {
   headline: string;
   body: string;
   specialisms: string[];
+  primaryCta?: Cta;
+  secondaryCta?: Cta;
   outcomes?: Outcome[];
+  audience?: Audience[];
+  audienceTitle?: string;
+  audienceIntro?: string;
+  includedTitle?: string;
+  includedIntro?: string;
   subServices: SubService[];
   approach?: Step[];
+  approachTitle?: string;
   whyUs?: string[];
   faqs: { q: string; a: string }[];
+  faqIntro?: string;
+  closing?: string;
 }
 
 export default function ServicePageTemplate({
-  num,
   accent,
   badge,
   headline,
   body,
   specialisms,
+  primaryCta = { label: "Get a Custom Quote", href: "#contact" },
+  secondaryCta = { label: "Book a Call →", href: "#contact" },
   outcomes,
+  audience,
+  audienceTitle = "Who this is for",
+  audienceIntro,
+  includedTitle = "Here's what's actually in scope",
+  includedIntro,
   subServices,
   approach = PROCESS_STEPS.map((s) => ({ title: s.title, desc: s.desc })),
+  approachTitle = "How a project usually goes",
   whyUs = WHY_US.map((w) => w.title),
   faqs,
+  faqIntro,
+  closing,
 }: Props) {
   return (
     <>
       <Nav />
       <main>
         <PageHero eyebrow={badge} title={headline} subtitle={body} pills={specialisms} accent={accent}>
-          <a href="#contact" className="btn btn-primary btn-lg">Get a Custom Quote</a>
-          <a href="#contact" className="btn btn-secondary btn-lg">Book a Call →</a>
+          <a href={primaryCta.href} className="btn btn-primary btn-lg">{primaryCta.label}</a>
+          <a href={secondaryCta.href} className="btn btn-secondary btn-lg">{secondaryCta.label}</a>
         </PageHero>
 
         {/* Outcomes */}
@@ -86,15 +114,45 @@ export default function ServicePageTemplate({
           </section>
         )}
 
+        {/* Who this is for */}
+        {audience && audience.length > 0 && (
+          <section className="section relative overflow-hidden">
+            <div className="absolute inset-0 bg-dots" style={{ opacity: 0.2 }} />
+            <div className="container relative z-10">
+              <div className="mb-12 max-w-2xl">
+                <span className="badge badge-dark mb-5 inline-flex">Who this is for</span>
+                <h2 className="text-h2 mb-4">
+                  <RevealText3D text={audienceTitle} splitBy="word" />
+                </h2>
+                {audienceIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{audienceIntro}</p>}
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {audience.map((a, i) => (
+                  <ScrollReveal key={a.title} delay={(i % 3) * 0.07}>
+                    <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <span style={{ width: 8, height: 8, borderRadius: "50%", background: accent, flexShrink: 0 }} />
+                        <h3 className="font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>{a.title}</h3>
+                      </div>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{a.desc}</p>
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* What's included */}
-        <section className="section relative overflow-hidden">
+        <section className="section section-alt relative overflow-hidden">
           <div className="absolute inset-0 bg-grid" style={{ opacity: 0.18 }} />
           <div className="container relative z-10">
             <div className="mb-14 max-w-2xl">
               <span className="badge badge-accent mb-5 inline-flex">What&apos;s included</span>
-              <h2 className="text-h2">
-                <RevealText3D text="Here's what's actually in scope" splitBy="word" />
+              <h2 className="text-h2 mb-4">
+                <RevealText3D text={includedTitle} splitBy="word" />
               </h2>
+              {includedIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{includedIntro}</p>}
             </div>
             <div className="grid md:grid-cols-2 gap-5">
               {subServices.map((sub, i) => (
@@ -108,6 +166,18 @@ export default function ServicePageTemplate({
                       <div>
                         <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>{sub.title}</h3>
                         <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{sub.desc}</p>
+                        {sub.points && sub.points.length > 0 && (
+                          <ul className="mt-4 space-y-2">
+                            {sub.points.map((pt) => (
+                              <li key={pt} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-brand-200)" }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 3 }}>
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                {pt}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -118,12 +188,12 @@ export default function ServicePageTemplate({
         </section>
 
         {/* Approach */}
-        <section className="section section-alt">
+        <section className="section">
           <div className="container">
-            <div className="text-center mb-14">
-              <span className="badge badge-dark mb-5 inline-flex">How we work</span>
+            <div className="text-center mb-14 max-w-2xl mx-auto">
+              <span className="badge badge-dark mb-5 inline-flex">How it works</span>
               <h2 className="text-h2">
-                <RevealText3D text="How a project usually goes" splitBy="word" />
+                <RevealText3D text={approachTitle} splitBy="word" />
               </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -140,7 +210,7 @@ export default function ServicePageTemplate({
                     >
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h3 className="font-bold mb-2 text-white" style={{ fontFamily: "var(--font-display)" }}>{step.title}</h3>
+                    <h3 className="font-bold mb-2 text-white" style={{ fontFamily: "var(--font-display)", fontSize: "1.05rem" }}>{step.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-400)" }}>{step.desc}</p>
                   </div>
                 </ScrollReveal>
@@ -150,7 +220,7 @@ export default function ServicePageTemplate({
         </section>
 
         {/* Why us */}
-        <section className="section">
+        <section className="section section-alt">
           <div className="container max-w-4xl">
             <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
               <div>
@@ -177,17 +247,30 @@ export default function ServicePageTemplate({
         </section>
 
         {/* FAQ */}
-        <section className="section section-alt">
+        <section className="section">
           <div className="container max-w-3xl">
             <div className="text-center mb-12">
               <span className="badge badge-dark mb-5 inline-flex">FAQ</span>
-              <h2 className="text-h2">
+              <h2 className="text-h2 mb-3">
                 <RevealText3D text="Common questions" splitBy="word" />
               </h2>
+              {faqIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{faqIntro}</p>}
             </div>
             <FAQ items={faqs} />
           </div>
         </section>
+
+        {/* Closing — what changes */}
+        {closing && (
+          <section style={{ paddingBottom: "1rem" }}>
+            <div className="container max-w-3xl">
+              <div className="rounded-2xl p-6 md:p-7 text-center" style={{ background: `${accent}14`, border: `1px solid ${accent}40` }}>
+                <span style={{ color: accent, fontWeight: 700 }}>What changes — </span>
+                <span className="text-white">{closing}</span>
+              </div>
+            </div>
+          </section>
+        )}
 
         <ContactCTA
           heading="Ready to get started?"
