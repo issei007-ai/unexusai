@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import BookingScheduler from "@/components/ui/BookingScheduler";
 
 export const metadata = {
-  title: "Book a Call — DigiExperts",
+  title: "Book a Call — Unexus AI",
   description: "Book a free 30-minute strategy call. No pitch, no pressure.",
 };
 

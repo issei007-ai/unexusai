@@ -67,8 +67,8 @@ export default function Preloader() {
             letterSpacing: "-0.03em",
           }}
         >
-          digiexperts
-          <span style={{ color: "var(--color-accent-400)" }}>.</span>
+          unexus
+          <span style={{ color: "var(--color-accent-400)" }}>ai</span>
         </span>
       </div>
 

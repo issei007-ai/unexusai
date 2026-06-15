@@ -3,8 +3,8 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata = {
-  title: "Privacy Policy — DigiExperts",
-  description: "How DigiExperts collects, uses, and protects your personal data.",
+  title: "Privacy Policy — Unexus AI",
+  description: "How Unexus AI collects, uses, and protects your personal data.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
 
         <section className="section" style={{ paddingTop: "1rem" }}>
           <div className="container max-w-3xl prose-dark">
-            <p>This Privacy Policy explains how DigiExperts (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects, uses, and protects information about you when you visit our website or engage our services.</p>
+            <p>This Privacy Policy explains how Unexus AI (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects, uses, and protects information about you when you visit our website or engage our services.</p>
 
             <h2>Information we collect</h2>
             <p>We collect information you provide directly to us — such as your name, email address, company, and the details you share in enquiry forms — as well as limited technical data collected automatically, including:</p>
@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             <p>We use cookies and similar technologies as described in our <a href="/cookie-policy">Cookie Policy</a>.</p>
 
             <h2>Contact</h2>
-            <p>For any privacy-related questions or requests, email <strong>privacy@digiexperts.agency</strong>.</p>
+            <p>For any privacy-related questions or requests, email <strong>privacy@unexus.ai</strong>.</p>
 
             <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>

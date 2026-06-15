@@ -5,7 +5,7 @@ import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
-  title: "Case Studies — DigiExperts",
+  title: "Case Studies — Unexus AI",
   description: "What actually happened on a handful of projects — including the numbers. Client names withheld for confidentiality.",
 };
 
@@ -64,7 +64,7 @@ export default function CaseStudiesPage() {
         <ContactCTA
           heading="Want to be the next case study?"
           body="Tell us where things feel stuck right now, and we'll talk through specifically what we'd do about it."
-          imageSeed="digiexperts-results"
+          imageSeed="unexus-results"
         />
       </main>
       <Footer />

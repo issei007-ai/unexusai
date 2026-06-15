@@ -5,7 +5,7 @@ import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
-  title: "DigiExperts — Digital Marketing, Web & AI",
+  title: "Unexus AI — Digital Marketing, Web & AI",
   description: "Digital marketing, AI automation, and fast websites — run by one team that actually talks to itself.",
 };
 

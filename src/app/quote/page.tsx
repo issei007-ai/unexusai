@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import LeadForm from "@/components/ui/LeadForm";
 
 export const metadata = {
-  title: "Get a Quote — DigiExperts",
+  title: "Get a Quote — Unexus AI",
   description: "Tell us what you need and we'll send a clear scope, timeline, and price within 48 hours.",
 };
 

@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Website Development — DigiExperts",
+  title: "Website Development — Unexus AI",
   description: "Websites built in Next.js — fast, accessible, and built around getting visitors to do something.",
 };
 

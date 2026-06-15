@@ -58,8 +58,8 @@ export default function Footer() {
                 width:30, height:30, borderRadius:8, display:"inline-flex", alignItems:"center", justifyContent:"center",
                 background:"linear-gradient(135deg,var(--color-accent-500),var(--color-glow))",
                 fontSize:"0.85rem", fontWeight:800, color:"#fff",
-              }}>D</span>
-              digiexperts<span style={{ color:"var(--color-accent-400)" }}>.</span>
+              }}>U</span>
+              unexus<span style={{ color:"var(--color-accent-400)" }}>ai</span>
             </a>
             <p className="text-sm leading-relaxed" style={{ color:"var(--color-brand-500)" }}>
               Digital marketing, web development, and AI — run by one team that actually talks to itself.
@@ -91,7 +91,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs"
           style={{ color:"var(--color-brand-600)" }}>
-          <span>© {new Date().getFullYear()} DigiExperts. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Unexus AI. All rights reserved.</span>
           <div className="flex gap-6">
             {LEGAL.map((link) => (
               <a key={link.label} href={link.href} className="hover:text-white transition-colors">{link.label}</a>
@@ -101,7 +101,7 @@ export default function Footer() {
 
         {/* Giant gradient wordmark */}
         <div style={{ overflow: "hidden", marginTop: "3rem" }}>
-          <div className="footer-wordmark">digiexperts.</div>
+          <div className="footer-wordmark">unexusai.</div>
         </div>
       </div>
     </footer>

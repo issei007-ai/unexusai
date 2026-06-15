@@ -3,8 +3,8 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata = {
-  title: "Terms of Service — DigiExperts",
-  description: "The terms that govern your use of the DigiExperts website and services.",
+  title: "Terms of Service — Unexus AI",
+  description: "The terms that govern your use of the Unexus AI website and services.",
 };
 
 export default function TermsOfServicePage() {
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
 
         <section className="section" style={{ paddingTop: "1rem" }}>
           <div className="container max-w-3xl prose-dark">
-            <p>These Terms of Service govern your access to and use of the DigiExperts website and any services we provide. By using our site, you agree to these terms.</p>
+            <p>These Terms of Service govern your access to and use of the Unexus AI website and any services we provide. By using our site, you agree to these terms.</p>
 
             <h2>Use of the website</h2>
             <p>You may use this website for lawful purposes only. You agree not to misuse the site, attempt to gain unauthorised access, or interfere with its normal operation.</p>
@@ -25,7 +25,7 @@ export default function TermsOfServicePage() {
             <p>Any quotes, proposals, or estimates we provide are subject to a separate written agreement. The specific scope, deliverables, fees, and timelines for a project are defined in that agreement, which takes precedence over any general statements on this website.</p>
 
             <h2>Intellectual property</h2>
-            <p>All content on this website — including text, design, graphics, and logos — is owned by or licensed to DigiExperts and is protected by applicable intellectual property laws. You may not reproduce it without our permission.</p>
+            <p>All content on this website — including text, design, graphics, and logos — is owned by or licensed to Unexus AI and is protected by applicable intellectual property laws. You may not reproduce it without our permission.</p>
 
             <h2>Client responsibilities</h2>
             <ul>
@@ -35,13 +35,13 @@ export default function TermsOfServicePage() {
             </ul>
 
             <h2>Limitation of liability</h2>
-            <p>To the fullest extent permitted by law, DigiExperts is not liable for any indirect, incidental, or consequential losses arising from your use of the website. Nothing in these terms excludes liability that cannot be excluded by law.</p>
+            <p>To the fullest extent permitted by law, Unexus AI is not liable for any indirect, incidental, or consequential losses arising from your use of the website. Nothing in these terms excludes liability that cannot be excluded by law.</p>
 
             <h2>Governing law</h2>
             <p>These terms are governed by the laws of England and Wales, and the courts of England and Wales have exclusive jurisdiction over any disputes.</p>
 
             <h2>Contact</h2>
-            <p>Questions about these terms? Email <strong>hello@digiexperts.agency</strong>.</p>
+            <p>Questions about these terms? Email <strong>hello@unexus.ai</strong>.</p>
 
             <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>

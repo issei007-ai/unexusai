@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Market Research — DigiExperts",
+  title: "Market Research — Unexus AI",
   description: "Customer interviews, competitive analysis, and positioning — so your marketing has something real to say.",
 };
 

@@ -55,7 +55,7 @@ export default function WhyRicha() {
 
       <div className="container relative z-10">
         <div className="text-center mb-14">
-          <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
+          <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
           <h2 className="text-h2 mb-4">
             <RevealText3D text="A few reasons people stick with us" splitBy="word" />
           </h2>

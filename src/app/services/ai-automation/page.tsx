@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "AI Automation — DigiExperts",
+  title: "AI Automation — Unexus AI",
   description: "AI agents, RAG pipelines, and voice systems, built around the bottlenecks you actually have.",
 };
 

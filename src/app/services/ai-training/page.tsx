@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "AI Training — DigiExperts",
+  title: "AI Training — Unexus AI",
   description: "Practical AI training and workflow redesign — built around the tools your team already has.",
 };
 

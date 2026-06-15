@@ -154,7 +154,7 @@ export default function ServicePageTemplate({
           <div className="container max-w-4xl">
             <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
               <div>
-                <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
+                <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
                 <h2 className="text-h2 mb-4">
                   <RevealText3D text="Why people choose us for this" splitBy="word" />
                 </h2>
@@ -192,7 +192,7 @@ export default function ServicePageTemplate({
         <ContactCTA
           heading="Ready to get started?"
           body="Tell us roughly what you need and we'll put together a proposal within 48 hours — no long back-and-forth before that."
-          imageSeed="digiexperts-office"
+          imageSeed="unexus-office"
         />
       </main>
       <Footer />

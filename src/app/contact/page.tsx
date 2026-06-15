@@ -5,7 +5,7 @@ import LeadForm from "@/components/ui/LeadForm";
 import BookingScheduler from "@/components/ui/BookingScheduler";
 
 export const metadata = {
-  title: "Contact — DigiExperts",
+  title: "Contact — Unexus AI",
   description: "Book a call or send a message. You'll hear back from a real person within one business day.",
 };
 

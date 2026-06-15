@@ -1,7 +1,7 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 
 export const metadata = {
-  title: "Digital Marketing — DigiExperts",
+  title: "Digital Marketing — Unexus AI",
   description: "SEO, GEO, paid media, and email — run as one plan instead of four separate ones.",
 };
 

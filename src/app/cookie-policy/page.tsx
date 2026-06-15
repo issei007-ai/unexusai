@@ -3,8 +3,8 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata = {
-  title: "Cookie Policy — DigiExperts",
-  description: "How and why DigiExperts uses cookies and similar technologies.",
+  title: "Cookie Policy — Unexus AI",
+  description: "How and why Unexus AI uses cookies and similar technologies.",
 };
 
 export default function CookiePolicyPage() {
@@ -35,7 +35,7 @@ export default function CookiePolicyPage() {
             <p>You can control and delete cookies through your browser settings. Blocking some cookies may affect how the website functions. For more detail, see your browser&apos;s help pages.</p>
 
             <h2>More information</h2>
-            <p>For how we handle personal data more broadly, see our <a href="/privacy-policy">Privacy Policy</a>. Questions? Email <strong>privacy@digiexperts.agency</strong>.</p>
+            <p>For how we handle personal data more broadly, see our <a href="/privacy-policy">Privacy Policy</a>. Questions? Email <strong>privacy@unexus.ai</strong>.</p>
 
             <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>

@@ -19,7 +19,7 @@ interface Props {
 export default function ContactCTA({
   heading = "Got a project in mind?",
   body = "Tell us a bit about where you are and where you'd like to get to. We'll come back with specific ideas, not a generic pitch.",
-  imageSeed = "digiexperts-studio",
+  imageSeed = "unexus-studio",
 }: Props) {
   return (
     <section
@@ -50,7 +50,7 @@ export default function ContactCTA({
               ))}
             </ul>
             <div className="media-frame" style={{ aspectRatio: "16 / 9" }}>
-              <img src={`https://picsum.photos/seed/${imageSeed}/900/520`} alt="The DigiExperts team at work" loading="lazy" />
+              <img src={`https://picsum.photos/seed/${imageSeed}/900/520`} alt="The Unexus AI team at work" loading="lazy" />
             </div>
           </div>
 

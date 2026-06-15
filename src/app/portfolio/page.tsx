@@ -8,7 +8,7 @@ import ClientLogo from "@/components/ui/ClientLogo";
 import { CLIENTS } from "@/lib/constants";
 
 export const metadata = {
-  title: "Portfolio — DigiExperts",
+  title: "Portfolio — Unexus AI",
   description: "Some of the brands and institutions we've worked with — from schools and D2C brands to enterprise tech.",
 };
 
@@ -46,7 +46,7 @@ export default function PortfolioPage() {
         <ContactCTA
           heading="Want to join them?"
           body="Tell us where things feel stuck right now, and we'll talk through specifically what we'd do about it — no pressure either way."
-          imageSeed="digiexperts-clients"
+          imageSeed="unexus-clients"
         />
       </main>
       <Footer />

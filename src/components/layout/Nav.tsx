@@ -40,10 +40,10 @@ export default function Nav() {
             className="inline-flex w-7 h-7 rounded-lg items-center justify-center text-xs font-bold text-white"
             style={{ background: "linear-gradient(135deg,var(--color-accent-500),var(--color-accent-600))" }}
           >
-            D
+            U
           </span>
-          digiexperts
-          <span style={{ color: "var(--color-accent-400)" }}>.</span>
+          unexus
+          <span style={{ color: "var(--color-accent-400)" }}>ai</span>
         </a>
 
         {/* Desktop links */}

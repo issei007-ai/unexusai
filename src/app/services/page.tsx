@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { WHY_US } from "@/lib/constants";
 
 export const metadata = {
-  title: "Services — DigiExperts",
+  title: "Services — Unexus AI",
   description: "Digital marketing, website development, AI automation, AI training and market research, run by one team.",
 };
 
@@ -27,11 +27,11 @@ export default function ServicesPage() {
 
         <ServicesGrid />
 
-        {/* Why DigiExperts */}
+        {/* Why Unexus AI */}
         <section className="section section-alt">
           <div className="container">
             <div className="text-center mb-14">
-              <span className="badge badge-accent mb-5 inline-flex">Why DigiExperts</span>
+              <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
               <h2 className="text-h2">What working with us is actually like</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -50,7 +50,7 @@ export default function ServicesPage() {
         <ContactCTA
           heading="Not sure where to start?"
           body="Tell us a bit about your business and we'll help you work out where to start — it's often not the thing people expect."
-          imageSeed="digiexperts-team"
+          imageSeed="unexus-team"
         />
       </main>
       <Footer />

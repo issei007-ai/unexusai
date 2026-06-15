@@ -6,8 +6,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
 
 export const metadata = {
-  title: "About — DigiExperts",
-  description: "A bit about who we are, why we started DigiExperts, and the people doing the work.",
+  title: "About — Unexus AI",
+  description: "A bit about who we are, why we started Unexus AI, and the people doing the work.",
 };
 
 const VALUES = [
@@ -37,7 +37,7 @@ export default function AboutPage() {
       <Nav />
       <main>
         <PageHero
-          eyebrow="About DigiExperts"
+          eyebrow="About Unexus AI"
           title="We started this because most agencies frustrated us"
           subtitle="We kept seeing the same thing: good businesses stuck with agencies that were too narrow, too slow, or way too proud of metrics that didn't actually mean anything. So a few of us left and built the thing we wished we could hire."
         />
@@ -141,7 +141,7 @@ export default function AboutPage() {
         <ContactCTA
           heading="Want to work with us?"
           body="No account manager standing between you and the people actually doing the work — just direct access to the team."
-          imageSeed="digiexperts-workspace"
+          imageSeed="unexus-workspace"
         />
       </main>
       <Footer />
