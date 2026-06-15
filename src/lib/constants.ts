@@ -68,22 +68,28 @@ export const PROCESS_STEPS: ProcessStep[] = [
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Our inbound leads nearly tripled in four months. What actually surprised me was how well the SEO and paid media people talked to each other — most agencies just don't do that.",
-    name: "Marketing Director",
-    role: "B2B SaaS company",
+    quote: "We'd been posting on social media for two years with almost no engagement. Within six weeks of working with Unexus AI, our content actually started conversations — and three of those conversations turned into paying clients.",
+    name: "Navneet Jain",
+    role: "Founder",
+    company: "Amritsari Express",
+  },
+  {
+    quote: "We were burning through budget on Meta with a 1.2x ROAS. Unexus restructured the entire account, rebuilt the creatives, and got us to 3.8x in 60 days. Same budget — completely different outcome.",
+    name: "Performance marketing client",
+    role: "Name withheld",
     company: "",
   },
   {
-    quote: "They rebuilt our site and set up an agent that screens leads before they even land in our CRM. I genuinely don't know how we managed without it before.",
-    name: "Founder & CEO",
-    role: "AI services firm",
-    company: "",
+    quote: "Our old site looked fine but converted terribly. Unexus rebuilt it in six weeks — faster, cleaner, and actually designed around what our clients need to see before they book. Enquiries went up almost immediately.",
+    name: "Yash Raj Gupta",
+    role: "Manager",
+    company: "Lilawati Vidya Mandir",
   },
   {
-    quote: "The research phase alone was worth the call. It changed how we talk about our product, and our conversion rate had basically doubled by the time we checked again.",
-    name: "Founder",
-    role: "D2C e-commerce brand",
-    company: "",
+    quote: "What surprised me most was how everything connected. The SEO fed the content, the content supported the ads, the ads drove traffic to a website that actually converted. It stopped feeling like random activity and started feeling like a system.",
+    name: "Anurag Sharma",
+    role: "Founder",
+    company: "Learning From Ant",
   },
 ];
 

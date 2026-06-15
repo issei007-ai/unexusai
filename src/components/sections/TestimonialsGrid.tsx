@@ -3,7 +3,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
 import RevealText3D from "@/components/ui/RevealText3D";
 
-const ACCENT = ["#818cf8", "#a78bfa", "#67e8f9"];
+const ACCENT = ["#818cf8", "#a78bfa", "#67e8f9", "#34d399"];
 
 export default function TestimonialsGrid() {
   return (
@@ -24,12 +24,12 @@ export default function TestimonialsGrid() {
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lead mt-4 max-w-md mx-auto">
-              A few words from teams we&apos;ve worked with. Names withheld for confidentiality.
+              A few words from the people we&apos;ve worked with.
             </p>
           </ScrollReveal>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5" style={{ maxWidth: "60rem", margin: "0 auto" }}>
           {TESTIMONIALS.map((t, i) => (
             <ScrollReveal key={t.quote} delay={i * 0.12}>
               <TiltCard intensity={5} className="h-full">
