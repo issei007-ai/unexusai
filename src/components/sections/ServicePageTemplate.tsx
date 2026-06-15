@@ -48,6 +48,8 @@ interface Props {
   approach?: Step[];
   approachTitle?: string;
   whyUs?: string[];
+  whyTitle?: string;
+  whyCards?: { title: string; desc: string }[];
   faqs: { q: string; a: string }[];
   faqIntro?: string;
   closing?: string;
@@ -71,6 +73,8 @@ export default function ServicePageTemplate({
   approach = PROCESS_STEPS.map((s) => ({ title: s.title, desc: s.desc })),
   approachTitle = "How a project usually goes",
   whyUs = WHY_US.map((w) => w.title),
+  whyTitle = "Why people choose us for this",
+  whyCards,
   faqs,
   faqIntro,
   closing,
@@ -221,29 +225,55 @@ export default function ServicePageTemplate({
 
         {/* Why us */}
         <section className="section section-alt">
-          <div className="container max-w-4xl">
-            <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
-              <div>
+          {whyCards && whyCards.length > 0 ? (
+            <div className="container">
+              <div className="text-center mb-12 max-w-2xl mx-auto">
                 <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
-                <h2 className="text-h2 mb-4">
-                  <RevealText3D text="Why people choose us for this" splitBy="word" />
+                <h2 className="text-h2">
+                  <RevealText3D text={whyTitle} splitBy="word" />
                 </h2>
-                <p className="text-lead">We get up to speed quickly, we&apos;re straightforward about what&apos;s working and what isn&apos;t, and we care more about your results than our own report.</p>
               </div>
-              <div className="space-y-4">
-                {whyUs.map((point, i) => (
-                  <ScrollReveal key={point} delay={i * 0.08} direction="left">
-                    <div className="flex items-start gap-3">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="text-white" style={{ fontWeight: 500 }}>{point}</span>
+              <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+                {whyCards.map((c, i) => (
+                  <ScrollReveal key={c.title} delay={(i % 2) * 0.08}>
+                    <div className="glow-card h-full p-7" style={{ border: "1px solid var(--color-border)" }}>
+                      <div className="flex items-start gap-3 mb-2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 3 }}>
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <h3 className="text-white" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem" }}>{c.title}</h3>
+                      </div>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-300)" }}>{c.desc}</p>
                     </div>
                   </ScrollReveal>
                 ))}
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="container max-w-4xl">
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
+                <div>
+                  <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
+                  <h2 className="text-h2 mb-4">
+                    <RevealText3D text={whyTitle} splitBy="word" />
+                  </h2>
+                  <p className="text-lead">We get up to speed quickly, we&apos;re straightforward about what&apos;s working and what isn&apos;t, and we care more about your results than our own report.</p>
+                </div>
+                <div className="space-y-4">
+                  {whyUs.map((point, i) => (
+                    <ScrollReveal key={point} delay={i * 0.08} direction="left">
+                      <div className="flex items-start gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span className="text-white" style={{ fontWeight: 500 }}>{point}</span>
+                      </div>
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* FAQ */}
