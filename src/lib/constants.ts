@@ -16,32 +16,39 @@ export const SERVICES: Service[] = [
   {
     num: "01",
     title: "Digital Marketing",
-    desc: "SEO, paid ads, email — the channels that actually bring people to your door, run as one joined-up plan instead of five agencies pulling in different directions.",
+    desc: "SEO, paid ads, and email — run as one joined-up plan. More visibility, more pipeline, less wasted spend.",
     href: "/services/digital-marketing",
   },
   {
     num: "02",
     title: "Website Development",
-    desc: "We design and build sites in Next.js that load quickly, feel good to use, and are built around getting visitors to actually do something.",
+    desc: "Fast, conversion-focused websites built in Next.js. Designed to turn visitors into leads — not just look good.",
     href: "/services/website-development",
   },
   {
     num: "03",
     title: "AI Automation",
-    desc: "Agents, RAG pipelines, voice bots — whatever fits. We look at the repetitive stuff eating your team's week and build something that takes it off their plate.",
+    desc: "We find the repetitive work eating your team's week and build AI agents that take it off their plate — permanently.",
     href: "/services/ai-automation",
   },
   {
     num: "04",
     title: "AI Training",
-    desc: "Most teams have AI tools sitting half-used. We run practical, hands-on sessions so people actually know what to do with them day to day.",
+    desc: "Practical, hands-on sessions so your team actually knows what to do with AI tools — not just that they exist.",
     href: "/services/ai-training",
   },
   {
     num: "05",
     title: "Market Research",
-    desc: "Before you spend a penny on marketing, it helps to know exactly who you're talking to. We go and find out, then help you work out what to say.",
+    desc: "Before you spend a penny on marketing, know exactly who you're talking to, what they want, and how to reach them.",
     href: "/services/market-research",
+  },
+  {
+    num: "06",
+    title: "GEO — Generative Engine Optimization",
+    desc: "Your customers are now getting answers from ChatGPT, Perplexity, and Gemini — not just Google. We make sure your business shows up there too.",
+    href: "/services/geo",
+    isNew: true,
   },
 ];
 

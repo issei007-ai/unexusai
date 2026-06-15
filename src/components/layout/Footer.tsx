@@ -8,6 +8,7 @@ const FOOTER_COLS = [
     { label: "AI Automation", href: "/services/ai-automation" },
     { label: "AI Training", href: "/services/ai-training" },
     { label: "Market Research", href: "/services/market-research" },
+    { label: "GEO", href: "/services/geo" },
   ]},
   { title: "Company", links: [
     { label: "About", href: "/about" },

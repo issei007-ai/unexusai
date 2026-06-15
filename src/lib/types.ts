@@ -13,6 +13,7 @@ export interface Service {
   title: string;
   desc: string;
   href: string;
+  isNew?: boolean;
 }
 
 export interface ProcessStep {

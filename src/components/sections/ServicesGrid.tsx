@@ -31,6 +31,12 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
       <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
   ),
+  "GEO — Generative Engine Optimization": (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z" />
+      <path d="M19 15l.6 1.8L21.5 17.5l-1.9.7L19 20l-.6-1.8L16.5 17.5l1.9-.7z" />
+    </svg>
+  ),
 };
 
 const SERVICE_IMG: Record<string, string> = {
@@ -44,9 +50,10 @@ const SERVICE_IMG: Record<string, string> = {
 const BENTO_CONFIG = [
   { colClass: "bento-wide",   minHeight: "220px" },
   { colClass: "bento-narrow", minHeight: "220px" },
-  { colClass: "bento-third",  minHeight: "200px" },
-  { colClass: "bento-third",  minHeight: "200px" },
-  { colClass: "bento-third",  minHeight: "200px" },
+  { colClass: "bento-narrow", minHeight: "210px" },
+  { colClass: "bento-wide",   minHeight: "210px" },
+  { colClass: "bento-half",   minHeight: "210px" },
+  { colClass: "bento-half",   minHeight: "210px" },
 ];
 
 export default function ServicesGrid() {
@@ -62,12 +69,13 @@ export default function ServicesGrid() {
             <span className="badge badge-accent mb-5 inline-flex">What we do</span>
           </ScrollReveal>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 className="text-h2" style={{ maxWidth: "28rem" }}>
-              <RevealText3D text="One agency. Every growth lever." splitBy="word" stagger={0.06} />
+            <h2 className="text-h2" style={{ maxWidth: "30rem" }}>
+              <RevealText3D text="Six services. One team. Built to work together." splitBy="word" stagger={0.05} />
             </h2>
             <ScrollReveal delay={0.2} direction="left">
-              <p className="text-lead" style={{ maxWidth: "26rem" }}>
-                Five specialist services built to work together — each one powerful alone, unstoppable as a system.
+              <p className="text-lead" style={{ maxWidth: "28rem" }}>
+                Each service is powerful on its own. The real difference is when they connect — your SEO feeds
+                your content, your website converts what your ads bring in, your AI tools make it all faster.
               </p>
             </ScrollReveal>
           </div>
@@ -81,16 +89,22 @@ export default function ServicesGrid() {
                 <a
                   href={service.href}
                   className="group relative block h-full overflow-hidden rounded-3xl border border-white/[0.08] transition-all duration-500 hover:border-indigo-400/40 hover:shadow-[0_10px_40px_-12px_rgba(99,102,241,0.45)]"
-                  style={{ minHeight: BENTO_CONFIG[i].minHeight, background: "var(--color-panel)" }}
+                  style={{
+                    minHeight: BENTO_CONFIG[i].minHeight,
+                    background: "var(--color-panel)",
+                    ...(service.isNew ? { borderColor: "var(--color-accent-500)", boxShadow: "0 0 0 1px var(--color-accent-500)" } : {}),
+                  }}
                 >
-                  {/* Background image */}
-                  <img
-                    src={SERVICE_IMG[service.title]}
-                    alt=""
-                    aria-hidden
-                    loading="lazy"
-                    className="svc-img"
-                  />
+                  {/* Background image (services with artwork) */}
+                  {SERVICE_IMG[service.title] && (
+                    <img
+                      src={SERVICE_IMG[service.title]}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      className="svc-img"
+                    />
+                  )}
                   {/* Overlay — dark behind the text (bottom), image visible up top */}
                   <span
                     aria-hidden
@@ -103,26 +117,32 @@ export default function ServicesGrid() {
                     {/* Top row */}
                     <div className="flex items-start justify-between mb-auto">
                       <div className="icon-wrap">{SERVICE_ICONS[service.title]}</div>
-                      <span
-                        className="text-xs tracking-widest opacity-40"
-                        style={{ fontFamily: "var(--font-mono)", color: "#fff" }}
-                      >
-                        {service.num}
-                      </span>
+                      {service.isNew ? (
+                        <span className="badge badge-accent" style={{ fontSize: "0.6rem", letterSpacing: "0.08em" }}>NEW</span>
+                      ) : (
+                        <span
+                          className="text-xs tracking-widest opacity-40"
+                          style={{ fontFamily: "var(--font-mono)", color: "#fff" }}
+                        >
+                          {service.num}
+                        </span>
+                      )}
                     </div>
 
                     {/* Decorative large number */}
-                    <div
-                      className="my-4 text-8xl font-black select-none pointer-events-none"
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        color: "rgba(255,255,255,0.07)",
-                        lineHeight: 1,
-                        letterSpacing: "-0.05em",
-                      }}
-                    >
-                      {service.num}
-                    </div>
+                    {!service.isNew && (
+                      <div
+                        className="my-4 text-8xl font-black select-none pointer-events-none"
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          color: "rgba(255,255,255,0.07)",
+                          lineHeight: 1,
+                          letterSpacing: "-0.05em",
+                        }}
+                      >
+                        {service.num}
+                      </div>
+                    )}
 
                     {/* Text */}
                     <div>
