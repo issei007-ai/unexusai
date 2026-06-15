@@ -1,6 +1,6 @@
 /** Shared types for the lead pipeline. */
 
-export type LeadType = "lead" | "booking" | "newsletter";
+export type LeadType = "lead" | "booking" | "newsletter" | "whatsapp";
 
 export interface Lead {
   /** What kind of submission this is. */
@@ -33,6 +33,7 @@ export interface Channel {
 
 const LABELS: Record<string, string> = {
   website: "Website",
+  phone: "Phone",
   company: "Company",
   service: "Service",
   need: "What they need",
@@ -78,5 +79,6 @@ export function leadHeadline(lead: Lead): string {
     return `New booking from ${who}${when ? ` — ${when}` : ""}`;
   }
   if (lead.type === "newsletter") return `New newsletter signup: ${who}`;
+  if (lead.type === "whatsapp") return `New WhatsApp enquiry from ${who}`;
   return `New lead from ${who}${lead.source ? ` (${lead.source})` : ""}`;
 }

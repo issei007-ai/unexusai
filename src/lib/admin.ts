@@ -16,7 +16,7 @@ export const KNOWN_SOURCES = [
   "contact-book",
 ] as const;
 
-export const LEAD_TYPES = ["lead", "booking", "newsletter"] as const;
+export const LEAD_TYPES = ["lead", "booking", "newsletter", "whatsapp"] as const;
 
 export const PAGE_SIZE = 50;
 

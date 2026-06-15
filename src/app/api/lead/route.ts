@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { Lead, LeadType } from "@/lib/leads/types";
 import { dispatchLead, activeChannels } from "@/lib/leads/dispatch";
 
-const VALID_TYPES: LeadType[] = ["lead", "booking", "newsletter"];
+const VALID_TYPES: LeadType[] = ["lead", "booking", "newsletter", "whatsapp"];
 const RESERVED = new Set(["type", "source", "name", "email"]);
 
 export async function POST(req: Request) {
@@ -15,10 +15,11 @@ export async function POST(req: Request) {
 
   const email = typeof body.email === "string" ? body.email.trim() : undefined;
   const name = typeof body.name === "string" ? body.name.trim() : undefined;
+  const phone = typeof body.phone === "string" ? body.phone.trim() : undefined;
 
-  // A contactable lead needs at least an email.
-  if (!email) {
-    return NextResponse.json({ ok: false, error: "Email is required" }, { status: 400 });
+  // A contactable lead needs at least one way to reach them.
+  if (!email && !phone) {
+    return NextResponse.json({ ok: false, error: "Email or phone is required" }, { status: 400 });
   }
 
   // Honeypot: bots fill hidden fields; humans leave them blank.
