@@ -18,6 +18,7 @@ export interface Service {
 
 export interface ProcessStep {
   step: string;
+  feeling: string;
   title: string;
   desc: string;
 }
