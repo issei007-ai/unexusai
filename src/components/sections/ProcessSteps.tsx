@@ -69,8 +69,15 @@ export default function ProcessSteps() {
                     </span>
                   </div>
 
+                <p
+                    className="text-[10px] uppercase tracking-widest mb-2"
+                    style={{ color: "var(--color-brand-500)" }}
+                  >
+                    {item.feeling}
+                </p>
+                  
                   <h3
-                    className="font-bold text-base mb-3 text-white transition-colors group-hover:text-[var(--color-accent-300)]"
+                    className="font-bold text-sm mb-3 text-white transition-colors group-hover:text-[var(--color-accent-300)]"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {item.title}
