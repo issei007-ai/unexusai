@@ -17,13 +17,19 @@ export default function ProcessSteps() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <h2 className="text-h2 md:text-5xl text-4xl text-white mb-5">
+            <h2
+                  className="text-white mb-5"
+                  style={{
+                    fontSize: "clamp(2.2rem,4vw,3.8rem)",
+                    lineHeight: 1.1,
+                  }}
+                >
               From first call to real results — here's what working with us actually looks like.
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <p className="text-lead max-w-2xl mx-auto" style={{ color: "var(--color-brand-300)" }}>
+            <p className="text-lead max-w-xl mx-auto" style={{ color: "var(--color-brand-300)" }}>
               No black boxes. No waiting weeks to hear back. You'll know exactly what's happening and why at every stage.
             </p>
           </ScrollReveal>
