@@ -69,6 +69,10 @@ export default function ContactCTA({
                 </div>
               </div>
               <div>
+                <label className="form-label">Phone</label>
+                <input className="form-input" name="phone" type="tel" placeholder="+971 50 123 4567" />
+              </div>
+              <div>
                 <label className="form-label">Company</label>
                 <input className="form-input" name="company" type="text" placeholder="Your company" />
               </div>
