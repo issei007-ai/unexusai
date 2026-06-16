@@ -72,9 +72,13 @@ export default function Footer() {
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href}
-                      className="text-sm transition-colors duration-200 hover:text-white"
-                      style={{ color:"var(--color-brand-400)" }}>
+                    <a
+                        href={link.href}
+                        target={link.href.startsWith("http") ? "_blank" : undefined}
+                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="text-sm transition-colors duration-200 hover:text-white"
+                        style={{ color:"var(--color-brand-400)" }}
+                      >
                       {link.label}
                     </a>
                   </li>
