@@ -3,13 +3,68 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import LeadForm from "@/components/ui/LeadForm";
 import BookingScheduler from "@/components/ui/BookingScheduler";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
   title: "Contact — Unexus AI",
-  description: "Book a call or send a message. You'll hear back from a real person within one business day.",
+  description: "Talk to us before you decide anything. Book a free 30-minute call or send a message — you'll hear back from a real person within one business day.",
 };
 
-const NEEDS = ["Digital Marketing", "Website Development", "AI Automation", "AI Training", "Market Research", "Not sure yet"];
+const NEEDS = ["Digital Marketing", "Website Development", "AI Automation", "AI Training", "Market Research", "GEO", "Not sure yet"];
+
+const sw = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
+
+const INFO = [
+  {
+    label: "WhatsApp",
+    value: "+971 50 125 7204",
+    sub: "Fastest way to reach us. We respond same day.",
+    href: "https://wa.me/971501257204",
+    color: "#25D366",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Email",
+    value: "richa@unexusai.com",
+    sub: "Reply within one business day, always.",
+    href: "mailto:richa@unexusai.com",
+    color: "#818cf8",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="m22 7-10 6L2 7" />
+      </svg>
+    ),
+  },
+  {
+    label: "Based in",
+    value: "Dubai, UAE 🇦🇪",
+    sub: "Also serving India 🇮🇳 and the wider Middle East.",
+    color: "#34d399",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" />
+      </svg>
+    ),
+  },
+  {
+    label: "Working hours",
+    value: "Sun – Thu, 9am – 6pm",
+    sub: "Gulf Standard Time (GST, UTC+4).",
+    color: "#f59e0b",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    ),
+  },
+];
 
 export default function ContactPage() {
   return (
@@ -18,13 +73,49 @@ export default function ContactPage() {
       <main>
         <PageHero
           align="center"
-          eyebrow="Contact"
-          title="Let's talk"
-          titleSplit="char"
-          subtitle="Book a call or send a message. Either way, you'll hear back from a real person within one business day."
+          eyebrow="Get in touch"
+          title="Talk to us before you decide anything."
+          subtitle="Book a free 30-minute call or send a message — either way you'll hear back from a real person within one business day. No pitch, no pressure, no obligation."
         />
 
-        <section className="section" style={{ paddingTop: "1rem" }}>
+        {/* Contact info */}
+        <section style={{ paddingTop: "0.5rem" }}>
+          <div className="container" style={{ maxWidth: "62rem" }}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {INFO.map((item, i) => {
+                const inner = (
+                  <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
+                    <div
+                      style={{
+                        width: 42, height: 42, borderRadius: "var(--radius-md)", marginBottom: "1rem",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        background: `${item.color}1f`, border: `1px solid ${item.color}40`, color: item.color,
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+                    <div className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--color-brand-500)" }}>{item.label}</div>
+                    <div className="font-semibold text-white mb-1.5" style={{ fontFamily: "var(--font-display)" }}>{item.value}</div>
+                    <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-400)" }}>{item.sub}</p>
+                  </div>
+                );
+                return (
+                  <ScrollReveal key={item.label} delay={i * 0.06}>
+                    {item.href ? (
+                      <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
+                        {inner}
+                      </a>
+                    ) : (
+                      inner
+                    )}
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" style={{ paddingTop: "2.5rem" }}>
           <div className="container grid md:grid-cols-2 gap-6" style={{ maxWidth: "62rem" }}>
             {/* Book a call */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
@@ -37,7 +128,7 @@ export default function ContactPage() {
                 <BookingScheduler source="contact-book" />
               </div>
               <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>
-                You&apos;ll be speaking with Alex Carter, our Strategy Director.
+                You&apos;ll be speaking with Richa Gupta, our founder.
               </p>
             </div>
 

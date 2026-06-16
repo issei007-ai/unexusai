@@ -138,7 +138,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
       {/* Confirmation summary */}
       {ready && (
         <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid var(--color-accent-700)", color: "var(--color-brand-100)" }}>
-          You&apos;re booking <span className="text-white font-semibold">{DAY_NAMES[selectedDay!.getDay()]} {selectedDay!.getDate()} {MONTH_NAMES[selectedDay!.getMonth()]}</span> at <span className="text-white font-semibold">{slot}</span> — 30 minutes with Alex.
+          You&apos;re booking <span className="text-white font-semibold">{DAY_NAMES[selectedDay!.getDay()]} {selectedDay!.getDate()} {MONTH_NAMES[selectedDay!.getMonth()]}</span> at <span className="text-white font-semibold">{slot}</span> — 30 minutes with Richa.
         </div>
       )}
 

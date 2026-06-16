@@ -2,7 +2,7 @@ import type { NavLink, Service, Stat, ProcessStep, Testimonial } from "./types";
 
 // WhatsApp click-to-chat number (digits only, country code, no "+").
 // Swap to a business number at launch — it's the only place it's defined.
-export const WHATSAPP_NUMBER = "919142380521";
+export const WHATSAPP_NUMBER = "971501257204";
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },

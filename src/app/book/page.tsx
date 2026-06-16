@@ -46,10 +46,10 @@ export default function BookPage() {
                 </ul>
                 <div className="divider my-8" />
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--color-accent-500), var(--color-glow))" }}>A</div>
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--color-accent-500), var(--color-glow))" }}>R</div>
                   <div>
-                    <div className="text-sm font-semibold text-white">Alex Carter</div>
-                    <div className="text-xs" style={{ color: "var(--color-brand-400)" }}>Founder & Strategy Director</div>
+                    <div className="text-sm font-semibold text-white">Richa Gupta</div>
+                    <div className="text-xs" style={{ color: "var(--color-brand-400)" }}>Founder — Unexus AI</div>
                   </div>
                 </div>
               </div>
