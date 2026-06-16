@@ -57,31 +57,36 @@ export const STATS: Stat[] = [
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
-  {
-    step: "01",
-    title: "Listen",
-    desc: "We start with a conversation about what's working, what's not, and what success actually looks like for your business.",
-  },
-  {
-    step: "02",
-    title: "Plan",
-    desc: "You get a focused strategy built around your business, priorities, and goals — not a generic template.",
-  },
-  {
-    step: "03",
-    title: "Launch",
-    desc: "Campaigns, automations, and new pages go live with proper tracking from day one.",
-  },
-  {
-    step: "04",
-    title: "Optimize",
-    desc: "We review results, fix bottlenecks, and double down on what's producing growth.",
-  },
-  {
-    step: "05",
-    title: "Scale",
-    desc: "Every month ends with clear reporting, clear next steps, and complete visibility into progress.",
-  },
+{
+  step: "01",
+  feeling: "YOU FEEL → HEARD",
+  title: "We listen before we suggest anything.",
+  desc: "A 30-minute call where we ask the questions most agencies skip — what's actually not working, what you've already tried, and what success looks like for your business specifically."
+},
+{
+  step: "02",
+  feeling: "YOU FEEL → CLEAR",
+  title: "You get a plan built around your business — not a template.",
+  desc: "Within a week, we come back with a focused plan — which services, in which order, with what expected outcomes."
+},
+{
+  step: "03",
+  feeling: "YOU FEEL → IN CONTROL",
+  title: "Things go live — with tracking on from day one.",
+  desc: "Campaigns, automations, new pages — nothing launches without proper measurement in place."
+},
+{
+  step: "04",
+  feeling: "YOU FEEL → MOMENTUM",
+  title: "We tell you what's working — and fix what isn't, fast.",
+  desc: "A real update every week. A proper review every month. If something isn't moving the needle, we say so and change it."
+},
+{
+  step: "05",
+  feeling: "YOU FEEL → CONFIDENT",
+  title: "You always know what comes next.",
+  desc: "Every month ends with a clear picture — what happened, what it produced, and what we're doing next."
+},
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
