@@ -157,8 +157,8 @@ export default function ContactPage() {
                   <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div>
-                  <label className="form-label">WhatsApp number (optional)</label>
-                  <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." />
+                  <label className="form-label">WhatsApp number</label>
+                  <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." required autoComplete="off" />
                 </div>
                 <div>
                   <label className="form-label">What do you need help with?</label>

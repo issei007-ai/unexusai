@@ -65,8 +65,8 @@ export default function ContactCTA({
                 </div>
               </div>
               <div>
-                <label className="form-label">WhatsApp number (optional)</label>
-                <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." />
+                <label className="form-label">WhatsApp number</label>
+                <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." required autoComplete="off" />
               </div>
               <div>
                 <label className="form-label">Company</label>

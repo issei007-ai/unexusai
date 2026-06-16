@@ -80,18 +80,20 @@ export default function ClientLogo({ client, index = 0, size = 80, shape = "roun
             bottom: -3,
             right: -3,
             width: Math.round(size * 0.42),
-            height: Math.round(size * 0.42),
-            borderRadius: "50%",
+            height: Math.round(size * 0.3),
+            borderRadius: 4,
+            overflow: "hidden",
+            border: "2px solid var(--color-surface)",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.45)",
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border-bright)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: Math.round(size * 0.24),
-            lineHeight: 1,
           }}
         >
-          {client.flag}
+          <img
+            src={`https://flagcdn.com/${client.flag}.svg`}
+            alt=""
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
         </span>
       )}
     </div>

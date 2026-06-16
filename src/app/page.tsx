@@ -83,7 +83,7 @@ export default function HomePage() {
             {/* Trust marquee */}
             <div className="mt-20 pt-10" style={{ borderTop:"1px solid rgba(255,255,255,0.07)" }}>
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
-                Some of the teams we've worked with
+                Our clients span industries and time zones.
               </p>
               <Marquee speed={26} gap="2.75rem">
                 {CLIENTS.filter((c) => c.logo).map((c, i) => (

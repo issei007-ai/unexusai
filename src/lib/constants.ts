@@ -94,28 +94,28 @@ export type Client = { name: string; logo?: string; short?: string; flag?: strin
 
 // `logo` points to a file in /public/clients. Clients without a usable logo
 // fall back to a styled monogram (handled by the ClientLogo component).
-// `flag` is a country emoji shown as a badge on the icon.
+// `flag` is an ISO 3166 country code (e.g. "in", "ae") shown as a flag badge.
 export const CLIENTS: Client[] = [
   // India
-  { name: "GEOX India", logo: "/clients/geox.png", flag: "🇮🇳" },
-  { name: "Amritsari Express", logo: "/clients/amritsari-express.png", flag: "🇮🇳" },
-  { name: "Café Chennai", flag: "🇮🇳" },
-  { name: "Rajwada", flag: "🇮🇳" },
-  { name: "DPS Sirsa", logo: "/clients/dps-sirsa.png", flag: "🇮🇳" },
-  { name: "Lilawati Vidya Mandir", flag: "🇮🇳" },
-  { name: "FlowerAura", logo: "/clients/floweraura.png", flag: "🇮🇳" },
-  { name: "Bakingo", logo: "/clients/bakingo.png", flag: "🇮🇳" },
-  { name: "Heritage Play Centre", flag: "🇮🇳" },
-  { name: "Learning From Ant", flag: "🇮🇳" },
-  { name: "Shaadi Emporio", flag: "🇮🇳" },
+  { name: "GEOX India", logo: "/clients/geox.png", flag: "in" },
+  { name: "Amritsari Express", logo: "/clients/amritsari-express.png", flag: "in" },
+  { name: "Café Chennai", flag: "in" },
+  { name: "Rajwada", flag: "in" },
+  { name: "DPS Sirsa", logo: "/clients/dps-sirsa.png", flag: "in" },
+  { name: "Lilawati Vidya Mandir", flag: "in" },
+  { name: "FlowerAura", logo: "/clients/floweraura.png", flag: "in" },
+  { name: "Bakingo", logo: "/clients/bakingo.png", flag: "in" },
+  { name: "Heritage Play Centre", flag: "in" },
+  { name: "Learning From Ant", flag: "in" },
+  { name: "Shaadi Emporio", flag: "in" },
   // US
-  { name: "Awake Solar", flag: "🇺🇸" },
+  { name: "Awake Solar", flag: "us" },
   // UK
-  { name: "Wentworth House", flag: "🇬🇧" },
+  { name: "Wentworth House", flag: "gb" },
   // UAE
-  { name: "Richies Laundry", logo: "/clients/richies.png", short: "Richies", flag: "🇦🇪" },
+  { name: "Richies Laundry", logo: "/clients/richies.png", short: "Richies", flag: "ae" },
   // Saudi
-  { name: "Cle", flag: "🇸🇦" },
+  { name: "Cle", flag: "sa" },
 ];
 
 export const TRUST_LOGOS = CLIENTS.map((c) => c.name);
