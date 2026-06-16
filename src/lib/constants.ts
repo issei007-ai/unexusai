@@ -57,10 +57,31 @@ export const STATS: Stat[] = [
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
-  { step: "01", title: "Discover", desc: "We start by looking at where things actually stand — traffic, conversion, tech, competitors, whatever data you've already got." },
-  { step: "02", title: "Plan", desc: "Then we put together a plan built around your business, not a template we run for everyone who walks in." },
-  { step: "03", title: "Build & Launch", desc: "Campaigns, automations, new pages — they go live with proper tracking switched on from the start, not bolted on after." },
-  { step: "04", title: "Improve", desc: "We check in weekly, tweak things monthly, and keep building on whatever's actually moving the needle." },
+  {
+    step: "01",
+    title: "Listen",
+    desc: "We start with a conversation about what's working, what's not, and what success actually looks like for your business.",
+  },
+  {
+    step: "02",
+    title: "Plan",
+    desc: "You get a focused strategy built around your business, priorities, and goals — not a generic template.",
+  },
+  {
+    step: "03",
+    title: "Launch",
+    desc: "Campaigns, automations, and new pages go live with proper tracking from day one.",
+  },
+  {
+    step: "04",
+    title: "Optimize",
+    desc: "We review results, fix bottlenecks, and double down on what's producing growth.",
+  },
+  {
+    step: "05",
+    title: "Scale",
+    desc: "Every month ends with clear reporting, clear next steps, and complete visibility into progress.",
+  },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
