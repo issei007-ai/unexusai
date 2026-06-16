@@ -21,6 +21,7 @@ export interface ProcessStep {
   feeling: string;
   title: string;
   desc: string;
+  action: string;
 }
 
 export interface Testimonial {
