@@ -21,38 +21,33 @@ interface Props {
 
 /**
  * Renders a client's logo on a light tile, or a gradient monogram tile when no
- * logo file is available. Uniform tiles keep the wall consistent either way.
+ * logo file is available — with a small country-flag badge in the corner.
  */
 export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded" }: Props) {
   const radius = shape === "circle" ? "50%" : Math.round(size * 0.22);
-
-  if (client.logo) {
-    return (
-      <div
-        style={{
-          width: size,
-          height: size,
-          borderRadius: radius,
-          background: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: Math.round(size * 0.18),
-          flexShrink: 0,
-        }}
-      >
-        <img
-          src={client.logo}
-          alt={`${client.name} logo`}
-          loading="lazy"
-          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
-        />
-      </div>
-    );
-  }
-
   const accent = ACCENTS[index % ACCENTS.length];
-  return (
+
+  const tile = client.logo ? (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        background: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: Math.round(size * 0.18),
+      }}
+    >
+      <img
+        src={client.logo}
+        alt={`${client.name} logo`}
+        loading="lazy"
+        style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+      />
+    </div>
+  ) : (
     <div
       aria-label={client.name}
       style={{
@@ -68,10 +63,37 @@ export default function ClientLogo({ client, index = 0, size = 80, shape = "roun
         fontSize: Math.round(size * 0.32),
         fontFamily: "var(--font-display)",
         letterSpacing: "-0.02em",
-        flexShrink: 0,
       }}
     >
       {initials(client.name)}
+    </div>
+  );
+
+  return (
+    <div style={{ position: "relative", display: "inline-flex", flexShrink: 0 }}>
+      {tile}
+      {client.flag && (
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: -3,
+            right: -3,
+            width: Math.round(size * 0.42),
+            height: Math.round(size * 0.42),
+            borderRadius: "50%",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border-bright)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: Math.round(size * 0.24),
+            lineHeight: 1,
+          }}
+        >
+          {client.flag}
+        </span>
+      )}
     </div>
   );
 }
