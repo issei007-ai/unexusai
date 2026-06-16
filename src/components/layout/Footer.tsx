@@ -57,6 +57,37 @@ export default function Footer() {
             <p className="text-sm leading-relaxed" style={{ color:"var(--color-brand-500)" }}>
               Digital marketing, web development, and AI — run by one team that actually talks to itself.
             </p>
+            <div className="flex gap-4 mt-5">
+  <a
+    href="https://www.linkedin.com/company/unexusai/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-white transition-colors"
+    style={{ color:"var(--color-brand-400)" }}
+  >
+    LinkedIn
+  </a>
+
+  <a
+    href="https://www.instagram.com/unexusai"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-white transition-colors"
+    style={{ color:"var(--color-brand-400)" }}
+  >
+    Instagram
+  </a>
+
+  <a
+    href="https://www.facebook.com/unexusai"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-white transition-colors"
+    style={{ color:"var(--color-brand-400)" }}
+  >
+    Facebook
+  </a>
+</div>
           </ScrollReveal>
 
           {FOOTER_COLS.map((col, ci) => (
