@@ -71,7 +71,7 @@ export default function ProcessSteps() {
 
                 <p
                     className="text-[10px] uppercase tracking-widest mb-2"
-                    style={{ color: "var(--color-brand-500)" }}
+                    style={{ color: "var(--color-brand-400)" }}
                   >
                     {item.feeling}
                 </p>
