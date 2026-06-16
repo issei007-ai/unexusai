@@ -10,10 +10,10 @@ export const metadata = {
 };
 
 const EXPECT = [
-  "An honest read on where things stand today",
-  "The two or three things we'd tackle first",
-  "A rough idea of timeline and cost",
-  "No pressure to book anything afterwards",
+  "We look at where things actually stand — not what you think the problem is, but what the data says",
+  "We tell you the two or three things we'd tackle first — and why",
+  "You get a rough idea of timeline, approach, and cost",
+  "You leave with something useful, whether you work with us or not",
 ];
 
 export default function BookPage() {
@@ -23,9 +23,9 @@ export default function BookPage() {
       <main>
         <PageHero
           align="center"
-          eyebrow="Book a Call"
-          title="Book a free 30-minute strategy call"
-          subtitle="Thirty minutes, no pitch deck — just an honest look at where things are and where they could be."
+          eyebrow="Book a free call"
+          title="Book a free 30-minute call"
+          subtitle="No pitch deck. No pressure. Just an honest look at where your marketing stands — and what we'd do about it."
         />
 
         <section className="section" style={{ paddingTop: "1rem" }}>
@@ -33,7 +33,7 @@ export default function BookPage() {
             {/* What to expect */}
             <ScrollReveal direction="right">
               <div className="p-2">
-                <h2 className="text-h3 mb-6" style={{ fontFamily: "var(--font-display)" }}>What to expect</h2>
+                <h2 className="text-h3 mb-6" style={{ fontFamily: "var(--font-display)" }}>What you&apos;ll walk away with</h2>
                 <ul className="space-y-4">
                   {EXPECT.map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -49,8 +49,16 @@ export default function BookPage() {
                   <div className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--color-accent-500), var(--color-glow))" }}>R</div>
                   <div>
                     <div className="text-sm font-semibold text-white">Richa Gupta</div>
-                    <div className="text-xs" style={{ color: "var(--color-brand-400)" }}>Founder — Unexus AI</div>
+                    <div className="text-xs" style={{ color: "var(--color-brand-400)" }}>Founder, Unexus AI</div>
                   </div>
+                </div>
+                <div className="mt-6 rounded-xl px-4 py-3 flex items-start gap-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid var(--color-border)" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-400)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+                    <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
+                  </svg>
+                  <p className="text-xs leading-relaxed" style={{ color: "var(--color-brand-400)" }}>
+                    Times shown in Gulf Standard Time (GST, UTC+4). If you&apos;re joining from India or elsewhere, we&apos;ll confirm your timezone when you book.
+                  </p>
                 </div>
               </div>
             </ScrollReveal>

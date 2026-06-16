@@ -42,8 +42,8 @@ export default function AuditPage() {
                   <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div>
-                  <label className="form-label">Phone</label>
-                  <input className="form-input" name="phone" type="tel" placeholder="+971 50 123 4567" />
+                  <label className="form-label">WhatsApp number (optional)</label>
+                  <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." />
                 </div>
                 <div>
                   <label className="form-label">Website URL</label>

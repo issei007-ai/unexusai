@@ -119,48 +119,57 @@ export default function ContactPage() {
           <div className="container grid md:grid-cols-2 gap-6" style={{ maxWidth: "62rem" }}>
             {/* Book a call */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
-              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>Book a free 30-min strategy call</h2>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>Book a free call</div>
+              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>30 minutes. No pitch. Something useful either way.</h2>
               <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>
-                Thirty minutes, no pitch deck. We&apos;ll take an honest look at where things stand and
-                tell you what we&apos;d focus on first.
+                We&apos;ll take an honest look at where things stand and tell you the two or three things
+                we&apos;d focus on first — whether you work with us afterwards or not.
               </p>
               <div className="mb-4">
                 <BookingScheduler source="contact-book" />
               </div>
               <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>
-                You&apos;ll be speaking with Richa Gupta, our founder.
+                You&apos;ll be speaking with Richa Gupta, our founder. Times shown in GST (UTC+4) — joining from India? We&apos;ll adjust.
               </p>
             </div>
 
             {/* Message form */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
-              <h2 className="text-h3 mb-5" style={{ fontFamily: "var(--font-display)" }}>Send us a message</h2>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>Send a message</div>
+              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>Prefer to write? We&apos;ll come back with something specific.</h2>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>
+                Tell us where things feel stuck and what you&apos;re trying to achieve. We&apos;ll reply with
+                specific ideas — not a generic pitch.
+              </p>
               <LeadForm source="contact" submitLabel="Send message" note="We respond within one business day. No newsletters, no spam.">
-                <div>
-                  <label className="form-label">Name</label>
-                  <input className="form-input" name="name" type="text" placeholder="Your name" required />
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="form-label">Name</label>
+                    <input className="form-input" name="name" type="text" placeholder="Your name" required />
+                  </div>
+                  <div>
+                    <label className="form-label">Company</label>
+                    <input className="form-input" name="company" type="text" placeholder="Your company" />
+                  </div>
                 </div>
                 <div>
                   <label className="form-label">Email</label>
                   <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div>
-                  <label className="form-label">Phone</label>
-                  <input className="form-input" name="phone" type="tel" placeholder="+971 50 123 4567" />
+                  <label className="form-label">WhatsApp number (optional)</label>
+                  <input className="form-input" name="phone" type="tel" placeholder="+971 or +91..." />
                 </div>
                 <div>
-                  <label className="form-label">Company</label>
-                  <input className="form-input" name="company" type="text" placeholder="Your company" />
-                </div>
-                <div>
-                  <label className="form-label">What do you need?</label>
-                  <select className="form-select" name="need">
+                  <label className="form-label">What do you need help with?</label>
+                  <select className="form-select" name="need" defaultValue="">
+                    <option value="" disabled>Select a service</option>
                     {NEEDS.map((opt) => <option key={opt}>{opt}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="form-label">Tell us more</label>
-                  <textarea className="form-textarea" name="message" placeholder="A bit about your business and what you're trying to achieve..." />
+                  <textarea className="form-textarea" name="message" placeholder="What's the problem you're trying to solve?" />
                 </div>
               </LeadForm>
             </div>
