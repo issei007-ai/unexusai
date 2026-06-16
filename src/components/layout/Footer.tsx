@@ -50,14 +50,9 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
           <ScrollReveal direction="up">
-            <a href="/" className="inline-flex items-center gap-2 mb-4"
-              style={{ fontFamily:"var(--font-display)", fontWeight:700, fontSize:"1.25rem", color:"#fff", letterSpacing:"-0.03em" }}>
-              <span style={{
-                width:30, height:30, borderRadius:8, display:"inline-flex", alignItems:"center", justifyContent:"center",
-                background:"linear-gradient(135deg,var(--color-accent-500),var(--color-glow))",
-                fontSize:"0.85rem", fontWeight:800, color:"#fff",
-              }}>U</span>
-              unexus<span style={{ color:"var(--color-accent-400)" }}>ai</span>
+            <a href="/" className="inline-flex items-center mb-4"
+              style={{ fontFamily:"var(--font-display)", fontWeight:600, fontSize:"1.15rem", color:"#fff", letterSpacing:"0.2em", textTransform:"uppercase" }}>
+              Unexus&nbsp;<span className="logo-ai">AI</span>
             </a>
             <p className="text-sm leading-relaxed" style={{ color:"var(--color-brand-500)" }}>
               Digital marketing, web development, and AI — run by one team that actually talks to itself.

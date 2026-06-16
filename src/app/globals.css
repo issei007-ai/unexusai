@@ -770,6 +770,23 @@ body {
 }
 .form-textarea { resize: vertical; min-height: 120px; }
 .form-input[type="date"] { color-scheme: dark; }
+
+/* ─── LOGO — animated gradient "AI" ──────────────────────────────────────── */
+.logo-ai {
+  background: linear-gradient(90deg, #6366f1, #818cf8, #38bdf8, #6366f1);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: logo-ai-shine 5s linear infinite;
+}
+@keyframes logo-ai-shine {
+  to { background-position: 200% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-ai { animation: none; }
+}
 .form-select { appearance: none; cursor: pointer; }
 .form-select option { background: var(--color-panel); color: #fff; }
 

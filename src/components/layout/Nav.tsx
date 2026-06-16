@@ -33,17 +33,10 @@ export default function Nav() {
         {/* Logo */}
         <a
           href="/"
-          className="font-bold text-xl tracking-tight text-white flex items-center gap-1.5"
-          style={{ fontFamily: "var(--font-display)" }}
+          className="flex items-center text-white"
+          style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.05rem", letterSpacing: "0.22em", textTransform: "uppercase" }}
         >
-          <span
-            className="inline-flex w-7 h-7 rounded-lg items-center justify-center text-xs font-bold text-white"
-            style={{ background: "linear-gradient(135deg,var(--color-accent-500),var(--color-accent-600))" }}
-          >
-            U
-          </span>
-          unexus
-          <span style={{ color: "var(--color-accent-400)" }}>ai</span>
+          Unexus&nbsp;<span className="logo-ai">AI</span>
         </a>
 
         {/* Desktop links */}

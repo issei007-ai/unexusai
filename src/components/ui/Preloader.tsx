@@ -61,14 +61,14 @@ export default function Preloader() {
         <span
           style={{
             fontSize: "1.5rem",
-            fontWeight: 700,
+            fontWeight: 600,
             color: "#fff",
             fontFamily: "var(--font-display)",
-            letterSpacing: "-0.03em",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
           }}
         >
-          unexus
-          <span style={{ color: "var(--color-accent-400)" }}>ai</span>
+          Unexus&nbsp;<span className="logo-ai">AI</span>
         </span>
       </div>
 
