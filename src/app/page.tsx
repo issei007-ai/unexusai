@@ -69,10 +69,10 @@ export default function HomePage() {
               {/* CTAs */}
               <ScrollReveal delay={0.3} direction="up">
                 <div className="flex flex-wrap items-center justify-center gap-5 mb-20">
-                  <MagneticButton href="/book" className="btn btn-primary btn-lg" strength={0.3}>
+                  <MagneticButton href="#contact" className="btn btn-primary btn-lg" strength={0.3}>
                     Book Free Consultation
                   </MagneticButton>
-                  <MagneticButton href="#contact" className="btn btn-secondary btn-lg" strength={0.3}>
+                  <MagneticButton href="/book" className="btn btn-secondary btn-lg" strength={0.3}>
                     Book Free Call →
                   </MagneticButton>
                 </div>

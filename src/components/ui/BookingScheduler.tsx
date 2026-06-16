@@ -26,11 +26,12 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
   const [slot, setSlot] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const selectedDay = dayIdx !== null ? days[dayIdx] : null;
-  const ready = selectedDay && slot && name.trim() && email.trim();
+  const ready = selectedDay && slot && name.trim() && email.trim() && phone.trim();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,7 +45,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "booking", source, name, email, date, time: slot }),
+        body: JSON.stringify({ type: "booking", source, name, email, phone, date, time: slot }),
       });
       if (!res.ok) throw new Error("Request failed");
       router.push("/thank-you");
@@ -130,6 +131,15 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
             placeholder="you@company.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            className="form-input"
+            type="tel"
+            placeholder="Phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            autoComplete="off"
             required
           />
         </div>
