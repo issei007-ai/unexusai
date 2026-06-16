@@ -161,8 +161,7 @@ export default function CaseStudiesGrid() {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between gap-3 pt-3" style={{ borderTop: "1px solid var(--color-border)" }}>
-                    <span className="text-xs" style={{ color: "var(--color-brand-600)" }}>* Replace with real data</span>
+                  <div className="flex items-center justify-end gap-3 pt-3" style={{ borderTop: "1px solid var(--color-border)" }}>
                     <a href="#contact" className="text-sm font-medium inline-flex items-center gap-1.5 hover:text-white transition-colors" style={{ color: accent }}>
                       Read more →
                     </a>
