@@ -17,7 +17,7 @@ export default function ProcessSteps() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <h2 className="text-h2 text-white mb-5">
+            <h2 className="text-h2 md:text-5xl text-4xl text-white mb-5">
               From first call to real results — here's what working with us actually looks like.
             </h2>
           </ScrollReveal>
