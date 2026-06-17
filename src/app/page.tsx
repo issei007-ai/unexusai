@@ -49,7 +49,7 @@ export default function HomePage() {
                 <div className="flex justify-center mb-8">
                   <span className="feature-pill">
                     <span className="dot" />
-                    Marketing, web & AI under one roof — currently taking on new clients
+                    AI-Powered Digital Marketing • Precision. Performance. Growth.
                   </span>
                 </div>
               </ScrollReveal>
