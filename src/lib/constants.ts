@@ -130,21 +130,25 @@ export const CLIENTS: Client[] = [
   // India
   { name: "GEOX India", logo: "/clients/geox.png", flag: "in" },
   { name: "Amritsari Express", logo: "/clients/amritsari-express.png", flag: "in" },
-  { name: "Café Chennai", flag: "in" },
-  { name: "Rajwada", flag: "in" },
+  { name: "Café Chennai", logo: "/clients/cafe-chennai.png", flag: "in" },
+  { name: "Rajwada", logo: "/clients/rajwada.png", flag: "in" },
   { name: "DPS Sirsa", logo: "/clients/dps-sirsa.png", flag: "in" },
-  { name: "Lilawati Vidya Mandir", flag: "in" },
+  { name: "Lilawati Vidya Mandir", logo: "/clients/lilawati-vidya-mandir.png", flag: "in" },
   { name: "FlowerAura", logo: "/clients/floweraura.png", flag: "in" },
   { name: "Bakingo", logo: "/clients/bakingo.png", flag: "in" },
   { name: "Heritage Play Centre", flag: "in" },
-  { name: "Learning From Ant", flag: "in" },
-  { name: "Shaadi Emporio", flag: "in" },
+  { name: "Learning From Ant", logo: "/clients/learning-from-ant.png", flag: "in" },
+  { name: "Shaadi Emporio", logo: "/clients/shaadi-emporio.png", flag: "in" },
+
   // US
-  { name: "Awake Solar", flag: "us" },
+  { name: "Awake Solar", logo: "/clients/awake-solar.png", flag: "us" },
+
   // UK
-  { name: "Wentworth House", flag: "gb" },
+  { name: "Wentworth House", logo: "/clients/wentworth-house.png", flag: "gb" },
+
   // UAE
   { name: "Richies Laundry", logo: "/clients/richies.png", short: "Richies", flag: "ae" },
+
   // Saudi
   { name: "Cle", flag: "sa" },
 ];
