@@ -13,7 +13,7 @@ export const metadata = {
 const STATS = [
   { value: "10+", label: "Years of digital marketing experience" },
   { value: "80+", label: "Businesses grown across India, UAE & beyond" },
-  { value: "4", label: "Countries actively serving clients" },
+  { value: "5", label: "Countries actively serving clients" },
   { value: "6", label: "Services under one roof" },
 ];
 
