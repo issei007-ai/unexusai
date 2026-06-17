@@ -89,6 +89,13 @@ export default function ProcessSteps() {
                   >
                     {item.desc}
                   </p>
+                  
+                  <p
+                    className="text-[11px] mt-3"
+                    style={{ color: "var(--color-brand-500)" }}
+                  >
+                    <strong>What you do:</strong> {item.action}
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
