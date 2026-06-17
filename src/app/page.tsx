@@ -64,10 +64,10 @@ export default function HomePage() {
               {/* Sub */}
               <ScrollReveal delay={0.2} direction="up">
                 <p className="text-lead text-center max-w-2xl mx-auto mb-12">
-                  We fix that — with Marketing, GEO, Google Ads, Meta Ads and website development
-                  built to work together, for businesses across UAE, India, and beyond.
+                  We fix that — with GEO, Google Ads, Meta Ads, Digital Marketing and website development
+                  built to work together, for businesses across UAE, KSA, India and beyond.
                 </p>
-              </ScrollReveal>
+                  </ScrollReveal>
 
               {/* CTAs */}
               <ScrollReveal delay={0.3} direction="up">
