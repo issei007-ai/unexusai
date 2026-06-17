@@ -57,36 +57,41 @@ export const STATS: Stat[] = [
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
-{
-  step: "01",
-  feeling: "YOU FEEL → HEARD",
-  title: "We listen before we suggest anything.",
-  desc: "A 30-minute call where we ask the questions most agencies skip — what's actually not working, what you've already tried, and what success looks like for your business specifically."
-},
-{
-  step: "02",
-  feeling: "YOU FEEL → CLEAR",
-  title: "You get a plan built around your business — not a template.",
-  desc: "Within a week, we come back with a focused plan — which services, in which order, with what expected outcomes."
-},
-{
-  step: "03",
-  feeling: "YOU FEEL → IN CONTROL",
-  title: "Things go live — with tracking on from day one.",
-  desc: "Campaigns, automations, new pages — nothing launches without proper measurement in place."
-},
-{
-  step: "04",
-  feeling: "YOU FEEL → MOMENTUM",
-  title: "We tell you what's working — and fix what isn't, fast.",
-  desc: "A real update every week. A proper review every month. If something isn't moving the needle, we say so and change it."
-},
-{
-  step: "05",
-  feeling: "YOU FEEL → CONFIDENT",
-  title: "You always know what comes next.",
-  desc: "Every month ends with a clear picture — what happened, what it produced, and what we're doing next."
-},
+  {
+    step: "01",
+    feeling: "YOU FEEL → HEARD",
+    title: "We listen before we suggest anything.",
+    desc: "A 30-minute call where we ask the questions most agencies skip — what's actually not working, what you've already tried, and what success looks like for your business specifically.",
+    action: "Talk to us honestly. The more context you give, the sharper our plan.",
+  },
+  {
+    step: "02",
+    feeling: "YOU FEEL → CLEAR",
+    title: "You get a plan built around your business — not a template.",
+    desc: "Within a week, we come back with a focused plan — which services, in which order, with what expected outcomes. We show you exactly where your money goes and why.",
+    action: "Review, ask questions, push back. We'd rather get it right than move fast.",
+  },
+  {
+    step: "03",
+    feeling: "YOU FEEL → IN CONTROL",
+    title: "Things go live — with tracking on from day one.",
+    desc: "Campaigns, automations, new pages — nothing launches without proper measurement in place. You'll have visibility into what's happening from the start.",
+    action: "Watch it go live. Ask us anything. We're reachable when you need us.",
+  },
+  {
+    step: "04",
+    feeling: "YOU FEEL → MOMENTUM",
+    title: "We tell you what's working — and fix what isn't, fast.",
+    desc: "A real update every week. A proper review every month. If something isn't moving the needle, we say so and change it. No waiting, no excuses.",
+    action: "Stay looped in. Growth compounds when both sides are engaged.",
+  },
+  {
+    step: "05",
+    feeling: "YOU FEEL → CONFIDENT",
+    title: "You always know what comes next.",
+    desc: "Every month ends with a clear picture — what happened, what it produced, and what we're doing next. No guessing. No chasing.",
+    action: "Approve the next month, or don't. No lock-in — ever.",
+  },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
