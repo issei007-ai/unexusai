@@ -26,7 +26,7 @@ export default function HomePage() {
         {/* ── HERO ──────────────────────────────────────────────────────── */}
         <section
           className="bg-gradient-animated relative overflow-hidden flex items-center"
-          style={{ minHeight: "100svh", paddingBlock: "6rem 5rem" }}
+          style={{ minHeight: "85svh", paddingBlock: "6rem 5rem" }}
         >
           {/* Hero visual: WebGL 3D blob on desktop, CSS aurora on mobile */}
           <HeroVisual />
