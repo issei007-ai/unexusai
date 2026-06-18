@@ -149,6 +149,11 @@ html {
   color-scheme: dark;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-body);
   font-size: 1rem;
