@@ -29,7 +29,13 @@ export default function BookPage() {
         />
 
         <section className="section" style={{ paddingTop: "1rem" }}>
-          <div className="container grid md:grid-cols-2 gap-6 items-start" style={{ maxWidth: "62rem" }}>
+         <div
+  className="container grid grid-cols-1 lg:grid-cols-2 gap-6 items-start"
+  style={{
+    maxWidth: "62rem",
+    overflowX: "hidden",
+  }}
+>
             {/* What to expect */}
             <ScrollReveal direction="right">
               <div className="p-2">
@@ -65,7 +71,14 @@ export default function BookPage() {
 
             {/* Scheduler */}
             <ScrollReveal>
-              <div className="glow-card p-6 md:p-7" style={{ border: "1px solid var(--color-border)" }}>
+              <div
+  className="glow-card p-4 md:p-7 w-full"
+  style={{
+    border: "1px solid var(--color-border)",
+    maxWidth: "100%",
+    overflow: "hidden",
+  }}
+>
                 <BookingScheduler />
               </div>
             </ScrollReveal>
