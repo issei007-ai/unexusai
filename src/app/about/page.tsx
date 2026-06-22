@@ -165,10 +165,25 @@ export default function AboutPage() {
               <span className="badge badge-accent mb-5 inline-flex">The team</span>
               <h2 className="text-h2"><RevealText3D text="The people doing the work." splitBy="word" /></h2>
             </div>
-            <div className="glow-card p-7 text-center" style={{ border: "1px dashed var(--color-border-bright)" }}>
-              <p className="text-sm" style={{ color: "var(--color-brand-400)" }}>
-                Team section — names, roles, and a line about each will go here once details are shared.
-              </p>
+            <div className="grid sm:grid-cols-3 gap-5">
+              {[1, 2, 3].map((n) => (
+                <ScrollReveal key={n} delay={n * 0.08}>
+                  <div className="glow-card h-full p-6 text-center" style={{ border: "1px solid var(--color-border)" }}>
+                    <div
+                      className="mx-auto mb-4 flex items-center justify-center"
+                      style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: "1px solid var(--color-border-bright)", color: "var(--color-brand-500)" }}
+                    >
+                      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </div>
+                    <div className="font-semibold text-white mb-1" style={{ fontFamily: "var(--font-display)" }}>Team Member</div>
+                    <div className="text-xs mb-3" style={{ color: "var(--color-accent-300)" }}>Role · Unexus AI</div>
+                    <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-400)" }}>A short line about this team member goes here.</p>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </section>
