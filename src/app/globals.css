@@ -866,6 +866,19 @@ body {
 .prose-dark li::marker { color: var(--color-accent-400); }
 .prose-dark a { color: var(--color-accent-300); text-decoration: underline; text-underline-offset: 2px; }
 .prose-dark strong { color: #fff; font-weight: 600; }
+.prose-dark h4 { font-family: var(--font-display); color: #fff; font-weight: 700; font-size: 1rem; margin-top: 1.5rem; }
+.prose-dark blockquote {
+  border-left: 2px solid var(--color-accent-500);
+  padding-left: 1rem; color: var(--color-brand-400); font-style: italic;
+}
+.prose-dark .table-wrap { overflow-x: auto; margin-top: 1.5rem; }
+.prose-dark table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.prose-dark th, .prose-dark td {
+  text-align: left; padding: 0.7rem 0.9rem; border: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.prose-dark th { background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; }
+.prose-dark td { color: var(--color-brand-300); }
 
 /* ─── VISUAL POLISH (all static or transform-only → stays smooth) ────────── */
 
