@@ -1,4 +1,5 @@
 import LeadForm from "@/components/ui/LeadForm";
+import PhoneField from "@/components/ui/PhoneField";
 import RevealText3D from "@/components/ui/RevealText3D";
 import { SERVICES } from "@/lib/constants";
 
@@ -64,10 +65,7 @@ export default function ContactCTA({
                   <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
               </div>
-              <div>
-                <label className="form-label">Phone number</label>
-                <input className="form-input" name="phone" type="tel" placeholder="" required autoComplete="off" />
-              </div>
+              <PhoneField />
               <div>
                 <label className="form-label">Company</label>
                 <input className="form-input" name="company" type="text" placeholder="Your company" />

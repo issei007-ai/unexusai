@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import LeadForm from "@/components/ui/LeadForm";
+import PhoneField from "@/components/ui/PhoneField";
 
 export const metadata = {
   title: "Get a Quote — Unexus AI",
@@ -45,10 +46,7 @@ export default function QuotePage() {
                     <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                   </div>
                 </div>
-                <div>
-                  <label className="form-label">Phone number</label>
-                  <input className="form-input" name="phone" type="tel" placeholder="" required autoComplete="off" />
-                </div>
+                <PhoneField />
                 <div>
                   <label className="form-label">Company</label>
                   <input className="form-input" name="company" type="text" placeholder="Your company" />

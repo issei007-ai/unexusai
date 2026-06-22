@@ -33,6 +33,7 @@ export interface Channel {
 
 const LABELS: Record<string, string> = {
   website: "Website",
+  countryCode: "Country code",
   phone: "Phone",
   company: "Company",
   service: "Service",

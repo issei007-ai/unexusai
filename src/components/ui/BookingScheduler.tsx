@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 const TIME_SLOTS = ["9:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const CODES = ["+971", "+91", "+966", "+1", "+44", "+61", "+65", "+92", "+880", "+49", "+33", "+20"];
 
 /** Next N weekdays starting tomorrow (skips Sat/Sun). */
 function nextWeekdays(count: number): Date[] {
@@ -27,6 +28,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("+971");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +47,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "booking", source, name, email, phone, date, time: slot }),
+        body: JSON.stringify({ type: "booking", source, name, email, countryCode, phone, date, time: slot }),
       });
       if (!res.ok) throw new Error("Request failed");
       router.push("/thank-you");
@@ -133,15 +135,28 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            className="form-input"
-            type="tel"
-            placeholder="Phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            autoComplete="off"
-            required
-          />
+          <div className="flex gap-2">
+            <select
+              className="form-select"
+              value={countryCode}
+              onChange={(e) => setCountryCode(e.target.value)}
+              aria-label="Country code"
+              style={{ width: "5.75rem", flexShrink: 0, paddingLeft: "0.7rem", paddingRight: "1.3rem" }}
+            >
+              {CODES.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <input
+              className="form-input"
+              type="tel"
+              inputMode="numeric"
+              placeholder="Phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))}
+              autoComplete="off"
+              required
+              style={{ flex: 1 }}
+            />
+          </div>
         </div>
       </div>
 

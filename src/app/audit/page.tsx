@@ -2,6 +2,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import LeadForm from "@/components/ui/LeadForm";
+import PhoneField from "@/components/ui/PhoneField";
 
 export const metadata = {
   title: "Free Growth Audit — Unexus AI",
@@ -41,10 +42,7 @@ export default function AuditPage() {
                   <label className="form-label">Email</label>
                   <input className="form-input" name="email" type="email" placeholder="you@company.com" required />
                 </div>
-                <div>
-                  <label className="form-label">Phone number</label>
-                  <input className="form-input" name="phone" type="tel" placeholder="" required autoComplete="off" />
-                </div>
+                <PhoneField />
                 <div>
                   <label className="form-label">Website URL</label>
                   <input className="form-input" name="website" type="url" placeholder="https://yoursite.com" />
