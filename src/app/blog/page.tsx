@@ -9,14 +9,9 @@ export const metadata = {
   description: "Playbooks, field notes, and practical ideas on growth, AI, and marketing.",
 };
 
-const POSTS = [
-  { cat: "AI", title: "GEO, explained without the hype", excerpt: "Search is slowly splitting into two: the engine that shows links, and the one that just answers the question for you. Here's what we're doing differently because of it.", date: "May 2026", read: "6 min", accent: "#7c3aed", seed: "richa-geo" },
-  { cat: "Paid Media", title: "Why your ROAS is lying to you (and what to track instead)", excerpt: "ROAS looks great on a slide and tells you almost nothing on its own. Here's what we actually look at with clients, and why.", date: "Apr 2026", read: "5 min", accent: "#6366f1", seed: "richa-roas" },
-  { cat: "Web", title: "The 0.9-second website: a performance checklist", excerpt: "The checklist we run through before launching any Next.js site. Copy it, steal it, ignore the bits that don't apply to you.", date: "Apr 2026", read: "8 min", accent: "#06b6d4", seed: "richa-web" },
-  { cat: "Automation", title: "We replaced a 12-hour weekly task with one AI agent", excerpt: "A teardown of a real lead-qualification agent: the architecture, the guardrails, and everything that broke before it actually worked.", date: "Mar 2026", read: "7 min", accent: "#10b981", seed: "richa-agent" },
-  { cat: "Research", title: "How to interview customers without leading them", excerpt: "The questions that surface something real, and the well-meaning ones that quietly poison the whole interview.", date: "Mar 2026", read: "6 min", accent: "#f59e0b", seed: "richa-research" },
-  { cat: "Strategy", title: "Why we stopped recommending 'best in class' for everything", excerpt: "Five specialists working as one team tends to beat five separate vendors who've never spoken. Here's the reasoning, with some actual numbers.", date: "Feb 2026", read: "5 min", accent: "#ec4899", seed: "richa-strategy" },
-];
+type Post = { cat: string; title: string; excerpt: string; date: string; read: string; accent: string; seed: string };
+
+const POSTS: Post[] = [];
 
 export default function BlogPage() {
   const featured = POSTS[0];
@@ -35,6 +30,7 @@ export default function BlogPage() {
         <section className="section section-alt">
           <div className="container">
             {/* Featured */}
+            {featured && (
             <ScrollReveal>
               <article
                 className="rounded-2xl overflow-hidden mb-6 grid md:grid-cols-2"
@@ -52,6 +48,15 @@ export default function BlogPage() {
                 </div>
               </article>
             </ScrollReveal>
+            )}
+
+            {/* Coming soon */}
+            {POSTS.length === 0 && (
+              <div className="glow-card p-10 text-center mx-auto" style={{ border: "1px solid var(--color-border)", maxWidth: "40rem" }}>
+                <h2 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>Articles coming soon</h2>
+                <p className="text-sm" style={{ color: "var(--color-brand-300)" }}>We&apos;re putting together practical pieces on growth, AI, and GEO. Subscribe below to get them as they land.</p>
+              </div>
+            )}
 
             {/* Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
