@@ -15,8 +15,11 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import Preloader from "@/components/ui/Preloader";
 import { CLIENTS } from "@/lib/constants";
 import ClientLogo from "@/components/ui/ClientLogo";
+import { getSection } from "@/lib/cms";
+import { HOME_HERO_DEFAULTS } from "@/lib/cms-schema";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const hero = await getSection("home.hero", HOME_HERO_DEFAULTS);
   return (
     <>
       <Preloader />
@@ -49,23 +52,22 @@ export default function HomePage() {
                 <div className="flex justify-center mb-8">
                   <span className="feature-pill">
                     <span className="dot" />
-                    AI-Powered Digital Marketing • Precision. Performance. Growth.
+                    {hero.badge}
                   </span>
                 </div>
               </ScrollReveal>
 
               {/* Headline — 3D flip-in reveal */}
               <h1 className="text-hero text-center mb-6">
-                <RevealText3D text="You're spending on marketing" splitBy="char" stagger={0.02} delay={0.05} />
+                <RevealText3D text={hero.headlineFixed} splitBy="char" stagger={0.02} delay={0.05} />
                 <br />
-                <TypingText />
+                <TypingText words={hero.rotatingLines} />
               </h1>
 
               {/* Sub */}
               <ScrollReveal delay={0.2} direction="up">
                 <p className="text-lead text-center max-w-2xl mx-auto mb-12">
-                  We fix that — with GEO, Google Ads, Meta Ads, Digital Marketing and website development
-                  built to work together, for businesses across UAE, KSA, India and beyond.
+                  {hero.sub}
                 </p>
                   </ScrollReveal>
 
@@ -73,10 +75,10 @@ export default function HomePage() {
               <ScrollReveal delay={0.3} direction="up">
                 <div className="flex flex-wrap items-center justify-center gap-5 mb-20">
                   <MagneticButton href="#contact" className="btn btn-primary btn-lg" strength={0.3}>
-                    Book Free Consultation
+                    {hero.ctaPrimary}
                   </MagneticButton>
                   <MagneticButton href="/book" className="btn btn-secondary btn-lg" strength={0.3}>
-                    Book Free Call →
+                    {hero.ctaSecondary}
                   </MagneticButton>
                 </div>
               </ScrollReveal>
@@ -86,7 +88,7 @@ export default function HomePage() {
             {/* Trust marquee */}
             <div className="mt-20 pt-10" style={{ borderTop:"1px solid rgba(255,255,255,0.07)" }}>
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
-                Our clients span industries and time zones.
+                {hero.trustLabel}
               </p>
               <Marquee speed={26} gap="2.75rem">
                 {CLIENTS.filter((c) => c.logo).map((c, i) => (

@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const WORDS = [
+const DEFAULT_WORDS = [
   "You're not seeing it in revenue",
   "You're not getting enough leads",
   "You're not showing up on AI search",
 ];
 
-export default function TypingText() {
+export default function TypingText({ words }: { words?: string[] }) {
+  const WORDS = words && words.length ? words : DEFAULT_WORDS;
   const [wordIdx, setWordIdx] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
