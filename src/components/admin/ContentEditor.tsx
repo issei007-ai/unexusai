@@ -77,6 +77,9 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
           <input type="file" accept="image/*" hidden onChange={onFile} />
         </label>
       </div>
+      <p className="text-xs mt-1" style={{ color: "var(--color-brand-500)" }}>
+        Tip: keep cover images around 1500px wide and under ~500&nbsp;KB so pages load fast. Max 25&nbsp;MB.
+      </p>
       {err && <p className="text-xs mt-1" style={{ color: "#f87171" }}>{err}</p>}
       {value && <img src={value} alt="" style={{ marginTop: 8, maxHeight: 80, borderRadius: 8, border: "1px solid var(--color-border)" }} />}
     </div>
