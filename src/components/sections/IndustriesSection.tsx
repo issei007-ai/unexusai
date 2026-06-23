@@ -1,5 +1,7 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
+import { getSection } from "@/lib/cms";
+import { HOME_INDUSTRIES_DEFAULTS } from "@/lib/cms-schema";
 
 type Point = { title: string; desc: string };
 type Industry = {
@@ -85,10 +87,8 @@ const INDUSTRIES: Industry[] = [
   },
 ];
 
-const INTRO =
-  "Every industry has its own version of the same problem — money going into marketing, not enough coming back out. Here's what we see most often, and what we do about it.";
-
-export default function IndustriesSection() {
+export default async function IndustriesSection() {
+  const c = await getSection("home.industries", HOME_INDUSTRIES_DEFAULTS);
   return (
     <section className="section relative overflow-hidden" style={{ background: "var(--color-bg)" }}>
       <div className="absolute inset-0 bg-grid" style={{ opacity: 0.18 }} />
@@ -96,12 +96,12 @@ export default function IndustriesSection() {
       <div className="container relative z-10">
         <div className="mb-14" style={{ maxWidth: "44rem" }}>
           <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--color-brand-500)" }}>
-            Who we work with
+            {c.eyebrow}
           </span>
           <h2 className="text-h2 mt-3 mb-4">
-            <RevealText3D text="We've seen what's holding your industry back." splitBy="word" />
+            <RevealText3D text={c.title} splitBy="word" />
           </h2>
-          <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{INTRO}</p>
+          <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{c.intro}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-5">

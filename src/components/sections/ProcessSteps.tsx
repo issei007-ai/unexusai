@@ -1,7 +1,9 @@
-import { PROCESS_STEPS } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { getSection } from "@/lib/cms";
+import { HOME_PROCESS_DEFAULTS } from "@/lib/cms-schema";
 
-export default function ProcessSteps() {
+export default async function ProcessSteps() {
+  const c = await getSection("home.process", HOME_PROCESS_DEFAULTS);
   return (
     <section className="section relative overflow-hidden" style={{ background: "var(--color-brand-950)" }}>
       <div className="absolute inset-0 bg-grid opacity-20" />
@@ -13,7 +15,7 @@ export default function ProcessSteps() {
       <div className="container relative z-10">
         <div className="text-center mb-16">
           <ScrollReveal>
-            <span className="badge badge-dark mb-5 inline-flex">How it works</span>
+            <span className="badge badge-dark mb-5 inline-flex">{c.badge}</span>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -24,13 +26,13 @@ export default function ProcessSteps() {
                     lineHeight: 1.1,
                   }}
                 >
-              From first call to real results — here's what working with us actually looks like.
+              {c.title}
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
             <p className="text-lead max-w-xl mx-auto" style={{ color: "var(--color-brand-300)" }}>
-              No black boxes. No waiting weeks to hear back. You'll know exactly what's happening and why at every stage.
+              {c.intro}
             </p>
           </ScrollReveal>
         </div>
@@ -49,8 +51,8 @@ export default function ProcessSteps() {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {PROCESS_STEPS.map((item, i) => (
-              <ScrollReveal key={item.step} delay={i * 0.13} direction="up">
+            {c.steps.map((item, i) => (
+              <ScrollReveal key={i} delay={i * 0.13} direction="up">
                 <div className="text-center relative group cursor-default">
                   <div
                     className="w-[60px] h-[60px] rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 transition-transform duration-300 group-hover:scale-110"
@@ -65,7 +67,7 @@ export default function ProcessSteps() {
                       className="text-sm font-bold text-white"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
-                      {item.step}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
 

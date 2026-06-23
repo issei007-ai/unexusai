@@ -16,10 +16,11 @@ import Preloader from "@/components/ui/Preloader";
 import { CLIENTS } from "@/lib/constants";
 import ClientLogo from "@/components/ui/ClientLogo";
 import { getSection } from "@/lib/cms";
-import { HOME_HERO_DEFAULTS } from "@/lib/cms-schema";
+import { HOME_HERO_DEFAULTS, HOME_SERVICES_DEFAULTS } from "@/lib/cms-schema";
 
 export default async function HomePage() {
   const hero = await getSection("home.hero", HOME_HERO_DEFAULTS);
+  const servicesHead = await getSection("home.services", HOME_SERVICES_DEFAULTS);
   return (
     <>
       <Preloader />
@@ -112,7 +113,7 @@ export default async function HomePage() {
 
         <IndustriesSection />
         <WhyRicha />
-        <ServicesGrid />
+        <ServicesGrid heading={servicesHead.heading} intro={servicesHead.intro} />
         <ProcessSteps />
         <TestimonialsGrid />
         <ContactCTA />

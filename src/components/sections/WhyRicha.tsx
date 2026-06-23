@@ -1,6 +1,7 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
-import { WHY_US } from "@/lib/constants";
+import { getSection } from "@/lib/cms";
+import { HOME_WHY_DEFAULTS } from "@/lib/cms-schema";
 
 const META = [
   {
@@ -48,24 +49,25 @@ const META = [
   },
 ];
 
-export default function WhyRicha() {
+export default async function WhyRicha() {
+  const c = await getSection("home.why", HOME_WHY_DEFAULTS);
   return (
     <section className="section relative overflow-hidden" style={{ background: "var(--color-panel)" }}>
       <div className="absolute inset-0 bg-dots" style={{ opacity: 0.22 }} />
 
       <div className="container relative z-10">
         <div className="text-center mb-14">
-          <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
+          <span className="badge badge-accent mb-5 inline-flex">{c.badge}</span>
           <h2 className="text-h2 mb-4">
-            <RevealText3D text="Not promises. Just how we actually work." splitBy="word" />
+            <RevealText3D text={c.title} splitBy="word" />
           </h2>
           <p className="text-lead max-w-xl mx-auto">
-            The things that matter when you&apos;re choosing who to trust with your growth.
+            {c.intro}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {WHY_US.map((item, i) => {
+          {c.reasons.map((item, i) => {
             const m = META[i % META.length];
             return (
               <ScrollReveal key={item.title} delay={i * 0.09}>

@@ -1,24 +1,51 @@
 "use client";
 import { useState } from "react";
-import type { CmsSection } from "@/lib/cms-schema";
+import type { CmsSection, CmsField } from "@/lib/cms-schema";
 
 type Dict = Record<string, unknown>;
+type ItemForm = Record<string, string>;
+type FieldVal = string | ItemForm[];
+type SectionForm = Record<string, FieldVal>;
 
-function toForm(section: CmsSection, override?: Dict): Record<string, string> {
-  const merged = { ...section.defaults, ...(override || {}) };
-  const f: Record<string, string> = {};
-  for (const field of section.fields) {
-    const v = merged[field.name];
-    if (field.type === "list") f[field.name] = Array.isArray(v) ? v.join("\n") : String(v ?? "");
-    else f[field.name] = v == null ? "" : String(v);
+function fieldToForm(field: CmsField, v: unknown): FieldVal {
+  if (field.type === "list") return Array.isArray(v) ? v.join("\n") : String(v ?? "");
+  if (field.type === "items") {
+    const arr = Array.isArray(v) ? v : [];
+    return arr.map((item) => itemToForm(field, item as Dict));
   }
+  return v == null ? "" : String(v);
+}
+
+function itemToForm(field: CmsField, item: Dict): ItemForm {
+  const o: ItemForm = {};
+  for (const sf of field.itemFields ?? []) {
+    const sv = item?.[sf.name];
+    o[sf.name] = sf.type === "list" ? (Array.isArray(sv) ? sv.join("\n") : String(sv ?? "")) : String(sv ?? "");
+  }
+  return o;
+}
+
+function blankItem(field: CmsField): ItemForm {
+  const o: ItemForm = {};
+  for (const sf of field.itemFields ?? []) o[sf.name] = "";
+  return o;
+}
+
+function toForm(section: CmsSection, override?: Dict): SectionForm {
+  const merged = { ...section.defaults, ...(override || {}) };
+  const f: SectionForm = {};
+  for (const field of section.fields) f[field.name] = fieldToForm(field, merged[field.name]);
   return f;
+}
+
+function listToArray(s: string): string[] {
+  return s.split("\n").map((x) => x.trim()).filter(Boolean);
 }
 
 export default function ContentEditor({ sections, content }: { sections: CmsSection[]; content: Record<string, Dict> }) {
   const [activeKey, setActiveKey] = useState(sections[0]?.key ?? "");
   const active = sections.find((s) => s.key === activeKey) ?? sections[0];
-  const [form, setForm] = useState<Record<string, string>>(() => toForm(active, content[active.key]));
+  const [form, setForm] = useState<SectionForm>(() => toForm(active, content[active.key]));
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<null | "saved" | "error">(null);
 
@@ -30,15 +57,41 @@ export default function ContentEditor({ sections, content }: { sections: CmsSect
     setStatus(null);
   }
 
+  function setText(name: string, value: string) {
+    setForm((f) => ({ ...f, [name]: value }));
+  }
+  function setItemField(name: string, idx: number, sub: string, value: string) {
+    setForm((f) => {
+      const items = [...(f[name] as ItemForm[])];
+      items[idx] = { ...items[idx], [sub]: value };
+      return { ...f, [name]: items };
+    });
+  }
+  function addItem(field: CmsField) {
+    setForm((f) => ({ ...f, [field.name]: [...(f[field.name] as ItemForm[]), blankItem(field)] }));
+  }
+  function removeItem(name: string, idx: number) {
+    setForm((f) => ({ ...f, [name]: (f[name] as ItemForm[]).filter((_, i) => i !== idx) }));
+  }
+
   async function save() {
     setSaving(true);
     setStatus(null);
     const value: Dict = {};
     for (const field of active.fields) {
+      const v = form[field.name];
       if (field.type === "list") {
-        value[field.name] = (form[field.name] || "").split("\n").map((s) => s.trim()).filter(Boolean);
+        value[field.name] = listToArray(v as string);
+      } else if (field.type === "items") {
+        value[field.name] = (v as ItemForm[]).map((item) => {
+          const o: Dict = {};
+          for (const sf of field.itemFields ?? []) {
+            o[sf.name] = sf.type === "list" ? listToArray(item[sf.name] || "") : (item[sf.name] || "").trim();
+          }
+          return o;
+        });
       } else {
-        value[field.name] = (form[field.name] || "").trim();
+        value[field.name] = (v as string).trim();
       }
     }
     try {
@@ -94,30 +147,51 @@ export default function ContentEditor({ sections, content }: { sections: CmsSect
         <h2 className="text-h3 mb-1" style={{ fontFamily: "var(--font-display)" }}>{active.group} · {active.label}</h2>
         <p className="text-xs mb-6" style={{ color: "var(--color-brand-500)" }}>Section key: {active.key}</p>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {active.fields.map((field) => (
             <div key={field.name}>
               <label className="form-label">{field.label}</label>
-              {field.type === "text" ? (
-                <input
-                  className="form-input"
-                  value={form[field.name] ?? ""}
-                  onChange={(e) => setForm((f) => ({ ...f, [field.name]: e.target.value }))}
-                />
-              ) : (
-                <textarea
-                  className="form-textarea"
-                  rows={field.type === "list" ? 5 : 3}
-                  value={form[field.name] ?? ""}
-                  onChange={(e) => setForm((f) => ({ ...f, [field.name]: e.target.value }))}
-                />
+
+              {field.type === "text" && (
+                <input className="form-input" value={(form[field.name] as string) ?? ""} onChange={(e) => setText(field.name, e.target.value)} />
               )}
+
+              {(field.type === "textarea" || field.type === "list") && (
+                <textarea className="form-textarea" rows={field.type === "list" ? 5 : 3} value={(form[field.name] as string) ?? ""} onChange={(e) => setText(field.name, e.target.value)} />
+              )}
+
+              {field.type === "items" && (
+                <div className="space-y-3">
+                  {(form[field.name] as ItemForm[]).map((item, idx) => (
+                    <div key={idx} className="rounded-lg p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid var(--color-border)" }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs" style={{ color: "var(--color-brand-500)" }}>#{idx + 1}</span>
+                        <button type="button" onClick={() => removeItem(field.name, idx)} className="text-xs" style={{ color: "#f87171" }}>Remove</button>
+                      </div>
+                      <div className="space-y-2.5">
+                        {(field.itemFields ?? []).map((sf) => (
+                          <div key={sf.name}>
+                            <label className="text-xs" style={{ color: "var(--color-brand-400)" }}>{sf.label}</label>
+                            {sf.type === "text" ? (
+                              <input className="form-input" style={{ fontSize: "0.85rem", padding: "0.5rem 0.7rem" }} value={item[sf.name] ?? ""} onChange={(e) => setItemField(field.name, idx, sf.name, e.target.value)} />
+                            ) : (
+                              <textarea className="form-textarea" rows={sf.type === "list" ? 4 : 2} style={{ fontSize: "0.85rem", padding: "0.5rem 0.7rem", minHeight: 0 }} value={item[sf.name] ?? ""} onChange={(e) => setItemField(field.name, idx, sf.name, e.target.value)} />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => addItem(field)} className="btn btn-secondary btn-sm">+ Add {field.itemLabel ?? "item"}</button>
+                </div>
+              )}
+
               {field.help && <p className="text-xs mt-1" style={{ color: "var(--color-brand-500)" }}>{field.help}</p>}
             </div>
           ))}
         </div>
 
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center gap-4 mt-7">
           <button type="button" onClick={save} disabled={saving} className="btn btn-primary" style={{ opacity: saving ? 0.7 : 1 }}>
             {saving ? "Saving…" : "Save changes"}
           </button>

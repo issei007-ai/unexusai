@@ -1,11 +1,13 @@
-import { TESTIMONIALS } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
 import RevealText3D from "@/components/ui/RevealText3D";
+import { getSection } from "@/lib/cms";
+import { HOME_TESTIMONIALS_DEFAULTS } from "@/lib/cms-schema";
 
 const ACCENT = ["#818cf8", "#a78bfa", "#67e8f9", "#34d399"];
 
-export default function TestimonialsGrid() {
+export default async function TestimonialsGrid() {
+  const c = await getSection("home.testimonials", HOME_TESTIMONIALS_DEFAULTS);
   return (
     <section className="section relative overflow-hidden" style={{ background: "var(--color-bg)" }}>
       <div className="orb orb-secondary absolute" style={{ width: 600, height: 600, bottom: "-200px", left: "-100px", opacity: 0.1 }} />
@@ -15,22 +17,22 @@ export default function TestimonialsGrid() {
       <div className="container relative z-10">
         <div className="text-center mb-16">
           <ScrollReveal>
-            <span className="badge badge-accent mb-5 inline-flex">Social proof</span>
+            <span className="badge badge-accent mb-5 inline-flex">{c.badge}</span>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 className="text-h2">
-              <RevealText3D text="Don't take our word for it" splitBy="word" />
+              <RevealText3D text={c.title} splitBy="word" />
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lead mt-4 max-w-md mx-auto">
-              A few words from the people we&apos;ve worked with.
+              {c.intro}
             </p>
           </ScrollReveal>
         </div>
 
         <div className="grid md:grid-cols-2 gap-5" style={{ maxWidth: "60rem", margin: "0 auto" }}>
-          {TESTIMONIALS.map((t, i) => (
+          {c.items.map((t, i) => (
             <ScrollReveal key={t.quote} delay={i * 0.12}>
               <TiltCard intensity={5} className="h-full">
                 <div
