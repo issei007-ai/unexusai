@@ -29,7 +29,7 @@ interface Cta {
   href: string;
 }
 
-interface Props {
+export interface ServiceTemplateProps {
   num: string;
   accent: string;
   badge: string;
@@ -89,7 +89,7 @@ export default function ServicePageTemplate({
   faqs,
   faqIntro,
   closing,
-}: Props) {
+}: ServiceTemplateProps) {
   return (
     <>
       <Nav />

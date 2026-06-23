@@ -4,41 +4,42 @@ import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { WHY_US } from "@/lib/constants";
+import { getSection } from "@/lib/cms";
+import { SERVICES_OVERVIEW_DEFAULTS } from "@/lib/cms-schema";
 
 export const metadata = {
   title: "Services — Unexus AI",
   description: "Digital marketing, website development, AI automation, AI training and market research, run by one team.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const c = await getSection("services.overview", SERVICES_OVERVIEW_DEFAULTS);
+  const whyCards = Array.isArray(c.whyCards) ? c.whyCards : [];
+
   return (
     <>
       <Nav />
       <main>
         <PageHero
-          eyebrow="Services"
-          title="Six services. Every growth lever your business needs."
-          subtitle="Take one service or combine several — they're built to connect. The more they work together, the more your results compound. All delivered by one team in the UAE, serving businesses across the Middle East, India, and beyond."
+          eyebrow={c.heroEyebrow}
+          title={c.heroTitle}
+          subtitle={c.heroSubtitle}
         >
-          <a href="/book" className="btn btn-primary btn-lg">Book a Strategy Call</a>
-          <a href="#contact" className="btn btn-secondary btn-lg">Book a Free Consultation →</a>
+          <a href={c.heroPrimaryHref} className="btn btn-primary btn-lg">{c.heroPrimaryLabel}</a>
+          <a href={c.heroSecondaryHref} className="btn btn-secondary btn-lg">{c.heroSecondaryLabel}</a>
         </PageHero>
 
-        <ServicesGrid
-          heading="Six services. Built to work together."
-          intro="SEO without a website built for conversion is wasted. Paid ads without proper tracking is guesswork. AI tools without trained people are just subscriptions. We build all six services to connect — so your growth compounds instead of leaking through the gaps."
-        />
+        <ServicesGrid heading={c.gridHeading} intro={c.gridIntro} />
 
         {/* Why Unexus AI */}
         <section className="section section-alt">
           <div className="container">
             <div className="text-center mb-14">
-              <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>
-              <h2 className="text-h2">What working with us is actually like</h2>
+              <span className="badge badge-accent mb-5 inline-flex">{c.whyBadge}</span>
+              <h2 className="text-h2">{c.whyTitle}</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {WHY_US.map((item, i) => (
+              {whyCards.map((item: { title: string; desc: string }, i: number) => (
                 <ScrollReveal key={item.title} delay={i * 0.08}>
                   <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
                     <h3 className="font-bold mb-2 text-white" style={{ fontFamily: "var(--font-display)" }}>{item.title}</h3>
