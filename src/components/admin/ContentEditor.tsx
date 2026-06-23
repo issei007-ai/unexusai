@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { upload } from "@vercel/blob/client";
 import type { CmsSection, CmsField } from "@/lib/cms-schema";
 
 type Dict = Record<string, unknown>;
@@ -51,13 +52,15 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
     if (!file) return;
     setUploading(true);
     setErr(null);
-    const fd = new FormData();
-    fd.append("file", file);
     try {
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data.error || "Upload failed");
-      onChange(data.url);
+      if (!file.type.startsWith("image/")) throw new Error("Only image files are allowed");
+      // Browser uploads straight to Blob storage — no 4.5 MB request-body limit.
+      const blob = await upload(`uploads/${file.name}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/admin/upload",
+        multipart: true,
+      });
+      onChange(blob.url);
     } catch (er) {
       setErr(er instanceof Error ? er.message : "Upload failed");
     }
