@@ -179,6 +179,236 @@ SECTIONS.push(
   },
 );
 
+// ── About ────────────────────────────────────────────────────────────────────
+export const ABOUT_HERO_DEFAULTS = {
+  eyebrow: "About Unexus AI",
+  title: "Ten years of digital marketing. Relaunched for the AI era.",
+  subtitle: "Unexus AI didn't start from scratch. It was built on a decade of running real campaigns for real businesses — and relaunched when it became clear that AI and GEO were changing the rules fast enough that a new kind of agency was needed.",
+  note: "Unexus AI is an SE Digicon company",
+};
+export const ABOUT_STATS_DEFAULTS = {
+  items: [
+    { value: "10+", label: "Years of digital marketing experience" },
+    { value: "80+", label: "Businesses grown across India, UAE & beyond" },
+    { value: "5", label: "Countries actively serving clients" },
+    { value: "6", label: "Services under one roof" },
+  ],
+};
+export const ABOUT_STORY_DEFAULTS = {
+  badge: "Our story",
+  title: "From SE Digicon to Unexus AI — here's what changed and why.",
+  paragraphs: [
+    "In 2015, Richa Gupta founded SE Digicon in India — a digital marketing agency built around one belief: that businesses deserve marketing that produces real results, not vanity metrics. Over the next decade, SE Digicon worked with 80+ businesses across retail, hospitality, education, and enterprise — in India, the UAE, the UK, and the US.",
+    "Then two things happened at once. AI started changing how people search — and how businesses operate. And GEO emerged as an entirely new discipline that almost no agency had figured out yet. Running the same playbook with a different name felt like the wrong answer. So Unexus AI was born — registered in the UAE, built to serve businesses globally, and focused specifically on the intersection of digital marketing, AI, and GEO that SE Digicon had spent years moving toward.",
+  ],
+  highlight: "The clients are real. The experience is real. The difference is the focus.",
+};
+export const ABOUT_TIMELINE_DEFAULTS = {
+  badge: "How we got here",
+  title: "A decade in, one clear direction.",
+  items: [
+    { year: "2015", title: "SE Digicon founded in India", desc: "Started with a handful of clients and a clear focus on digital marketing that could be measured in revenue, not impressions. Based in India, serving clients across sectors." },
+    { year: "2015–2024", title: "80+ businesses. Four countries. Six services.", desc: "Grew SE Digicon across retail, hospitality, healthcare, real estate, and enterprise — working with clients in India, UAE, UK, and US. Added website development, AI automation, and market research alongside core digital marketing." },
+    { year: "2024", title: "GEO changes everything", desc: "As AI search engines started answering questions that used to belong to Google, a new discipline emerged — Generative Engine Optimisation. We started building GEO capability before most agencies had heard of it." },
+    { year: "2025", title: "Unexus AI launched in the UAE", desc: "Registered in the UAE and relaunched with a sharper focus — AI training, GEO, and integrated digital marketing for businesses across the Middle East, India, and beyond. SE Digicon continues to operate alongside it." },
+  ],
+};
+export const ABOUT_VALUES_DEFAULTS = {
+  badge: "What we believe",
+  title: "The principles that haven't changed in ten years.",
+  items: [
+    { title: "Revenue over reports", desc: "Impressions and clicks don't pay anyone's bills. Every service we run is measured on what it produces — leads, bookings, revenue. If it's not moving the needle, we say so." },
+    { title: "Honest before comfortable", desc: "If something isn't working, you'll hear it from us before you have to ask. We'd rather have an awkward conversation early than a bigger one later." },
+    { title: "Systems, not silos", desc: "Your SEO, website, and AI tools should feed each other — not operate in isolation. We build everything to connect, because that's where results compound." },
+    { title: "See what's coming", desc: "GEO didn't exist as a discipline two years ago. We built for it early. We're always watching what's changing in search, AI, and digital — so our clients aren't caught off guard." },
+  ],
+};
+export const ABOUT_FOUNDER_DEFAULTS = {
+  badge: "The founder",
+  title: "The person behind it.",
+  initials: "RG",
+  name: "Richa Gupta",
+  role: "Founder — Unexus AI & SE Digicon · Based in Dubai, UAE 🇦🇪",
+  bio: "Richa founded SE Digicon in India in 2015 and spent a decade building it into a full-service digital marketing agency serving clients across India, the UAE, the UK, and the US. When AI started reshaping search and GEO emerged as the discipline nobody had figured out yet, she launched Unexus AI in the UAE — to bring together everything SE Digicon had learned, focused specifically on what businesses need to grow in the AI era.",
+};
+export const ABOUT_TEAM_DEFAULTS = {
+  badge: "The team",
+  title: "The people doing the work.",
+  members: [
+    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
+    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
+    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
+  ],
+};
+export const ABOUT_PARTNERS_DEFAULTS = {
+  badge: "Credentials & partners",
+  title: "Who we work with and what we're certified in.",
+  list: ["Zoho Partner", "WebEngage Partner", "MoEngage Partner", "Vercel Partner"],
+  note: "Operating globally from Dubai. Unexus AI is registered in the UAE and serves clients across the Middle East, India, the UK, and the US. SE Digicon, our parent company, has been operating in India since 2015.",
+};
+
+SECTIONS.push(
+  {
+    key: "about.hero", label: "Hero", group: "About",
+    fields: [
+      { name: "eyebrow", label: "Eyebrow", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "subtitle", label: "Subtitle", type: "textarea" },
+      { name: "note", label: "SE Digicon badge", type: "text" },
+    ],
+    defaults: ABOUT_HERO_DEFAULTS,
+  },
+  {
+    key: "about.stats", label: "Stats", group: "About",
+    fields: [
+      { name: "items", label: "Stats", type: "items", itemLabel: "stat", itemFields: [
+        { name: "value", label: "Value", type: "text" },
+        { name: "label", label: "Label", type: "text" },
+      ] },
+    ],
+    defaults: ABOUT_STATS_DEFAULTS,
+  },
+  {
+    key: "about.story", label: "Story", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "paragraphs", label: "Paragraphs (one per line)", type: "list" },
+      { name: "highlight", label: "Closing highlight line", type: "text" },
+    ],
+    defaults: ABOUT_STORY_DEFAULTS,
+  },
+  {
+    key: "about.timeline", label: "Timeline", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "items", label: "Milestones", type: "items", itemLabel: "milestone", itemFields: [
+        { name: "year", label: "Year", type: "text" },
+        { name: "title", label: "Title", type: "text" },
+        { name: "desc", label: "Description", type: "textarea" },
+      ] },
+    ],
+    defaults: ABOUT_TIMELINE_DEFAULTS,
+  },
+  {
+    key: "about.values", label: "Values", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "items", label: "Values", type: "items", itemLabel: "value", itemFields: [
+        { name: "title", label: "Title", type: "text" },
+        { name: "desc", label: "Description", type: "textarea" },
+      ] },
+    ],
+    defaults: ABOUT_VALUES_DEFAULTS,
+  },
+  {
+    key: "about.founder", label: "Founder", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "initials", label: "Monogram initials", type: "text" },
+      { name: "name", label: "Name", type: "text" },
+      { name: "role", label: "Role line", type: "text" },
+      { name: "bio", label: "Bio", type: "textarea" },
+    ],
+    defaults: ABOUT_FOUNDER_DEFAULTS,
+  },
+  {
+    key: "about.team", label: "Team", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "members", label: "Members", type: "items", itemLabel: "member", itemFields: [
+        { name: "name", label: "Name", type: "text" },
+        { name: "role", label: "Role", type: "text" },
+        { name: "bio", label: "Bio", type: "textarea" },
+      ] },
+    ],
+    defaults: ABOUT_TEAM_DEFAULTS,
+  },
+  {
+    key: "about.partners", label: "Credentials & partners", group: "About",
+    fields: [
+      { name: "badge", label: "Badge", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "list", label: "Partners (one per line)", type: "list" },
+      { name: "note", label: "Footer note", type: "textarea" },
+    ],
+    defaults: ABOUT_PARTNERS_DEFAULTS,
+  },
+);
+
+// ── Contact ──────────────────────────────────────────────────────────────────
+export const CONTACT_HERO_DEFAULTS = {
+  eyebrow: "Get in touch",
+  title: "Talk to us before you decide anything.",
+  subtitle: "Book a free 30-minute call or send a message — either way you'll hear back from a real person within one business day. No pitch, no pressure, no obligation.",
+};
+export const CONTACT_INFO_DEFAULTS = {
+  items: [
+    { label: "WhatsApp", value: "+971 50 125 7204", sub: "Fastest way to reach us. We respond same day.", href: "https://wa.me/971501257204" },
+    { label: "Email", value: "richa@unexusai.com", sub: "Reply within one business day, always.", href: "mailto:richa@unexusai.com" },
+    { label: "Based in", value: "Dubai, UAE 🇦🇪", sub: "Also serving India 🇮🇳 and the wider Middle East.", href: "" },
+    { label: "Working hours", value: "Sun – Thu, 9am – 6pm", sub: "Gulf Standard Time (GST, UTC+4).", href: "" },
+  ],
+};
+export const CONTACT_BOOK_DEFAULTS = {
+  eyebrow: "Book a free call",
+  title: "30 minutes. No pitch. Something useful either way.",
+  body: "We'll take an honest look at where things stand and tell you the two or three things we'd focus on first — whether you work with us afterwards or not.",
+  note: "You'll be speaking with Richa Gupta, our founder. Times shown in GST (UTC+4) — joining from India? We'll adjust.",
+};
+export const CONTACT_MESSAGE_DEFAULTS = {
+  eyebrow: "Send a message",
+  title: "Prefer to write? We'll come back with something specific.",
+  body: "Tell us where things feel stuck and what you're trying to achieve. We'll reply with specific ideas — not a generic pitch.",
+};
+
+SECTIONS.push(
+  {
+    key: "contact.hero", label: "Hero", group: "Contact",
+    fields: [
+      { name: "eyebrow", label: "Eyebrow", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "subtitle", label: "Subtitle", type: "textarea" },
+    ],
+    defaults: CONTACT_HERO_DEFAULTS,
+  },
+  {
+    key: "contact.info", label: "Contact info cards", group: "Contact",
+    fields: [
+      { name: "items", label: "Cards", type: "items", itemLabel: "card", help: "Icons are fixed by position: 1 WhatsApp, 2 Email, 3 Location, 4 Clock.", itemFields: [
+        { name: "label", label: "Label", type: "text" },
+        { name: "value", label: "Value", type: "text" },
+        { name: "sub", label: "Sub-text", type: "textarea" },
+        { name: "href", label: "Link (optional)", type: "text" },
+      ] },
+    ],
+    defaults: CONTACT_INFO_DEFAULTS,
+  },
+  {
+    key: "contact.book", label: "Book a call card", group: "Contact",
+    fields: [
+      { name: "eyebrow", label: "Eyebrow", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "body", label: "Body", type: "textarea" },
+      { name: "note", label: "Note under scheduler", type: "textarea" },
+    ],
+    defaults: CONTACT_BOOK_DEFAULTS,
+  },
+  {
+    key: "contact.message", label: "Message card", group: "Contact",
+    fields: [
+      { name: "eyebrow", label: "Eyebrow", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "body", label: "Body", type: "textarea" },
+    ],
+    defaults: CONTACT_MESSAGE_DEFAULTS,
+  },
+);
+
 export function getSectionSchema(key: string): CmsSection | undefined {
   return SECTIONS.find((s) => s.key === key);
 }

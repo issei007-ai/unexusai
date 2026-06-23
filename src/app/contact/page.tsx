@@ -5,6 +5,8 @@ import LeadForm from "@/components/ui/LeadForm";
 import PhoneField from "@/components/ui/PhoneField";
 import BookingScheduler from "@/components/ui/BookingScheduler";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { getSection } from "@/lib/cms";
+import { CONTACT_HERO_DEFAULTS, CONTACT_INFO_DEFAULTS, CONTACT_BOOK_DEFAULTS, CONTACT_MESSAGE_DEFAULTS } from "@/lib/cms-schema";
 
 export const metadata = {
   title: "Contact — Unexus AI",
@@ -15,12 +17,9 @@ const NEEDS = ["Digital Marketing", "Website Development", "AI Automation", "AI 
 
 const sw = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
-const INFO = [
+// Icons + accent colours, fixed by card position.
+const ICON_META = [
   {
-    label: "WhatsApp",
-    value: "+971 50 125 7204",
-    sub: "Fastest way to reach us. We respond same day.",
-    href: "https://wa.me/971501257204",
     color: "#25D366",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -29,10 +28,6 @@ const INFO = [
     ),
   },
   {
-    label: "Email",
-    value: "richa@unexusai.com",
-    sub: "Reply within one business day, always.",
-    href: "mailto:richa@unexusai.com",
     color: "#818cf8",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
@@ -42,9 +37,6 @@ const INFO = [
     ),
   },
   {
-    label: "Based in",
-    value: "Dubai, UAE 🇦🇪",
-    sub: "Also serving India 🇮🇳 and the wider Middle East.",
     color: "#34d399",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
@@ -54,9 +46,6 @@ const INFO = [
     ),
   },
   {
-    label: "Working hours",
-    value: "Sun – Thu, 9am – 6pm",
-    sub: "Gulf Standard Time (GST, UTC+4).",
     color: "#f59e0b",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...sw}>
@@ -67,33 +56,36 @@ const INFO = [
   },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [hero, info, book, message] = await Promise.all([
+    getSection("contact.hero", CONTACT_HERO_DEFAULTS),
+    getSection("contact.info", CONTACT_INFO_DEFAULTS),
+    getSection("contact.book", CONTACT_BOOK_DEFAULTS),
+    getSection("contact.message", CONTACT_MESSAGE_DEFAULTS),
+  ]);
+
   return (
     <>
       <Nav />
       <main>
-        <PageHero
-          align="center"
-          eyebrow="Get in touch"
-          title="Talk to us before you decide anything."
-          subtitle="Book a free 30-minute call or send a message — either way you'll hear back from a real person within one business day. No pitch, no pressure, no obligation."
-        />
+        <PageHero align="center" eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
         {/* Contact info */}
         <section style={{ paddingTop: "0.5rem" }}>
           <div className="container" style={{ maxWidth: "62rem" }}>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {INFO.map((item, i) => {
+              {info.items.map((item, i) => {
+                const meta = ICON_META[i % ICON_META.length];
                 const inner = (
                   <div className="glow-card h-full p-6" style={{ border: "1px solid var(--color-border)" }}>
                     <div
                       style={{
                         width: 42, height: 42, borderRadius: "var(--radius-md)", marginBottom: "1rem",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        background: `${item.color}1f`, border: `1px solid ${item.color}40`, color: item.color,
+                        background: `${meta.color}1f`, border: `1px solid ${meta.color}40`, color: meta.color,
                       }}
                     >
-                      {item.icon}
+                      {meta.icon}
                     </div>
                     <div className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--color-brand-500)" }}>{item.label}</div>
                     <div className="font-semibold text-white mb-1.5" style={{ fontFamily: "var(--font-display)" }}>{item.value}</div>
@@ -101,7 +93,7 @@ export default function ContactPage() {
                   </div>
                 );
                 return (
-                  <ScrollReveal key={item.label} delay={i * 0.06}>
+                  <ScrollReveal key={i} delay={i * 0.06}>
                     {item.href ? (
                       <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
                         {inner}
@@ -120,28 +112,20 @@ export default function ContactPage() {
           <div className="container grid md:grid-cols-2 gap-6" style={{ maxWidth: "62rem" }}>
             {/* Book a call */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
-              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>Book a free call</div>
-              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>30 minutes. No pitch. Something useful either way.</h2>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>
-                We&apos;ll take an honest look at where things stand and tell you the two or three things
-                we&apos;d focus on first — whether you work with us afterwards or not.
-              </p>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>{book.eyebrow}</div>
+              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>{book.title}</h2>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>{book.body}</p>
               <div className="mb-4">
                 <BookingScheduler source="contact-book" />
               </div>
-              <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>
-                You&apos;ll be speaking with Richa Gupta, our founder. Times shown in GST (UTC+4) — joining from India? We&apos;ll adjust.
-              </p>
+              <p className="text-xs" style={{ color: "var(--color-brand-500)" }}>{book.note}</p>
             </div>
 
             {/* Message form */}
             <div className="glow-card p-8" style={{ border: "1px solid var(--color-border)" }}>
-              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>Send a message</div>
-              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>Prefer to write? We&apos;ll come back with something specific.</h2>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>
-                Tell us where things feel stuck and what you&apos;re trying to achieve. We&apos;ll reply with
-                specific ideas — not a generic pitch.
-              </p>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-brand-500)" }}>{message.eyebrow}</div>
+              <h2 className="text-h3 mb-3" style={{ fontFamily: "var(--font-display)" }}>{message.title}</h2>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-brand-300)" }}>{message.body}</p>
               <LeadForm source="contact" submitLabel="Send message" note="We respond within one business day. No newsletters, no spam.">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
