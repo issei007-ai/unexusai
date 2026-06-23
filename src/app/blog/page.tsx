@@ -38,8 +38,14 @@ export default async function BlogPage() {
                   className="rounded-2xl overflow-hidden mb-6 grid md:grid-cols-2 group"
                   style={{ background: "var(--color-panel)", border: "1px solid var(--color-border)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}
                 >
-                  <div className="relative flex items-end p-8" style={{ minHeight: 240, background: `linear-gradient(135deg, ${featured.accent}, var(--color-glow))` }}>
-                    <span className="badge badge-dark">Featured</span>
+                  <div className="relative flex items-end p-8 overflow-hidden" style={{ minHeight: 240, background: `linear-gradient(135deg, ${featured.accent}, var(--color-glow))` }}>
+                    {featured.image && (
+                      <>
+                        <img src={featured.image} alt="" className="absolute inset-0" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <span className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(3,7,18,0.55), transparent)" }} />
+                      </>
+                    )}
+                    <span className="badge badge-dark" style={{ position: "relative", zIndex: 1 }}>Featured</span>
                   </div>
                   <div className="p-8 md:p-10 flex flex-col justify-center">
                     <span className="text-xs mb-3" style={{ color: "var(--color-brand-400)" }}>{featured.cat} · {featured.date} · {featured.read} read</span>
@@ -60,8 +66,11 @@ export default async function BlogPage() {
                     className="rounded-2xl overflow-hidden h-full flex flex-col group"
                     style={{ background: "var(--color-panel)", border: "1px solid var(--color-border)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}
                   >
-                    <div className="relative flex items-end p-5" style={{ aspectRatio: "16 / 9", background: `linear-gradient(135deg, ${post.accent}, var(--color-glow))` }}>
-                      <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: "rgba(3,7,18,0.4)", color: "#fff" }}>{post.cat}</span>
+                    <div className="relative flex items-end p-5 overflow-hidden" style={{ aspectRatio: "16 / 9", background: `linear-gradient(135deg, ${post.accent}, var(--color-glow))` }}>
+                      {post.image && (
+                        <img src={post.image} alt="" className="absolute inset-0" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      )}
+                      <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: "rgba(3,7,18,0.55)", color: "#fff", position: "relative", zIndex: 1 }}>{post.cat}</span>
                     </div>
                     <div className="p-6 flex flex-col flex-1">
                       <h3 className="mb-3 text-white" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem" }}>{post.title}</h3>

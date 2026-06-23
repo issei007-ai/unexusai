@@ -42,6 +42,44 @@ function listToArray(s: string): string[] {
   return s.split("\n").map((x) => x.trim()).filter(Boolean);
 }
 
+function ImageField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [uploading, setUploading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setErr(null);
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || "Upload failed");
+      onChange(data.url);
+    } catch (er) {
+      setErr(er instanceof Error ? er.message : "Upload failed");
+    }
+    setUploading(false);
+    e.target.value = "";
+  }
+
+  return (
+    <div>
+      <div className="flex gap-2 items-center">
+        <input className="form-input" placeholder="Paste image URL, or upload →" value={value} onChange={(e) => onChange(e.target.value)} style={{ flex: 1 }} />
+        <label className="btn btn-secondary btn-sm" style={{ cursor: "pointer", flexShrink: 0 }}>
+          {uploading ? "Uploading…" : "Upload"}
+          <input type="file" accept="image/*" hidden onChange={onFile} />
+        </label>
+      </div>
+      {err && <p className="text-xs mt-1" style={{ color: "#f87171" }}>{err}</p>}
+      {value && <img src={value} alt="" style={{ marginTop: 8, maxHeight: 80, borderRadius: 8, border: "1px solid var(--color-border)" }} />}
+    </div>
+  );
+}
+
 export default function ContentEditor({ sections, content }: { sections: CmsSection[]; content: Record<string, Dict> }) {
   const [activeKey, setActiveKey] = useState(sections[0]?.key ?? "");
   const active = sections.find((s) => s.key === activeKey) ?? sections[0];
@@ -156,6 +194,10 @@ export default function ContentEditor({ sections, content }: { sections: CmsSect
                 <input className="form-input" value={(form[field.name] as string) ?? ""} onChange={(e) => setText(field.name, e.target.value)} />
               )}
 
+              {field.type === "image" && (
+                <ImageField value={(form[field.name] as string) ?? ""} onChange={(v) => setText(field.name, v)} />
+              )}
+
               {(field.type === "textarea" || field.type === "list") && (
                 <textarea className="form-textarea" rows={field.type === "list" ? 5 : 3} value={(form[field.name] as string) ?? ""} onChange={(e) => setText(field.name, e.target.value)} />
               )}
@@ -172,7 +214,9 @@ export default function ContentEditor({ sections, content }: { sections: CmsSect
                         {(field.itemFields ?? []).map((sf) => (
                           <div key={sf.name}>
                             <label className="text-xs" style={{ color: "var(--color-brand-400)" }}>{sf.label}</label>
-                            {sf.type === "text" ? (
+                            {sf.type === "image" ? (
+                              <ImageField value={item[sf.name] ?? ""} onChange={(v) => setItemField(field.name, idx, sf.name, v)} />
+                            ) : sf.type === "text" ? (
                               <input className="form-input" style={{ fontSize: "0.85rem", padding: "0.5rem 0.7rem" }} value={item[sf.name] ?? ""} onChange={(e) => setItemField(field.name, idx, sf.name, e.target.value)} />
                             ) : (
                               <textarea className="form-textarea" rows={sf.type === "list" ? 4 : 2} style={{ fontSize: "0.85rem", padding: "0.5rem 0.7rem", minHeight: 0 }} value={item[sf.name] ?? ""} onChange={(e) => setItemField(field.name, idx, sf.name, e.target.value)} />

@@ -1,5 +1,6 @@
 export type BlogPost = {
   slug: string;
+  image?: string;
   cat: string;
   title: string;
   excerpt: string;

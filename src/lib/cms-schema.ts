@@ -5,7 +5,7 @@ import { BLOG_POSTS } from "./blog";
 export type CmsField = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "list" | "items";
+  type: "text" | "textarea" | "list" | "items" | "image";
   help?: string;
   /** Subfields for a repeater ("items") field. */
   itemFields?: CmsField[];
@@ -459,6 +459,7 @@ SECTIONS.push(
     fields: [
       { name: "items", label: "Articles", type: "items", itemLabel: "article", help: "Body accepts HTML (headings, lists, tables). Slug must be unique and URL-safe.", itemFields: [
         { name: "slug", label: "URL slug", type: "text" },
+        { name: "image", label: "Cover image", type: "image" },
         { name: "cat", label: "Category", type: "text" },
         { name: "title", label: "Title", type: "text" },
         { name: "excerpt", label: "Excerpt", type: "textarea" },
