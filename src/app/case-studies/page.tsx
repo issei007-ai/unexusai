@@ -3,32 +3,42 @@ import Footer from "@/components/layout/Footer";
 import ContactCTA from "@/components/sections/ContactCTA";
 import PageHero from "@/components/sections/PageHero";
 import CaseStudiesGrid from "@/components/sections/CaseStudiesGrid";
+import { getSection } from "@/lib/cms";
+import { CASESTUDIES_PAGE_DEFAULTS, CASESTUDIES_CASES_DEFAULTS } from "@/lib/cms-schema";
 
 export const metadata = {
   title: "Case Studies — Unexus AI",
   description: "Real problems, real work, real results — across retail, hospitality, real estate, healthcare, and startups in the UAE and India.",
 };
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+  const page = await getSection("casestudies.page", CASESTUDIES_PAGE_DEFAULTS);
+  const raw = await getSection("casestudies.cases", CASESTUDIES_CASES_DEFAULTS);
+
+  // Normalise metrics from "value | label" lines into { value, label }.
+  const cases = raw.items.map((c) => ({
+    category: c.category,
+    flag: c.flag,
+    headline: c.headline,
+    quote: c.quote,
+    tags: c.tags as string[],
+    metrics: (c.metrics as string[]).map((m) => {
+      const [value, ...rest] = m.split("|");
+      return { value: (value || "").trim(), label: rest.join("|").trim() };
+    }),
+  }));
+
   return (
     <>
       <Nav />
       <main>
-        <PageHero
-          eyebrow="Case Studies"
-          title="Real problems. Real work. Real results."
-          subtitle="Every case study here starts with a business that was stuck — and ends with one that isn't. Numbers are placeholders until replaced with real client data. The problems and approaches are real."
-        >
+        <PageHero eyebrow={page.heroEyebrow} title={page.heroTitle} subtitle={page.heroSubtitle}>
           <a href="#contact" className="btn btn-primary btn-lg">Start your story</a>
         </PageHero>
 
-        <CaseStudiesGrid />
+        <CaseStudiesGrid cases={cases} />
 
-        <ContactCTA
-          heading="Want to be the next case study?"
-          body="Tell us where things feel stuck and we'll talk through specifically what we'd do about it — no pitch, no pressure."
-          imageSeed="unexus-results"
-        />
+        <ContactCTA heading={page.ctaHeading} body={page.ctaBody} imageSeed="unexus-results" />
       </main>
       <Footer />
     </>

@@ -22,76 +22,9 @@ const ACCENTS: Record<string, string> = {
 
 const FILTERS = ["All", "Retail & e-commerce", "Hospitality & F&B", "Real estate", "Healthcare & wellness", "Startups"];
 
-const CASES: Case[] = [
-  {
-    category: "Retail & e-commerce",
-    flag: "🇦🇪",
-    headline: "Dubai retailer spending AED 30k/month on ads with no idea what was converting.",
-    quote: "We had three campaigns running on Meta and Google. Nobody could tell us which one was actually driving sales — or if any of them were.",
-    tags: ["Paid Media", "Conversion Tracking", "Website"],
-    metrics: [{ value: "2.8x", label: "Return on ad spend" }, { value: "43%", label: "Drop in cost per purchase" }, { value: "90", label: "Days to results" }],
-  },
-  {
-    category: "Hospitality & F&B",
-    flag: "🇦🇪",
-    headline: "Dubai restaurant group invisible in AI search — losing bookings to competitors.",
-    quote: "Walk-ins were fine. But when we tested it ourselves, we weren't showing up anywhere in ChatGPT or Google when someone searched for restaurants in our area.",
-    tags: ["GEO", "Local SEO", "Social Content"],
-    metrics: [{ value: "5x", label: "GEO visibility score" }, { value: "38%", label: "More online reservations" }, { value: "4", label: "Months to results" }],
-  },
-  {
-    category: "Real estate",
-    flag: "🇦🇪",
-    headline: "Abu Dhabi agency generating high lead volume — almost none of them serious buyers.",
-    quote: "We were getting 200+ leads a month from our campaigns. Our sales team was spending all their time qualifying them out. Maybe 5% were worth talking to.",
-    tags: ["Paid Media", "AI Automation", "Landing Pages"],
-    metrics: [{ value: "61%", label: "Drop in unqualified leads" }, { value: "3x", label: "Sales team efficiency" }, { value: "60", label: "Days to results" }],
-  },
-  {
-    category: "Healthcare & wellness",
-    flag: "🇮🇳",
-    headline: "Bangalore clinic with 200+ happy patients and almost no online presence.",
-    quote: "Every patient came through word of mouth. We had great reviews from people who knew us — but nobody could find us online, and new patient bookings were flat.",
-    tags: ["SEO", "Reputation Mgmt", "Content"],
-    metrics: [{ value: "3.5x", label: "Organic search traffic" }, { value: "60%", label: "More online bookings" }, { value: "6", label: "Months to results" }],
-  },
-  {
-    category: "Startups",
-    flag: "🇦🇪",
-    headline: "Dubai startup burning runway on marketing with no clear attribution.",
-    quote: "We were spending on ads, content, and a freelance SEO — none of it connected. Three months in we had no idea what was working and we were running out of runway.",
-    tags: ["Digital Marketing", "Market Research", "GEO"],
-    metrics: [{ value: "4x", label: "Qualified leads" }, { value: "52%", label: "Lower cost per lead" }, { value: "90", label: "Days to results" }],
-  },
-  {
-    category: "Retail & e-commerce",
-    flag: "🇮🇳",
-    headline: "Indian D2C brand with strong product — messaging that wasn't landing.",
-    quote: "Our conversion rate was stuck at 1.1%. We kept changing the creative but nothing moved. We didn't realise the problem was the messaging, not the ads.",
-    tags: ["Market Research", "Positioning", "Paid Media"],
-    metrics: [{ value: "2.1x", label: "Conversion rate" }, { value: "3.9x", label: "Return on ad spend" }, { value: "120", label: "Days to results" }],
-  },
-  {
-    category: "Hospitality & F&B",
-    flag: "🇮🇳",
-    headline: "Delhi F&B brand with zero digital presence trying to expand to a second location.",
-    quote: "We were well known locally. But when we tried to open a second location, we had no digital foundation to build on — no SEO, no social, no reviews strategy.",
-    tags: ["Digital Marketing", "Website", "Local SEO"],
-    metrics: [{ value: "8x", label: "Online visibility" }, { value: "40%", label: "New location bookings" }, { value: "5", label: "Months to results" }],
-  },
-  {
-    category: "Healthcare & wellness",
-    flag: "🇦🇪",
-    headline: "Dubai wellness brand with great retention but struggling to acquire new clients.",
-    quote: "Existing clients loved us. But we couldn't crack new client acquisition. We were invisible to anyone who hadn't already been referred to us.",
-    tags: ["GEO", "SEO", "Paid Media"],
-    metrics: [{ value: "3x", label: "New client enquiries" }, { value: "55%", label: "Lower acquisition cost" }, { value: "90", label: "Days to results" }],
-  },
-];
-
-export default function CaseStudiesGrid() {
+export default function CaseStudiesGrid({ cases }: { cases: Case[] }) {
   const [filter, setFilter] = useState("All");
-  const shown = filter === "All" ? CASES : CASES.filter((c) => c.category === filter);
+  const shown = filter === "All" ? cases : cases.filter((c) => c.category === filter);
 
   return (
     <section className="section section-alt">

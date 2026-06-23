@@ -1,3 +1,5 @@
+import { BLOG_POSTS } from "./blog";
+
 /** Field + section schema that drives both the page rendering and the /admin/content editor. */
 
 export type CmsField = {
@@ -406,6 +408,94 @@ SECTIONS.push(
       { name: "body", label: "Body", type: "textarea" },
     ],
     defaults: CONTACT_MESSAGE_DEFAULTS,
+  },
+);
+
+// ── Blog ─────────────────────────────────────────────────────────────────────
+export const BLOG_PAGE_DEFAULTS = {
+  heroEyebrow: "Blog",
+  heroTitle: "Ideas, playbooks & field notes",
+  heroSubtitle: "Practical notes on growth, AI, GEO, and marketing — written because they're useful, not to chase keywords.",
+  newsletterTitle: "Get the weekly playbook",
+  newsletterSub: "One useful thing a week on growth, AI, and marketing. We try to keep it short.",
+};
+export const BLOG_POSTS_DEFAULTS = { items: BLOG_POSTS };
+
+// ── Case Studies ─────────────────────────────────────────────────────────────
+export const CASESTUDIES_PAGE_DEFAULTS = {
+  heroEyebrow: "Case Studies",
+  heroTitle: "Real problems. Real work. Real results.",
+  heroSubtitle: "Every case study here starts with a business that was stuck — and ends with one that isn't. Numbers are placeholders until replaced with real client data. The problems and approaches are real.",
+  ctaHeading: "Want to be the next case study?",
+  ctaBody: "Tell us where things feel stuck and we'll talk through specifically what we'd do about it — no pitch, no pressure.",
+};
+export const CASESTUDIES_CASES_DEFAULTS = {
+  items: [
+    { category: "Retail & e-commerce", flag: "🇦🇪", headline: "Dubai retailer spending AED 30k/month on ads with no idea what was converting.", quote: "We had three campaigns running on Meta and Google. Nobody could tell us which one was actually driving sales — or if any of them were.", tags: ["Paid Media", "Conversion Tracking", "Website"], metrics: ["2.8x | Return on ad spend", "43% | Drop in cost per purchase", "90 | Days to results"] },
+    { category: "Hospitality & F&B", flag: "🇦🇪", headline: "Dubai restaurant group invisible in AI search — losing bookings to competitors.", quote: "Walk-ins were fine. But when we tested it ourselves, we weren't showing up anywhere in ChatGPT or Google when someone searched for restaurants in our area.", tags: ["GEO", "Local SEO", "Social Content"], metrics: ["5x | GEO visibility score", "38% | More online reservations", "4 | Months to results"] },
+    { category: "Real estate", flag: "🇦🇪", headline: "Abu Dhabi agency generating high lead volume — almost none of them serious buyers.", quote: "We were getting 200+ leads a month from our campaigns. Our sales team was spending all their time qualifying them out. Maybe 5% were worth talking to.", tags: ["Paid Media", "AI Automation", "Landing Pages"], metrics: ["61% | Drop in unqualified leads", "3x | Sales team efficiency", "60 | Days to results"] },
+    { category: "Healthcare & wellness", flag: "🇮🇳", headline: "Bangalore clinic with 200+ happy patients and almost no online presence.", quote: "Every patient came through word of mouth. We had great reviews from people who knew us — but nobody could find us online, and new patient bookings were flat.", tags: ["SEO", "Reputation Mgmt", "Content"], metrics: ["3.5x | Organic search traffic", "60% | More online bookings", "6 | Months to results"] },
+    { category: "Startups", flag: "🇦🇪", headline: "Dubai startup burning runway on marketing with no clear attribution.", quote: "We were spending on ads, content, and a freelance SEO — none of it connected. Three months in we had no idea what was working and we were running out of runway.", tags: ["Digital Marketing", "Market Research", "GEO"], metrics: ["4x | Qualified leads", "52% | Lower cost per lead", "90 | Days to results"] },
+    { category: "Retail & e-commerce", flag: "🇮🇳", headline: "Indian D2C brand with strong product — messaging that wasn't landing.", quote: "Our conversion rate was stuck at 1.1%. We kept changing the creative but nothing moved. We didn't realise the problem was the messaging, not the ads.", tags: ["Market Research", "Positioning", "Paid Media"], metrics: ["2.1x | Conversion rate", "3.9x | Return on ad spend", "120 | Days to results"] },
+    { category: "Hospitality & F&B", flag: "🇮🇳", headline: "Delhi F&B brand with zero digital presence trying to expand to a second location.", quote: "We were well known locally. But when we tried to open a second location, we had no digital foundation to build on — no SEO, no social, no reviews strategy.", tags: ["Digital Marketing", "Website", "Local SEO"], metrics: ["8x | Online visibility", "40% | New location bookings", "5 | Months to results"] },
+    { category: "Healthcare & wellness", flag: "🇦🇪", headline: "Dubai wellness brand with great retention but struggling to acquire new clients.", quote: "Existing clients loved us. But we couldn't crack new client acquisition. We were invisible to anyone who hadn't already been referred to us.", tags: ["GEO", "SEO", "Paid Media"], metrics: ["3x | New client enquiries", "55% | Lower acquisition cost", "90 | Days to results"] },
+  ],
+};
+
+SECTIONS.push(
+  {
+    key: "blog.page", label: "Page (hero + newsletter)", group: "Blog",
+    fields: [
+      { name: "heroEyebrow", label: "Hero eyebrow", type: "text" },
+      { name: "heroTitle", label: "Hero title", type: "text" },
+      { name: "heroSubtitle", label: "Hero subtitle", type: "textarea" },
+      { name: "newsletterTitle", label: "Newsletter title", type: "text" },
+      { name: "newsletterSub", label: "Newsletter sub", type: "textarea" },
+    ],
+    defaults: BLOG_PAGE_DEFAULTS,
+  },
+  {
+    key: "blog.posts", label: "Articles", group: "Blog",
+    fields: [
+      { name: "items", label: "Articles", type: "items", itemLabel: "article", help: "Body accepts HTML (headings, lists, tables). Slug must be unique and URL-safe.", itemFields: [
+        { name: "slug", label: "URL slug", type: "text" },
+        { name: "cat", label: "Category", type: "text" },
+        { name: "title", label: "Title", type: "text" },
+        { name: "excerpt", label: "Excerpt", type: "textarea" },
+        { name: "date", label: "Date", type: "text" },
+        { name: "read", label: "Read time", type: "text" },
+        { name: "accent", label: "Accent colour (hex)", type: "text" },
+        { name: "metaTitle", label: "SEO title", type: "text" },
+        { name: "metaDescription", label: "SEO description", type: "textarea" },
+        { name: "body", label: "Body (HTML)", type: "textarea" },
+      ] },
+    ],
+    defaults: BLOG_POSTS_DEFAULTS,
+  },
+  {
+    key: "casestudies.page", label: "Page (hero + CTA)", group: "Case Studies",
+    fields: [
+      { name: "heroEyebrow", label: "Hero eyebrow", type: "text" },
+      { name: "heroTitle", label: "Hero title", type: "text" },
+      { name: "heroSubtitle", label: "Hero subtitle", type: "textarea" },
+      { name: "ctaHeading", label: "Closing CTA heading", type: "text" },
+      { name: "ctaBody", label: "Closing CTA body", type: "textarea" },
+    ],
+    defaults: CASESTUDIES_PAGE_DEFAULTS,
+  },
+  {
+    key: "casestudies.cases", label: "Case cards", group: "Case Studies",
+    fields: [
+      { name: "items", label: "Cases", type: "items", itemLabel: "case", itemFields: [
+        { name: "category", label: "Industry", type: "text", help: "Must match a filter: Retail & e-commerce, Hospitality & F&B, Real estate, Healthcare & wellness, Startups." },
+        { name: "flag", label: "Flag emoji", type: "text" },
+        { name: "headline", label: "Headline", type: "text" },
+        { name: "quote", label: "Quote", type: "textarea" },
+        { name: "tags", label: "Tags (one per line)", type: "list" },
+        { name: "metrics", label: "Metrics (value | label, one per line)", type: "list" },
+      ] },
+    ],
+    defaults: CASESTUDIES_CASES_DEFAULTS,
   },
 );
 

@@ -3,25 +3,29 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import LeadForm from "@/components/ui/LeadForm";
-import { BLOG_POSTS } from "@/lib/blog";
+import type { BlogPost } from "@/lib/blog";
+import { getSection } from "@/lib/cms";
+import { BLOG_PAGE_DEFAULTS, BLOG_POSTS_DEFAULTS } from "@/lib/cms-schema";
 
 export const metadata = {
   title: "Blog — Unexus AI",
   description: "Practical, no-hype articles on growth, AI, GEO, and marketing — written because they're useful.",
 };
 
-export default function BlogPage() {
-  const featured = BLOG_POSTS[0];
-  const rest = BLOG_POSTS.slice(1);
+export default async function BlogPage() {
+  const page = await getSection("blog.page", BLOG_PAGE_DEFAULTS);
+  const posts = (await getSection("blog.posts", BLOG_POSTS_DEFAULTS)).items as BlogPost[];
+  const featured = posts[0];
+  const rest = posts.slice(1);
 
   return (
     <>
       <Nav />
       <main>
         <PageHero
-          eyebrow="Blog"
-          title="Ideas, playbooks & field notes"
-          subtitle="Practical notes on growth, AI, GEO, and marketing — written because they're useful, not to chase keywords."
+          eyebrow={page.heroEyebrow}
+          title={page.heroTitle}
+          subtitle={page.heroSubtitle}
         />
 
         <section className="section section-alt">
@@ -75,8 +79,8 @@ export default function BlogPage() {
         <section className="section">
           <div className="container">
             <div className="glow-card p-8 md:p-10 text-center mx-auto" style={{ border: "1px solid var(--color-border)", maxWidth: "40rem" }}>
-              <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>Get the weekly playbook</h3>
-              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>One useful thing a week on growth, AI, and marketing. We try to keep it short.</p>
+              <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>{page.newsletterTitle}</h3>
+              <p className="text-sm mb-6" style={{ color: "var(--color-brand-300)" }}>{page.newsletterSub}</p>
               <div className="mx-auto" style={{ maxWidth: "22rem" }}>
                 <LeadForm source="blog" type="newsletter" submitLabel="Subscribe" note="No spam. Unsubscribe anytime.">
                   <div>
