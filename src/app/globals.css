@@ -861,6 +861,26 @@ body {
   border-color: transparent; color: #fff;
 }
 
+/* ─── PRELOADER ──────────────────────────────────────────────────────────── */
+@keyframes preloader-rise {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes preloader-aura {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); }
+  50%      { opacity: 0.85; transform: scale(1.12); }
+}
+@keyframes preloader-shine {
+  from { transform: translateX(-140%); }
+  to   { transform: translateX(360%); }
+}
+.preloader-rise { animation: preloader-rise 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+.preloader-aura { animation: preloader-aura 3s ease-in-out infinite; }
+.preloader-shine { animation: preloader-shine 1.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .preloader-rise, .preloader-aura, .preloader-shine { animation: none; }
+}
+
 /* ─── SERVICE CUBE (CSS-only 3D) ─────────────────────────────────────────── */
 .svc-cube-wrap {
   position: relative;
