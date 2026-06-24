@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="u" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="ai" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0a0f1e"/>
+  <text x="256" y="262" text-anchor="middle" dominant-baseline="central"
+        font-family="Geist, 'Segoe UI', Arial, sans-serif" font-weight="800"
+        font-size="232" letter-spacing="-8">
+    <tspan fill="url(#u)">U</tspan><tspan fill="url(#ai)">AI</tspan>
+  </text>
+</svg>
