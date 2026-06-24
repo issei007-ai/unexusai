@@ -20,6 +20,22 @@ const FALLBACK_TIMEZONES = [
   "Australia/Sydney",
 ];
 
+// Legacy/alias zone names some browsers still report → canonical IANA name.
+const TZ_ALIASES: Record<string, string> = {
+  "Asia/Calcutta": "Asia/Kolkata",
+  "Asia/Saigon": "Asia/Ho_Chi_Minh",
+  "Asia/Rangoon": "Asia/Yangon",
+  "Asia/Katmandu": "Asia/Kathmandu",
+  "Asia/Dacca": "Asia/Dhaka",
+  "America/Buenos_Aires": "America/Argentina/Buenos_Aires",
+  "Europe/Kiev": "Europe/Kyiv",
+  "Pacific/Ponape": "Pacific/Pohnpei",
+};
+
+function canonicalTz(tz: string): string {
+  return TZ_ALIASES[tz] ?? tz;
+}
+
 /** Full IANA zone list where supported, else a curated fallback. */
 function allTimezones(): string[] {
   try {
@@ -63,7 +79,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
   const tomorrow = useMemo(() => startOfTomorrow(), []);
   const detectedTz = useMemo(() => {
     try {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Dubai";
+      return canonicalTz(Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Dubai");
     } catch {
       return "Asia/Dubai";
     }
