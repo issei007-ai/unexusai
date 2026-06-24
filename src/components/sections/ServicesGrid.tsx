@@ -155,7 +155,7 @@ export default function ServicesGrid({
                     {/* Text */}
                     <div>
                       <h3 className="text-h3 mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                        {service.title}
+                        {service.cardTitle ?? service.title}
                       </h3>
                       <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--color-brand-200)" }}>
                         {service.desc}

@@ -11,6 +11,8 @@ export interface Stat {
 export interface Service {
   num: string;
   title: string;
+  /** Shorter heading shown on the bento card; falls back to `title`. */
+  cardTitle?: string;
   desc: string;
   href: string;
   isNew?: boolean;
