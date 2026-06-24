@@ -12,6 +12,7 @@ const FOOTER_COLS = [
   ]},
   { title: "Company", links: [
     { label: "About", href: "/about" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
      { label: "LinkedIn", href: "https://www.linkedin.com/company/unexusai/" },

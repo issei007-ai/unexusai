@@ -7,6 +7,7 @@ export const WHATSAPP_NUMBER = "971501257204";
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
 ];
 
