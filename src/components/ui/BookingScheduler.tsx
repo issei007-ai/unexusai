@@ -6,7 +6,8 @@ const TIME_SLOTS = ["9:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const TIMEZONES = [
+// Fallback list for browsers without Intl.supportedValuesOf.
+const FALLBACK_TIMEZONES = [
   "Asia/Dubai",
   "Asia/Kolkata",
   "Asia/Riyadh",
@@ -18,6 +19,20 @@ const TIMEZONES = [
   "America/Los_Angeles",
   "Australia/Sydney",
 ];
+
+/** Full IANA zone list where supported, else a curated fallback. */
+function allTimezones(): string[] {
+  try {
+    const sv = (Intl as unknown as { supportedValuesOf?: (k: string) => string[] }).supportedValuesOf;
+    if (typeof sv === "function") {
+      const list = sv("timeZone");
+      if (Array.isArray(list) && list.length) return list;
+    }
+  } catch {
+    /* ignore */
+  }
+  return FALLBACK_TIMEZONES;
+}
 
 /** Next N weekdays starting tomorrow (skips Sat/Sun). */
 function nextWeekdays(count: number): Date[] {
@@ -54,7 +69,10 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
       return "Asia/Dubai";
     }
   }, []);
-  const zones = useMemo(() => (TIMEZONES.includes(detectedTz) ? TIMEZONES : [detectedTz, ...TIMEZONES]), [detectedTz]);
+  const zones = useMemo(() => {
+    const list = allTimezones();
+    return list.includes(detectedTz) ? list : [detectedTz, ...list];
+  }, [detectedTz]);
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
