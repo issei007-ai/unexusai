@@ -22,6 +22,15 @@ export default function Preloader() {
 
   if (!visible) return null;
 
+  const wordStyle = {
+    fontSize: "1.7rem",
+    fontWeight: 600,
+    fontFamily: "var(--font-display)",
+    letterSpacing: "0.22em",
+    textTransform: "uppercase" as const,
+    whiteSpace: "nowrap" as const,
+  };
+
   return (
     <div
       style={{
@@ -56,38 +65,13 @@ export default function Preloader() {
       />
 
       <div className="preloader-rise" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2.25rem", position: "relative" }}>
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
-          <div
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              background: "linear-gradient(135deg,var(--color-accent-500),var(--color-glow))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "1.25rem",
-              fontWeight: 800,
-              color: "#fff",
-              fontFamily: "var(--font-display)",
-              boxShadow: "0 0 28px rgba(124,58,237,0.6), inset 0 1px 0 rgba(255,255,255,0.25)",
-            }}
-          >
-            U
-          </div>
-          <span
-            style={{
-              fontSize: "1.6rem",
-              fontWeight: 600,
-              color: "#fff",
-              fontFamily: "var(--font-display)",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              textShadow: "0 0 28px rgba(99,102,241,0.35)",
-            }}
-          >
+        {/* Wordmark with sweeping shine */}
+        <div style={{ position: "relative", display: "inline-block" }}>
+          <span style={{ ...wordStyle, color: "#fff", textShadow: "0 0 28px rgba(99,102,241,0.35)" }}>
             Unexus&nbsp;<span className="logo-ai">AI</span>
+          </span>
+          <span aria-hidden="true" className="preloader-sheen" style={{ ...wordStyle, position: "absolute", left: 0, top: 0 }}>
+            Unexus&nbsp;AI
           </span>
         </div>
 

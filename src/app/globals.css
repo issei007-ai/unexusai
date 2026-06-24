@@ -877,8 +877,25 @@ body {
 .preloader-rise { animation: preloader-rise 0.7s cubic-bezier(0.22,1,0.36,1) both; }
 .preloader-aura { animation: preloader-aura 3s ease-in-out infinite; }
 .preloader-shine { animation: preloader-shine 1.5s ease-in-out infinite; }
+
+/* Sweeping gloss over the wordmark (left → right) */
+.preloader-sheen {
+  background: linear-gradient(110deg, transparent 36%, rgba(255,255,255,0.9) 50%, transparent 64%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  pointer-events: none;
+  animation: preloader-sheen-move 2.4s ease-in-out infinite;
+}
+@keyframes preloader-sheen-move {
+  0%   { background-position: 180% 0; }
+  100% { background-position: -90% 0; }
+}
 @media (prefers-reduced-motion: reduce) {
   .preloader-rise, .preloader-aura, .preloader-shine { animation: none; }
+  .preloader-sheen { animation: none; opacity: 0; }
 }
 
 /* ─── SERVICE CUBE (CSS-only 3D) ─────────────────────────────────────────── */
