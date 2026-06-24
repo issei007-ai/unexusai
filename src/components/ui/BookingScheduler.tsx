@@ -237,7 +237,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
         </div>
         <div className="mb-3">
           <label className="text-[0.7rem] uppercase tracking-wider block mb-1.5" style={{ color: "var(--color-brand-500)" }}>Time zone</label>
-          <select className="form-input" value={tz} onChange={(e) => setTz(e.target.value)} style={{ cursor: "pointer" }}>
+          <select className="form-input" value={tz} onChange={(e) => setTz(e.target.value)} style={{ cursor: "pointer", colorScheme: "dark" }}>
             {zones.map((z) => (
               <option key={z} value={z}>{z.replace(/_/g, " ")}</option>
             ))}
