@@ -10,6 +10,11 @@ const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/sv
  * this route only issues a short-lived, auth-gated token.
  */
 export async function POST(request: Request): Promise<NextResponse> {
+  // Reject unauthenticated callers up front (defence in depth — the token
+  // callback also checks, but this avoids any processing before auth).
+  if (!(await isAdminAuthed())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return NextResponse.json(
       { error: "Image upload isn't set up yet. Connect a Vercel Blob store, or paste an image URL instead." },
@@ -17,7 +22,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const body = (await request.json()) as HandleUploadBody;
+  let body: HandleUploadBody;
+  try {
+    body = (await request.json()) as HandleUploadBody;
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
   try {
     const result = await handleUpload({
