@@ -88,7 +88,7 @@ export default async function HomePage() {
 
             {/* Trust marquee */}
             <div className="mt-20 pt-10" style={{ borderTop:"1px solid rgba(255,255,255,0.07)" }}>
-              <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
+              <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-accent-200)", textShadow:"0 0 18px rgba(124,58,237,0.6), 0 0 36px rgba(99,102,241,0.35)" }}>
                 {hero.trustLabel}
               </p>
               <div className="space-y-3">
@@ -104,12 +104,6 @@ export default async function HomePage() {
                 </Marquee>
               </div>
             </div>
-          </div>
-
-          {/* Scroll cue */}
-          <div className="scroll-cue">
-            <span className="scroll-cue__mouse" />
-            Scroll
           </div>
         </section>
 
