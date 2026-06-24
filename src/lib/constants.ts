@@ -47,7 +47,6 @@ export const SERVICES: Service[] = [
     cardTitle: "Generative Engine Optimisation",
     desc: "Get your business recommended by ChatGPT, Perplexity, and Gemini — not just found on Google.",
     href: "/services/geo",
-    isNew: true,
   },
 ];
 
