@@ -108,7 +108,35 @@ export const HOME_TESTIMONIALS_DEFAULTS = {
   ],
 };
 
+// ── Homepage: Service cube ───────────────────────────────────────────────────
+export const HOME_CUBE_DEFAULTS = {
+  caption: "Hover to pause",
+  faces: [
+    { label: "Marketing", sub: "SEO · Paid · Email", metric: "+312%", accent: "#6366f1" },
+    { label: "Websites", sub: "Next.js · CRO · Speed", metric: "98+", accent: "#06b6d4" },
+    { label: "Automation", sub: "Agents · WhatsApp · RAG", metric: "−72%", accent: "#7c3aed" },
+    { label: "AI Training", sub: "Workshops · Prompts", metric: "10×", accent: "#f59e0b" },
+    { label: "Research", sub: "ICP · Competitors", metric: "4–6wk", accent: "#10b981" },
+    { label: "GEO", sub: "ChatGPT · Perplexity", metric: "5×", accent: "#ec4899" },
+  ],
+};
+
 SECTIONS.push(
+  {
+    key: "home.cube",
+    label: "Service cube",
+    group: "Homepage",
+    fields: [
+      { name: "caption", label: "Caption under cube", type: "text" },
+      { name: "faces", label: "Faces (first 6 used)", type: "items", itemLabel: "face", help: "Order maps to cube sides: 1 front, 2 right, 3 back, 4 left, 5 top, 6 bottom.", itemFields: [
+        { name: "label", label: "Label", type: "text" },
+        { name: "sub", label: "Sub-label", type: "text" },
+        { name: "metric", label: "Metric", type: "text" },
+        { name: "accent", label: "Accent colour (hex)", type: "text" },
+      ] },
+    ],
+    defaults: HOME_CUBE_DEFAULTS,
+  },
   {
     key: "home.industries",
     label: "Industries — header",
