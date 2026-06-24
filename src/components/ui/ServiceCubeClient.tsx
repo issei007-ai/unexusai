@@ -65,36 +65,39 @@ export default function ServiceCubeClient({ faces, caption }: { faces: Face[]; c
 
   return (
     <div className="flex flex-col items-center gap-5">
-      <div
-        className="svc-cube-scene"
-        style={{ touchAction: "none" }}
-        onPointerDown={onDown}
-        onPointerMove={onMove}
-        onPointerUp={onUp}
-        onPointerCancel={onUp}
-        role="img"
-        aria-label="Rotatable cube of our six services"
-      >
-        <div className="svc-cube" ref={cubeRef}>
-          {faces.map((f, i) => {
-            const accent = f.accent || "#6366f1";
-            return (
-              <div
-                key={i}
-                data-face={FACE_ORDER[i]}
-                className="svc-cube-face"
-                style={{ borderColor: `${accent}66`, boxShadow: `inset 0 0 40px ${accent}1f, inset 0 1px 0 rgba(255,255,255,0.06)` }}
-              >
-                <span className="text-sm font-bold uppercase tracking-widest" style={{ color: accent, fontFamily: "var(--font-display)" }}>
-                  {f.label}
-                </span>
-                <span className="text-[0.68rem] tracking-wide" style={{ color: "var(--color-brand-400)" }}>{f.sub}</span>
-                <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", lineHeight: 1, color: accent, letterSpacing: "-0.03em" }}>
-                  {f.metric}
-                </span>
-              </div>
-            );
-          })}
+      <div className="svc-cube-wrap">
+        <span className="svc-cube-aura" aria-hidden="true" />
+        <div
+          className="svc-cube-scene"
+          style={{ touchAction: "none" }}
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+          role="img"
+          aria-label="Rotatable cube of our six services"
+        >
+          <div className="svc-cube" ref={cubeRef}>
+            {faces.map((f, i) => {
+              const accent = f.accent || "#6366f1";
+              return (
+                <div
+                  key={i}
+                  data-face={FACE_ORDER[i]}
+                  className="svc-cube-face"
+                  style={{ borderColor: `${accent}99`, boxShadow: `inset 0 0 55px ${accent}33, inset 0 1px 0 rgba(255,255,255,0.08), 0 0 24px ${accent}33` }}
+                >
+                  <span className="text-sm font-bold uppercase tracking-widest" style={{ color: accent, fontFamily: "var(--font-display)", textShadow: `0 0 14px ${accent}aa` }}>
+                    {f.label}
+                  </span>
+                  <span className="text-[0.68rem] tracking-wide" style={{ color: "var(--color-brand-300)" }}>{f.sub}</span>
+                  <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", lineHeight: 1, color: accent, letterSpacing: "-0.03em", textShadow: `0 0 18px ${accent}cc, 0 0 34px ${accent}66` }}>
+                    {f.metric}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       {caption && <p className="text-xs text-center" style={{ color: "var(--color-brand-500)" }}>{caption}</p>}

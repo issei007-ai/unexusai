@@ -862,7 +862,28 @@ body {
 }
 
 /* ─── SERVICE CUBE (CSS-only 3D) ─────────────────────────────────────────── */
+.svc-cube-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.svc-cube-aura {
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.45), rgba(124,58,237,0.25) 45%, transparent 68%);
+  filter: blur(36px);
+  pointer-events: none;
+  z-index: 0;
+  animation: svc-cube-pulse 3.4s ease-in-out infinite;
+}
+@keyframes svc-cube-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.9); }
+  50%      { opacity: 0.9;  transform: scale(1.1); }
+}
 .svc-cube-scene {
+  position: relative;
+  z-index: 1;
   width: 240px; height: 240px;
   perspective: 900px;
   cursor: grab;
@@ -870,6 +891,9 @@ body {
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-cube-aura { animation: none; }
 }
 .svc-cube-scene:active { cursor: grabbing; }
 .svc-cube {
