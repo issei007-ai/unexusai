@@ -14,7 +14,7 @@ import Marquee from "@/components/ui/Marquee";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Preloader from "@/components/ui/Preloader";
 import { CLIENTS } from "@/lib/constants";
-import ClientLogo from "@/components/ui/ClientLogo";
+import ClientChip from "@/components/ui/ClientChip";
 import { getSection } from "@/lib/cms";
 import { HOME_HERO_DEFAULTS, HOME_SERVICES_DEFAULTS } from "@/lib/cms-schema";
 
@@ -91,16 +91,18 @@ export default async function HomePage() {
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-brand-600)" }}>
                 {hero.trustLabel}
               </p>
-              <Marquee speed={26} gap="2.75rem">
-                {CLIENTS.filter((c) => c.logo).map((c, i) => (
-                  <div key={c.name} className="flex flex-col items-center gap-2.5 flex-shrink-0" style={{ width: 92 }}>
-                    <ClientLogo client={c} index={i} size={64} shape="circle" />
-                    <span className="text-center leading-tight" style={{ fontSize: "0.7rem", color: "var(--color-brand-400)" }}>
-                      {c.short ?? c.name}
-                    </span>
-                  </div>
-                ))}
-              </Marquee>
+              <div className="space-y-3">
+                <Marquee speed={34} gap="0.75rem">
+                  {CLIENTS.slice(0, Math.ceil(CLIENTS.length / 2)).map((c, i) => (
+                    <ClientChip key={c.name} client={c} index={i} />
+                  ))}
+                </Marquee>
+                <Marquee speed={34} gap="0.75rem" reverse>
+                  {CLIENTS.slice(Math.ceil(CLIENTS.length / 2)).map((c, i) => (
+                    <ClientChip key={c.name} client={c} index={i + 7} />
+                  ))}
+                </Marquee>
+              </div>
             </div>
           </div>
 

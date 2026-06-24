@@ -17,13 +17,15 @@ interface Props {
   size?: number;
   /** Tile shape. */
   shape?: "rounded" | "circle";
+  /** Show the corner country-flag badge. */
+  showFlag?: boolean;
 }
 
 /**
  * Renders a client's logo on a light tile, or a gradient monogram tile when no
  * logo file is available — with a small country-flag badge in the corner.
  */
-export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded" }: Props) {
+export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded", showFlag = true }: Props) {
   const radius = shape === "circle" ? "50%" : Math.round(size * 0.22);
   const accent = ACCENTS[index % ACCENTS.length];
 
@@ -72,7 +74,7 @@ export default function ClientLogo({ client, index = 0, size = 80, shape = "roun
   return (
     <div style={{ position: "relative", display: "inline-flex", flexShrink: 0 }}>
       {tile}
-      {client.flag && (
+      {client.flag && showFlag && (
         <span
           aria-hidden="true"
           style={{
