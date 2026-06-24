@@ -10,7 +10,6 @@
       <stop offset="1" stop-color="#7c3aed"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#0a0f1e"/>
   <text x="256" y="262" text-anchor="middle" dominant-baseline="central"
         font-family="Geist, 'Segoe UI', Arial, sans-serif" font-weight="800"
         font-size="232" letter-spacing="-8">
