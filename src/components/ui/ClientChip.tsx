@@ -15,7 +15,7 @@ export default function ClientChip({ client, index = 0 }: { client: Client; inde
         padding: "0.4rem 1.05rem 0.4rem 0.4rem",
       }}
     >
-      <ClientLogo client={client} index={index} size={34} shape="circle" showFlag={false} />
+      <ClientLogo client={client} index={index} size={34} shape="circle" showFlag={false} transparentLogo />
       <span className="text-sm font-semibold whitespace-nowrap" style={{ color: "var(--color-brand-100)" }}>
         {client.short ?? client.name}
       </span>

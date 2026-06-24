@@ -19,13 +19,15 @@ interface Props {
   shape?: "rounded" | "circle";
   /** Show the corner country-flag badge. */
   showFlag?: boolean;
+  /** Drop the white tile behind logos and show the image directly. */
+  transparentLogo?: boolean;
 }
 
 /**
  * Renders a client's logo on a light tile, or a gradient monogram tile when no
  * logo file is available — with a small country-flag badge in the corner.
  */
-export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded", showFlag = true }: Props) {
+export default function ClientLogo({ client, index = 0, size = 80, shape = "rounded", showFlag = true, transparentLogo = false }: Props) {
   const radius = shape === "circle" ? "50%" : Math.round(size * 0.22);
   const accent = ACCENTS[index % ACCENTS.length];
 
@@ -35,11 +37,11 @@ export default function ClientLogo({ client, index = 0, size = 80, shape = "roun
         width: size,
         height: size,
         borderRadius: radius,
-        background: "#fff",
+        background: transparentLogo ? "transparent" : "#fff",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: Math.round(size * 0.18),
+        padding: transparentLogo ? 0 : Math.round(size * 0.18),
       }}
     >
       <img
