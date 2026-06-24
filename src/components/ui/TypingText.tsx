@@ -45,22 +45,34 @@ export default function TypingText({ words }: { words?: string[] }) {
     return () => clearTimeout(timeout);
   }, [displayed, deleting, wordIdx]);
 
+  // Reserve space for the longest line so the heading never reflows mid-type.
+  const longest = WORDS.reduce((a, b) => (b.length > a.length ? b : a), "");
+
+  const cursor = (
+    <span
+      style={{
+        display: "inline-block",
+        width: "3px",
+        height: "0.85em",
+        background: "var(--color-accent-400)",
+        marginLeft: "3px",
+        verticalAlign: "middle",
+        borderRadius: "2px",
+        opacity: blink ? 1 : 0,
+        transition: "opacity 0.1s",
+      }}
+    />
+  );
+
   return (
-    <span>
-      <span className="text-gradient">{displayed}</span>
-      <span
-        style={{
-          display: "inline-block",
-          width: "3px",
-          height: "0.85em",
-          background: "var(--color-accent-400)",
-          marginLeft: "3px",
-          verticalAlign: "middle",
-          borderRadius: "2px",
-          opacity: blink ? 1 : 0,
-          transition: "opacity 0.1s",
-        }}
-      />
+    <span style={{ position: "relative", display: "inline-block", textAlign: "center" }}>
+      {/* Invisible spacer holds the height/width of the longest line */}
+      <span aria-hidden="true" style={{ visibility: "hidden" }}>{longest}</span>
+      {/* Animated text overlaid on the reserved space */}
+      <span style={{ position: "absolute", left: 0, right: 0, top: 0 }}>
+        <span className="text-gradient">{displayed}</span>
+        {cursor}
+      </span>
     </span>
   );
 }
