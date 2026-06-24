@@ -6,6 +6,19 @@ const TIME_SLOTS = ["9:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+const TIMEZONES = [
+  "Asia/Dubai",
+  "Asia/Kolkata",
+  "Asia/Riyadh",
+  "Asia/Karachi",
+  "Asia/Singapore",
+  "Europe/London",
+  "Europe/Berlin",
+  "America/New_York",
+  "America/Los_Angeles",
+  "Australia/Sydney",
+];
+
 /** Next N weekdays starting tomorrow (skips Sat/Sun). */
 function nextWeekdays(count: number): Date[] {
   const days: Date[] = [];
@@ -19,19 +32,70 @@ function nextWeekdays(count: number): Date[] {
   return days;
 }
 
+function startOfTomorrow(): Date {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 1);
+  return d;
+}
+
+function sameDay(a: Date, b: Date): boolean {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
 export default function BookingScheduler({ source = "book" }: { source?: string }) {
   const router = useRouter();
   const days = useMemo(() => nextWeekdays(10), []);
-  const [dayIdx, setDayIdx] = useState<number | null>(null);
+  const tomorrow = useMemo(() => startOfTomorrow(), []);
+  const detectedTz = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Dubai";
+    } catch {
+      return "Asia/Dubai";
+    }
+  }, []);
+  const zones = useMemo(() => (TIMEZONES.includes(detectedTz) ? TIMEZONES : [detectedTz, ...TIMEZONES]), [detectedTz]);
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
+  const [tz, setTz] = useState(detectedTz);
+  const [showCal, setShowCal] = useState(false);
+  const [calView, setCalView] = useState(() => {
+    const d = new Date();
+    return { y: d.getFullYear(), m: d.getMonth() };
+  });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const selectedDay = dayIdx !== null ? days[dayIdx] : null;
-  const ready = selectedDay && slot && name.trim() && email.trim() && phone.trim();
+  const ready = selectedDate && slot && tz && name.trim() && email.trim() && phone.trim();
+
+  function pickDate(d: Date) {
+    setSelectedDate(d);
+    setSlot(null);
+  }
+
+  // Calendar grid for the current view month.
+  const calCells = useMemo(() => {
+    const first = new Date(calView.y, calView.m, 1);
+    const offset = first.getDay();
+    const daysInMonth = new Date(calView.y, calView.m + 1, 0).getDate();
+    const cells: (Date | null)[] = [];
+    for (let i = 0; i < offset; i++) cells.push(null);
+    for (let day = 1; day <= daysInMonth; day++) cells.push(new Date(calView.y, calView.m, day));
+    return cells;
+  }, [calView]);
+
+  const canGoPrev = calView.y > tomorrow.getFullYear() || (calView.y === tomorrow.getFullYear() && calView.m > new Date().getMonth());
+
+  function shiftMonth(delta: number) {
+    setCalView((v) => {
+      const m = v.m + delta;
+      return { y: v.y + Math.floor(m / 12), m: ((m % 12) + 12) % 12 };
+    });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,13 +103,15 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
     setSubmitting(true);
     setError(null);
 
-    const date = `${DAY_NAMES[selectedDay!.getDay()]} ${selectedDay!.getDate()} ${MONTH_NAMES[selectedDay!.getMonth()]} ${selectedDay!.getFullYear()}`;
+    const sd = selectedDate!;
+    const date = `${DAY_NAMES[sd.getDay()]} ${sd.getDate()} ${MONTH_NAMES[sd.getMonth()]} ${sd.getFullYear()}`;
+    const time = `${slot} (${tz})`;
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "booking", source, name, email, phone, date, time: slot }),
+        body: JSON.stringify({ type: "booking", source, name, email, phone, date, time, timezone: tz }),
       });
       if (!res.ok) throw new Error("Request failed");
       router.push("/thank-you");
@@ -64,13 +130,13 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
           <span className="text-sm font-semibold text-white">Pick a day</span>
         </div>
         <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "thin" }}>
-          {days.map((d, i) => {
-            const active = i === dayIdx;
+          {days.map((d) => {
+            const active = selectedDate ? sameDay(selectedDate, d) : false;
             return (
               <button
                 key={d.toISOString()}
                 type="button"
-                onClick={() => { setDayIdx(i); setSlot(null); }}
+                onClick={() => pickDate(d)}
                 className="booking-day"
                 data-active={active}
               >
@@ -86,14 +152,82 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
               </button>
             );
           })}
+          <button
+            type="button"
+            onClick={() => setShowCal((s) => !s)}
+            className="booking-day"
+            data-active={showCal}
+            style={{ minWidth: 64 }}
+            aria-expanded={showCal}
+          >
+            <span className="text-[0.6rem] uppercase tracking-wider" style={{ color: "var(--color-brand-400)" }}>More</span>
+            <span className="text-lg font-bold" style={{ color: "var(--color-brand-100)" }}>📅</span>
+            <span className="text-[0.6rem]" style={{ color: "var(--color-brand-500)" }}>dates</span>
+          </button>
         </div>
+
+        {/* Full month calendar */}
+        {showCal && (
+          <div className="mt-3 rounded-xl p-3" style={{ background: "var(--color-panel)", border: "1px solid var(--color-border)" }}>
+            <div className="flex items-center justify-between mb-3">
+              <button
+                type="button"
+                onClick={() => canGoPrev && shiftMonth(-1)}
+                disabled={!canGoPrev}
+                className="booking-cal-nav"
+                style={{ opacity: canGoPrev ? 1 : 0.35, cursor: canGoPrev ? "pointer" : "not-allowed" }}
+                aria-label="Previous month"
+              >
+                ‹
+              </button>
+              <span className="text-sm font-semibold text-white">{MONTH_NAMES[calView.m]} {calView.y}</span>
+              <button type="button" onClick={() => shiftMonth(1)} className="booking-cal-nav" aria-label="Next month">›</button>
+            </div>
+            <div className="grid grid-cols-7 gap-1 mb-1">
+              {DAY_NAMES.map((n) => (
+                <span key={n} className="text-center text-[0.6rem] uppercase tracking-wider" style={{ color: "var(--color-brand-500)" }}>{n}</span>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-1">
+              {calCells.map((d, i) => {
+                if (!d) return <span key={`b${i}`} />;
+                const weekend = d.getDay() === 0 || d.getDay() === 6;
+                const past = d < tomorrow;
+                const disabled = weekend || past;
+                const active = selectedDate ? sameDay(selectedDate, d) : false;
+                return (
+                  <button
+                    key={d.toISOString()}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => { pickDate(d); setShowCal(false); }}
+                    className="booking-cal-day"
+                    data-active={active}
+                    style={{ opacity: disabled ? 0.25 : 1, cursor: disabled ? "not-allowed" : "pointer" }}
+                  >
+                    {d.getDate()}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-[0.65rem] mt-2 text-center" style={{ color: "var(--color-brand-500)" }}>Weekends aren&apos;t available — pick a weekday.</p>
+          </div>
+        )}
       </div>
 
       {/* Step 2 — pick a time */}
-      <div style={{ opacity: selectedDay ? 1 : 0.4, pointerEvents: selectedDay ? "auto" : "none", transition: "opacity 0.25s" }}>
+      <div style={{ opacity: selectedDate ? 1 : 0.4, pointerEvents: selectedDate ? "auto" : "none", transition: "opacity 0.25s" }}>
         <div className="flex items-center gap-2 mb-3">
           <span className="booking-step">2</span>
-          <span className="text-sm font-semibold text-white">Pick a time <span style={{ color: "var(--color-brand-500)", fontWeight: 400 }}>(your local time)</span></span>
+          <span className="text-sm font-semibold text-white">Pick a time</span>
+        </div>
+        <div className="mb-3">
+          <label className="text-[0.7rem] uppercase tracking-wider block mb-1.5" style={{ color: "var(--color-brand-500)" }}>Time zone</label>
+          <select className="form-input" value={tz} onChange={(e) => setTz(e.target.value)} style={{ cursor: "pointer" }}>
+            {zones.map((z) => (
+              <option key={z} value={z}>{z.replace(/_/g, " ")}</option>
+            ))}
+          </select>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
           {TIME_SLOTS.map((t) => (
@@ -149,7 +283,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
       {/* Confirmation summary */}
       {ready && (
         <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid var(--color-accent-700)", color: "var(--color-brand-100)" }}>
-          You&apos;re booking <span className="text-white font-semibold">{DAY_NAMES[selectedDay!.getDay()]} {selectedDay!.getDate()} {MONTH_NAMES[selectedDay!.getMonth()]}</span> at <span className="text-white font-semibold">{slot}</span> — 30 minutes with Richa.
+          You&apos;re booking <span className="text-white font-semibold">{DAY_NAMES[selectedDate!.getDay()]} {selectedDate!.getDate()} {MONTH_NAMES[selectedDate!.getMonth()]}</span> at <span className="text-white font-semibold">{slot}</span> <span style={{ color: "var(--color-brand-400)" }}>({tz.replace(/_/g, " ")})</span> — 30 minutes with Richa.
         </div>
       )}
 
