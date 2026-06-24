@@ -237,9 +237,8 @@ export const ABOUT_TEAM_DEFAULTS = {
   badge: "The team",
   title: "The people doing the work.",
   members: [
-    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
-    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
-    { name: "Team Member", role: "Role · Unexus AI", bio: "A short line about this team member goes here." },
+    { name: "Rishi Sinha", role: "", bio: "A growth marketing strategist based in Gurugram, focused on helping brands scale with AI. He builds the practical, production-ready automation and SEO systems behind the work — and is honest about what actually moves the needle and what doesn't. Currently also studying at IIM Kozhikode." },
+    { name: "Rashmi Alpana", role: "", bio: "" },
   ],
 };
 export const ABOUT_PARTNERS_DEFAULTS = {
