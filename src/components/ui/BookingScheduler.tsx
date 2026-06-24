@@ -34,15 +34,14 @@ function allTimezones(): string[] {
   return FALLBACK_TIMEZONES;
 }
 
-/** Next N weekdays starting tomorrow (skips Sat/Sun). */
+/** Next N days starting tomorrow (includes weekends). */
 function nextWeekdays(count: number): Date[] {
   const days: Date[] = [];
   const d = new Date();
   d.setHours(0, 0, 0, 0);
   while (days.length < count) {
     d.setDate(d.getDate() + 1);
-    const dow = d.getDay();
-    if (dow !== 0 && dow !== 6) days.push(new Date(d));
+    days.push(new Date(d));
   }
   return days;
 }
@@ -209,9 +208,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
             <div className="grid grid-cols-7 gap-1">
               {calCells.map((d, i) => {
                 if (!d) return <span key={`b${i}`} />;
-                const weekend = d.getDay() === 0 || d.getDay() === 6;
-                const past = d < tomorrow;
-                const disabled = weekend || past;
+                const disabled = d < tomorrow;
                 const active = selectedDate ? sameDay(selectedDate, d) : false;
                 return (
                   <button
@@ -228,7 +225,6 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
                 );
               })}
             </div>
-            <p className="text-[0.65rem] mt-2 text-center" style={{ color: "var(--color-brand-500)" }}>Weekends aren&apos;t available — pick a weekday.</p>
           </div>
         )}
       </div>
