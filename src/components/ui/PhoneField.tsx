@@ -7,7 +7,7 @@ import { useState } from "react";
  * so the lead arrives as one value, e.g. "+971 50 123 4567".
  */
 export default function PhoneField({ required = true }: { required?: boolean }) {
-  const [cc, setCc] = useState("+971");
+  const [cc, setCc] = useState("");
   const [num, setNum] = useState("");
   const combined = `${cc.trim()} ${num.trim()}`.trim();
 
@@ -23,7 +23,7 @@ export default function PhoneField({ required = true }: { required?: boolean }) 
           aria-label="Country code"
           value={cc}
           onChange={(e) => setCc(e.target.value)}
-          placeholder="+971"
+          placeholder="+xx"
           pattern="\+?[0-9]{1,4}"
           title="Country code, e.g. +971"
           style={{ width: 84, flexShrink: 0, textAlign: "center" }}
