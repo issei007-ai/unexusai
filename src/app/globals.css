@@ -865,14 +865,16 @@ body {
 .svc-cube-scene {
   width: 240px; height: 240px;
   perspective: 900px;
+  cursor: grab;
+  touch-action: none;
 }
+.svc-cube-scene:active { cursor: grabbing; }
 .svc-cube {
   position: relative; width: 100%; height: 100%;
   transform-style: preserve-3d;
-  animation: svc-cube-spin 22s infinite;
-  animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transform: rotateX(-18deg) rotateY(-24deg);
+  will-change: transform;
 }
-.svc-cube-scene:hover .svc-cube { animation-play-state: paused; }
 .svc-cube-face {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -889,19 +891,6 @@ body {
 .svc-cube-face[data-face="left"]   { transform: rotateY(-90deg)  translateZ(120px); }
 .svc-cube-face[data-face="top"]    { transform: rotateX(90deg)   translateZ(120px); }
 .svc-cube-face[data-face="bottom"] { transform: rotateX(-90deg)  translateZ(120px); }
-
-@keyframes svc-cube-spin {
-  0%, 12%    { transform: rotateY(0deg)    rotateX(0deg); }
-  16%, 29%   { transform: rotateY(-90deg)  rotateX(0deg); }
-  33%, 46%   { transform: rotateY(-180deg) rotateX(0deg); }
-  50%, 62%   { transform: rotateY(-270deg) rotateX(0deg); }
-  66%, 79%   { transform: rotateY(-360deg) rotateX(-90deg); }
-  83%, 96%   { transform: rotateY(-360deg) rotateX(90deg); }
-  100%       { transform: rotateY(-360deg) rotateX(0deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .svc-cube { animation: none; transform: rotateY(-20deg) rotateX(-12deg); }
-}
 
 .booking-tz-list {
   position: absolute; z-index: 30; left: 0; right: 0; margin-top: 4px;
