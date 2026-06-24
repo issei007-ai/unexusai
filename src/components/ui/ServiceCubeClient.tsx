@@ -19,18 +19,32 @@ export default function ServiceCubeClient({ faces, caption }: { faces: Face[]; c
     let frame = 0;
     const tick = () => {
       if (!dragging.current && !reduce) rot.current.y += 0.22;
+      if (rot.current.y > 360 || rot.current.y < -360) rot.current.y %= 360;
       const el = cubeRef.current;
       if (el) el.style.transform = `rotateX(${rot.current.x}deg) rotateY(${rot.current.y}deg)`;
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    // Safety net: if a pointerup is ever missed, never stay stuck dragging.
+    const stop = () => { dragging.current = false; };
+    window.addEventListener("pointerup", stop);
+    window.addEventListener("blur", stop);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("pointerup", stop);
+      window.removeEventListener("blur", stop);
+    };
   }, []);
 
   const onDown = (e: React.PointerEvent) => {
+    e.preventDefault();
     dragging.current = true;
     last.current = { x: e.clientX, y: e.clientY };
-    e.currentTarget.setPointerCapture(e.pointerId);
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      /* capture unsupported — drag still works via move/up */
+    }
   };
   const onMove = (e: React.PointerEvent) => {
     if (!dragging.current) return;
