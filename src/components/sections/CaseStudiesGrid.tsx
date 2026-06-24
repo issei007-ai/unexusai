@@ -13,14 +13,15 @@ type Case = {
 };
 
 const ACCENTS: Record<string, string> = {
-  "Retail & e-commerce": "#6366f1",
-  "Hospitality & F&B": "#f59e0b",
-  "Real estate": "#f87171",
-  "Healthcare & wellness": "#34d399",
-  "Startups": "#22d3ee",
+  "E-commerce": "#6366f1",
+  "Fashion & Retail": "#ec4899",
+  "B2B & Industrial": "#06b6d4",
+  "Fintech": "#34d399",
+  "Local Services": "#f59e0b",
+  "Content & SEO": "#a78bfa",
 };
 
-const FILTERS = ["All", "Retail & e-commerce", "Hospitality & F&B", "Real estate", "Healthcare & wellness", "Startups"];
+const FILTERS = ["All", "E-commerce", "Fashion & Retail", "B2B & Industrial", "Fintech", "Local Services", "Content & SEO"];
 
 export default function CaseStudiesGrid({ cases }: { cases: Case[] }) {
   const [filter, setFilter] = useState("All");
