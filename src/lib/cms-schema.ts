@@ -238,7 +238,7 @@ export const ABOUT_TEAM_DEFAULTS = {
   title: "The people doing the work.",
   members: [
     { name: "Rishi Sinha", role: "", bio: "A growth marketing strategist based in Gurugram, focused on helping brands scale with AI. He builds the practical, production-ready automation and SEO systems behind the work — and is honest about what actually moves the needle and what doesn't. Currently also studying at IIM Kozhikode." },
-    { name: "Rashmi Alpana", role: "", bio: "" },
+    { name: "Rashmi Alpana", role: "", bio: "Rashmi is an SEO specialist who connects search intent with smart content and clean site architecture — the kind of work that makes both Google and actual users happy. She's data-driven about it: keyword research, content optimisation, and the technical side of things. If it involves crawling, indexing, ranking, or turning organic traffic into customers, she's usually the one behind the scenes making it work." },
   ],
 };
 export const ABOUT_PARTNERS_DEFAULTS = {
