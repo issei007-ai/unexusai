@@ -73,6 +73,52 @@ function sameDay(a: Date, b: Date): boolean {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 
+/** Searchable, dark-themed time-zone picker (replaces the native select). */
+function TimezonePicker({ zones, value, onChange }: { zones: string[]; value: string; onChange: (z: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase().replace(/_/g, " ");
+    const list = q ? zones.filter((z) => z.toLowerCase().replace(/_/g, " ").includes(q)) : zones;
+    return list.slice(0, 80);
+  }, [zones, query]);
+
+  return (
+    <div style={{ position: "relative" }}>
+      <input
+        className="form-input"
+        value={open ? query : value.replace(/_/g, " ")}
+        placeholder="Search time zone…"
+        onFocus={() => { setOpen(true); setQuery(""); }}
+        onChange={(e) => setQuery(e.target.value)}
+        onBlur={() => setTimeout(() => setOpen(false), 120)}
+        aria-label="Time zone"
+        autoComplete="off"
+      />
+      {open && (
+        <div className="booking-tz-list">
+          {filtered.length === 0 ? (
+            <div className="px-3 py-2 text-sm" style={{ color: "var(--color-brand-500)" }}>No matches</div>
+          ) : (
+            filtered.map((z) => (
+              <button
+                key={z}
+                type="button"
+                onMouseDown={(e) => { e.preventDefault(); onChange(z); setOpen(false); setQuery(""); }}
+                className="booking-tz-opt"
+                data-active={z === value}
+              >
+                {z.replace(/_/g, " ")}
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function BookingScheduler({ source = "book" }: { source?: string }) {
   const router = useRouter();
   const days = useMemo(() => nextWeekdays(10), []);
@@ -253,11 +299,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
         </div>
         <div className="mb-3">
           <label className="text-[0.7rem] uppercase tracking-wider block mb-1.5" style={{ color: "var(--color-brand-500)" }}>Time zone</label>
-          <select className="form-input" value={tz} onChange={(e) => setTz(e.target.value)} style={{ cursor: "pointer", colorScheme: "dark" }}>
-            {zones.map((z) => (
-              <option key={z} value={z}>{z.replace(/_/g, " ")}</option>
-            ))}
-          </select>
+          <TimezonePicker zones={zones} value={tz} onChange={setTz} />
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
           {TIME_SLOTS.map((t) => (
