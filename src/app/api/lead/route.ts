@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { Lead, LeadType } from "@/lib/leads/types";
 import { dispatchLead, activeChannels } from "@/lib/leads/dispatch";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 const VALID_TYPES: LeadType[] = ["lead", "booking", "newsletter", "whatsapp"];
 const RESERVED = new Set(["type", "source", "name", "email"]);
@@ -22,6 +23,15 @@ function clip(v: unknown, max: number): string | undefined {
 }
 
 export async function POST(req: Request) {
+  // Throttle abusive submissions: 10 per minute per IP.
+  const rl = rateLimit(`lead:${clientIp(req)}`, 10, 60_000);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Too many submissions. Please try again shortly." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await req.json();

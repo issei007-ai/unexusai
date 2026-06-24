@@ -1,8 +1,26 @@
 import type { NextConfig } from "next";
 
-// Baseline security headers applied to every response. (No strict CSP yet —
-// the site uses inline styles/styled-jsx that a strict policy would break.)
+// Content Security Policy. 'unsafe-inline' is kept for scripts/styles because
+// the app relies on Next's inline bootstrap scripts and many inline style
+// attributes (a nonce-based strict policy would need middleware). The other
+// directives still meaningfully restrict origins, framing, and injection.
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https:",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+// Baseline security headers applied to every response.
 const securityHeaders = [
+  { key: "Content-Security-Policy", value: csp },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

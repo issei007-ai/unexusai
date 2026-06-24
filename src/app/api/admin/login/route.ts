@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createHash, timingSafeEqual } from "crypto";
 import { adminToken, ADMIN_COOKIE } from "@/lib/admin";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 const SAFE_NEXT = ["/admin/leads", "/admin/content"];
 
@@ -18,6 +19,15 @@ export async function POST(req: Request) {
   const next = SAFE_NEXT.includes(nextRaw) ? nextRaw : "/admin/leads";
   const token = adminToken();
   const expected = process.env.ADMIN_PASSWORD;
+
+  // Brute-force guard: 8 attempts per 10 minutes per IP.
+  const rl = rateLimit(`login:${clientIp(req)}`, 8, 10 * 60_000);
+  if (!rl.ok) {
+    return NextResponse.redirect(new URL(`${next}?error=1`, req.url), {
+      status: 303,
+      headers: { "Retry-After": String(rl.retryAfter) },
+    });
+  }
 
   if (!token || !expected || !safeEqual(password, expected)) {
     return NextResponse.redirect(new URL(`${next}?error=1`, req.url), { status: 303 });
