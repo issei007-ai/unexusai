@@ -1,5 +1,6 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
+import ServiceCube from "@/components/ui/ServiceCube";
 import { getSection } from "@/lib/cms";
 import { HOME_INDUSTRIES_DEFAULTS } from "@/lib/cms-schema";
 
@@ -94,14 +95,19 @@ export default async function IndustriesSection() {
       <div className="absolute inset-0 bg-grid" style={{ opacity: 0.18 }} />
 
       <div className="container relative z-10">
-        <div className="mb-14" style={{ maxWidth: "44rem" }}>
-          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--color-brand-500)" }}>
-            {c.eyebrow}
-          </span>
-          <h2 className="text-h2 mt-3 mb-4">
-            <RevealText3D text={c.title} splitBy="word" />
-          </h2>
-          <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{c.intro}</p>
+        <div className="mb-14 grid lg:grid-cols-[1fr_280px] gap-10 lg:gap-12 items-center">
+          <div style={{ maxWidth: "44rem" }}>
+            <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--color-brand-500)" }}>
+              {c.eyebrow}
+            </span>
+            <h2 className="text-h2 mt-3 mb-4">
+              <RevealText3D text={c.title} splitBy="word" />
+            </h2>
+            <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{c.intro}</p>
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <ServiceCube />
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-5">
