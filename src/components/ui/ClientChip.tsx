@@ -7,8 +7,11 @@ export default function ClientChip({ client, index = 0 }: { client: Client; inde
     <div
       className="flex items-center gap-2.5 flex-shrink-0 rounded-full"
       style={{
-        background: "var(--color-panel)",
+        background: "rgba(255,255,255,0.04)",
         border: "1px solid var(--color-border-bright)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
         padding: "0.4rem 1.05rem 0.4rem 0.4rem",
       }}
     >
