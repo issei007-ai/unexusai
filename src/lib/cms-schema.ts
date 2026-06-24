@@ -231,14 +231,14 @@ export const ABOUT_FOUNDER_DEFAULTS = {
   initials: "RG",
   name: "Richa Gupta",
   role: "Founder — Unexus AI & SE Digicon · Based in Dubai, UAE 🇦🇪",
-  bio: "Richa has spent more than a decade in digital marketing and growth — performance marketing, SEO, e-commerce, CRO and retention — helping startups and brands across the Middle East and Asia scale on data rather than guesswork. These days her focus is the shift to an AI-first internet, where people increasingly find brands through ChatGPT, Gemini, and Perplexity instead of a page of Google results. She started Unexus AI to help businesses stay discoverable and competitive in that world: through GEO, AI-powered marketing, and the kind of hands-on AI training that actually gets teams using these tools day to day.",
+  bio: "I've spent more than a decade in digital marketing and growth — performance marketing, SEO, e-commerce, CRO and retention — helping startups and brands across the Middle East and Asia scale on data rather than guesswork. These days my focus is the shift to an AI-first internet, where people increasingly find brands through ChatGPT, Gemini, and Perplexity instead of a page of Google results. I started Unexus AI to help businesses stay discoverable and competitive in that world: through GEO, AI-powered marketing, and the kind of hands-on AI training that actually gets teams using these tools day to day.",
 };
 export const ABOUT_TEAM_DEFAULTS = {
   badge: "The team",
   title: "The people doing the work.",
   members: [
-    { name: "Rishi Sinha", role: "", bio: "A growth marketing strategist based in Gurugram, focused on helping brands scale with AI. He builds the practical, production-ready automation and SEO systems behind the work — and is honest about what actually moves the needle and what doesn't. Currently also studying at IIM Kozhikode." },
-    { name: "Rashmi Alpana", role: "", bio: "Rashmi is an SEO specialist who connects search intent with smart content and clean site architecture — the kind of work that makes both Google and actual users happy. She's data-driven about it: keyword research, content optimisation, and the technical side of things. If it involves crawling, indexing, ranking, or turning organic traffic into customers, she's usually the one behind the scenes making it work." },
+    { name: "Rishi Sinha", role: "", bio: "I'm a growth marketing strategist helping brands scale with AI. I build the automation and SEO systems behind the work — and I'm straight about what actually moves the needle." },
+    { name: "Rashmi Alpana", role: "", bio: "I'm an SEO specialist — I connect search intent with smart content and clean site architecture so both Google and real users are happy. Crawling, indexing, ranking, converting organic traffic: that's my world." },
   ],
 };
 export const ABOUT_PARTNERS_DEFAULTS = {
