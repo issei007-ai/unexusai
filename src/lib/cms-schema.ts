@@ -231,7 +231,7 @@ export const ABOUT_FOUNDER_DEFAULTS = {
   initials: "RG",
   name: "Richa Gupta",
   role: "Founder — Unexus AI & SE Digicon · Based in Dubai, UAE 🇦🇪",
-  bio: "Richa founded SE Digicon in India in 2015 and spent a decade building it into a full-service digital marketing agency serving clients across India, the UAE, the UK, and the US. When AI started reshaping search and GEO emerged as the discipline nobody had figured out yet, she launched Unexus AI in the UAE — to bring together everything SE Digicon had learned, focused specifically on what businesses need to grow in the AI era.",
+  bio: "Richa has spent more than a decade in digital marketing and growth — performance marketing, SEO, e-commerce, CRO and retention — helping startups and brands across the Middle East and Asia scale on data rather than guesswork. These days her focus is the shift to an AI-first internet, where people increasingly find brands through ChatGPT, Gemini, and Perplexity instead of a page of Google results. She started Unexus AI to help businesses stay discoverable and competitive in that world: through GEO, AI-powered marketing, and the kind of hands-on AI training that actually gets teams using these tools day to day.",
 };
 export const ABOUT_TEAM_DEFAULTS = {
   badge: "The team",
