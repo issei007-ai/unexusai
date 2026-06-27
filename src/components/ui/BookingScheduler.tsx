@@ -145,6 +145,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
   });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [cc, setCc] = useState("");
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -185,12 +186,13 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
     const sd = selectedDate!;
     const date = `${DAY_NAMES[sd.getDay()]} ${sd.getDate()} ${MONTH_NAMES[sd.getMonth()]} ${sd.getFullYear()}`;
     const time = `${slot} (${tz})`;
+    const fullPhone = `${cc.trim()} ${phone.trim()}`.trim();
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "booking", source, name, email, phone, date, time, timezone: tz }),
+        body: JSON.stringify({ type: "booking", source, name, email, phone: fullPhone, date, time, timezone: tz }),
       });
       if (!res.ok) throw new Error("Request failed");
       router.push("/thank-you");
@@ -339,16 +341,32 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            className="form-input"
-            type="tel"
-            inputMode="tel"
-            placeholder="Phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            autoComplete="off"
-            required
-          />
+          <div className="flex gap-2">
+            <input
+              className="form-input"
+              type="tel"
+              inputMode="tel"
+              placeholder="+xx"
+              value={cc}
+              onChange={(e) => setCc(e.target.value)}
+              autoComplete="off"
+              aria-label="Country code"
+              pattern="\+?[0-9]{1,4}"
+              style={{ width: 84, flexShrink: 0, textAlign: "center" }}
+            />
+            <input
+              className="form-input"
+              type="tel"
+              inputMode="tel"
+              placeholder="Phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              autoComplete="off"
+              aria-label="Phone number"
+              required
+              style={{ flex: 1 }}
+            />
+          </div>
         </div>
       </div>
 
