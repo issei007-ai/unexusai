@@ -22,7 +22,6 @@ export default async function HomePage() {
   const hero = await getSection("home.hero", HOME_HERO_DEFAULTS);
   const servicesHead = await getSection("home.services", HOME_SERVICES_DEFAULTS);
   const clients = ((await getSection("home.clients", HOME_CLIENTS_DEFAULTS)).items as Client[]);
-  const clientsHalf = Math.ceil(clients.length / 2);
   return (
     <>
       <Preloader />
@@ -93,18 +92,11 @@ export default async function HomePage() {
               <p className="text-center text-xs uppercase tracking-widest mb-8" style={{ color:"var(--color-accent-200)", textShadow:"0 0 18px rgba(124,58,237,0.6), 0 0 36px rgba(99,102,241,0.35)" }}>
                 {hero.trustLabel}
               </p>
-              <div className="space-y-3">
-                <Marquee speed={34} gap="0.75rem">
-                  {clients.slice(0, clientsHalf).map((c, i) => (
-                    <ClientChip key={c.name} client={c} index={i} />
-                  ))}
-                </Marquee>
-                <Marquee speed={34} gap="0.75rem" reverse>
-                  {clients.slice(clientsHalf).map((c, i) => (
-                    <ClientChip key={c.name} client={c} index={i + clientsHalf} />
-                  ))}
-                </Marquee>
-              </div>
+              <Marquee speed={34} gap="0.75rem">
+                {clients.map((c, i) => (
+                  <ClientChip key={c.name} client={c} index={i} />
+                ))}
+              </Marquee>
             </div>
           </div>
         </section>
