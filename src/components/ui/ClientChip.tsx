@@ -17,7 +17,7 @@ export default function ClientChip({ client, index = 0 }: { client: Client; inde
     >
       <ClientLogo client={client} index={index} size={34} shape="circle" showFlag={false} transparentLogo />
       <span className="text-sm font-semibold whitespace-nowrap" style={{ color: "var(--color-brand-100)" }}>
-        {client.short ?? client.name}
+        {client.short || client.name}
       </span>
       {client.flag && (
         <img
