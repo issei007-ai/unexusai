@@ -13,14 +13,16 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Marquee from "@/components/ui/Marquee";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Preloader from "@/components/ui/Preloader";
-import { CLIENTS } from "@/lib/constants";
+import type { Client } from "@/lib/constants";
 import ClientChip from "@/components/ui/ClientChip";
 import { getSection } from "@/lib/cms";
-import { HOME_HERO_DEFAULTS, HOME_SERVICES_DEFAULTS } from "@/lib/cms-schema";
+import { HOME_HERO_DEFAULTS, HOME_SERVICES_DEFAULTS, HOME_CLIENTS_DEFAULTS } from "@/lib/cms-schema";
 
 export default async function HomePage() {
   const hero = await getSection("home.hero", HOME_HERO_DEFAULTS);
   const servicesHead = await getSection("home.services", HOME_SERVICES_DEFAULTS);
+  const clients = ((await getSection("home.clients", HOME_CLIENTS_DEFAULTS)).items as Client[]);
+  const clientsHalf = Math.ceil(clients.length / 2);
   return (
     <>
       <Preloader />
@@ -93,13 +95,13 @@ export default async function HomePage() {
               </p>
               <div className="space-y-3">
                 <Marquee speed={34} gap="0.75rem">
-                  {CLIENTS.slice(0, Math.ceil(CLIENTS.length / 2)).map((c, i) => (
+                  {clients.slice(0, clientsHalf).map((c, i) => (
                     <ClientChip key={c.name} client={c} index={i} />
                   ))}
                 </Marquee>
                 <Marquee speed={34} gap="0.75rem" reverse>
-                  {CLIENTS.slice(Math.ceil(CLIENTS.length / 2)).map((c, i) => (
-                    <ClientChip key={c.name} client={c} index={i + 7} />
+                  {clients.slice(clientsHalf).map((c, i) => (
+                    <ClientChip key={c.name} client={c} index={i + clientsHalf} />
                   ))}
                 </Marquee>
               </div>
