@@ -151,7 +151,7 @@ export default async function ContactPage() {
                 </div>
                 <div>
                   <label className="form-label">Tell us more</label>
-                  <textarea className="form-textarea" name="message" placeholder="What's the problem you're trying to solve?" required />
+                  <textarea className="form-textarea" name="message" placeholder="What's the problem you're trying to solve?" />
                 </div>
               </LeadForm>
             </div>
