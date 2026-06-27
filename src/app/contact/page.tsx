@@ -144,14 +144,14 @@ export default async function ContactPage() {
                 <PhoneField />
                 <div>
                   <label className="form-label">What do you need help with?</label>
-                  <select className="form-select" name="need" defaultValue="">
+                  <select className="form-select" name="need" defaultValue="" required>
                     <option value="" disabled>Select a service</option>
                     {NEEDS.map((opt) => <option key={opt}>{opt}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="form-label">Tell us more</label>
-                  <textarea className="form-textarea" name="message" placeholder="What's the problem you're trying to solve?" />
+                  <textarea className="form-textarea" name="message" placeholder="What's the problem you're trying to solve?" required />
                 </div>
               </LeadForm>
             </div>

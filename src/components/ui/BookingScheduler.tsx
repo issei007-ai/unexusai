@@ -150,7 +150,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const ready = selectedDate && slot && tz && name.trim() && email.trim() && phone.trim();
+  const ready = selectedDate && slot && tz && name.trim() && email.trim() && cc.trim() && phone.trim();
 
   function pickDate(d: Date) {
     setSelectedDate(d);
@@ -348,10 +348,12 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
               inputMode="tel"
               placeholder="+xx"
               value={cc}
-              onChange={(e) => setCc(e.target.value)}
+              onChange={(e) => setCc(e.target.value.replace(/[^\d+]/g, "").replace(/(?!^)\+/g, "").slice(0, 5))}
               autoComplete="off"
               aria-label="Country code"
               pattern="\+?[0-9]{1,4}"
+              title="Country code, e.g. +971"
+              required
               style={{ width: 84, flexShrink: 0, textAlign: "center" }}
             />
             <input
@@ -360,9 +362,11 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
               inputMode="tel"
               placeholder="Phone number"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value.replace(/[^\d\s()\-]/g, "").slice(0, 20))}
               autoComplete="off"
               aria-label="Phone number"
+              pattern="[0-9 ()\-]{6,20}"
+              title="Enter a valid phone number (digits only)"
               required
               style={{ flex: 1 }}
             />
