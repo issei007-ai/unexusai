@@ -213,16 +213,8 @@ SECTIONS.push(
 export const HOME_CLIENTS_DEFAULTS = {
   items: [
     { name: "GEOX India", logo: "/clients/geox.png", short: "", flag: "in" },
-    { name: "Amritsari Express", logo: "/clients/amritsari-express.png", short: "", flag: "in" },
-    { name: "Café Chennai", logo: "/clients/cafe-chennai.png", short: "", flag: "in" },
-    { name: "Rajwada", logo: "/clients/rajwada.png", short: "", flag: "in" },
     { name: "DPS Sirsa", logo: "/clients/dps-sirsa.png", short: "", flag: "in" },
-    { name: "Lilawati Vidya Mandir", logo: "/clients/lilawati-vidya-mandir.png", short: "", flag: "in" },
     { name: "FlowerAura", logo: "/clients/floweraura.png", short: "", flag: "in" },
-    { name: "Bakingo", logo: "/clients/bakingo.png", short: "", flag: "in" },
-    { name: "Heritage Play Centre", logo: "", short: "", flag: "in" },
-    { name: "Learning From Ant", logo: "/clients/learning-from-ant.png", short: "", flag: "in" },
-    { name: "Shaadi Emporio", logo: "/clients/shaadi-emporio.png", short: "", flag: "in" },
     { name: "Awake Solar", logo: "/clients/awake-solar.png", short: "", flag: "us" },
     { name: "Wentworth House", logo: "/clients/wentworth-house.png", short: "", flag: "gb" },
     { name: "Richies Laundry", logo: "/clients/richies.png", short: "Richies", flag: "ae" },
