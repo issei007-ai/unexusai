@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import UnixiAvatar from "@/components/ui/UnixiAvatar";
 
 /**
  * 3D Unixi mascot — Three.js, procedurally animated (no baked clips).
@@ -29,6 +30,7 @@ export default function Unixi3D({
 }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
   const greetRef = useRef(0);
   const pausedRef = useRef(paused);
   const hoverRef = useRef(false);
@@ -428,7 +430,7 @@ export default function Unixi3D({
           setReady(true);
         },
         undefined,
-        () => setReady(true), // reveal container even if load fails
+        () => setFailed(true), // load/decode failed — fall back to the SVG
       );
 
       // Pointer, normalized to [-1, 1] across the viewport.
@@ -560,7 +562,13 @@ export default function Unixi3D({
       className="unixi3d-launch"
       style={{ width: size, height: size }}
     >
-      <div ref={mountRef} style={{ width: size, height: size, opacity: ready ? 1 : 0, transition: "opacity 0.4s" }} />
+      {failed ? (
+        <span style={{ display: "flex", width: size, height: size, alignItems: "flex-end", justifyContent: "center", paddingBottom: 18 }}>
+          <UnixiAvatar size={Math.round(size * 0.42)} state="idle" />
+        </span>
+      ) : (
+        <div ref={mountRef} style={{ width: size, height: size, opacity: ready ? 1 : 0, transition: "opacity 0.4s" }} />
+      )}
     </button>
   );
 }

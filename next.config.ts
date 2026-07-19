@@ -4,13 +4,15 @@ import type { NextConfig } from "next";
 // the app relies on Next's inline bootstrap scripts and many inline style
 // attributes (a nonce-based strict policy would need middleware). The other
 // directives still meaningfully restrict origins, framing, and injection.
-// React dev mode needs eval() for its debugging tooling; production never
-// does, so 'unsafe-eval' is granted in development only.
+// React dev mode needs full eval() for its debugging tooling; production never
+// does. Both environments need WebAssembly (the Draco mesh decoder for the 3D
+// mascot), so production gets the narrow 'wasm-unsafe-eval' — which permits
+// only WebAssembly compilation, not arbitrary JS eval.
 const isDev = process.env.NODE_ENV === "development";
 
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : "'wasm-unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
