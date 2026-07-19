@@ -4,13 +4,21 @@ import type { NextConfig } from "next";
 // the app relies on Next's inline bootstrap scripts and many inline style
 // attributes (a nonce-based strict policy would need middleware). The other
 // directives still meaningfully restrict origins, framing, and injection.
+// React dev mode needs eval() for its debugging tooling; production never
+// does, so 'unsafe-eval' is granted in development only.
+const isDev = process.env.NODE_ENV === "development";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https:",
+  // blob:/data: needed for Three.js GLTFLoader, which fetches the textures it
+  // unpacks from .glb files as blob: URLs.
+  "connect-src 'self' https: blob: data:",
+  // The Draco mesh decoder runs in a worker created from a blob: URL.
+  "worker-src 'self' blob:",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

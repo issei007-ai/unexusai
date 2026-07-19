@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import ChatWidget from "@/components/ui/ChatWidget";
 
 export const metadata: Metadata = {
   title: "Unexus AI — Digital Marketing, Web & AI",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ScrollProgress />
         {children}
         <WhatsAppButton />
+        <ChatWidget />
       </body>
     </html>
   );

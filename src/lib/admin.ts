@@ -14,6 +14,7 @@ export const KNOWN_SOURCES = [
   "blog",
   "book",
   "contact-book",
+  "chat",
 ] as const;
 
 export const LEAD_TYPES = ["lead", "booking", "newsletter", "whatsapp"] as const;
