@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SERVICES } from "@/lib/constants";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TiltCard from "@/components/ui/TiltCard";
@@ -103,13 +104,16 @@ export default function ServicesGrid({
                     ...(service.isNew ? { borderColor: "var(--color-accent-500)", boxShadow: "0 0 0 1px var(--color-accent-500)" } : {}),
                   }}
                 >
-                  {/* Background image (services with artwork) */}
+                  {/* Background image (services with artwork) — next/image
+                      resizes + re-encodes these on the fly instead of
+                      shipping the full 1.3-1.8MB source PNGs to every visitor. */}
                   {SERVICE_IMG[service.title] && (
-                    <img
+                    <Image
                       src={SERVICE_IMG[service.title]}
                       alt=""
                       aria-hidden
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 480px"
                       className="svc-img"
                     />
                   )}

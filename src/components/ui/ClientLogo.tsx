@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Client } from "@/lib/constants";
 
 const ACCENTS = ["#6366f1", "#7c3aed", "#06b6d4", "#f59e0b", "#10b981", "#ec4899", "#818cf8", "#67e8f9"];
@@ -44,11 +45,12 @@ export default function ClientLogo({ client, index = 0, size = 80, shape = "roun
         padding: transparentLogo ? 0 : Math.round(size * 0.18),
       }}
     >
-      <img
+      <Image
         src={client.logo}
         alt={`${client.name} logo`}
-        loading="lazy"
-        style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+        width={size}
+        height={size}
+        style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", width: "auto", height: "auto" }}
       />
     </div>
   ) : (

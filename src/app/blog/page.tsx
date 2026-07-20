@@ -68,7 +68,7 @@ export default async function BlogPage() {
                   >
                     <div className="relative flex items-end p-5 overflow-hidden" style={{ aspectRatio: "16 / 9", background: `linear-gradient(135deg, ${post.accent}, var(--color-glow))` }}>
                       {post.image && (
-                        <img src={post.image} alt="" className="absolute inset-0" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <img src={post.image} alt="" loading="lazy" className="absolute inset-0" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       )}
                       <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: "rgba(3,7,18,0.55)", color: "#fff", position: "relative", zIndex: 1 }}>{post.cat}</span>
                     </div>
