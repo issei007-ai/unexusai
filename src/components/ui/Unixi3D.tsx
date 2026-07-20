@@ -203,51 +203,39 @@ export default function Unixi3D({
             if (bone) waveBones.push({ bone, q0: bone.quaternion.clone(), amp });
           }
 
-          // ── Eyelids, auto-placed ─────────────────────────────────────────
-          // The eyes are painted on the visor texture (no eye bones), so we
-          // locate them precisely: scan every front-facing vertex, sample its
-          // texel via the UVs, and cluster the bright-purple "eye glow" ones.
-          scene.updateMatrixWorld(true);
-          const eyeCenters: InstanceType<typeof THREE.Vector3>[] = [];
-          let eyeRadius = 0.09;
+          // ── Eyelids, at pre-measured positions ───────────────────────────
+          // The eyes are painted on the visor texture with no eye bones, so
+          // there's no cheap way to find them from the geometry alone. We used
+          // to locate them at runtime — flood-filling the full texture for
+          // purple "eye glow" blobs, then brute-force scanning all ~72k mesh
+          // triangles to map each blob back to 3D — but that one-time scan was
+          // a multi-hundred-ms main-thread block on every page load (the
+          // single biggest hit to the Lighthouse Performance score). Since
+          // unixi.glb is a fixed shipped asset, not user content, the result
+          // never changes — so it's hardcoded from that same detection run.
+          const eyeCenters: InstanceType<typeof THREE.Vector3>[] = [
+            new THREE.Vector3(-0.177, 1.004, 0.473),
+            new THREE.Vector3(0.29, 0.958, 0.541),
+          ];
+          const eyeRadius = 0.13;
+
+          // ── Emissive map: only the purple "energy" texels glow ────────────
+          // (halo, chest U, eyes, accents — everything else stays black.)
           try {
-            type Attr = { getX(i: number): number; getY(i: number): number; getZ(i: number): number; count: number };
-            type SkinnedLike = {
-              geometry: {
-                attributes: Record<string, Attr | undefined>;
-                index?: { getX(i: number): number; count: number } | null;
-              };
-              material: unknown;
-              localToWorld(v: InstanceType<typeof THREE.Vector3>): InstanceType<typeof THREE.Vector3>;
-            };
-            // Assigned via an `unknown` intermediate — TS can't track writes
-            // made inside the traverse callback.
             let foundMesh: unknown = null;
             model.traverse((o) => {
               if ((o as unknown as { isSkinnedMesh?: boolean }).isSkinnedMesh) foundMesh = o;
             });
-            const skinned = foundMesh as SkinnedLike | null;
-            const geoAttrs = skinned?.geometry.attributes;
-            const posA = geoAttrs?.position;
-            const uvA = geoAttrs?.uv;
-            const idxA = skinned?.geometry.index ?? null;
+            const skinned = foundMesh as { material: unknown } | null;
             const img = (skinned?.material as { map?: { image?: CanvasImageSource & { width: number; height: number } } })?.map?.image;
-            // The eyes are painted BETWEEN vertices (smooth visor dome), so
-            // vertex sampling can't find them. Instead: find the purple eye
-            // blobs in the texture itself, then map their UV centroids back
-            // to 3D through the triangles that contain them.
-            if (skinned && posA && uvA && img && img.width * img.height <= 4_500_000) {
+            if (skinned && img && img.width * img.height <= 4_500_000) {
               const W = img.width, H = img.height;
               const cv = document.createElement("canvas");
               cv.width = W; cv.height = H;
               const cx = cv.getContext("2d")!;
               cx.drawImage(img, 0, 0);
               const px = cx.getImageData(0, 0, W, H).data;
-              const isPurple = (o4: number) => px[o4 + 2] > 150 && px[o4] > 110 && px[o4 + 2] > px[o4 + 1] + 55 && px[o4] > px[o4 + 1] + 15;
-              const isDark = (o4: number) => px[o4] + px[o4 + 1] + px[o4 + 2] < 170;
 
-              // ── Emissive map: only the purple "energy" texels glow ────────
-              // (halo, chest U, eyes, accents — everything else stays black.)
               const em = document.createElement("canvas");
               em.width = W; em.height = H;
               const ex = em.getContext("2d")!;
@@ -279,143 +267,8 @@ export default function Unixi3D({
               gMat.needsUpdate = true;
               glowMat = gMat as { emissiveIntensity: number };
               cleanups.push(() => emTex.dispose());
-
-              // 1) Flood-fill purple texels into blobs.
-              type Blob = { cx: number; cy: number; n: number; w: number; h: number };
-              const seen = new Uint8Array(W * H);
-              const blobs: Blob[] = [];
-              const stack: number[] = [];
-              for (let y = 0; y < H; y++) {
-                for (let x = 0; x < W; x++) {
-                  const ii = y * W + x;
-                  if (seen[ii]) continue;
-                  seen[ii] = 1;
-                  if (!isPurple(ii * 4)) continue;
-                  stack.length = 0;
-                  stack.push(ii);
-                  let n = 0, sx = 0, sy = 0, minx = x, maxx = x, miny = y, maxy = y;
-                  while (stack.length) {
-                    const ci = stack.pop()!;
-                    const ax = ci % W, ay = (ci / W) | 0;
-                    n++; sx += ax; sy += ay;
-                    if (ax < minx) minx = ax; if (ax > maxx) maxx = ax;
-                    if (ay < miny) miny = ay; if (ay > maxy) maxy = ay;
-                    if (ax + 1 < W && !seen[ci + 1]) { seen[ci + 1] = 1; if (isPurple((ci + 1) * 4)) stack.push(ci + 1); }
-                    if (ax - 1 >= 0 && !seen[ci - 1]) { seen[ci - 1] = 1; if (isPurple((ci - 1) * 4)) stack.push(ci - 1); }
-                    if (ay + 1 < H && !seen[ci + W]) { seen[ci + W] = 1; if (isPurple((ci + W) * 4)) stack.push(ci + W); }
-                    if (ay - 1 >= 0 && !seen[ci - W]) { seen[ci - W] = 1; if (isPurple((ci - W) * 4)) stack.push(ci - W); }
-                  }
-                  if (n >= 20) blobs.push({ cx: sx / n, cy: sy / n, n, w: maxx - minx + 1, h: maxy - miny + 1 });
-                }
-              }
-
-              // 2) Eyes = roundish blobs ringed by the black visor (the smile
-              // is too wide; halo/chest/feet sit on white, not black).
-              const eyeBlobs = blobs
-                .filter((b) => {
-                  const ar = b.w / b.h;
-                  if (ar > 2.2 || ar < 0.45) return false;
-                  const rad = Math.max(b.w, b.h) * 0.9 + 2;
-                  let dark = 0, tot = 0;
-                  for (let k = 0; k < 20; k++) {
-                    const a = (k / 20) * Math.PI * 2;
-                    const x2 = Math.round(b.cx + Math.cos(a) * rad);
-                    const y2 = Math.round(b.cy + Math.sin(a) * rad);
-                    if (x2 < 0 || y2 < 0 || x2 >= W || y2 >= H) continue;
-                    tot++;
-                    if (isDark((y2 * W + x2) * 4)) dark++;
-                  }
-                  return tot > 0 && dark / tot >= 0.55;
-                })
-                .sort((a, b2) => b2.n - a.n)
-                .slice(0, 2);
-
-              // 3) Map blob centroids UV → 3D. Mirrored geometry can share
-              // one UV island, so collect every triangle containing the UV.
-              type Hit = { p: InstanceType<typeof THREE.Vector3>; r: number };
-              const hits: Hit[] = [];
-              const triCount = Math.floor((idxA ? idxA.count : posA.count) / 3);
-              const gi = (i: number) => (idxA ? idxA.getX(i) : i);
-              const pa = new THREE.Vector3(), pb = new THREE.Vector3();
-              if (triCount < 200_000) {
-                for (const b of eyeBlobs) {
-                  const u = b.cx / W, v = b.cy / H;
-                  for (let tI = 0; tI < triCount && hits.length < 12; tI++) {
-                    const i0 = gi(tI * 3), i1 = gi(tI * 3 + 1), i2 = gi(tI * 3 + 2);
-                    const u0 = uvA.getX(i0), v0 = uvA.getY(i0);
-                    const u1 = uvA.getX(i1), v1 = uvA.getY(i1);
-                    const u2 = uvA.getX(i2), v2 = uvA.getY(i2);
-                    const d = (v1 - v2) * (u0 - u2) + (u2 - u1) * (v0 - v2);
-                    if (Math.abs(d) < 1e-12) continue;
-                    const w0 = ((v1 - v2) * (u - u2) + (u2 - u1) * (v - v2)) / d;
-                    const w1 = ((v2 - v0) * (u - u2) + (u0 - u2) * (v - v2)) / d;
-                    const w2 = 1 - w0 - w1;
-                    if (w0 < -0.02 || w1 < -0.02 || w2 < -0.02) continue;
-                    const p = new THREE.Vector3(
-                      w0 * posA.getX(i0) + w1 * posA.getX(i1) + w2 * posA.getX(i2),
-                      w0 * posA.getY(i0) + w1 * posA.getY(i1) + w2 * posA.getY(i2),
-                      w0 * posA.getZ(i0) + w1 * posA.getZ(i1) + w2 * posA.getZ(i2),
-                    );
-                    skinned.localToWorld(p);
-                    group.worldToLocal(p);
-                    // texel→3D scale from one triangle edge, for the lid size
-                    pa.set(posA.getX(i0), posA.getY(i0), posA.getZ(i0));
-                    pb.set(posA.getX(i1), posA.getY(i1), posA.getZ(i1));
-                    skinned.localToWorld(pa); group.worldToLocal(pa);
-                    skinned.localToWorld(pb); group.worldToLocal(pb);
-                    const eu = Math.hypot(u1 - u0, v1 - v0);
-                    const scale3 = eu > 1e-9 ? pa.distanceTo(pb) / eu : 0;
-                    hits.push({ p, r: scale3 * ((Math.max(b.w, b.h) * 0.5) / W) });
-                  }
-                }
-              }
-
-              // 4) Cluster the hits and keep the most eye-like pair.
-              type Cl = { c: InstanceType<typeof THREE.Vector3>; n: number; r: number };
-              const cls: Cl[] = [];
-              for (const h of hits) {
-                let home: Cl | undefined;
-                for (const cl of cls) if (cl.c.distanceTo(h.p) < 0.12) { home = cl; break; }
-                if (home) {
-                  home.n++;
-                  home.c.lerp(h.p, 1 / home.n);
-                  home.r = (home.r * (home.n - 1) + h.r) / home.n;
-                } else {
-                  cls.push({ c: h.p.clone(), n: 1, r: h.r });
-                }
-              }
-              let pairBest: [Cl, Cl] | null = null;
-              for (let i = 0; i < cls.length; i++) {
-                for (let j = i + 1; j < cls.length; j++) {
-                  const A = cls[i], B = cls[j];
-                  if (Math.abs(A.c.y - B.c.y) > 0.12) continue;
-                  const dx = Math.abs(A.c.x - B.c.x);
-                  if (dx < 0.15 || dx > 0.55) continue;
-                  if (Math.abs(A.c.z - B.c.z) > 0.2) continue;
-                  if (!pairBest || A.c.y + B.c.y > pairBest[0].c.y + pairBest[1].c.y) pairBest = [A, B];
-                }
-              }
-              if (pairBest) {
-                eyeCenters.push(pairBest[0].c, pairBest[1].c);
-                eyeRadius = Math.min(0.13, Math.max(0.05, ((pairBest[0].r + pairBest[1].r) / 2) * 1.25));
-              }
             }
-          } catch { /* fall back below */ }
-
-          // Fallback: head-bone anchored guess if detection found nothing.
-          if (eyeCenters.length < 2) {
-            eyeCenters.length = 0;
-            const head = bones["Head"];
-            const anchor = new THREE.Vector3(group.position.x, 0.45, 0);
-            if (head) {
-              head.updateWorldMatrix(true, false);
-              head.getWorldPosition(anchor);
-              group.worldToLocal(anchor);
-            }
-            for (const side of [-1, 1]) {
-              eyeCenters.push(new THREE.Vector3(anchor.x + side * 0.16, anchor.y + 0.14, anchor.z + 0.5));
-            }
-          }
+          } catch { /* glow is a visual nicety — skip it if anything's off */ }
 
           const lidMat = new THREE.MeshBasicMaterial({ color: 0x0b0714 });
           for (const c of eyeCenters) {
