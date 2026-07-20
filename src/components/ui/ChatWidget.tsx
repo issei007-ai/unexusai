@@ -22,6 +22,24 @@ function cleanPhone(v: string): string {
   return v.replace(/[^\d\s()+\-]/g, "").slice(0, MAXLEN.phone);
 }
 
+/** Service names keyed by their /services/<slug> URL. */
+const SERVICE_BY_SLUG: Record<string, string> = {
+  "digital-marketing": "Digital Marketing",
+  "website-development": "Website Development",
+  "ai-automation": "AI Automation",
+  "ai-training": "AI Training",
+  "market-research": "Market Research",
+  geo: "GEO",
+};
+const SERVICE_NAMES = new Set(Object.values(SERVICE_BY_SLUG));
+
+/** The service implied by the page the visitor is on, if any. */
+function pageService(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const m = window.location.pathname.match(/^\/services\/([a-z-]+)/);
+  return m ? SERVICE_BY_SLUG[m[1]] : undefined;
+}
+
 /** Fill {name} / {when} / {date} tokens in a bot line. */
 function fmt(text: string, a: ChatAnswers): string {
   return text
@@ -204,6 +222,15 @@ export default function ChatWidget() {
 
     setSending(true);
     setTyping(true);
+
+    // Service attribution: an explicit in-chat service pick wins; otherwise
+    // fall back to the service page they're on; otherwise the generic intent.
+    const svc = pageService();
+    const need =
+      final.interest && SERVICE_NAMES.has(final.interest)
+        ? final.interest
+        : svc || final.interest || "General enquiry";
+
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
@@ -215,9 +242,11 @@ export default function ChatWidget() {
           name: final.name,
           email: final.email,
           phone: final.phone,
-          need: final.interest || "General enquiry",
+          need,
           date: final.date,
           preferred_time: final.when,
+          // Where the chat was opened — full context for the lead.
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
         }),
       });
       if (!res.ok) throw new Error("failed");
