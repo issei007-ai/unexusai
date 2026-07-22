@@ -10,9 +10,18 @@ import type { NextConfig } from "next";
 // only WebAssembly compilation, not arbitrary JS eval.
 const isDev = process.env.NODE_ENV === "development";
 
+// Google marketing origins that serve/execute code. Covers GTM plus Google Ads
+// conversion tracking & remarketing, so ad campaigns work the moment they run
+// without further CSP edits. Pixel/beacon hits (images, fetch/beacon) are
+// already covered by the wide img-src/connect-src https: allowances below.
+const googleScriptSrc =
+  "https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com";
+const googleFrameSrc =
+  "https://www.googletagmanager.com https://td.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com";
+
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com ${isDev ? "'unsafe-eval'" : "'wasm-unsafe-eval'"}`,
+  `script-src 'self' 'unsafe-inline' ${googleScriptSrc} ${isDev ? "'unsafe-eval'" : "'wasm-unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
@@ -21,8 +30,9 @@ const csp = [
   "connect-src 'self' https: blob: data:",
   // The Draco mesh decoder runs in a worker created from a blob: URL.
   "worker-src 'self' blob:",
-  // GTM's <noscript> tag and the Google Ads conversion linker load in iframes.
-  "frame-src 'self' https://www.googletagmanager.com https://td.doubleclick.net",
+  // GTM's <noscript> tag and the Google Ads conversion linker / remarketing
+  // tags load in iframes.
+  `frame-src 'self' ${googleFrameSrc}`,
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
