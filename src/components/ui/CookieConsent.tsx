@@ -13,6 +13,22 @@ export function getConsent(): ConsentChoice | null {
 }
 
 /**
+ * React hook: true once the visitor has accepted cookies. Re-checks on the
+ * in-tab "cookie-consent-change" event so tracking can mount the instant the
+ * banner is accepted, without a reload. Used by both Analytics and TagManager.
+ */
+export function useConsentAccepted(): boolean {
+  const [accepted, setAccepted] = useState(false);
+  useEffect(() => {
+    const check = () => setAccepted(getConsent() === "accepted");
+    check();
+    window.addEventListener("cookie-consent-change", check);
+    return () => window.removeEventListener("cookie-consent-change", check);
+  }, []);
+  return accepted;
+}
+
+/**
  * Bottom banner gating analytics cookies behind an explicit choice. Essential
  * site function (the site itself, lead forms) never depends on this — only
  * Analytics.tsx checks getConsent() before loading GA4.

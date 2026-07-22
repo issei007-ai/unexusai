@@ -21,6 +21,8 @@ const csp = [
   "connect-src 'self' https: blob: data:",
   // The Draco mesh decoder runs in a worker created from a blob: URL.
   "worker-src 'self' blob:",
+  // GTM's <noscript> tag and the Google Ads conversion linker load in iframes.
+  "frame-src 'self' https://www.googletagmanager.com https://td.doubleclick.net",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

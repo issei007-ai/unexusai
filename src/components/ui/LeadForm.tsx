@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
+import { readAttribution } from "@/lib/attribution";
 
 interface Props {
   children: ReactNode;
@@ -29,14 +30,23 @@ export default function LeadForm({ children, submitLabel = "Submit", note, sourc
     setError(null);
 
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+    // Attach any captured campaign attribution (gclid/UTM). The /api/lead route
+    // stores unknown fields as-is, so these ride along to the DB/email/WhatsApp.
+    const attribution = readAttribution();
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, source, type }),
+        body: JSON.stringify({ ...data, ...attribution, source, type }),
       });
       if (!res.ok) throw new Error("Request failed");
+      // Conversion signal for GTM — configure a trigger on "generate_lead" to
+      // fire your Google Ads / GA4 conversion tags. No-ops if GTM isn't loaded
+      // (visitor declined cookies), so no tracking happens without consent.
+      const w = window as Window & { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "generate_lead", lead_type: type, lead_source: source, ...attribution });
       router.push("/thank-you");
     } catch {
       setError("Something went wrong sending that. Please try again, or email us directly.");
