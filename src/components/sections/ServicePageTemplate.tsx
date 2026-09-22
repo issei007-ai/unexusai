@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import ContactCTA from "@/components/sections/ContactCTA";
@@ -71,9 +72,32 @@ export interface ServiceTemplateProps {
   faqs: { q: string; a: string }[];
   faqIntro?: string;
   closing?: string;
+  /** Optional per-section imagery (from the CMS/content docs). */
+  sectionImages?: {
+    included?: { src: string; alt: string };
+    approach?: { src: string; alt: string };
+    benefits?: { src: string; alt: string };
+    useCases?: { src: string; alt: string };
+    why?: { src: string; alt: string };
+  };
   /** For Service + Breadcrumb structured data. */
   serviceName?: string;
   servicePath?: string;
+}
+
+/** Framed section banner image — renders nothing when no image is provided. */
+function SectionImage({ img, accent }: { img?: { src: string; alt: string }; accent: string }) {
+  if (!img?.src) return null;
+  return (
+    <ScrollReveal>
+      <div
+        className="relative w-full overflow-hidden rounded-2xl mb-12"
+        style={{ aspectRatio: "16 / 7", border: `1px solid ${accent}33`, boxShadow: `0 22px 55px -28px ${accent}88` }}
+      >
+        <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 100vw, 1100px" className="object-cover" />
+      </div>
+    </ScrollReveal>
+  );
 }
 
 export default function ServicePageTemplate({
@@ -109,6 +133,7 @@ export default function ServicePageTemplate({
   faqs,
   faqIntro,
   closing,
+  sectionImages,
   serviceName,
   servicePath,
 }: ServiceTemplateProps) {
@@ -257,6 +282,7 @@ export default function ServicePageTemplate({
               </h2>
               {includedIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{includedIntro}</p>}
             </div>
+            <SectionImage img={sectionImages?.included} accent={accent} />
             <div className="grid md:grid-cols-2 gap-5">
               {subServices.map((sub, i) => (
                 <ScrollReveal key={sub.title} delay={i * 0.07}>
@@ -300,6 +326,7 @@ export default function ServicePageTemplate({
               </h2>
               {approachIntro && <p className="text-lead mt-4" style={{ color: "var(--color-brand-300)" }}>{approachIntro}</p>}
             </div>
+            <SectionImage img={sectionImages?.approach} accent={accent} />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
               {approach.map((step, i) => (
                 <ScrollReveal key={step.title} delay={i * 0.1}>
@@ -335,6 +362,7 @@ export default function ServicePageTemplate({
                 </h2>
                 {benefitsIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{benefitsIntro}</p>}
               </div>
+              <SectionImage img={sectionImages?.benefits} accent={accent} />
               <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
                 {benefits.map((b, i) => (
                   <ScrollReveal key={b} delay={(i % 2) * 0.06}>
@@ -362,6 +390,7 @@ export default function ServicePageTemplate({
                 </h2>
                 {useCasesIntro && <p className="text-lead" style={{ color: "var(--color-brand-300)" }}>{useCasesIntro}</p>}
               </div>
+              <SectionImage img={sectionImages?.useCases} accent={accent} />
               <div className="flex flex-wrap gap-3">
                 {useCases.map((u, i) => (
                   <ScrollReveal key={u} delay={(i % 5) * 0.05}>
@@ -407,6 +436,7 @@ export default function ServicePageTemplate({
             </div>
           ) : (
             <div className="container max-w-4xl">
+              <SectionImage img={sectionImages?.why} accent={accent} />
               <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 items-start">
                 <div>
                   <span className="badge badge-accent mb-5 inline-flex">Why Unexus AI</span>

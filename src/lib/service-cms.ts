@@ -61,5 +61,8 @@ export function toServiceProps(c: Dict): ServiceTemplateProps {
     faqIntro: str(c.faqIntro) || undefined,
     faqs: arr<{ q: string; a: string }>(c.faqs),
     closing: str(c.closing) || undefined,
+    sectionImages: (c.sectionImages && typeof c.sectionImages === "object"
+      ? (c.sectionImages as ServiceTemplateProps["sectionImages"])
+      : undefined),
   };
 }
