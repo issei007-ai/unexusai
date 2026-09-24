@@ -8,6 +8,7 @@ import RevealText3D from "@/components/ui/RevealText3D";
 import FAQ from "@/components/ui/FAQ";
 import { PROCESS_STEPS, WHY_US } from "@/lib/constants";
 import { faqJsonLd, serviceJsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { SERVICE_IMAGE_SIZES } from "@/lib/service-image-sizes";
 
 interface SubService {
   title: string;
@@ -85,16 +86,34 @@ export interface ServiceTemplateProps {
   servicePath?: string;
 }
 
-/** Framed section banner image — renders nothing when no image is provided. */
+/** Max rendered height of a section image, so square/tall images don't dominate. */
+const SECTION_IMAGE_MAX_H = 520;
+
+/**
+ * Framed section image, shown at its natural aspect ratio (never cropped —
+ * several are diagrams). Width is capped so the height never exceeds
+ * SECTION_IMAGE_MAX_H. Renders nothing when no image is provided.
+ */
 function SectionImage({ img, accent }: { img?: { src: string; alt: string }; accent: string }) {
   if (!img?.src) return null;
+  const size = SERVICE_IMAGE_SIZES[img.src] ?? { w: 16, h: 9 };
+  const maxW = Math.round((SECTION_IMAGE_MAX_H * size.w) / size.h);
   return (
     <ScrollReveal>
-      <div
-        className="relative w-full overflow-hidden rounded-2xl mb-12"
-        style={{ aspectRatio: "16 / 7", border: `1px solid ${accent}33`, boxShadow: `0 22px 55px -28px ${accent}88` }}
-      >
-        <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 100vw, 1100px" className="object-cover" />
+      <div className="mb-12 flex justify-center">
+        <div
+          className="w-full overflow-hidden rounded-2xl"
+          style={{ maxWidth: `min(100%, ${maxW}px)`, border: `1px solid ${accent}33`, boxShadow: `0 22px 55px -28px ${accent}88` }}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            width={size.w}
+            height={size.h}
+            sizes={`(max-width: 768px) 100vw, ${Math.min(maxW, 1100)}px`}
+            style={{ display: "block", width: "100%", height: "auto" }}
+          />
+        </div>
       </div>
     </ScrollReveal>
   );
