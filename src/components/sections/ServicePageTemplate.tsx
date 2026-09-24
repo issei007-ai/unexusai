@@ -111,6 +111,7 @@ function SectionImage({ img, accent }: { img?: { src: string; alt: string }; acc
             width={size.w}
             height={size.h}
             sizes={`(max-width: 768px) 100vw, ${Math.min(maxW, 1100)}px`}
+            quality={90}
             style={{ display: "block", width: "100%", height: "auto" }}
           />
         </div>
