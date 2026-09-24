@@ -29,9 +29,10 @@ export function useConsentAccepted(): boolean {
 }
 
 /**
- * Bottom banner gating analytics cookies behind an explicit choice. Essential
- * site function (the site itself, lead forms) never depends on this — only
- * Analytics.tsx checks getConsent() before loading GA4.
+ * Bottom banner gating analytics/ads cookies behind an explicit choice, via
+ * Google Consent Mode v2. GA4 and GTM always load, but stay cookieless until
+ * the visitor accepts. Essential site function (the site itself, lead forms)
+ * never depends on this.
  */
 export default function CookieConsent() {
   const pathname = usePathname();
@@ -46,7 +47,16 @@ export default function CookieConsent() {
   const decide = (value: ConsentChoice) => {
     localStorage.setItem(STORAGE_KEY, value);
     setChoice(value);
-    // Let Analytics.tsx (already mounted) react to an in-tab choice immediately.
+    // Tell Google Consent Mode (defaults set in layout.tsx) about the choice,
+    // so GA4/Ads switch between cookieless pings and full tracking in-tab.
+    const state = value === "accepted" ? "granted" : "denied";
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+    w.gtag?.("consent", "update", {
+      ad_storage: state,
+      ad_user_data: state,
+      ad_personalization: state,
+      analytics_storage: state,
+    });
     window.dispatchEvent(new Event("cookie-consent-change"));
   };
 
