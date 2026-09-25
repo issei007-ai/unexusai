@@ -15,6 +15,7 @@ export default function Nav() {
 
   return (
     <nav
+      data-nav
       className="sticky top-0 z-50 transition-all"
       style={{
         // Solid-ish bg instead of backdrop-filter blur — a sticky blurred bar
