@@ -204,20 +204,19 @@ export default function LxScroll() {
 
         // ── Connect diagram: chips slide in, wires draw, output lands ─────
         const flow = document.querySelector(".lx-flow");
+        // Phones get the same diagram scaled down; chips rise instead of
+        // sliding in sideways (a sideways slide pokes past a narrow screen).
         const narrow = window.matchMedia("(max-width: 700px)").matches;
-        // Phones: scroll-scrubbed sideways slides leave the 2x2 chips half
-        // off-screen mid-scroll, so they get a self-completing fade-up instead.
-        if (flow && narrow) batch(".lx-flow .lx-chip, .lx-flow__out", { opacity: 0, y: 30 });
-        if (flow && !narrow && below(flow)) {
+        if (flow && below(flow)) {
           const paths = $<SVGPathElement>("path", flow);
           paths.forEach((p) => {
             const len = p.getTotalLength();
             gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
           });
           gsap.timeline({ scrollTrigger: { trigger: flow, start: "top 80%", end: "top 30%", scrub: 0.8 } })
-            .from($(".lx-chip", flow), { x: -70, opacity: 0, stagger: 0.12, ease: "power3.out" }, 0)
+            .from($(".lx-chip", flow), narrow ? { y: 18, opacity: 0, stagger: 0.12, ease: "power3.out" } : { x: -70, opacity: 0, stagger: 0.12, ease: "power3.out" }, 0)
             .to(paths, { strokeDashoffset: 0, stagger: 0.08, ease: "none" }, 0.2)
-            .from(flow.querySelector(".lx-flow__out"), { scale: 0.7, opacity: 0, x: 40, ease: "back.out(1.6)" }, 0.55);
+            .from(flow.querySelector(".lx-flow__out"), narrow ? { scale: 0.85, opacity: 0, ease: "back.out(1.6)" } : { scale: 0.7, opacity: 0, x: 40, ease: "back.out(1.6)" }, 0.55);
         }
 
         // ── Process line draws itself; steps light up as it passes ─────────

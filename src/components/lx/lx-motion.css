@@ -196,13 +196,16 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
   .lx-token { font-size: 0.68rem; padding: 0.35rem 0.6rem; }
   .lx-stage__note { display: none; }
 
-  /* Connect diagram: chips as a 2x2 grid, then the result card */
-  .lx-flow { grid-template-columns: 1fr; gap: 0.75rem; }
-  .lx-flow svg { display: none; }
-  .lx-flow__in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lx-chip { flex-direction: column; gap: 0.15rem; }
-  .lx-flow__out { padding: 1.1rem 1.2rem; }
-  .lx-flow__out b { font-size: 1.35rem; }
+  /* Connect diagram: the same chips → wires → inbox picture, scaled down */
+  .lx-flow { grid-template-columns: minmax(0, 1fr) 64px minmax(0, 0.9fr); align-items: stretch; }
+  .lx-flow__in { gap: 0.4rem; align-content: center; }
+  .lx-chip { flex-direction: column; justify-content: center; gap: 0.05rem; padding: 0.5rem 0.7rem; border-radius: 12px; font-size: 0.82rem; line-height: 1.2; min-height: 3.1rem; }
+  .lx-chip span { font-size: 0.7rem; }
+  .lx-flow svg { height: 100%; align-self: stretch; }
+  .lx-flow__dot { r: 5; }
+  .lx-flow__out { align-self: center; padding: 0.9rem 0.85rem; border-radius: 16px; gap: 0.25rem; }
+  .lx-flow__out b { font-size: 1.1rem; }
+  .lx-flow__out span { font-size: 0.68rem; line-height: 1.35; }
 
   /* Service cards: art beside the text instead of above it */
   .lx-svc a { grid-template-columns: 88px minmax(0, 1fr); align-items: center; align-content: center; gap: 1rem; min-height: 0; padding: 1rem 1.1rem; }
@@ -222,3 +225,6 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 
 /* Looping animations pause while their block is off-screen (LxMotion) */
 .lx-off, .lx-off *, .lx-off *::before, .lx-off *::after { animation-play-state: paused !important; }
+
+/* Wires keep a hairline stroke however the diagram's svg is stretched */
+.lx-flow path { vector-effect: non-scaling-stroke; }

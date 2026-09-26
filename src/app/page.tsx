@@ -129,8 +129,8 @@ export default async function HomePage() {
                     <div className="lx-chip">Google &amp; Meta Ads <span>Paid reach</span></div>
                     <div className="lx-chip">Website <span>Turns visits into leads</span></div>
                   </div>
-                  <svg viewBox="0 0 120 240">
-                    <g fill="none" stroke="#4f46e5" strokeWidth="1.5" opacity="0.55">
+                  <svg viewBox="0 0 120 240" preserveAspectRatio="none">
+                    <g fill="none" stroke="#4f46e5" strokeWidth="1.5" opacity="0.55" vectorEffect="non-scaling-stroke">
                       <path id="lx-p1" d="M0 28 C 60 28, 60 120, 120 120" />
                       <path id="lx-p2" d="M0 89 C 60 89, 60 120, 120 120" />
                       <path id="lx-p3" d="M0 151 C 60 151, 60 120, 120 120" />
