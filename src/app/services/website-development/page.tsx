@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_WEBSITE_DEVELOPMENT_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -17,5 +17,5 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default async function WebsiteDevelopmentPage() {
   const c = await getSection("services.website-development", SVC_WEBSITE_DEVELOPMENT_DEFAULTS);
-  return <ServicePageTemplate {...toServiceProps(c)} serviceName="Website Development" servicePath="/services/website-development" />;
+  return <LxServicePage {...toServiceProps(c)} serviceName="Website Development" servicePath="/services/website-development" />;
 }

@@ -19,7 +19,10 @@ import LxMotion from "@/components/lx/LxMotion";
 import UnixiStage from "@/components/lx/UnixiStage";
 import IndustryTabs from "@/components/lx/IndustryTabs";
 import LxContact from "@/components/lx/LxContact";
+import LxScroll from "@/components/lx/LxScroll";
+import LxSplit from "@/components/lx/LxSplit";
 import "@/components/lx/lx.css";
+import "@/components/lx/lx-motion.css";
 
 export function generateMetadata(): Promise<Metadata> {
   return buildMetadata({ path: "/" });
@@ -62,13 +65,14 @@ export default async function HomePage() {
       <Nav />
       <div className={`lx ${lxFontVars}`}>
         <LxMotion />
+        <LxScroll />
         <main>
           {/* ── Hero ─────────────────────────────────────────────────────── */}
           <section className="lx-wrap lx-hero">
             <div className="lx-hero__copy">
-              <h1 className="lx-h1 lx-enter">
-                {hero.headlineFixed}{" "}
-                <span className="lx-accent lx-rotor">
+              <h1 className="lx-h1 lx-words">
+                <LxSplit text={hero.headlineFixed} />{" "}
+                <span className="lx-accent lx-rotor lx-rotor--in">
                   {hero.rotatingLines.map((line: string, k: number) => (
                     <span key={line} style={{ ["--k" as string]: k }}>
                       {line}
@@ -94,9 +98,14 @@ export default async function HomePage() {
             <div className="lx-wrap lx-logos__in">
               <p>{hero.trustLabel}</p>
               <div className="lx-logos__row">
-                {logos.map((c) => (
-                  <img key={c!.name} src={c!.logo} alt={c!.name} loading="lazy" />
-                ))}
+                <div className="lx-logos__track">
+                  {logos.map((c) => (
+                    <img key={c!.name} src={c!.logo} alt={c!.name} loading="lazy" />
+                  ))}
+                  {logos.map((c) => (
+                    <img key={`${c!.name}-2`} src={c!.logo} alt="" aria-hidden="true" loading="lazy" />
+                  ))}
+                </div>
               </div>
             </div>
           </section>
@@ -106,10 +115,10 @@ export default async function HomePage() {
             <div className="lx-wrap">
               <div className="lx-connect">
                 <div className="lx-connect__copy" data-lx-reveal>
-                  <h2 className="lx-h2">{servicesHead.heading}</h2>
+                  <h2 className="lx-h2" data-lx-fill><LxSplit text={servicesHead.heading} /></h2>
                   <p className="lx-lede">{servicesHead.intro}</p>
                 </div>
-                <div className="lx-flow" data-lx-reveal aria-hidden="true">
+                <div className="lx-flow" aria-hidden="true">
                   <div className="lx-flow__in">
                     <div className="lx-chip">SEO <span>Google search</span></div>
                     <div className="lx-chip">GEO <span>AI answers</span></div>
@@ -141,7 +150,7 @@ export default async function HomePage() {
 
               <div className="lx-svc">
                 {services.map((s, i) => (
-                  <a key={s.href} href={s.href} className={i === 0 ? "is-lead" : undefined} data-lx-reveal style={{ ["--d" as string]: `${(i % 3) * 60}ms` }}>
+                  <a key={s.href} href={s.href} className={i === 0 ? "is-lead lx-spot" : "lx-spot"} data-lx-tilt>
                     <span className="lx-go" aria-hidden="true">↗</span>
                     {s.img && <img src={s.img} alt="" loading="lazy" />}
                     <div>
@@ -158,7 +167,7 @@ export default async function HomePage() {
           <section className="lx-sec lx-sec--white">
             <div className="lx-wrap">
               <div data-lx-reveal style={{ display: "grid", gap: "1.2rem" }}>
-                <h2 className="lx-h2">{ind.title}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={ind.title} /></h2>
                 <p className="lx-lede">{ind.intro}</p>
               </div>
               <IndustryTabs items={INDUSTRIES.map((i) => ({ name: i.name, segments: i.segments, cta: i.cta, points: i.points }))} />
@@ -169,12 +178,12 @@ export default async function HomePage() {
           <section className="lx-sec">
             <div className="lx-wrap">
               <div data-lx-reveal style={{ display: "grid", gap: "1.2rem" }}>
-                <h2 className="lx-h2">{why.title}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={why.title} /></h2>
                 <p className="lx-lede">{why.intro}</p>
               </div>
               <div className="lx-why">
-                {why.reasons.map((r: { title: string; desc: string }, i: number) => (
-                  <div key={r.title} data-lx-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }}>
+                {why.reasons.map((r: { title: string; desc: string }) => (
+                  <div key={r.title} className="lx-spot">
                     <h3 className="lx-h3">{r.title}</h3>
                     <p>{r.desc}</p>
                   </div>
@@ -187,7 +196,7 @@ export default async function HomePage() {
           <section className="lx-sec lx-sec--white">
             <div className="lx-wrap">
               <div data-lx-reveal style={{ display: "grid", gap: "1.2rem" }}>
-                <h2 className="lx-h2" style={{ maxWidth: "52rem" }}>{proc.title}</h2>
+                <h2 className="lx-h2" style={{ maxWidth: "52rem" }} data-lx-fill><LxSplit text={proc.title} /></h2>
                 <p className="lx-lede">{proc.intro}</p>
               </div>
               <ol className="lx-steps">
@@ -207,12 +216,12 @@ export default async function HomePage() {
           <section className="lx-sec">
             <div className="lx-wrap">
               <div data-lx-reveal style={{ display: "grid", gap: "1.2rem" }}>
-                <h2 className="lx-h2">{testi.title}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={testi.title} /></h2>
                 <p className="lx-lede">{testi.intro}</p>
               </div>
               <div className="lx-quotes">
                 {testi.items.map((t: { quote: string; name: string; role: string; company?: string }) => (
-                  <figure key={t.quote} className="lx-quote" style={{ background: "#fff" }} data-lx-reveal>
+                  <figure key={t.quote} className="lx-quote" style={{ background: "#fff" }}>
                     <blockquote>“{t.quote}”</blockquote>
                     <figcaption>
                       <span aria-hidden="true">{t.name.charAt(0)}</span>

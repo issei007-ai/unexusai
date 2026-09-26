@@ -234,9 +234,11 @@ export default function UnixiStage() {
           }
         });
         group.add(model);
+        loadedAt = performance.now();
         setReady(true);
       });
 
+      let loadedAt = 0;
       const pointer = { x: 0, y: 0 };
       const onMove = (e: PointerEvent) => {
         pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -269,11 +271,16 @@ export default function UnixiStage() {
         const t = (now - t0) / 1000;
         const since = (now - pulseRef.current) / 1000;
         const catchK = since < 0.9 ? Math.sin((since / 0.9) * Math.PI) : 0;
+        // entrance: rises and spins in once the model has loaded
+        const k = loadedAt ? Math.min(1, (now - loadedAt) / 1600) : 0;
+        const intro = reduce ? 1 : 1 - Math.pow(1 - k, 4);
+        // scrolling away spins him round and lifts him out of frame
+        const sp = reduce ? 0 : Math.min(1.4, window.scrollY / Math.max(1, window.innerHeight));
         if (!reduce) {
-          group.position.y = 0.2 + Math.sin(t * 1.4) * 0.07 - catchK * 0.08;
-          group.scale.setScalar(1 + catchK * 0.045);
+          group.position.y = 0.2 + Math.sin(t * 1.4) * 0.07 - catchK * 0.08 - (1 - intro) * 0.9 + sp * 0.5;
+          group.scale.setScalar((1 + catchK * 0.045) * (0.6 + intro * 0.4));
         }
-        rotY += (pointer.x * 0.45 + (reduce ? 0 : Math.sin(t * 0.4) * 0.12) - rotY) * 0.06;
+        rotY += (pointer.x * 0.45 + (reduce ? 0 : Math.sin(t * 0.4) * 0.12) + sp * 2.4 - (1 - intro) * 2.6 - rotY) * 0.06;
         rotX += (pointer.y * 0.18 - rotX + catchK * 0.25) * 0.08;
         group.rotation.y = rotY;
         group.rotation.x = rotX;

@@ -1,6 +1,7 @@
 import LeadForm from "@/components/ui/LeadForm";
 import PhoneField from "@/components/ui/PhoneField";
 import { SERVICES } from "@/lib/constants";
+import LxSplit from "@/components/lx/LxSplit";
 
 const NEEDS = [...SERVICES.map((s) => s.title), "Not sure yet"];
 const POINTS = ["A free 30-minute call to start", "A real reply within 24 hours", "No contracts, no pressure"];
@@ -26,7 +27,7 @@ export default function LxContact({
     <section id="contact" className="lx-sec lx-sec--white" style={{ scrollMarginTop: "4rem" }}>
       <div className="lx-wrap lx-contact">
         <div data-lx-reveal>
-          <h2 className="lx-h2">{heading}</h2>
+          <h2 className="lx-h2" data-lx-fill><LxSplit text={heading} /></h2>
           <p className="lx-lede" style={{ marginTop: "1.2rem" }}>
             {body}
           </p>

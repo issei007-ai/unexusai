@@ -8,8 +8,12 @@ import { SERVICE_IMAGE_SIZES } from "@/lib/service-image-sizes";
 import { lxFontVars } from "@/components/lx/fonts";
 import LxMotion from "@/components/lx/LxMotion";
 import SerpClimb from "@/components/lx/SerpClimb";
+import SvcOrbit from "@/components/lx/SvcOrbit";
+import LxScroll from "@/components/lx/LxScroll";
+import LxSplit from "@/components/lx/LxSplit";
 import LxContact from "@/components/lx/LxContact";
 import "@/components/lx/lx.css";
+import "@/components/lx/lx-motion.css";
 import "@/components/lx/lx-svc.css";
 
 /** Content-doc image at its natural ratio, never cropped. */
@@ -18,7 +22,7 @@ function Figure({ img, maxH = 520 }: { img?: { src: string; alt: string }; maxH?
   const size = SERVICE_IMAGE_SIZES[img.src] ?? { w: 16, h: 9 };
   const maxW = Math.round((maxH * size.w) / size.h);
   return (
-    <figure className="lx-fig" data-lx-reveal style={{ maxWidth: `min(100%, ${maxW}px)` }}>
+    <figure className="lx-fig" style={{ maxWidth: `min(100%, ${maxW}px)` }}>
       <Image
         src={img.src}
         alt={img.alt}
@@ -98,12 +102,13 @@ export default function LxServicePage({
       <Nav />
       <div className={`lx ${lxFontVars}`}>
         <LxMotion />
+        <LxScroll />
         <main>
           {/* ── Hero ─────────────────────────────────────────────────────── */}
           <section className="lx-wrap lx-shero">
             <div className="lx-hero__copy">
               <span className="lx-badge lx-enter">{badge}</span>
-              <h1 className="lx-h1 lx-h1--svc lx-enter" style={{ ["--d" as string]: "60ms" }}>{headline}</h1>
+              <h1 className="lx-h1 lx-h1--svc lx-words"><LxSplit text={headline} /></h1>
               <p className="lx-lede lx-enter" style={{ ["--d" as string]: "140ms" }}>{body}</p>
               <div className="lx-ctas lx-enter" style={{ ["--d" as string]: "220ms" }}>
                 <a href={primaryCta.href} className="lx-btn lx-btn--primary">{primaryCta.label}</a>
@@ -114,8 +119,14 @@ export default function LxServicePage({
               </ul>
             </div>
             <div className="lx-enter lx-shero__vis" style={{ ["--d" as string]: "180ms" }}>
-              <SerpClimb queries={specialisms} />
-              <span className="lx-stage__note" style={{ position: "static", display: "block", marginTop: "0.8rem" }}>Example results page</span>
+              {servicePath === "/services/seo" ? (
+                <>
+                  <SerpClimb queries={specialisms} />
+                  <span className="lx-stage__note" style={{ position: "static", display: "block", marginTop: "0.8rem" }}>Example results page</span>
+                </>
+              ) : (
+                <SvcOrbit icon={`/services/${(servicePath ?? "").split("/").pop()}.png`} items={specialisms.slice(0, 7)} />
+              )}
             </div>
           </section>
 
@@ -129,13 +140,13 @@ export default function LxServicePage({
           <section className="lx-sec">
             <div className="lx-wrap">
               <div className="lx-head" data-lx-reveal>
-                <h2 className="lx-h2">{includedTitle}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={includedTitle} /></h2>
                 {includedIntro && <p className="lx-lede">{includedIntro}</p>}
               </div>
               <Figure img={sectionImages?.included} />
               <div className="lx-inc">
-                {subServices.map((s, i) => (
-                  <div key={s.title} data-lx-reveal style={{ ["--d" as string]: `${(i % 2) * 70}ms` }}>
+                {subServices.map((s) => (
+                  <div key={s.title} className="lx-spot">
                     <h3 className="lx-h3">{s.title}</h3>
                     <p>{s.desc}</p>
                   </div>
@@ -147,11 +158,12 @@ export default function LxServicePage({
           {/* ── Process ─────────────────────────────────────────────────── */}
           <section className="lx-sec lx-sec--white">
             <div className="lx-wrap">
+              <div className="lx-rail-pin">
               <div className="lx-head" data-lx-reveal>
-                <h2 className="lx-h2">{approachTitle}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={approachTitle} /></h2>
                 {approachIntro && <p className="lx-lede">{approachIntro}</p>}
               </div>
-              <ol className="lx-rail" data-lx-reveal>
+              <ol className="lx-rail">
                 {approach.map((s) => (
                   <li key={s.title}>
                     <h3>{s.title}</h3>
@@ -159,6 +171,7 @@ export default function LxServicePage({
                   </li>
                 ))}
               </ol>
+              </div>
               <div style={{ marginTop: "clamp(2.5rem, 5vw, 4rem)" }}>
                 <Figure img={sectionImages?.approach} />
               </div>
@@ -170,15 +183,15 @@ export default function LxServicePage({
             <section className="lx-sec">
               <div className="lx-wrap lx-bene">
                 <div data-lx-reveal>
-                  <h2 className="lx-h2">{benefitsTitle}</h2>
+                  <h2 className="lx-h2" data-lx-fill><LxSplit text={benefitsTitle} /></h2>
                   {benefitsIntro && <p className="lx-lede" style={{ marginTop: "1.2rem" }}>{benefitsIntro}</p>}
                   <div style={{ marginTop: "2rem" }}>
                     <Figure img={sectionImages?.benefits} maxH={380} />
                   </div>
                 </div>
                 <ul className="lx-checks">
-                  {benefits.map((b, i) => (
-                    <li key={b} data-lx-reveal style={{ ["--d" as string]: `${i * 50}ms` }}>{b}</li>
+                  {benefits.map((b) => (
+                    <li key={b}>{b}</li>
                   ))}
                 </ul>
               </div>
@@ -190,12 +203,12 @@ export default function LxServicePage({
             <section className="lx-sec lx-sec--accent">
               <div className="lx-wrap">
                 <div className="lx-head" data-lx-reveal>
-                  <h2 className="lx-h2">{useCasesTitle}</h2>
+                  <h2 className="lx-h2" data-lx-fill><LxSplit text={useCasesTitle} /></h2>
                   {useCasesIntro && <p className="lx-lede">{useCasesIntro}</p>}
                 </div>
                 <ul className="lx-pills">
-                  {useCases.map((u, i) => (
-                    <li key={u} data-lx-reveal style={{ ["--d" as string]: `${i * 40}ms` }}>{u}</li>
+                  {useCases.map((u) => (
+                    <li key={u}>{u}</li>
                   ))}
                 </ul>
                 <div style={{ marginTop: "clamp(2.5rem, 5vw, 4rem)" }}>
@@ -209,7 +222,7 @@ export default function LxServicePage({
           <section className="lx-sec lx-sec--white">
             <div className="lx-wrap lx-bene">
               <div data-lx-reveal>
-                <h2 className="lx-h2">{whyTitle}</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text={whyTitle} /></h2>
                 <p className="lx-lede" style={{ marginTop: "1.2rem" }}>
                   {whyIntro ||
                     "We get up to speed quickly, we're straightforward about what's working and what isn't, and we care more about your results than our own report."}
@@ -219,8 +232,8 @@ export default function LxServicePage({
                 </div>
               </div>
               <ul className="lx-checks">
-                {whyUs.map((w, i) => (
-                  <li key={w} data-lx-reveal style={{ ["--d" as string]: `${i * 50}ms` }}>{w}</li>
+                {whyUs.map((w) => (
+                  <li key={w}>{w}</li>
                 ))}
               </ul>
             </div>
@@ -230,7 +243,7 @@ export default function LxServicePage({
           <section className="lx-sec">
             <div className="lx-wrap lx-faq">
               <div data-lx-reveal>
-                <h2 className="lx-h2">Common questions</h2>
+                <h2 className="lx-h2" data-lx-fill><LxSplit text="Common questions" /></h2>
                 {faqIntro && <p className="lx-lede" style={{ marginTop: "1.2rem" }}>{faqIntro}</p>}
               </div>
               <div>
@@ -246,7 +259,7 @@ export default function LxServicePage({
 
           {closing && (
             <section className="lx-wrap" style={{ paddingBottom: "clamp(3rem, 6vw, 5rem)" }}>
-              <p className="lx-closing" data-lx-reveal>{closing}</p>
+              <p className="lx-closing">{closing}</p>
             </section>
           )}
 
