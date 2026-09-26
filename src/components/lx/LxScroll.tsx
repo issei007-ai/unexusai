@@ -254,31 +254,8 @@ export default function LxScroll() {
           });
         });
 
-        // ── Process rail: pinned, scrolls sideways on desktop ─────────────
-        const mm = gsap.matchMedia();
-        mm.add("(min-width: 1000px)", () => {
-          $(".lx-rail").forEach((rail) => {
-            const sec = rail.closest<HTMLElement>(".lx-rail-pin");
-            if (!sec) return;
-            rail.classList.add("is-pinned");
-            const dist = () => Math.max(0, rail.scrollWidth - rail.clientWidth);
-            if (dist() < 40) {
-              rail.classList.remove("is-pinned");
-              return;
-            }
-            const cards = $("li", rail);
-            gsap.to(rail, {
-              x: () => -dist(), ease: "none",
-              scrollTrigger: { trigger: sec, start: "center center", end: () => `+=${dist() + window.innerHeight * 0.3}`, pin: true, scrub: 0.6, invalidateOnRefresh: true },
-            });
-            cards.forEach((c, i) => gsap.from(c, {
-              y: 40 + i * 12, rotate: 2 + i, opacity: 0.4, ease: "power2.out",
-              scrollTrigger: { trigger: sec, start: "top 80%", end: "center center", scrub: 0.6 },
-            }));
-            return () => rail.classList.remove("is-pinned");
-          });
-        });
-        cleanups.push(() => mm.revert());
+        // ── Process steps: flip up in sequence (no scroll pinning) ────────
+        batch(".lx-rail li", { opacity: 0, y: 60, rotateX: -20, transformPerspective: 900, transformOrigin: "50% 100%" }, { stagger: 0.1 });
 
         // ── Contact form floats up a little slower than the page ──────────
         $(".lx-contact .lx-form").forEach((f) => {

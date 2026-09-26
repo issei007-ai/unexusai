@@ -115,7 +115,8 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 @keyframes lx-bob { 50% { transform: translateY(-14px); } }
 
 /* Service page extras */
-.lx-rail.is-pinned { overflow: visible; grid-auto-columns: clamp(320px, 28vw, 400px); padding-bottom: 0; }
+/* Process steps: a wrapping grid on desktop, a swipeable row on phones. */
+@media (min-width: 1000px) { .lx .lx-rail { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); overflow: visible; padding-bottom: 0; } }
 .lx-pills li { transition: background-color 250ms ease, color 250ms ease, transform 300ms var(--lx-ease); }
 @media (hover: hover) and (pointer: fine) { .lx-pills li:hover { background: #fff; color: var(--lx-accent); transform: translateY(-3px); } }
 .lx-inc > div { transition: border-color 300ms ease, transform 400ms var(--lx-ease); }
