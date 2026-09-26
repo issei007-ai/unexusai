@@ -1,9 +1,7 @@
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/sections/PageHero";
-import ContactCTA from "@/components/sections/ContactCTA";
-import TestimonialsGrid from "@/components/sections/TestimonialsGrid";
-import ScrollReveal from "@/components/ui/ScrollReveal";
+import LxShell from "@/components/lx/LxShell";
+import LxPageHero from "@/components/lx/LxPageHero";
+import LxQuotes from "@/components/lx/LxQuotes";
+import LxContact from "@/components/lx/LxContact";
 import ClientLogo from "@/components/ui/ClientLogo";
 import { CLIENTS } from "@/lib/constants";
 
@@ -20,42 +18,33 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default function PortfolioPage() {
   return (
-    <>
-      <Nav />
-      <main>
-        <PageHero
-          eyebrow="Portfolio"
-          title="The teams we get to work with"
-          subtitle="From schools and D2C brands to enterprise tech, here are some of the people who've trusted us with their growth."
-        />
+    <LxShell>
+      <LxPageHero
+        eyebrow="Portfolio"
+        title="The teams we get to work with"
+        subtitle="From schools and D2C brands to enterprise tech, here are some of the people who've trusted us with their growth."
+        orbit={CLIENTS.slice(0, 7).map((c) => c.name)}
+      />
 
-        <section className="section" style={{ paddingTop: "1rem" }}>
-          <div className="container" style={{ maxWidth: "64rem" }}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {CLIENTS.map((c, i) => (
-                <ScrollReveal key={c.name} delay={(i % 4) * 0.06}>
-                  <div
-                    className="glow-card h-full p-6 flex flex-col items-center text-center gap-4"
-                    style={{ border: "1px solid var(--color-border)" }}
-                  >
-                    <ClientLogo client={c} index={i} size={80} />
-                    <div className="text-sm font-semibold text-white leading-snug">{c.name}</div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
+      <section className="lx-sec lx-sec--white">
+        <div className="lx-wrap">
+          <div className="lx-grid lx-grid--logos">
+            {CLIENTS.map((c, i) => (
+              <div key={c.name} className="lx-card lx-card--soft lx-client lx-spot" data-lx-pop>
+                <ClientLogo client={c} index={i} size={80} />
+                <b>{c.name}</b>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <TestimonialsGrid />
+      <LxQuotes />
 
-        <ContactCTA
-          heading="Want to join them?"
-          body="Tell us where things feel stuck right now, and we'll talk through specifically what we'd do about it — no pressure either way."
-          imageSeed="unexus-clients"
-        />
-      </main>
-      <Footer />
-    </>
+      <LxContact
+        heading="Want to join them?"
+        body="Tell us where things feel stuck right now, and we'll talk through specifically what we'd do about it — no pressure either way."
+      />
+    </LxShell>
   );
 }

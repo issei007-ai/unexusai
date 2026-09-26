@@ -8,10 +8,10 @@ import { useEffect, useRef } from "react";
  * and behind it. The icon leans toward the cursor. Decorative only; the
  * specialisms are also listed as real text beside it.
  */
-export default function SvcOrbit({ icon, items }: { icon: string; items: string[] }) {
+export default function SvcOrbit({ icon, core, items }: { icon?: string; core?: React.ReactNode; items: string[] }) {
   const stage = useRef<HTMLDivElement>(null);
   const chips = useRef<(HTMLSpanElement | null)[]>([]);
-  const iconRef = useRef<HTMLImageElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = stage.current;
@@ -84,8 +84,10 @@ export default function SvcOrbit({ icon, items }: { icon: string; items: string[
       <div className="lx-orbit__pulse" />
       <div className="lx-orbit__pulse" style={{ animationDelay: "1.4s" }} />
       <div className="lx-orbit__core">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img ref={iconRef} src={icon} alt="" />
+        <div ref={iconRef} className="lx-orbit__tilt">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {core ?? (icon ? <img src={icon} alt="" /> : null)}
+        </div>
       </div>
       {items.map((t, i) => (
         <span key={t} ref={(c) => { chips.current[i] = c; }} className="lx-token">

@@ -1,6 +1,5 @@
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/sections/PageHero";
+import LxShell from "@/components/lx/LxShell";
+import LxPageHero from "@/components/lx/LxPageHero";
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
@@ -15,13 +14,11 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default function TermsOfServicePage() {
   return (
-    <>
-      <Nav />
-      <main>
-        <PageHero eyebrow="Legal" title="Terms of Service" subtitle="Last updated 9 June 2026" />
+    <LxShell>
+        <LxPageHero eyebrow="Legal" title="Terms of Service" subtitle="Last updated 9 June 2026" orbit={false} narrow />
 
-        <section className="section" style={{ paddingTop: "1rem" }}>
-          <div className="container max-w-3xl prose-dark">
+        <section className="lx-sec" style={{ paddingTop: "1rem" }}>
+          <div className="lx-wrap lx-article lx-prose">
             <p>These Terms of Service govern your access to and use of the Unexus AI website and any services we provide. By using our site, you agree to these terms.</p>
 
             <h2>Use of the website</h2>
@@ -49,11 +46,9 @@ export default function TermsOfServicePage() {
             <h2>Contact</h2>
             <p>Questions about these terms? Email <strong>hello@unexus.ai</strong>.</p>
 
-            <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
+            <p style={{ color: "#767b89", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+      </LxShell>
   );
 }

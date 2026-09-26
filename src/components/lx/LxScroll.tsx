@@ -116,7 +116,7 @@ export default function LxScroll() {
         }
 
         // ── Hero scroll-out: copy lifts away, visual sinks and shrinks ────
-        $(".lx-hero, .lx-shero").forEach((hero) => {
+        $(".lx-hero, .lx-shero, .lx-phero").forEach((hero) => {
           const copy = hero.querySelector(".lx-hero__copy");
           const vis = hero.querySelector(".lx-stage, .lx-shero__vis > *");
           const tl = gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
@@ -157,6 +157,41 @@ export default function LxScroll() {
         batch(".lx-checks li", { opacity: 0, x: 60 }, { stagger: 0.07 });
         batch(".lx-pills li", { opacity: 0, y: 40, scale: 0.6 }, { ease: "back.out(2.2)", duration: 0.8, stagger: 0.05 });
         batch(".lx-contact li", { opacity: 0, x: -30 });
+        batch("[data-lx-card]", { opacity: 0, y: 70, rotateX: -18, transformPerspective: 900, transformOrigin: "50% 100%" });
+        batch("[data-lx-pop]", { opacity: 0, y: 30, scale: 0.8 }, { ease: "back.out(1.8)", duration: 0.8, stagger: 0.05 });
+
+        // ── Footer wordmark rises letter by letter ────────────────────────
+        const mark = document.querySelector(".lx-foot__mark");
+        if (mark) {
+          gsap.fromTo($("span", mark), { yPercent: 110 }, {
+            yPercent: 0, stagger: 0.05, ease: "none",
+            scrollTrigger: { trigger: mark, start: "top bottom", end: "bottom bottom", scrub: 0.6 },
+          });
+        }
+        // ── Timeline spine draws as you read down it ──────────────────────
+        $(".lx-tl").forEach((tl) => {
+          gsap.fromTo(tl, { "--p": 0 }, {
+            "--p": 1, ease: "none",
+            scrollTrigger: { trigger: tl, start: "top 70%", end: "bottom 60%", scrub: 0.5 },
+          });
+          $("li", tl).forEach((li) => ScrollTrigger.create({ trigger: li, start: "top 68%", onEnter: () => li.classList.add("is-on"), onLeaveBack: () => li.classList.remove("is-on") }));
+        });
+        // ── Stat numbers count up ─────────────────────────────────────────
+        $("[data-lx-count]").forEach((el) => {
+          const raw = el.textContent ?? "";
+          const m = raw.match(/^(\D*)([\d.,]+)(.*)$/);
+          if (!m || !below(el)) return;
+          const target = parseFloat(m[2].replace(/,/g, ""));
+          const dec = (m[2].split(".")[1] ?? "").length;
+          const o = { v: 0 };
+          gsap.to(o, {
+            v: target, duration: 1.6, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+            onUpdate: () => { el.textContent = `${m[1]}${o.v.toFixed(dec)}${m[3]}`; },
+            onComplete: () => { el.textContent = raw; },
+          });
+          el.textContent = `${m[1]}${(0).toFixed(dec)}${m[3]}`;
+        });
 
         // ── Logo tiles pop in, then the marquee takes over ─────────────────
         const logos = document.querySelector(".lx-logos");
@@ -244,7 +279,7 @@ export default function LxScroll() {
         cleanups.push(() => mm.revert());
 
         // ── Contact form floats up a little slower than the page ──────────
-        $(".lx-form").forEach((f) => {
+        $(".lx-contact .lx-form").forEach((f) => {
           gsap.fromTo(f, { y: 80 }, {
             y: -20, ease: "none",
             scrollTrigger: { trigger: f, start: "top bottom", end: "bottom top", scrub: true },

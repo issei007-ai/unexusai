@@ -1,6 +1,5 @@
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/sections/PageHero";
+import LxShell from "@/components/lx/LxShell";
+import LxPageHero from "@/components/lx/LxPageHero";
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
@@ -15,13 +14,11 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default function CookiePolicyPage() {
   return (
-    <>
-      <Nav />
-      <main>
-        <PageHero eyebrow="Legal" title="Cookie Policy" subtitle="Last updated 9 June 2026" />
+    <LxShell>
+        <LxPageHero eyebrow="Legal" title="Cookie Policy" subtitle="Last updated 9 June 2026" orbit={false} narrow />
 
-        <section className="section" style={{ paddingTop: "1rem" }}>
-          <div className="container max-w-3xl prose-dark">
+        <section className="lx-sec" style={{ paddingTop: "1rem" }}>
+          <div className="lx-wrap lx-article lx-prose">
             <p>This Cookie Policy explains what cookies are, how we use them, and how you can control them.</p>
 
             <h2>What are cookies?</h2>
@@ -43,11 +40,9 @@ export default function CookiePolicyPage() {
             <h2>More information</h2>
             <p>For how we handle personal data more broadly, see our <a href="/privacy-policy">Privacy Policy</a>. Questions? Email <strong>privacy@unexus.ai</strong>.</p>
 
-            <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
+            <p style={{ color: "#767b89", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+      </LxShell>
   );
 }

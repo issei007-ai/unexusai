@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
+import LxFooter from "@/components/lx/LxFooter";
 import type { ServiceTemplateProps } from "@/components/sections/ServicePageTemplate";
 import { PROCESS_STEPS, WHY_US } from "@/lib/constants";
 import { faqJsonLd, serviceJsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
@@ -14,6 +14,7 @@ import LxSplit from "@/components/lx/LxSplit";
 import LxContact from "@/components/lx/LxContact";
 import "@/components/lx/lx.css";
 import "@/components/lx/lx-motion.css";
+import "@/components/lx/lx-pages.css";
 import "@/components/lx/lx-svc.css";
 
 /** Content-doc image at its natural ratio, never cropped. */
@@ -269,8 +270,8 @@ export default function LxServicePage({
             defaultNeed={serviceName}
           />
         </main>
+        <LxFooter />
       </div>
-      <Footer />
     </>
   );
 }

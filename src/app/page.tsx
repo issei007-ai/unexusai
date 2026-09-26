@@ -1,5 +1,5 @@
 import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
+import LxFooter from "@/components/lx/LxFooter";
 import { SERVICES, CLIENTS } from "@/lib/constants";
 import { INDUSTRIES } from "@/components/sections/IndustriesSection";
 import { getSection } from "@/lib/cms";
@@ -23,6 +23,7 @@ import LxScroll from "@/components/lx/LxScroll";
 import LxSplit from "@/components/lx/LxSplit";
 import "@/components/lx/lx.css";
 import "@/components/lx/lx-motion.css";
+import "@/components/lx/lx-pages.css";
 
 export function generateMetadata(): Promise<Metadata> {
   return buildMetadata({ path: "/" });
@@ -238,8 +239,8 @@ export default async function HomePage() {
 
           <LxContact />
         </main>
+        <LxFooter />
       </div>
-      <Footer />
     </>
   );
 }

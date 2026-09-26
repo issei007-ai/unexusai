@@ -90,7 +90,8 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 .lx-orbit__pulse { position: absolute; left: 50%; top: 50%; width: 50%; aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--lx-accent); opacity: 0; transform: translate(-50%, -50%) scale(0.55); animation: lx-pulse 2.8s var(--lx-ease) infinite; z-index: 1; pointer-events: none; }
 @keyframes lx-pulse { 0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.55); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } }
 .lx-orbit__core { position: absolute; left: 50%; top: 47%; height: 62%; translate: -50% -50%; z-index: 3; animation: lx-bob 5s ease-in-out infinite; }
-.lx-orbit__core img { height: 100%; width: auto; display: block; filter: drop-shadow(0 34px 34px rgba(30, 26, 90, 0.28)); }
+.lx-orbit__tilt { height: 100%; }
+.lx-orbit__core img, .lx-orbit__core svg { height: 100%; width: auto; display: block; filter: drop-shadow(0 34px 34px rgba(30, 26, 90, 0.28)); }
 @keyframes lx-bob { 50% { transform: translateY(-14px); } }
 
 /* Service page extras */
