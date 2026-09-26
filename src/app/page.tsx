@@ -153,7 +153,12 @@ export default async function HomePage() {
                 {services.map((s, i) => (
                   <a key={s.href} href={s.href} className={i === 0 ? "is-lead lx-spot" : "lx-spot"} data-lx-tilt>
                     <span className="lx-go" aria-hidden="true">↗</span>
-                    {s.img && <img src={s.img} alt="" loading="lazy" />}
+                    {s.img && (
+                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(${s.img})`, ["--k" as string]: i }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={s.img} alt="" loading="lazy" />
+                  </span>
+                )}
                     <div>
                       <h3 className="lx-h3">{s.name}</h3>
                       <p>{s.desc}</p>

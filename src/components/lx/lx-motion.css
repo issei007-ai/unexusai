@@ -37,12 +37,32 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 /* Service cards: 3D tilt + icon lift */
 .lx-svc a[data-lx-tilt] { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 450ms var(--lx-ease), scale 160ms var(--lx-ease), background-color 300ms ease, border-color 300ms ease; }
 .lx-svc a[data-lx-tilt]:active { scale: 0.985; }
-.lx-svc img { transition: transform 700ms var(--lx-ease); filter: drop-shadow(0 12px 14px rgba(30, 26, 90, 0.18)); }
-.lx-svc a.is-lead img { animation: lx-bob 5s ease-in-out infinite; }
 @media (hover: hover) and (pointer: fine) {
   .lx-svc a[data-lx-tilt]:hover { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px); }
-  .lx-svc a:hover img { transform: scale(1.14) rotate(-7deg) translateY(-4px); }
 }
+
+/* Service card art: Unixi on a halo, bobbing, with a sheen that sweeps
+   across the figure itself (masked to the PNG's alpha, so only he shines). */
+.lx-svc__art { position: relative; justify-self: start; display: block; width: 156px; height: 156px; isolation: isolate; }
+.lx-svc__art::before { content: ""; position: absolute; inset: -6%; border-radius: 50%; z-index: -1; background: radial-gradient(closest-side, #dedbfd 0%, rgba(222, 219, 253, 0.55) 55%, rgba(222, 219, 253, 0) 100%); transition: transform 700ms var(--lx-ease), opacity 400ms ease; }
+.lx-svc a.is-lead .lx-svc__art::before { background: radial-gradient(closest-side, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.14) 55%, rgba(255, 255, 255, 0) 100%); }
+.lx-svc .lx-svc__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 14px 16px rgba(30, 26, 90, 0.28)) saturate(1.12) contrast(1.04); animation: lx-bob 5s ease-in-out infinite; animation-delay: calc(var(--k, 0) * -0.7s); transition: transform 700ms var(--lx-ease); }
+.lx-svc a.is-lead .lx-svc__art img { filter: drop-shadow(0 14px 18px rgba(10, 8, 60, 0.45)) saturate(1.12) contrast(1.04); }
+.lx-svc__art::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: var(--art) center / contain no-repeat; mask: var(--art) center / contain no-repeat;
+  background: linear-gradient(115deg, transparent 47.5%, rgba(255, 255, 255, 0.6) 50%, transparent 52.5%) 0 0 / 400% 100% no-repeat;
+  background-position: 100% 0; mix-blend-mode: screen;
+  animation: lx-sheen 5s ease-in-out infinite, lx-bob 5s ease-in-out infinite;
+  animation-delay: calc(var(--k, 0) * 0.55s), calc(var(--k, 0) * -0.7s);
+}
+@keyframes lx-sheen { 0%, 55% { background-position: 100% 0; } 100% { background-position: 0% 0; } }
+@media (hover: hover) and (pointer: fine) {
+  .lx-svc a:hover .lx-svc__art img { transform: scale(1.1) rotate(-6deg) translateY(-4px); }
+  .lx-svc a:hover .lx-svc__art::before { transform: scale(1.18); }
+}
+@media (max-width: 600px) { .lx-svc__art { width: 112px; height: 112px; } }
+@media (prefers-reduced-motion: reduce) { .lx-svc__art::after { display: none; } }
 
 /* Logos marquee */
 .lx-logos__row { display: block; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
