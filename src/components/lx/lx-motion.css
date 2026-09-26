@@ -219,3 +219,6 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
   html.lx-js .unixi3d-wrap { transform: scale(0.58); }
   html.lx-js .unixi-bubble, html.lx-js .unixi3d-hint { display: none; }
 }
+
+/* Looping animations pause while their block is off-screen (LxMotion) */
+.lx-off, .lx-off *, .lx-off *::before, .lx-off *::after { animation-play-state: paused !important; }

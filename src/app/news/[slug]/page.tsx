@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import LxShell from "@/components/lx/LxShell";
+import LxCover from "@/components/lx/LxCover";
 import LxPageHero from "@/components/lx/LxPageHero";
 import LxContact from "@/components/lx/LxContact";
 import type { NewsPost } from "@/lib/news";
@@ -75,8 +76,7 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
       {post.image && (
         <div className="lx-wrap lx-article__hero">
           <figure className="lx-fig">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.image} alt={post.imageAlt || post.title} />
+            <LxCover src={post.image} alt={post.imageAlt || post.title} sizes="(max-width: 1100px) 100vw, 1100px" priority />
           </figure>
         </div>
       )}

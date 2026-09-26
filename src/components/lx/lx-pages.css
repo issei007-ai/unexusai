@@ -317,3 +317,4 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
   .lx-foot__strip { gap: 1.6rem; padding-right: 1.6rem; }
   .lx-foot__legal { flex-direction: column; gap: 0.6rem; }
 }
+.lx-article__hero .lx-fig { position: relative; }

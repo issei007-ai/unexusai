@@ -1,4 +1,5 @@
 import LxShell from "@/components/lx/LxShell";
+import LxCover from "@/components/lx/LxCover";
 import LxPageHero from "@/components/lx/LxPageHero";
 import LeadForm from "@/components/ui/LeadForm";
 import type { BlogPost } from "@/lib/blog";
@@ -33,8 +34,7 @@ export default async function BlogPage() {
           {featured && (
             <a href={`/blog/${featured.slug}`} className="lx-feature lx-spot" data-lx-card>
               <div className="lx-feature__img" style={{ background: featured.accent }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {featured.image && <img src={featured.image} alt={featured.imageAlt || featured.title} />}
+                {featured.image && <LxCover src={featured.image} alt={featured.imageAlt || featured.title} sizes="(max-width: 860px) 100vw, 640px" priority />}
                 <span className="lx-chip-tag">Featured</span>
               </div>
               <div className="lx-feature__body">
@@ -50,8 +50,7 @@ export default async function BlogPage() {
             {rest.map((post) => (
               <a key={post.slug} href={`/blog/${post.slug}`} className="lx-post lx-spot" data-lx-card>
                 <div className="lx-post__img" style={{ background: post.accent }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {post.image && <img src={post.image} alt={post.imageAlt || post.title} loading="lazy" />}
+                  {post.image && <LxCover src={post.image} alt={post.imageAlt || post.title} sizes="(max-width: 640px) 100vw, 420px" />}
                   <span className="lx-chip-tag">{post.cat}</span>
                 </div>
                 <div className="lx-post__body">

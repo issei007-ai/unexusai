@@ -30,8 +30,21 @@ export default function LxMotion() {
         io.observe(el);
       });
     }
+    // Pause looping CSS animations (marquees, sheens, bobbing, pulses) while
+    // their block is off-screen, so they don't burn battery out of sight.
+    const loops = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) e.target.classList.toggle("lx-off", !e.isIntersecting);
+      },
+      { rootMargin: "120px 0px" },
+    );
+    document
+      .querySelectorAll(".lx-logos, .lx-foot, .lx-svc, .lx-orbit, .lx-stage, .lx-founder, .lx-hero__copy, .lx-ind")
+      .forEach((el) => loops.observe(el));
+
     return () => {
       io.disconnect();
+      loops.disconnect();
       root.classList.remove("lx-js");
     };
   }, []);

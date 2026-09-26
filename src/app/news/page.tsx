@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LxShell from "@/components/lx/LxShell";
+import LxCover from "@/components/lx/LxCover";
 import LxPageHero from "@/components/lx/LxPageHero";
 import LxContact from "@/components/lx/LxContact";
 import type { NewsPost } from "@/lib/news";
@@ -46,8 +47,7 @@ export default async function NewsPage() {
             <>
               <a href={`/news/${featured.slug}`} className="lx-feature lx-spot" data-lx-card>
                 <div className="lx-feature__img" style={{ background: "var(--lx-ink)" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {featured.image ? <img src={featured.image} alt={featured.imageAlt || featured.title} /> : <span className="lx-post__ph" aria-hidden="true">{featured.cat || "News"}</span>}
+                  {featured.image ? <LxCover src={featured.image} alt={featured.imageAlt || featured.title} sizes="(max-width: 860px) 100vw, 640px" priority /> : <span className="lx-post__ph" aria-hidden="true">{featured.cat || "News"}</span>}
                   <span className="lx-chip-tag">Latest</span>
                 </div>
                 <div className="lx-feature__body">
@@ -63,8 +63,7 @@ export default async function NewsPage() {
                   {rest.map((post) => (
                     <a key={post.slug} href={`/news/${post.slug}`} className="lx-post lx-spot" data-lx-card>
                       <div className="lx-post__img" style={{ background: "var(--lx-ink)" }}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        {post.image ? <img src={post.image} alt={post.imageAlt || post.title} loading="lazy" /> : <span className="lx-post__ph" aria-hidden="true">{post.cat || "News"}</span>}
+                        {post.image ? <LxCover src={post.image} alt={post.imageAlt || post.title} sizes="(max-width: 640px) 100vw, 420px" /> : <span className="lx-post__ph" aria-hidden="true">{post.cat || "News"}</span>}
                         {post.cat && <span className="lx-chip-tag">{post.cat}</span>}
                       </div>
                       <div className="lx-post__body">

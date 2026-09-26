@@ -104,7 +104,11 @@ export default function ChatWidget() {
     const capable =
       (nav.hardwareConcurrency ?? 8) >= 4 &&
       !nav.connection?.saveData &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      // phones: the launcher is shown small, so the SVG Unixi is plenty
+      !window.matchMedia("(max-width: 700px), (pointer: coarse)").matches &&
+      // one 3D scene per page: the redesign home hero already has one
+      !document.querySelector(".lx-stage");
     if (!capable) return; // stay on the SVG launcher forever
 
     let done = false;

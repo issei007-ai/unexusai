@@ -1571,3 +1571,12 @@ body::after {
 .nav-dd__item span { font-size: 0.78rem; color: var(--color-brand-400); font-weight: 400; }
 .nav-dd__item:hover, .nav-dd__item:focus-visible { background: rgba(255,255,255,0.06); }
 @media (prefers-reduced-motion: reduce) { .nav-dd__panel, .nav-dd__chev { transition: none; } }
+
+/* ─── FONTS ──────────────────────────────────────────────────────────────── */
+/* The site now loads one family (Funnel, via next/font on <html>). The old
+   Geist variables point at it, so the nav, chat widget and admin follow
+   without downloading a second family; mono falls back to the system font. */
+:root {
+  --font-geist-sans: var(--lx-font-sans);
+  --font-geist-mono: ui-monospace;
+}
