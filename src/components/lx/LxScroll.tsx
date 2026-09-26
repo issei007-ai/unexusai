@@ -237,8 +237,10 @@ export default function LxScroll() {
             });
           }
           if (img) {
-            gsap.fromTo(img, { scale: 1.18, yPercent: -4 }, {
-              scale: 1, yPercent: 4, ease: "none",
+            // Scale always leaves (scale - 1) / 2 of spare image on each side,
+            // which must cover the drift, or the frame's background shows.
+            gsap.fromTo(img, { scale: 1.2, yPercent: -3 }, {
+              scale: 1.08, yPercent: 3, ease: "none",
               scrollTrigger: { trigger: fig, start: "top bottom", end: "bottom top", scrub: true },
             });
           }
