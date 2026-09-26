@@ -1,49 +1,87 @@
+import Link from "next/link";
 import LxShell from "@/components/lx/LxShell";
 import LxPageHero from "@/components/lx/LxPageHero";
-import LxNewsList from "@/components/lx/LxNewsList";
 import LxContact from "@/components/lx/LxContact";
-import { getIndustryNews, NEWS_SOURCES } from "@/lib/news";
+import type { NewsPost } from "@/lib/news";
+import { getSection } from "@/lib/cms";
+import { NEWS_PAGE_DEFAULTS, NEWS_POSTS_DEFAULTS } from "@/lib/cms-schema";
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/seo";
-
-// Headlines come from external feeds; rebuild the page at most once an hour.
-export const revalidate = 3600;
+import { sectionMetadata } from "@/lib/seo";
 
 export function generateMetadata(): Promise<Metadata> {
-  // Aggregated third-party headlines add no original content for search
-  // engines, so the page is kept out of the index (links are still followed).
-  return buildMetadata({
-    title: "Industry News",
-    description: "The latest in search, ads, AI and social media, gathered from the sources we read every day.",
+  return sectionMetadata({
+    key: "news.page",
+    defaults: NEWS_PAGE_DEFAULTS,
     path: "/news",
-    noindex: true,
+    fallbackTitle: "News",
+    fallbackDescription: "Announcements, launches, client wins and events from the Unexus AI team.",
   });
 }
 
 export default async function NewsPage() {
-  const items = await getIndustryNews(40);
+  const page = await getSection("news.page", NEWS_PAGE_DEFAULTS);
+  const posts = ((await getSection("news.posts", NEWS_POSTS_DEFAULTS)).items as NewsPost[]).filter((p) => p.slug && p.title);
+  const [featured, ...rest] = posts;
+  const cats = Array.from(new Set(posts.map((p) => p.cat).filter(Boolean)));
+
   return (
     <LxShell>
       <LxPageHero
-        eyebrow="Industry news"
-        title="What's changing in search, ads and AI"
-        subtitle="The headlines we read every morning, in one place. Updated every hour from the sources below; each story opens on the original site."
-        orbit={["Google", "ChatGPT", "Meta", "Gemini", "Search", "Ads", "AI"]}
+        eyebrow={page.heroEyebrow}
+        title={page.heroTitle}
+        subtitle={page.heroSubtitle}
+        orbit={cats.length >= 3 ? cats : ["Announcements", "Launches", "Client wins", "Events", "Awards"]}
       />
 
       <section className="lx-sec lx-sec--white">
         <div className="lx-wrap">
-          <LxNewsList items={items} />
-          <p className="lx-news__credit">
-            Sources: {NEWS_SOURCES.join(", ")}. Headlines and excerpts belong to their publishers.
-          </p>
+          {!featured ? (
+            <div className="lx-mini" data-lx-card>
+              <span className="lx-badge">Coming soon</span>
+              <h2 className="lx-h2 lx-h2--sm">Our first update is on its way.</h2>
+              <p>In the meantime, our blog has plenty of practical reading on search, ads and AI.</p>
+              <Link href="/blog" className="lx-btn lx-btn--primary">Read the blog</Link>
+            </div>
+          ) : (
+            <>
+              <a href={`/news/${featured.slug}`} className="lx-feature lx-spot" data-lx-card>
+                <div className="lx-feature__img" style={{ background: "var(--lx-ink)" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {featured.image ? <img src={featured.image} alt={featured.imageAlt || featured.title} /> : <span className="lx-post__ph" aria-hidden="true">{featured.cat || "News"}</span>}
+                  <span className="lx-chip-tag">Latest</span>
+                </div>
+                <div className="lx-feature__body">
+                  <small>{[featured.cat, featured.date].filter(Boolean).join(" · ")}</small>
+                  <h2 className="lx-h2 lx-h2--sm">{featured.title}</h2>
+                  <p>{featured.excerpt}</p>
+                  <span className="lx-link">Read more →</span>
+                </div>
+              </a>
+
+              {rest.length > 0 && (
+                <div className="lx-grid lx-grid--3" style={{ marginTop: "1rem" }}>
+                  {rest.map((post) => (
+                    <a key={post.slug} href={`/news/${post.slug}`} className="lx-post lx-spot" data-lx-card>
+                      <div className="lx-post__img" style={{ background: "var(--lx-ink)" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        {post.image ? <img src={post.image} alt={post.imageAlt || post.title} loading="lazy" /> : <span className="lx-post__ph" aria-hidden="true">{post.cat || "News"}</span>}
+                        {post.cat && <span className="lx-chip-tag">{post.cat}</span>}
+                      </div>
+                      <div className="lx-post__body">
+                        <h3 className="lx-h3">{post.title}</h3>
+                        <p>{post.excerpt}</p>
+                        <small>{post.date}</small>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
-      <LxContact
-        heading="Want to know what this means for your business?"
-        body="Most of these updates matter to someone. Tell us about your business and we'll tell you which ones matter to you, and what to do about them."
-      />
+      <LxContact />
     </LxShell>
   );
 }

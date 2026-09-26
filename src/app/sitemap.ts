@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getSection } from "@/lib/cms";
-import { BLOG_POSTS_DEFAULTS } from "@/lib/cms-schema";
+import { BLOG_POSTS_DEFAULTS, NEWS_POSTS_DEFAULTS } from "@/lib/cms-schema";
+import type { NewsPost } from "@/lib/news";
 import type { BlogPost } from "@/lib/blog";
 
 const SITE_URL = "https://www.unexusai.com";
@@ -22,6 +23,7 @@ const STATIC_ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[numb
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/case-studies", changeFrequency: "weekly", priority: 0.8 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+  { path: "/news", changeFrequency: "weekly", priority: 0.6 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.6 },
   { path: "/book", changeFrequency: "monthly", priority: 0.6 },
   { path: "/audit", changeFrequency: "monthly", priority: 0.5 },
@@ -61,5 +63,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
-  return [...staticEntries, ...serviceEntries, ...blogEntries];
+  const news = ((await getSection("news.posts", NEWS_POSTS_DEFAULTS)).items as NewsPost[]) ?? [];
+  const newsEntries: MetadataRoute.Sitemap = news
+    .filter((p) => p.slug)
+    .map((p) => ({
+      url: `${SITE_URL}/news/${p.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    }));
+
+  return [...staticEntries, ...serviceEntries, ...blogEntries, ...newsEntries];
 }
