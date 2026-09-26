@@ -144,3 +144,23 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
   .lx-logos__track img[aria-hidden="true"] { display: none; }
   .lx-btn, .lx-ind__cta { translate: none; }
 }
+
+/* Hero Unixi easter eggs: speech bubble + sleeping zzz, pinned above his head */
+.lx-uxi-anchor { position: absolute; left: 0; top: 0; z-index: 6; width: 0; height: 0; pointer-events: none; }
+.lx-uxi-say { position: absolute; right: clamp(58px, 5.4vw, 84px); top: 20px; width: max-content; max-width: 230px; padding: 0.7rem 0.95rem; border-radius: 18px; background: var(--lx-ink); color: #fff; font-size: 0.9rem; font-weight: 500; line-height: 1.4; text-align: center; pointer-events: auto; transform-origin: 100% 30%; animation: lx-say-in 420ms var(--lx-ease) both; }
+.lx-uxi-say::after { content: ""; position: absolute; right: -5px; top: 18px; width: 12px; height: 12px; background: var(--lx-ink); transform: rotate(45deg); border-radius: 2px; }
+.lx-uxi-say button { display: block; margin: 0.6rem auto 0; padding: 0.5rem 0.9rem; border: 0; border-radius: 999px; background: var(--lx-accent); color: #fff; font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: transform 160ms var(--lx-ease), background-color 200ms ease; }
+.lx-uxi-say button:active { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) { .lx-uxi-say button:hover { background: var(--lx-accent-ink); } }
+@keyframes lx-say-in { from { opacity: 0; transform: translateX(10px) scale(0.85); } to { opacity: 1; transform: none; } }
+.lx-zzz { position: absolute; left: 28px; bottom: 0; display: block; font-family: var(--lx-display); font-weight: 700; color: var(--lx-accent); }
+.lx-zzz i { position: absolute; left: 0; bottom: 0; font-style: normal; opacity: 0; animation: lx-zzz 2.7s ease-out infinite; }
+.lx-zzz i:nth-child(1) { font-size: 1.1rem; }
+.lx-zzz i:nth-child(2) { font-size: 1.45rem; animation-delay: 0.9s; }
+.lx-zzz i:nth-child(3) { font-size: 1.85rem; animation-delay: 1.8s; }
+@keyframes lx-zzz { 0% { opacity: 0; transform: translate(0, 0) rotate(-8deg); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(34px, -70px) rotate(12deg); } }
+@media (prefers-reduced-motion: reduce) { .lx-zzz i { animation: none; opacity: 1; position: static; } .lx-uxi-say { animation: none; } }
+@media (max-width: 700px) {
+  .lx-uxi-say { right: auto; left: 0; top: auto; bottom: 16px; translate: -50% 0; max-width: 220px; transform-origin: 50% 100%; }
+  .lx-uxi-say::after { right: auto; left: 50%; top: auto; bottom: -5px; margin-left: -6px; }
+}
