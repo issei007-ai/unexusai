@@ -204,7 +204,11 @@ export default function LxScroll() {
 
         // ── Connect diagram: chips slide in, wires draw, output lands ─────
         const flow = document.querySelector(".lx-flow");
-        if (flow && below(flow)) {
+        const narrow = window.matchMedia("(max-width: 700px)").matches;
+        // Phones: scroll-scrubbed sideways slides leave the 2x2 chips half
+        // off-screen mid-scroll, so they get a self-completing fade-up instead.
+        if (flow && narrow) batch(".lx-flow .lx-chip, .lx-flow__out", { opacity: 0, y: 30 });
+        if (flow && !narrow && below(flow)) {
           const paths = $<SVGPathElement>("path", flow);
           paths.forEach((p) => {
             const len = p.getTotalLength();
