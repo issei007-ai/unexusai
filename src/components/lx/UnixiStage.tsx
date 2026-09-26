@@ -216,6 +216,15 @@ export default function UnixiStage() {
       group.position.set(-0.62, 0.2, 0);
       scene.add(group);
 
+      // Rig: bones we animate procedurally (the GLB has a skeleton but no clips).
+      type Rig = Record<string, { b: import("three").Object3D; rest: import("three").Quaternion; rw: import("three").Quaternion; rwi: import("three").Quaternion }>;
+      const rig: Rig = {};
+      const BONES = ["Head", "NeckTwist01", "Spine02", "R_Upperarm", "R_Forearm", "R_Hand", "L_Upperarm", "L_Forearm", "L_Hand", "L_Thigh", "L_Calf", "R_Thigh", "R_Calf", "L_Foot", "R_Foot"];
+      // Eyelids: the eyes are painted on the visor texture, so blinking is done
+      // in the shader by closing each eye's region (measured in bind-pose mesh
+      // space) from top and bottom.
+      const eyeU = { uBlink: { value: 0 } };
+
       const draco = new DRACOLoader();
       draco.setDecoderPath("/draco/");
       const loader = new GLTFLoader();
@@ -229,15 +238,88 @@ export default function UnixiStage() {
         const s = box.getSize(new THREE.Vector3());
         model.position.sub(center);
         model.scale.setScalar(2.55 / (s.y || 1));
+        model.updateMatrixWorld(true);
+        let skinned: import("three").SkinnedMesh | null = null;
         model.traverse((o) => {
-          const mesh = o as unknown as { isMesh?: boolean; frustumCulled: boolean; material?: unknown };
+          const mesh = o as import("three").Mesh;
           if (!mesh.isMesh) return;
           mesh.frustumCulled = false;
-          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-          for (const m of mats as Array<{ envMapIntensity?: number }>) {
-            if (m) m.envMapIntensity = 0.45;
-          }
+          if ((o as import("three").SkinnedMesh).isSkinnedMesh) skinned = o as import("three").SkinnedMesh;
         });
+        const sk = skinned as import("three").SkinnedMesh | null;
+        if (sk) {
+          // The source textures are only 512px. Sharper filtering plus a glossy
+          // toy-plastic finish (clearcoat, low metalness) hides the soft spots
+          // far better than the original fully-metallic grey look.
+          const old = sk.material as import("three").MeshStandardMaterial;
+          const aniso = renderer.capabilities.getMaxAnisotropy();
+          for (const tex of [old.map, old.normalMap, old.roughnessMap, old.metalnessMap]) {
+            if (tex) {
+              tex.anisotropy = aniso;
+              tex.needsUpdate = true;
+            }
+          }
+          const mat = new THREE.MeshPhysicalMaterial({
+            map: old.map,
+            normalMap: old.normalMap,
+            normalScale: old.normalScale.clone().multiplyScalar(0.65),
+            roughnessMap: old.roughnessMap,
+            metalnessMap: old.metalnessMap,
+            metalness: 0.22,
+            roughness: 0.6,
+            clearcoat: 0.75,
+            clearcoatRoughness: 0.2,
+            envMapIntensity: 0.9,
+            color: new THREE.Color(1.12, 1.12, 1.14),
+          });
+          mat.onBeforeCompile = (sh) => {
+            sh.uniforms.uBlink = eyeU.uBlink;
+            sh.vertexShader = sh.vertexShader
+              .replace("#include <common>", "#include <common>\nvarying vec3 vBindPos;")
+              .replace("#include <begin_vertex>", "#include <begin_vertex>\nvBindPos = position;");
+            sh.fragmentShader = sh.fragmentShader
+              .replace(
+                "#include <common>",
+                `#include <common>
+varying vec3 vBindPos;
+uniform float uBlink;
+float uxBox(vec3 p, vec2 xr, vec2 yr) {
+  return step(xr.x, p.x) * step(p.x, xr.y) * step(yr.x, p.y) * step(p.y, yr.y) * step(0.15, p.z);
+}
+float uxLid(vec3 p, vec2 xr, vec2 yr) {
+  float cy = (yr.x + yr.y) * 0.5;
+  float hh = (yr.y - yr.x) * 0.5;
+  return uxBox(p, xr, yr) * step(max((1.0 - uBlink) * hh, 0.0045), abs(p.y - cy));
+}`,
+              )
+              .replace(
+                "#include <map_fragment>",
+                `#include <map_fragment>
+float uxEye = max(uxBox(vBindPos, vec2(-0.108, -0.033), vec2(0.612, 0.726)), uxBox(vBindPos, vec2(0.088, 0.168), vec2(0.592, 0.707)));
+float uxClosed = uBlink > 0.0 ? max(uxLid(vBindPos, vec2(-0.108, -0.033), vec2(0.612, 0.726)), uxLid(vBindPos, vec2(0.088, 0.168), vec2(0.592, 0.707))) : 0.0;
+float uxPurple = smoothstep(0.02, 0.14, diffuseColor.b - diffuseColor.g);
+float uxInk = max(uxPurple, smoothstep(0.3, 0.55, dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114))));
+diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.018, 0.018, 0.026), uxClosed * uxInk);`,
+              )
+              .replace(
+                "#include <emissivemap_fragment>",
+                `#include <emissivemap_fragment>
+totalEmissiveRadiance += diffuseColor.rgb * uxPurple * uxEye * (1.0 - uxClosed) * 0.85;`,
+              );
+          };
+          sk.material = mat;
+          old.dispose();
+
+          const meshInv = new THREE.Quaternion();
+          sk.getWorldQuaternion(meshInv).invert();
+          for (const name of BONES) {
+            const b = model.getObjectByName(name);
+            if (!b) continue;
+            const rw = new THREE.Quaternion();
+            b.getWorldQuaternion(rw).premultiply(meshInv);
+            rig[name] = { b, rest: b.quaternion.clone(), rw, rwi: rw.clone().invert() };
+          }
+        }
         // measure the real top of the model (halo) for the bubble anchor
         headTop = new THREE.Box3().setFromObject(model).max.y + 0.08;
         group.add(model);
@@ -353,6 +435,28 @@ export default function UnixiStage() {
 
       const headPt = new THREE.Vector3();
 
+      // Rotate a bone by an offset given in the model's own axes
+      // (x: pitch forward/back, y: turn, z: tilt in the screen plane).
+      const qd = new THREE.Quaternion();
+      const ql = new THREE.Quaternion();
+      const eul = new THREE.Euler();
+      const bone = (name: string, x: number, y: number, z: number) => {
+        const r = rig[name];
+        if (!r) return;
+        eul.set(x, y, z);
+        qd.setFromEuler(eul);
+        ql.copy(r.rwi).multiply(qd).multiply(r.rw);
+        r.b.quaternion.copy(r.rest).multiply(ql);
+      };
+      // Blinks: every 2.4-5.6s, sometimes a double blink.
+      let nextBlink = performance.now() + 2200;
+      let blinkT0 = -1;
+      let doubleBlink = false;
+      // Waves come in short bursts so they read as a greeting, not a twitch.
+      let nextWave = performance.now() + 1500;
+      let waveT0 = -1;
+      const look = { x: 0, y: 0 };
+
       const ro = new ResizeObserver(() => {
         const { w: nw, h: nh } = size();
         renderer.setSize(nw, nh);
@@ -395,9 +499,15 @@ export default function UnixiStage() {
         let az = 0;
         let jy = 0;
         let sq = 0;
+        let pk = 0;
+        let pkK = 0;
+        let pkArc = 0;
         if (anim.kind && !reduce) {
           const k = Math.min(1, (now - anim.t0) / DUR[anim.kind]);
           const arc = Math.sin(Math.PI * k);
+          pk = anim.kind;
+          pkK = k;
+          pkArc = arc;
           if (anim.kind === 1) { ax = arc * 0.45; jy = arc * 0.12; }
           if (anim.kind === 2) { ay = (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2) * Math.PI * 2; jy = arc * 0.15; }
           if (anim.kind === 3) { jy = arc * 0.5; sq = Math.sin(Math.PI * 2 * k) * 0.1; }
@@ -412,11 +522,68 @@ export default function UnixiStage() {
           group.scale.set(base * (1 - sq * 0.5), base * (1 + sq), base * (1 - sq * 0.5));
         }
         const awake = 1 - sleepK;
-        rotY += ((pointer.x * 0.45 + (reduce ? 0 : Math.sin(t * 0.4) * 0.12)) * awake + sp * 2.4 - (1 - intro) * 2.6 - rotY) * 0.06;
+        rotY += ((pointer.x * 0.26 + (reduce ? 0 : Math.sin(t * 0.4) * 0.1)) * awake + sp * 2.4 - (1 - intro) * 2.6 - rotY) * 0.06;
         rotX += (pointer.y * 0.18 * awake - rotX + catchK * 0.25 + sleepK * 0.5) * 0.08;
         group.rotation.y = rotY + ay;
         group.rotation.x = rotX + ax;
         group.rotation.z = az + sleepK * 0.12;
+
+        // ── Body life: head, breathing, arms, legs ──────────────────────
+        const lv = reduce ? 0 : awake;
+        look.x += (pointer.x - look.x) * 0.08;
+        look.y += (pointer.y - look.y) * 0.08;
+        // waving bursts with the raised right hand
+        if (!reduce && awake > 0.5 && now >= nextWave) {
+          waveT0 = now;
+          nextWave = now + 5200 + Math.random() * 4000;
+        }
+        const wt = (now - waveT0) / 1700;
+        const waveEnv = waveT0 > 0 && wt < 1 ? Math.sin(Math.PI * Math.min(1, wt)) : 0;
+        const wave = Math.sin(t * 9) * (0.42 * waveEnv) + Math.sin(t * 1.3) * 0.07 * lv;
+        const hop = pk === 3 ? pkArc : 0;
+        const spinArms = pk === 2 ? pkArc : 0;
+        const jolt = pk === 5 ? pkArc : 0;
+        const dizzy = pk === 4 ? Math.sin(pkK * 24) * 0.3 * (1 - pkK) : 0;
+        const nodP = pk === 1 ? pkArc * 0.35 : 0;
+
+        bone("Spine02", Math.sin(t * 1.6) * 0.035 * (reduce ? 0 : 1) + sleepK * 0.18, 0, 0);
+        bone("NeckTwist01", sleepK * 0.2, look.x * 0.12 * lv, 0);
+        bone("Head",
+          look.y * 0.16 * lv + nodP + sleepK * 0.32 - jolt * 0.2,
+          look.x * 0.3 * lv + Math.sin(t * 0.55) * 0.08 * lv,
+          Math.sin(t * 0.8) * 0.06 * lv + dizzy + sleepK * 0.14,
+        );
+        // right arm (the raised one): wave from the elbow and wrist
+        bone("R_Upperarm", -sleepK * 0.25 + jolt * 0.3, 0, Math.sin(t * 1.1) * 0.05 * lv - spinArms * 0.5 - sleepK * 0.55);
+        bone("R_Forearm", 0, 0, wave - sleepK * 0.6);
+        bone("R_Hand", 0, 0, Math.sin(t * 9 + 0.7) * 0.28 * waveEnv);
+        // left arm: relaxed sway
+        bone("L_Upperarm", Math.sin(t * 1.2 + 1) * 0.1 * lv, 0, Math.sin(t * 1.05) * 0.08 * lv + spinArms * 0.5 + jolt * 0.35 + sleepK * 0.12);
+        bone("L_Forearm", Math.sin(t * 1.3 + 2) * 0.14 * lv, 0, 0);
+        bone("L_Hand", 0, 0, Math.sin(t * 1.7) * 0.12 * lv);
+        // legs: floating, lazy alternating kick; tuck on a jump
+        const kick = Math.sin(t * 1.5);
+        bone("L_Thigh", kick * 0.16 * lv - hop * 0.45, 0, 0);
+        bone("R_Thigh", -kick * 0.16 * lv - hop * 0.45, 0, 0);
+        bone("L_Calf", (Math.sin(t * 1.5 - 0.7) * 0.2 + 0.05) * lv + hop * 0.7, 0, 0);
+        bone("R_Calf", (-Math.sin(t * 1.5 - 0.7) * 0.2 + 0.05) * lv + hop * 0.7, 0, 0);
+        bone("L_Foot", Math.sin(t * 1.5 - 1.2) * 0.12 * lv, 0, 0);
+        bone("R_Foot", -Math.sin(t * 1.5 - 1.2) * 0.12 * lv, 0, 0);
+
+        // blink
+        let blink = 0;
+        if (!moodRef.current.asleep) {
+          if (now >= nextBlink) {
+            blinkT0 = now;
+            nextBlink = now + 2400 + Math.random() * 3200;
+            doubleBlink = Math.random() < 0.22;
+          }
+          const bt = now - blinkT0;
+          if (blinkT0 > 0 && bt < 160) blink = Math.sin((Math.PI * bt) / 160);
+          else if (doubleBlink && bt >= 240 && bt < 400) blink = Math.sin((Math.PI * (bt - 240)) / 160);
+        }
+        if (pk === 3 || pk === 4) blink = Math.max(blink, pkArc * 0.55);
+        eyeU.uBlink.value = Math.max(blink, sleepK > 0.5 ? 1 : sleepK * 1.6);
 
         // keep the speech bubble / zzz anchored above his head
         if (headRef.current) {
