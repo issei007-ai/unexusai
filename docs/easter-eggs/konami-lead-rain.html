@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Konami lead rain</title>
+<!--
+  Easter egg, saved for later (not wired into the site).
+  Type ↑ ↑ ↓ ↓ ← → ← → B A: example lead cards rain down the page, then a
+  "Book a call" toast slides up. Open this file in a browser to try it.
+
+  To ship it on the site:
+  - Listen on window (not a box) and ignore keydowns from input, textarea,
+    select and contenteditable so typing in the form or chat never fires it.
+  - Reuse the hero's .lx-lead card look and Funnel fonts.
+  - Point the toast at /book and log a "konami" analytics event.
+  - prefers-reduced-motion: skip the rain, show only the toast.
+  - Phones: trigger on 7 taps on Unixi instead of the key sequence.
+-->
+<style>
+  :root { --bg: #f3f4f7; --surface: #fff; --ink: #0c0e14; --mute: #585d6c; --line: #e1e3ea; --accent: #4f46e5; --accent-soft: #e7e5fc; --go: #1f9d5b; --ease: cubic-bezier(0.23, 1, 0.32, 1); }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font-family: "Funnel Sans", system-ui, sans-serif; overflow-x: hidden; }
+  main { max-width: 1100px; margin: 0 auto; padding: 12vh 1.5rem; }
+  h1 { font-family: "Funnel Display", system-ui, sans-serif; font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -0.035em; margin: 0 0 1.2rem; max-width: 14ch; }
+  p { color: var(--mute); font-size: 1.1rem; }
+  .keys { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2rem; }
+  .key { min-width: 34px; height: 34px; padding: 0 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; font-weight: 600; color: var(--mute); transition: background-color 150ms, color 150ms, border-color 150ms; }
+  .key.on { background: var(--accent-soft); color: var(--accent); border-color: #c9c5f3; }
+  .lead { position: fixed; top: -110px; z-index: 50; width: 240px; padding: 0.85rem 1rem; border-radius: 20px; background: rgba(255, 255, 255, 0.97); border: 1px solid var(--line); box-shadow: 0 18px 36px -22px rgba(30, 26, 90, 0.45); font-size: 0.9rem; line-height: 1.4; pointer-events: none; will-change: transform; }
+  .lead b { display: flex; gap: 0.45rem; align-items: center; font-size: 0.82rem; }
+  .lead b::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--go); }
+  .lead small { display: block; margin-top: 0.3rem; color: var(--accent); font-weight: 600; font-size: 0.75rem; }
+  .toast { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translate(-50%, 24px); opacity: 0; transition: transform 500ms var(--ease), opacity 400ms; background: var(--ink); color: #fff; padding: 0.9rem 1.4rem; border-radius: 999px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700&family=Funnel+Sans:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+<main>
+  <h1>You're spending on marketing.</h1>
+  <p>Type ↑ ↑ ↓ ↓ ← → ← → B A anywhere on this page.</p>
+  <div class="keys" id="keys" aria-hidden="true"></div>
+</main>
+<a class="toast" id="toast" href="/book">That's what your inbox could look like. Book a call →</a>
+<script>
+(() => {
+  const SEQ = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+  const LABEL = { ArrowUp: "↑", ArrowDown: "↓", ArrowLeft: "←", ArrowRight: "→", b: "B", a: "A" };
+  const LEADS = [
+    ["New enquiry", "Aisha K., Dubai Marina", "via ChatGPT"],
+    ["Call booked", "Faisal M., Riyadh", "via Google Ads"],
+    ["Quote request", "Rohan M., Bengaluru", "via Website"],
+    ["New enquiry", "Priya S., Abu Dhabi", "via Google Maps"],
+    ["Call booked", "Omar H., Sharjah", "via Meta Ads"],
+    ["Quote request", "Neha G., Delhi", "via Gemini"],
+  ];
+  const keysEl = document.getElementById("keys");
+  const toast = document.getElementById("toast");
+  const chips = SEQ.map((k) => {
+    const s = document.createElement("span");
+    s.className = "key";
+    s.textContent = LABEL[k];
+    keysEl.appendChild(s);
+    return s;
+  });
+  let pos = 0;
+  let busy = false;
+  const mark = () => chips.forEach((c, i) => c.classList.toggle("on", i < pos));
+  const norm = (k) => (k.length === 1 ? k.toLowerCase() : k);
+
+  const fire = () => {
+    busy = true;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const n = reduce ? 0 : 24;
+    for (let i = 0; i < n; i++) {
+      setTimeout(() => {
+        const [kind, who, via] = LEADS[i % LEADS.length];
+        const card = document.createElement("div");
+        card.className = "lead";
+        card.innerHTML = `<b>${kind}</b>${who}<small>${via}</small>`;
+        card.style.left = Math.round(Math.random() * (innerWidth - 240)) + "px";
+        document.body.appendChild(card);
+        const rot = (Math.random() * 24 - 12).toFixed(1);
+        card.animate(
+          [{ transform: "translateY(0) rotate(0deg)" }, { transform: `translateY(${innerHeight + 160}px) rotate(${rot}deg)` }],
+          { duration: 1700 + Math.random() * 1300, easing: "cubic-bezier(.45,0,.75,.6)", fill: "forwards" },
+        ).onfinish = () => card.remove();
+      }, i * 110);
+    }
+    setTimeout(() => toast.classList.add("show"), reduce ? 0 : 1400);
+    setTimeout(() => {
+      toast.classList.remove("show");
+      busy = false;
+      pos = 0;
+      mark();
+    }, 6500);
+  };
+
+  addEventListener("keydown", (e) => {
+    const t = e.target;
+    if (busy || t.closest?.("input, textarea, select, [contenteditable]")) return;
+    const k = norm(e.key);
+    if (k === SEQ[pos]) {
+      pos++;
+      mark();
+      if (pos === SEQ.length) fire();
+    } else {
+      pos = k === SEQ[0] ? 1 : 0;
+      mark();
+    }
+  });
+})();
+</script>
+</body>
+</html>
