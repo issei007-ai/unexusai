@@ -34,10 +34,11 @@ export default function Nav() {
         {/* Logo */}
         <a
           href="/"
-          className="flex items-center text-white"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.05rem", letterSpacing: "0.22em", textTransform: "uppercase" }}
+          className="flex items-center"
+          aria-label="Unexus AI home"
         >
-          Unexus&nbsp;<span className="logo-ai">AI</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.svg" alt="Unexus AI" width={158} height={16} className="nav-logo" />
         </a>
 
         {/* Desktop links */}

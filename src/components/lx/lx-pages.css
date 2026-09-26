@@ -318,3 +318,5 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
   .lx-foot__legal { flex-direction: column; gap: 0.6rem; }
 }
 .lx-article__hero .lx-fig { position: relative; }
+.lx-foot__logo { display: inline-block; line-height: 0; }
+.lx-foot__logo img { display: block; height: 18px; width: auto; }

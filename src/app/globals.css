@@ -1580,3 +1580,6 @@ body::after {
   --font-geist-sans: var(--lx-font-sans);
   --font-geist-mono: ui-monospace;
 }
+
+/* Logo image (public/logo.svg, generated from the Funnel Display wordmark) */
+.nav-logo { display: block; height: 16px; width: auto; }

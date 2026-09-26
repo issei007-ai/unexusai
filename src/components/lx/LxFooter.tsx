@@ -54,7 +54,10 @@ export default function LxFooter() {
       <div className="lx-wrap">
         <div className="lx-foot__grid">
           <div className="lx-foot__brand">
-            <Link href="/" className="lx-foot__logo">Unexus <span>AI</span></Link>
+            <Link href="/" className="lx-foot__logo" aria-label="Unexus AI home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-light.svg" alt="Unexus AI" width={177} height={18} />
+            </Link>
             <p>Digital marketing, web development, and AI — run by one team that actually talks to itself.</p>
             <a href="/book" className="lx-btn lx-btn--primary">Book a Call</a>
           </div>
