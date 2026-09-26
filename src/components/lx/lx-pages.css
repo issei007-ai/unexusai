@@ -287,3 +287,33 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
 /* ── News (no cover image): big outlined category word ────────────────── */
 .lx-post__ph { position: absolute; left: 1.2rem; bottom: 0.4rem; font-family: var(--lx-display); font-weight: 800; font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1.5px rgba(165, 160, 245, 0.45); white-space: nowrap; max-width: calc(100% - 2rem); overflow: hidden; text-overflow: clip; transition: transform 900ms var(--lx-ease); }
 @media (hover: hover) and (pointer: fine) { a:hover .lx-post__ph { transform: translateX(10px); } }
+
+/* ── Mobile polish for interior pages ─────────────────────────────────── */
+@media (max-width: 700px) {
+  /* Orbit heroes: smaller stage, labels truncated so none run off-screen */
+  .lx-phero .lx-orbit { max-width: 340px; }
+  .lx-orbit .lx-token { max-width: 8.5rem; overflow: hidden; text-overflow: ellipsis; }
+  .lx-phero { padding-block: 2rem 2.5rem; }
+
+  /* Portfolio: three logo tiles per row instead of one */
+  .lx-grid--logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+  .lx-client { padding: 1rem 0.4rem; gap: 0.6rem; }
+  .lx-client > :first-child { transform: scale(0.72); margin: -0.7rem 0; }
+  .lx-client b { font-size: 0.74rem; }
+
+  /* Case studies: result numbers fit on one line */
+  .lx-case__metrics { gap: 0.5rem; }
+  .lx-case__metrics b { font-size: 1.25rem; white-space: nowrap; }
+  .lx-case__metrics small { font-size: 0.68rem; }
+
+  /* Footer: link columns side by side instead of one long list */
+  .lx-foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.2rem; padding-block: 2.5rem 2rem; }
+  .lx-foot__brand { grid-column: 1 / -1; }
+  .lx-foot__grid > div:last-child { grid-column: 1 / -1; }
+  .lx-foot__grid > div:last-child ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lx-foot ul { gap: 0.55rem; }
+  .lx-foot ul a { font-size: 0.9rem; }
+  .lx-foot__strip span { font-size: 1.25rem; gap: 1.6rem; }
+  .lx-foot__strip { gap: 1.6rem; padding-right: 1.6rem; }
+  .lx-foot__legal { flex-direction: column; gap: 0.6rem; }
+}
