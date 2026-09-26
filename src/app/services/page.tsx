@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LxShell from "@/components/lx/LxShell";
 import LxPageHero from "@/components/lx/LxPageHero";
 import LxSplit from "@/components/lx/LxSplit";
@@ -65,9 +66,8 @@ export default async function ServicesPage() {
                 <span className="lx-go" aria-hidden="true">↗</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {s.img && (
-                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(${s.img})`, ["--k" as string]: i }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={s.img} alt={s.name} loading="lazy" />
+                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(/_next/image?url=${encodeURIComponent(s.img)}&w=384&q=75)`, ["--k" as string]: i }}>
+                    <Image src={s.img} alt={s.name} width={156} height={156} sizes="156px" />
                   </span>
                 )}
                 <div>

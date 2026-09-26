@@ -39,7 +39,6 @@ export default function SvcOrbit({ icon, core, items }: { icon?: string; core?: 
         c.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${0.74 + depth * 0.34})`;
         c.style.opacity = String(0.35 + depth * 0.65);
         c.style.zIndex = depth > 0.5 ? "4" : "1";
-        c.style.filter = depth < 0.35 ? `blur(${(0.35 - depth) * 5}px)` : "none";
       }
       if (iconRef.current) {
         iconRef.current.style.transform = `perspective(700px) rotateY(${tilt.x * 16}deg) rotateX(${-tilt.y * 12}deg)`;

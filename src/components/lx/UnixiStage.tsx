@@ -172,7 +172,34 @@ export default function UnixiStage() {
     let raf = 0;
     const cleanups: Array<() => void> = [];
 
-    (async () => {
+    // The still poster shows immediately. Three.js (and the 0.5 MB model) only
+    // start once the page has loaded, the browser is idle and the stage is on
+    // screen, so they never compete with the first paint. Data-saver and very
+    // low-end devices keep the poster.
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
+    const weak = !!nav.connection?.saveData || (nav.deviceMemory ?? 8) <= 2 || (navigator.hardwareConcurrency ?? 8) <= 2;
+    if (weak) return;
+    let started = false;
+    const go = () => {
+      if (started || disposed) return;
+      started = true;
+      start();
+    };
+    const whenIdle = () => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+      if (ric) ric(() => go(), { timeout: 2500 });
+      else window.setTimeout(go, 900);
+    };
+    const inView = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      inView.disconnect();
+      if (document.readyState === "complete") whenIdle();
+      else window.addEventListener("load", whenIdle, { once: true });
+    });
+    inView.observe(host);
+    cleanups.push(() => inView.disconnect());
+
+    const start = () => (async () => {
       let THREE: typeof import("three");
       try {
         THREE = await import("three");
@@ -617,6 +644,8 @@ totalEmissiveRadiance += diffuseColor.rgb * uxPurple * uxEye * (1.0 - uxClosed) 
       <div className="lx-stage__floor" aria-hidden="true" />
       <div className="lx-stage__ring" aria-hidden="true" />
       <div ref={pulseEl} className="lx-stage__pulse" aria-hidden="true" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className={`lx-stage__poster${ready ? " is-hidden" : ""}`} src="/unixi-poster.webp" alt="" aria-hidden="true" width={602} height={577} fetchPriority="high" />
       <div ref={glRef} className={`lx-stage__gl${ready ? " is-ready" : ""}`} aria-hidden="true" />
       <div ref={headRef} className="lx-uxi-anchor">
         {asleep && (

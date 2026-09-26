@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Nav from "@/components/layout/Nav";
 import LxFooter from "@/components/lx/LxFooter";
 import { SERVICES } from "@/lib/constants";
@@ -156,9 +157,8 @@ export default async function HomePage() {
                   <a key={s.href} href={s.href} className={i === 0 ? "is-lead lx-spot" : "lx-spot"} data-lx-tilt>
                     <span className="lx-go" aria-hidden="true">↗</span>
                     {s.img && (
-                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(${s.img})`, ["--k" as string]: i }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={s.img} alt="" loading="lazy" />
+                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(/_next/image?url=${encodeURIComponent(s.img)}&w=384&q=75)`, ["--k" as string]: i }}>
+                    <Image src={s.img} alt="" width={156} height={156} sizes="156px" />
                   </span>
                 )}
                     <div>

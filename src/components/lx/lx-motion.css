@@ -176,3 +176,46 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 .lx-logos__row .lx-chipc img { width: auto; height: auto; max-width: 100%; max-height: 100%; padding: 0; background: none; border-radius: 0; transition: none; }
 .lx-logos__row .lx-chipc > :first-child > div { overflow: hidden; background: #0c0e14 !important; }
 .lx-logos__row .lx-chipc .lx-chipc__flag { width: 22px; height: 15px; max-width: none; border-radius: 3px; object-fit: cover; }
+
+/* ── Performance: still Unixi until the 3D is ready ─────────────────────── */
+.lx-stage__poster { position: absolute; inset: 0 0 6% 0; width: 100%; height: 94%; object-fit: contain; z-index: 2; pointer-events: none; animation: lx-bob 5s ease-in-out infinite; transition: opacity 600ms ease; }
+.lx-stage__poster.is-hidden { opacity: 0; animation: none; }
+/* Entrance motion without opacity: text is "visible" to Google from the first paint */
+@keyframes lx-rise { from { transform: translateY(18px); } to { transform: none; } }
+.lx-enter { animation-name: lx-rise; }
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  /* Hero stage: one lead card, tucked in; nothing spills into the logos */
+  .lx-hero { gap: 0.5rem; padding-bottom: 1rem; }
+  .lx-stage { aspect-ratio: 1 / 0.95; max-height: none; max-width: 420px; }
+  .lx-leads { top: auto; bottom: 8%; right: 0; width: 62%; }
+  .lx-lead:not(:first-child) { display: none; }
+  .lx-lead { padding: 0.65rem 0.8rem; }
+  .lx-lead p { font-size: 0.8rem; }
+  .lx-token { font-size: 0.68rem; padding: 0.35rem 0.6rem; }
+  .lx-stage__note { display: none; }
+
+  /* Connect diagram: chips as a 2x2 grid, then the result card */
+  .lx-flow { grid-template-columns: 1fr; gap: 0.75rem; }
+  .lx-flow svg { display: none; }
+  .lx-flow__in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lx-chip { flex-direction: column; gap: 0.15rem; }
+  .lx-flow__out { padding: 1.1rem 1.2rem; }
+  .lx-flow__out b { font-size: 1.35rem; }
+
+  /* Service cards: art beside the text instead of above it */
+  .lx-svc a { grid-template-columns: 88px minmax(0, 1fr); align-items: center; align-content: center; gap: 1rem; min-height: 0; padding: 1rem 1.1rem; }
+  .lx-svc__art { width: 88px; height: 88px; }
+  .lx-svc .lx-go { top: 0.9rem; right: 0.9rem; }
+  .lx-svc .lx-h3 { font-size: 1.12rem; padding-right: 1.2rem; }
+  .lx-svc p { font-size: 0.88rem; }
+
+  /* Headings a notch smaller so long ones don't take a full screen */
+  .lx-h2 { font-size: clamp(1.9rem, 8.4vw, 2.4rem); }
+  .lx-sec { padding-block: 3.5rem; }
+
+  /* Chat launcher: smaller and without the looping bubble over content */
+  html.lx-js .unixi3d-wrap { transform: scale(0.58); }
+  html.lx-js .unixi-bubble, html.lx-js .unixi3d-hint { display: none; }
+}
