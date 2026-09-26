@@ -10,6 +10,8 @@ export function generateMetadata(): Promise<Metadata> {
     title: "Resources",
     description: "Free tools, templates, and guides to help you grow — no email wall on most of them.",
     path: "/resources",
+    // Not linked from the site any more: kept reachable but out of search.
+    noindex: true,
   });
 }
 

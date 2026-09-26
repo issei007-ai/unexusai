@@ -11,6 +11,8 @@ export function generateMetadata(): Promise<Metadata> {
     title: "Get a Quote",
     description: "Tell us what you need and we'll send a clear scope, timeline, and price within 48 hours.",
     path: "/quote",
+    // Not linked from the site any more: kept reachable but out of search.
+    noindex: true,
   });
 }
 

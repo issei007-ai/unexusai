@@ -13,6 +13,8 @@ export function generateMetadata(): Promise<Metadata> {
     title: "Portfolio",
     description: "Some of the brands and institutions we've worked with — from schools and D2C brands to enterprise tech.",
     path: "/portfolio",
+    // Not linked from the site any more: kept reachable but out of search.
+    noindex: true,
   });
 }
 
