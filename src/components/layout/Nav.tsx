@@ -45,19 +45,38 @@ export default function Nav() {
           className="hidden md:flex items-center gap-8 text-sm font-medium"
           style={{ color: "var(--color-brand-300)" }}
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="hover:text-white transition-colors relative group"
-            >
-              {link.label}
-              <span
-                className="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-all duration-300"
-                style={{ background: "var(--color-accent-400)" }}
-              />
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.children ? (
+              <div key={link.href} className="nav-dd relative group">
+                <a href={link.href} className="hover:text-white transition-colors inline-flex items-center gap-1" aria-haspopup="true">
+                  {link.label}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="nav-dd__chev">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </a>
+                <div className="nav-dd__panel" role="menu">
+                  {link.children.map((c) => (
+                    <a key={c.href} href={c.href} role="menuitem" className="nav-dd__item">
+                      <b>{c.label}</b>
+                      {c.desc && <span>{c.desc}</span>}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hover:text-white transition-colors relative group"
+              >
+                {link.label}
+                <span
+                  className="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-all duration-300"
+                  style={{ background: "var(--color-accent-400)" }}
+                />
+              </a>
+            ),
+          )}
         </div>
 
         {/* Desktop CTA */}
@@ -85,22 +104,36 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <div
+          data-nav-menu
           className="md:hidden px-6 py-5 flex flex-col gap-4"
           style={{
             background: "rgba(10,15,30,0.98)",
             borderTop: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium hover:text-white transition-colors"
-              style={{ color: "var(--color-brand-300)" }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.flatMap((link) =>
+            link.children
+              ? link.children.map((c) => (
+                  <a
+                    key={c.href}
+                    href={c.href}
+                    className="text-sm font-medium hover:text-white transition-colors"
+                    style={{ color: "var(--color-brand-300)" }}
+                  >
+                    {c.label}
+                  </a>
+                ))
+              : [
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-medium hover:text-white transition-colors"
+                    style={{ color: "var(--color-brand-300)" }}
+                  >
+                    {link.label}
+                  </a>,
+                ],
+          )}
           <a href="/book" className="btn btn-primary btn-sm w-fit mt-2">
             Book a Call
           </a>

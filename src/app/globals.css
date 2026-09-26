@@ -1553,3 +1553,21 @@ body::after {
   }
   .aurora__blob { animation: none !important; }
 }
+
+/* ─── NAV DROPDOWN (Blog → Blog / Industry news) ─────────────────────────── */
+.nav-dd__chev { transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+.nav-dd__panel {
+  position: absolute; left: 50%; top: 100%; min-width: 250px; padding: 0.45rem; margin-top: 0.6rem;
+  display: grid; gap: 0.15rem; border-radius: 16px;
+  background: rgba(10,15,30,0.98); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 50px -20px rgba(0,0,0,0.6);
+  opacity: 0; visibility: hidden; transform: translate(-50%, 6px) scale(0.98); transform-origin: 50% 0;
+  transition: opacity 180ms ease, transform 250ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 250ms;
+}
+.nav-dd__panel::before { content: ""; position: absolute; left: 0; right: 0; top: -0.8rem; height: 0.8rem; }
+.nav-dd:hover .nav-dd__panel, .nav-dd:focus-within .nav-dd__panel { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); transition-delay: 0s; }
+.nav-dd:hover .nav-dd__chev, .nav-dd:focus-within .nav-dd__chev { transform: rotate(180deg); }
+.nav-dd__item { display: grid; gap: 0.1rem; padding: 0.65rem 0.8rem; border-radius: 11px; text-decoration: none; transition: background-color 150ms ease; }
+.nav-dd__item b { font-weight: 600; color: #fff; font-size: 0.9rem; }
+.nav-dd__item span { font-size: 0.78rem; color: var(--color-brand-400); font-weight: 400; }
+.nav-dd__item:hover, .nav-dd__item:focus-visible { background: rgba(255,255,255,0.06); }
+@media (prefers-reduced-motion: reduce) { .nav-dd__panel, .nav-dd__chev { transition: none; } }
