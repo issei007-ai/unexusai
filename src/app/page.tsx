@@ -1,10 +1,11 @@
 import Nav from "@/components/layout/Nav";
 import LxFooter from "@/components/lx/LxFooter";
-import { SERVICES, CLIENTS } from "@/lib/constants";
+import { SERVICES } from "@/lib/constants";
 import { INDUSTRIES } from "@/components/sections/IndustriesSection";
 import { getSection } from "@/lib/cms";
 import {
   HOME_HERO_DEFAULTS,
+  HOME_CLIENTS_DEFAULTS,
   HOME_SERVICES_DEFAULTS,
   SERVICES_CARDS_DEFAULTS,
   HOME_INDUSTRIES_DEFAULTS,
@@ -19,6 +20,8 @@ import LxMotion from "@/components/lx/LxMotion";
 import UnixiStage from "@/components/lx/UnixiStage";
 import IndustryTabs from "@/components/lx/IndustryTabs";
 import LxContact from "@/components/lx/LxContact";
+import LxClientChip from "@/components/lx/LxClientChip";
+import type { Client } from "@/lib/constants";
 import LxScroll from "@/components/lx/LxScroll";
 import LxSplit from "@/components/lx/LxSplit";
 import "@/components/lx/lx.css";
@@ -40,13 +43,12 @@ const SERVICE_IMG: Record<string, string> = {
   "Market Research": "/services/market-research.png",
 };
 
-// Real client logos that hold up at strip size (the rest are tiny favicons).
-const LOGO_STRIP = ["Wentworth House", "Awake Solar", "Rajwada", "Shaadi Emporio", "Café Chennai", "Learning From Ant", "Lilawati Vidya Mandir"];
 
 
 export default async function HomePage() {
-  const [hero, servicesHead, cardsSec, ind, why, proc, testi] = await Promise.all([
+  const [hero, clientsSec, servicesHead, cardsSec, ind, why, proc, testi] = await Promise.all([
     getSection("home.hero", HOME_HERO_DEFAULTS),
+    getSection("home.clients", HOME_CLIENTS_DEFAULTS),
     getSection("home.services", HOME_SERVICES_DEFAULTS),
     getSection("services.cards", SERVICES_CARDS_DEFAULTS),
     getSection("home.industries", HOME_INDUSTRIES_DEFAULTS),
@@ -59,7 +61,7 @@ export default async function HomePage() {
     const o = cards?.find((c) => c.title === (s.cardTitle ?? s.title)) ?? cards?.find((c) => c.title === s.title);
     return { name: o?.title || s.cardTitle || s.title, desc: o?.desc || s.desc, href: s.href, img: SERVICE_IMG[s.title] };
   });
-  const logos = LOGO_STRIP.map((n) => CLIENTS.find((c) => c.name === n)).filter((c) => c?.logo);
+  const clients = clientsSec.items as Client[];
 
   return (
     <>
@@ -99,12 +101,12 @@ export default async function HomePage() {
             <div className="lx-wrap lx-logos__in">
               <p>{hero.trustLabel}</p>
               <div className="lx-logos__row">
-                <div className="lx-logos__track">
-                  {logos.map((c) => (
-                    <img key={c!.name} src={c!.logo} alt={c!.name} loading="lazy" />
+                <div className="lx-logos__track lx-logos__track--chips">
+                  {clients.map((c, i) => (
+                    <LxClientChip key={c.name} client={c} index={i} />
                   ))}
-                  {logos.map((c) => (
-                    <img key={`${c!.name}-2`} src={c!.logo} alt="" aria-hidden="true" loading="lazy" />
+                  {clients.map((c, i) => (
+                    <LxClientChip key={`${c.name}-2`} client={c} index={i} hidden />
                   ))}
                 </div>
               </div>

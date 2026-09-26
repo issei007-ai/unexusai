@@ -196,7 +196,7 @@ export default function LxScroll() {
         // ── Logo tiles pop in, then the marquee takes over ─────────────────
         const logos = document.querySelector(".lx-logos");
         if (logos && below(logos)) {
-          gsap.from($(".lx-logos__track img", logos).slice(0, 9), {
+          gsap.from($(".lx-logos__track > *", logos).slice(0, 8), {
             y: 30, opacity: 0, scale: 0.7, stagger: 0.05, duration: 0.8, ease: "back.out(2)", clearProps: "transform,opacity",
             scrollTrigger: { trigger: logos, start: "top 92%", once: true },
           });

@@ -164,3 +164,15 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
   .lx-uxi-say { right: auto; left: 0; top: auto; bottom: 16px; translate: -50% 0; max-width: 220px; transform-origin: 50% 100%; }
   .lx-uxi-say::after { right: auto; left: 50%; top: auto; bottom: -5px; margin-left: -6px; }
 }
+
+/* Client marquee (ported from redesign 1): light pills with logo, name, flag */
+.lx-logos__track--chips { gap: 0.75rem; animation-duration: 42s; }
+.lx-chipc { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; padding: 0.4rem 1rem 0.4rem 0.4rem; border-radius: 999px; background: var(--lx-bg); border: 1px solid var(--lx-line); transition: transform 300ms var(--lx-ease), border-color 250ms ease, background-color 250ms ease; }
+.lx-chipc span { font-size: 0.9rem; font-weight: 600; color: var(--lx-ink-2); white-space: nowrap; }
+.lx-chipc__flag { width: 22px; height: 15px; border-radius: 3px; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(12, 14, 20, 0.08); }
+.lx-chipc > :first-child { flex-shrink: 0; }
+@media (hover: hover) and (pointer: fine) { .lx-chipc:hover { transform: translateY(-2px); border-color: #c9c5f3; background: #fff; } }
+/* the old logo-tile rule (.lx-logos__row img) must not reach chip images */
+.lx-logos__row .lx-chipc img { width: auto; height: auto; max-width: 100%; max-height: 100%; padding: 0; background: none; border-radius: 0; transition: none; }
+.lx-logos__row .lx-chipc > :first-child > div { overflow: hidden; background: #0c0e14 !important; }
+.lx-logos__row .lx-chipc .lx-chipc__flag { width: 22px; height: 15px; max-width: none; border-radius: 3px; object-fit: cover; }
