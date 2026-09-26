@@ -9,6 +9,7 @@ import { lxFontVars } from "@/components/lx/fonts";
 import LxMotion from "@/components/lx/LxMotion";
 import SerpClimb from "@/components/lx/SerpClimb";
 import SvcOrbit from "@/components/lx/SvcOrbit";
+import LxRail from "@/components/lx/LxRail";
 import LxScroll from "@/components/lx/LxScroll";
 import LxSplit from "@/components/lx/LxSplit";
 import LxContact from "@/components/lx/LxContact";
@@ -164,14 +165,7 @@ export default function LxServicePage({
                 <h2 className="lx-h2" data-lx-fill><LxSplit text={approachTitle} /></h2>
                 {approachIntro && <p className="lx-lede">{approachIntro}</p>}
               </div>
-              <ol className="lx-rail">
-                {approach.map((s) => (
-                  <li key={s.title}>
-                    <h3>{s.title}</h3>
-                    <p>{s.desc}</p>
-                  </li>
-                ))}
-              </ol>
+              <LxRail steps={approach} />
               </div>
               <div style={{ marginTop: "clamp(2.5rem, 5vw, 4rem)" }}>
                 <Figure img={sectionImages?.approach} />

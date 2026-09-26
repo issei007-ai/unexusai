@@ -115,8 +115,20 @@ html.lx-js [data-nav].lx-nav-hide { transform: translateY(-105%); }
 @keyframes lx-bob { 50% { transform: translateY(-14px); } }
 
 /* Service page extras */
-/* Process steps: a wrapping grid on desktop, a swipeable row on phones. */
-@media (min-width: 1000px) { .lx .lx-rail { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); overflow: visible; padding-bottom: 0; } }
+/* Process steps: a sideways row the visitor moves (swipe, drag, arrows). */
+.lx .lx-rail { grid-auto-flow: column; grid-auto-columns: clamp(260px, 27vw, 340px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 2px; padding: 0.6rem 0 1.6rem; margin-block: -0.6rem -1.2rem; scrollbar-width: none; cursor: grab; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
+.lx .lx-rail::-webkit-scrollbar { display: none; }
+.lx .lx-rail.is-drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.lx .lx-rail:focus-visible { outline: 2px solid var(--lx-accent); outline-offset: 6px; }
+.lx-rail li { transition: transform 400ms var(--lx-ease), box-shadow 400ms ease; }
+@media (hover: hover) and (pointer: fine) { .lx-rail:not(.is-drag) li:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -30px rgba(30, 26, 90, 0.45); } }
+.lx-railbar { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.4rem; }
+.lx-railbar__track { flex: 1; height: 3px; border-radius: 3px; background: var(--lx-line); overflow: hidden; }
+.lx-railbar__track span { display: block; height: 100%; background: var(--lx-accent); transform-origin: 0 50%; transition: transform 200ms linear; }
+.lx-railbar__btn { width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 1.5px solid var(--lx-line); background: var(--lx-surface); color: var(--lx-ink); font-size: 1.1rem; cursor: pointer; transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--lx-ease), opacity 200ms ease; }
+.lx-railbar__btn:active { transform: scale(0.94); }
+.lx-railbar__btn:disabled { opacity: 0.35; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .lx-railbar__btn:not(:disabled):hover { background: var(--lx-ink); color: #fff; border-color: var(--lx-ink); } }
 .lx-pills li { transition: background-color 250ms ease, color 250ms ease, transform 300ms var(--lx-ease); }
 @media (hover: hover) and (pointer: fine) { .lx-pills li:hover { background: #fff; color: var(--lx-accent); transform: translateY(-3px); } }
 .lx-inc > div { transition: border-color 300ms ease, transform 400ms var(--lx-ease); }
