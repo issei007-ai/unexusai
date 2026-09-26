@@ -23,8 +23,6 @@ const FOOTER_COLS = [
   { title: "Work with us", links: [
     { label: "Get a Free Audit", href: "/audit" },
     { label: "Book a Call", href: "/book" },
-    { label: "Get a Quote", href: "/quote" },
-    { label: "Resources", href: "/resources" },
   ]},
 ];
 
