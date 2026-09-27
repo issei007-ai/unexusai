@@ -1,6 +1,8 @@
 export interface NavLink {
   label: string;
   href: string;
+  /** Sub-links shown in a dropdown (desktop) or indented (mobile). */
+  children?: { label: string; href: string; desc?: string }[];
 }
 
 export interface Stat {

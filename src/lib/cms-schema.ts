@@ -1,4 +1,5 @@
 import { BLOG_POSTS } from "./blog";
+import { NEWS_POSTS } from "./news";
 
 /** Field + section schema that drives both the page rendering and the /admin/content editor. */
 
@@ -539,6 +540,14 @@ export const BLOG_PAGE_DEFAULTS = {
 };
 export const BLOG_POSTS_DEFAULTS = { items: BLOG_POSTS };
 
+// ── News ─────────────────────────────────────────────────────────────────────
+export const NEWS_PAGE_DEFAULTS = {
+  heroEyebrow: "News",
+  heroTitle: "News from Unexus AI",
+  heroSubtitle: "Announcements, launches, client wins and events from the team.",
+};
+export const NEWS_POSTS_DEFAULTS = { items: NEWS_POSTS };
+
 // ── Case Studies ─────────────────────────────────────────────────────────────
 export const CASESTUDIES_PAGE_DEFAULTS = {
   heroEyebrow: "Case Studies",
@@ -593,6 +602,35 @@ SECTIONS.push(
       ] },
     ],
     defaults: BLOG_POSTS_DEFAULTS,
+  },
+  {
+    key: "news.page", label: "Page (hero)", group: "News",
+    fields: [
+      { name: "heroEyebrow", label: "Hero eyebrow", type: "text" },
+      { name: "heroTitle", label: "Hero title", type: "text" },
+      { name: "heroSubtitle", label: "Hero subtitle", type: "textarea" },
+      ...seoMetaFields(),
+    ],
+    defaults: NEWS_PAGE_DEFAULTS,
+  },
+  {
+    key: "news.posts", label: "News items", group: "News",
+    fields: [
+      { name: "items", label: "News items", type: "items", itemLabel: "news item", help: "Newest first. Body accepts HTML. Slug must be unique and URL-safe (e.g. unexus-ai-opens-riyadh-office).", itemFields: [
+        { name: "slug", label: "URL slug", type: "text" },
+        { name: "image", label: "Cover image", type: "image" },
+        { name: "imageAlt", label: "Cover image — alt text", type: "text", help: "Describe the image for search engines and screen readers. Falls back to the title if left blank." },
+        { name: "author", label: "Author", type: "text", help: "Defaults to Unexus AI if blank." },
+        { name: "cat", label: "Category", type: "text", help: "e.g. Announcement, Client win, Event, Award" },
+        { name: "title", label: "Title", type: "text" },
+        { name: "excerpt", label: "Summary", type: "textarea" },
+        { name: "date", label: "Date", type: "text", help: "As it should appear, e.g. 26 Sep 2026" },
+        { name: "metaTitle", label: "SEO title", type: "text" },
+        { name: "metaDescription", label: "SEO description", type: "textarea" },
+        { name: "body", label: "Body (HTML)", type: "textarea" },
+      ] },
+    ],
+    defaults: NEWS_POSTS_DEFAULTS,
   },
   {
     key: "casestudies.page", label: "Page (hero + CTA)", group: "Case Studies",

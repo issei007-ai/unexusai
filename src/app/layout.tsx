@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { lxFontVars } from "@/components/lx/fonts";
 import "./globals.css";
 import { buildMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import Analytics from "@/components/ui/Analytics";
@@ -17,7 +16,7 @@ export function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [orgLd, siteLd] = await Promise.all([organizationJsonLd(), websiteJsonLd()]);
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={lxFontVars}>
       <head>
         {/* Google Consent Mode v2 — must run before GA4/GTM load. Everything
             defaults to denied (cookieless pings only); a returning visitor who

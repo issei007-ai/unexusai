@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_MARKET_RESEARCH_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -17,5 +17,5 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default async function MarketResearchPage() {
   const c = await getSection("services.market-research", SVC_MARKET_RESEARCH_DEFAULTS);
-  return <ServicePageTemplate {...toServiceProps(c)} serviceName="Market Research" servicePath="/services/market-research" />;
+  return <LxServicePage {...toServiceProps(c)} serviceName="Market Research" servicePath="/services/market-research" />;
 }

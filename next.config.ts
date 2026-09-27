@@ -56,6 +56,8 @@ const nextConfig: NextConfig = {
     // 75 is Next's default; 90 is used for the service-page section images
     // (diagrams/infographics with small text that blur at 75).
     qualities: [75, 90],
+    // Blog / news cover images uploaded through the admin live in Vercel Blob.
+    remotePatterns: [{ protocol: "https", hostname: "**.public.blob.vercel-storage.com", pathname: "/**" }],
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

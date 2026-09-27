@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_AI_TRAINING_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -17,5 +17,5 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default async function AITrainingPage() {
   const c = await getSection("services.ai-training", SVC_AI_TRAINING_DEFAULTS);
-  return <ServicePageTemplate {...toServiceProps(c)} serviceName="AI Training" servicePath="/services/ai-training" />;
+  return <LxServicePage {...toServiceProps(c)} serviceName="AI Training" servicePath="/services/ai-training" />;
 }

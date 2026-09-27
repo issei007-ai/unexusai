@@ -8,7 +8,14 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
-  { label: "Blog", href: "/blog" },
+  {
+    label: "Blog",
+    href: "/blog",
+    children: [
+      { label: "Blog", href: "/blog", desc: "Our playbooks and field notes" },
+      { label: "News", href: "/news", desc: "Announcements and updates from the team" },
+    ],
+  },
 ];
 
 export const SERVICES: Service[] = [

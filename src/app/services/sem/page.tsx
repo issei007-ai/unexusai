@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_SEM_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -17,5 +17,5 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default async function SEMPage() {
   const c = await getSection("services.sem", SVC_SEM_DEFAULTS);
-  return <ServicePageTemplate {...toServiceProps(c)} serviceName="SEM — Search Engine Marketing" servicePath="/services/sem" />;
+  return <LxServicePage {...toServiceProps(c)} serviceName="SEM — Search Engine Marketing" servicePath="/services/sem" />;
 }

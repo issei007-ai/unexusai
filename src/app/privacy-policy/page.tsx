@@ -1,6 +1,5 @@
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/sections/PageHero";
+import LxShell from "@/components/lx/LxShell";
+import LxPageHero from "@/components/lx/LxPageHero";
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
@@ -15,13 +14,11 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      <Nav />
-      <main>
-        <PageHero eyebrow="Legal" title="Privacy Policy" subtitle="Last updated 9 June 2026" />
+    <LxShell>
+        <LxPageHero eyebrow="Legal" title="Privacy Policy" subtitle="Last updated 9 June 2026" orbit={false} narrow />
 
-        <section className="section" style={{ paddingTop: "1rem" }}>
-          <div className="container max-w-3xl prose-dark">
+        <section className="lx-sec" style={{ paddingTop: "1rem" }}>
+          <div className="lx-wrap lx-article lx-prose">
             <p>This Privacy Policy explains how Unexus AI (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects, uses, and protects information about you when you visit our website or engage our services.</p>
 
             <h2>Information we collect</h2>
@@ -50,11 +47,9 @@ export default function PrivacyPolicyPage() {
             <h2>Contact</h2>
             <p>For any privacy-related questions or requests, email <strong>privacy@unexus.ai</strong>.</p>
 
-            <p style={{ color: "var(--color-brand-500)", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
+            <p style={{ color: "#767b89", fontSize: "0.85rem" }}>This document is a template and should be reviewed by qualified legal counsel before launch.</p>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+      </LxShell>
   );
 }

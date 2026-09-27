@@ -16,7 +16,7 @@ type Industry = {
 
 const sw = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
-const INDUSTRIES: Industry[] = [
+export const INDUSTRIES: Industry[] = [
   {
     name: "E-commerce",
     segments: "UAE · India · Cross-border retail",

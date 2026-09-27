@@ -169,6 +169,17 @@ export default function ChatWidget() {
     timers.current.push(t);
   }
 
+  // Lets other parts of the page (the hero Unixi easter egg) open the chat.
+  const openRef = useRef(openChat);
+  useEffect(() => {
+    openRef.current = openChat;
+  });
+  useEffect(() => {
+    const onOpen = () => openRef.current();
+    window.addEventListener("unixi:chat", onOpen);
+    return () => window.removeEventListener("unixi:chat", onOpen);
+  }, []);
+
   // Talking overrides idle while the typing dots are up.
   const avatarState: UnixiState = typing ? "talking" : avatar;
 

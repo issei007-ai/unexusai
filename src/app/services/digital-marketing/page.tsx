@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_DIGITAL_MARKETING_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -17,5 +17,5 @@ export function generateMetadata(): Promise<Metadata> {
 
 export default async function DigitalMarketingPage() {
   const c = await getSection("services.digital-marketing", SVC_DIGITAL_MARKETING_DEFAULTS);
-  return <ServicePageTemplate {...toServiceProps(c)} serviceName="Digital Marketing" servicePath="/services/digital-marketing" />;
+  return <LxServicePage {...toServiceProps(c)} serviceName="Digital Marketing" servicePath="/services/digital-marketing" />;
 }

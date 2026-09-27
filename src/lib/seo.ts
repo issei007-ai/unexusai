@@ -106,10 +106,11 @@ export function articleJsonLd(opts: {
   url: string;
   image?: string;
   authorName?: string;
+  type?: "BlogPosting" | "NewsArticle";
 }): Record<string, unknown> {
   const ld: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": opts.type ?? "BlogPosting",
     headline: opts.title,
     description: opts.description,
     url: opts.url,

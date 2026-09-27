@@ -1,8 +1,7 @@
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import ContactCTA from "@/components/sections/ContactCTA";
-import PageHero from "@/components/sections/PageHero";
-import CaseStudiesGrid from "@/components/sections/CaseStudiesGrid";
+import LxShell from "@/components/lx/LxShell";
+import LxPageHero from "@/components/lx/LxPageHero";
+import LxCaseGrid from "@/components/lx/LxCaseGrid";
+import LxContact from "@/components/lx/LxContact";
 import { getSection } from "@/lib/cms";
 import { CASESTUDIES_PAGE_DEFAULTS, CASESTUDIES_CASES_DEFAULTS } from "@/lib/cms-schema";
 import type { Metadata } from "next";
@@ -34,20 +33,17 @@ export default async function CaseStudiesPage() {
       return { value: (value || "").trim(), label: rest.join("|").trim() };
     }),
   }));
+  const orbit = cases.flatMap((c) => c.metrics.slice(0, 1).map((m) => `${m.value} ${m.label}`)).slice(0, 6);
 
   return (
-    <>
-      <Nav />
-      <main>
-        <PageHero eyebrow={page.heroEyebrow} title={page.heroTitle} subtitle={page.heroSubtitle}>
-          <a href="#contact" className="btn btn-primary btn-lg">Start your story</a>
-        </PageHero>
+    <LxShell>
+      <LxPageHero eyebrow={page.heroEyebrow} title={page.heroTitle} subtitle={page.heroSubtitle} orbit={orbit}>
+        <a href="#contact" className="lx-btn lx-btn--primary">Start your story</a>
+      </LxPageHero>
 
-        <CaseStudiesGrid cases={cases} />
+      <LxCaseGrid cases={cases} />
 
-        <ContactCTA heading={page.ctaHeading} body={page.ctaBody} imageSeed="unexus-results" />
-      </main>
-      <Footer />
-    </>
+      <LxContact heading={page.ctaHeading} body={page.ctaBody} />
+    </LxShell>
   );
 }

@@ -1,4 +1,4 @@
-import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
+import LxServicePage from "@/components/lx/LxServicePage";
 import { getSection } from "@/lib/cms";
 import { SVC_SEO_DEFAULTS } from "@/lib/cms-schema";
 import { toServiceProps } from "@/lib/service-cms";
@@ -18,7 +18,7 @@ export function generateMetadata(): Promise<Metadata> {
 export default async function SEOPage() {
   const c = await getSection("services.seo", SVC_SEO_DEFAULTS);
  return (
-  <ServicePageTemplate
+  <LxServicePage
     {...toServiceProps(c)}
     primaryCta={{
       label: "Get in Touch →",
