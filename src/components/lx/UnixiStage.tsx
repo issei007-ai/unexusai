@@ -549,7 +549,7 @@ totalEmissiveRadiance += diffuseColor.rgb * uxPurple * uxEye * (1.0 - uxClosed) 
           group.scale.set(base * (1 - sq * 0.5), base * (1 + sq), base * (1 - sq * 0.5));
         }
         const awake = 1 - sleepK;
-        rotY += ((pointer.x * 0.26 + (reduce ? 0 : Math.sin(t * 0.4) * 0.1)) * awake + sp * 2.4 - (1 - intro) * 2.6 - rotY) * 0.06;
+        rotY += ((pointer.x * 0.14 + (reduce ? 0 : Math.sin(t * 0.4) * 0.06)) * awake - (1 - intro) * 2.6 - rotY) * 0.06;
         rotX += (pointer.y * 0.18 * awake - rotX + catchK * 0.25 + sleepK * 0.5) * 0.08;
         group.rotation.y = rotY + ay;
         group.rotation.x = rotX + ax;
@@ -574,10 +574,10 @@ totalEmissiveRadiance += diffuseColor.rgb * uxPurple * uxEye * (1.0 - uxClosed) 
         const nodP = pk === 1 ? pkArc * 0.35 : 0;
 
         bone("Spine02", Math.sin(t * 1.6) * 0.035 * (reduce ? 0 : 1) + sleepK * 0.18, 0, 0);
-        bone("NeckTwist01", sleepK * 0.2, look.x * 0.12 * lv, 0);
+        bone("NeckTwist01", sleepK * 0.2, look.x * 0.06 * lv, 0);
         bone("Head",
           look.y * 0.16 * lv + nodP + sleepK * 0.32 - jolt * 0.2,
-          look.x * 0.3 * lv + Math.sin(t * 0.55) * 0.08 * lv,
+          look.x * 0.16 * lv + Math.sin(t * 0.55) * 0.05 * lv,
           Math.sin(t * 0.8) * 0.06 * lv + dizzy + sleepK * 0.14,
         );
         // right arm (the raised one): wave from the elbow and wrist
