@@ -213,10 +213,28 @@ export default function LxScroll() {
             const len = p.getTotalLength();
             gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
           });
-          gsap.timeline({ scrollTrigger: { trigger: flow, start: "top 80%", end: "top 30%", scrub: 0.8 } })
-            .from($(".lx-chip", flow), narrow ? { y: 18, opacity: 0, stagger: 0.12, ease: "power3.out" } : { x: -70, opacity: 0, stagger: 0.12, ease: "power3.out" }, 0)
-            .to(paths, { strokeDashoffset: 0, stagger: 0.08, ease: "none" }, 0.2)
-            .from(flow.querySelector(".lx-flow__out"), narrow ? { scale: 0.85, opacity: 0, ease: "back.out(1.6)" } : { scale: 0.7, opacity: 0, x: 40, ease: "back.out(1.6)" }, 0.55);
+          const tl = gsap.timeline({ scrollTrigger: { trigger: flow, start: "top 80%", end: "top 30%", scrub: 0.8 } });
+          tl.to(paths, { strokeDashoffset: 0, stagger: 0.08, ease: "none" }, 0.2);
+          if (narrow) {
+            // Phones: boxes and card animate in on their own once visible, so a
+            // lagging scroll position can never leave them offset.
+            // IntersectionObserver rather than scroll tracking: it fires even
+            // when the phone's scroll events arrive late.
+            const items = $(".lx-chip, .lx-flow__out", flow);
+            gsap.set(items, { opacity: 0, y: 18 });
+            const seen = new IntersectionObserver((entries) => {
+              for (const e of entries) {
+                if (!e.isIntersecting) continue;
+                seen.unobserve(e.target);
+                gsap.to(e.target, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out", delay: items.indexOf(e.target as HTMLElement) * 0.07, clearProps: "transform,opacity" });
+              }
+            }, { rootMargin: "0px 0px -8% 0px" });
+            items.forEach((el) => seen.observe(el));
+            cleanups.push(() => seen.disconnect());
+          } else {
+            tl.from($(".lx-chip", flow), { x: -70, opacity: 0, stagger: 0.12, ease: "power3.out" }, 0)
+              .from(flow.querySelector(".lx-flow__out"), { scale: 0.7, opacity: 0, x: 40, ease: "back.out(1.6)" }, 0.55);
+          }
         }
 
         // ── Process line draws itself; steps light up as it passes ─────────
