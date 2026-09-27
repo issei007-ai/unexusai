@@ -66,8 +66,8 @@ export default async function ServicesPage() {
                 <span className="lx-go" aria-hidden="true">↗</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {s.img && (
-                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(/_next/image?url=${encodeURIComponent(s.img)}&w=384&q=75)`, ["--k" as string]: i }}>
-                    <Image src={s.img} alt={s.name} width={156} height={156} sizes="156px" />
+                  <span className="lx-svc__art" style={{ ["--art" as string]: `url(/_next/image?url=${encodeURIComponent(s.img)}&w=128&q=75)`, ["--k" as string]: i }}>
+                    <Image src={s.img} alt={s.name} width={156} height={156} sizes="(max-width: 700px) 88px, 156px" />
                   </span>
                 )}
                 <div>

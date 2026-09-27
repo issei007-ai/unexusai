@@ -681,7 +681,7 @@ totalEmissiveRadiance += diffuseColor.rgb * uxPurple * uxEye * (1.0 - uxClosed) 
       <div className="lx-stage__ring" aria-hidden="true" />
       <div ref={pulseEl} className="lx-stage__pulse" aria-hidden="true" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={`lx-stage__poster${ready ? " is-hidden" : ""}`} src="/unixi-poster.webp" alt="" aria-hidden="true" width={602} height={577} fetchPriority="high" />
+      <img className={`lx-stage__poster${ready ? " is-hidden" : ""}`} src="/unixi-poster.webp" srcSet="/unixi-poster-400.webp 400w, /unixi-poster.webp 602w" sizes="(max-width: 700px) 92vw, 560px" alt="" aria-hidden="true" width={602} height={577} fetchPriority="high" />
       <div ref={glRef} className={`lx-stage__gl${ready ? " is-ready" : ""}`} aria-hidden="true" />
       <div ref={headRef} className="lx-uxi-anchor">
         {asleep && (

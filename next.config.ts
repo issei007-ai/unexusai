@@ -52,6 +52,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Put the (small, ~30 KB) CSS straight into the HTML instead of separate
+  // render-blocking stylesheet requests: first paint no longer waits on them.
+  experimental: { inlineCss: true },
   images: {
     // 75 is Next's default; 90 is used for the service-page section images
     // (diagrams/infographics with small text that blur at 75).
