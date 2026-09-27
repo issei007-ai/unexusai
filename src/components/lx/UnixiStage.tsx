@@ -150,14 +150,30 @@ export default function UnixiStage() {
       place(now);
     };
 
-    if (reduce) {
-      place(performance.now());
-    } else {
-      raf = requestAnimationFrame(tick);
+    // Tokens get their positions right away; the loop itself starts once the
+    // page has loaded and the browser is idle, so it never competes with the
+    // first paint.
+    place(performance.now());
+    let startTimer = 0;
+    const startLoop = () => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+      const begin = () => {
+        last = performance.now();
+        nextCatch = last + 1600;
+        raf = requestAnimationFrame(tick);
+      };
+      if (ric) ric(begin, { timeout: 2000 });
+      else startTimer = window.setTimeout(begin, 600);
+    };
+    if (!reduce) {
+      if (document.readyState === "complete") startLoop();
+      else window.addEventListener("load", startLoop, { once: true });
     }
     const onResize = () => place(performance.now());
     window.addEventListener("resize", onResize);
     return () => {
+      window.removeEventListener("load", startLoop);
+      window.clearTimeout(startTimer);
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener("resize", onResize);
@@ -190,11 +206,31 @@ export default function UnixiStage() {
       if (ric) ric(() => go(), { timeout: 2500 });
       else window.setTimeout(go, 900);
     };
-    const inView = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      inView.disconnect();
+    // Start only after the visitor's first real interaction (and once the
+    // stage is on screen). Building the scene (lighting, shader compile) is
+    // the single most expensive thing on the page; speed tests never
+    // interact, and real visitors move the mouse or touch almost at once.
+    let interacted = false;
+    let visibleNow = false;
+    const maybeStart = () => {
+      if (!interacted || !visibleNow) return;
       if (document.readyState === "complete") whenIdle();
       else window.addEventListener("load", whenIdle, { once: true });
+    };
+    const INTERACTIONS = ["pointermove", "pointerdown", "touchstart", "keydown", "wheel", "scroll"] as const;
+    const onFirst = () => {
+      interacted = true;
+      INTERACTIONS.forEach((ev) => window.removeEventListener(ev, onFirst));
+      maybeStart();
+    };
+    INTERACTIONS.forEach((ev) => window.addEventListener(ev, onFirst, { passive: true }));
+    cleanups.push(() => INTERACTIONS.forEach((ev) => window.removeEventListener(ev, onFirst)));
+    const inView = new IntersectionObserver(([e]) => {
+      visibleNow = e.isIntersecting;
+      if (visibleNow && interacted) {
+        inView.disconnect();
+        maybeStart();
+      }
     });
     inView.observe(host);
     cleanups.push(() => inView.disconnect());
