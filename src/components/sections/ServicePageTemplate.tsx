@@ -6,7 +6,21 @@ import PageHero from "@/components/sections/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import RevealText3D from "@/components/ui/RevealText3D";
 import FAQ from "@/components/ui/FAQ";
-import { PROCESS_STEPS, WHY_US } from "@/lib/constants";
+import Link from "next/link";
+import { PROCESS_STEPS, WHY_US, SERVICES } from "@/lib/constants";
+import { BLOG_POSTS } from "@/lib/blog";
+
+// Contextual internal links shown near the bottom of each service page.
+const RELATED: Record<string, { services: string[]; posts?: string[] }> = {
+  "/services/digital-marketing": { services: ["/services/seo", "/services/sem", "/services/market-research"], posts: ["best-in-class-marketing-shift"] },
+  "/services/seo": { services: ["/services/geo", "/services/sem", "/services/website-development"], posts: ["generative-engine-optimization-explained"] },
+  "/services/sem": { services: ["/services/seo", "/services/digital-marketing", "/services/website-development"], posts: ["best-in-class-marketing-shift"] },
+  "/services/geo": { services: ["/services/seo", "/services/digital-marketing", "/services/ai-automation"], posts: ["generative-engine-optimization-explained"] },
+  "/services/website-development": { services: ["/services/seo", "/services/sem", "/services/ai-automation"] },
+  "/services/ai-automation": { services: ["/services/ai-training", "/services/website-development", "/services/digital-marketing"] },
+  "/services/ai-training": { services: ["/services/ai-automation", "/services/geo", "/services/market-research"] },
+  "/services/market-research": { services: ["/services/digital-marketing", "/services/seo", "/services/sem"], posts: ["how-to-interview-customers-without-leading-them"] },
+};
 import { faqJsonLd, serviceJsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { SERVICE_IMAGE_SIZES } from "@/lib/service-image-sizes";
 
@@ -157,6 +171,7 @@ export default function ServicePageTemplate({
   serviceName,
   servicePath,
 }: ServiceTemplateProps) {
+  const related = servicePath ? RELATED[servicePath] : undefined;
   return (
     <>
       {faqs.length > 0 && (
@@ -504,6 +519,42 @@ export default function ServicePageTemplate({
                 <span style={{ color: accent, fontWeight: 700 }}>What changes — </span>
                 <span className="text-white">{closing}</span>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Related services + reading (contextual internal links) */}
+        {related && (
+          <section className="section">
+            <div className="container max-w-5xl">
+              <h2 className="text-h3 mb-6 text-center">Related services</h2>
+              <div className="grid gap-4 md:grid-cols-3">
+                {related.services.map((href) => {
+                  const s = SERVICES.find((x) => x.href === href);
+                  if (!s) return null;
+                  return (
+                    <Link key={href} href={href} className="block rounded-2xl p-5 transition-colors hover:bg-white/5" style={{ border: `1px solid ${accent}40` }}>
+                      <span className="block font-semibold text-white mb-1">{s.cardTitle ?? s.title} →</span>
+                      <span className="text-sm" style={{ color: "var(--color-brand-300)" }}>{s.desc}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+              {related.posts?.length ? (
+                <p className="mt-6 text-center" style={{ color: "var(--color-brand-300)" }}>
+                  Further reading:{" "}
+                  {related.posts.map((slug, i) => {
+                    const p = BLOG_POSTS.find((x) => x.slug === slug);
+                    if (!p) return null;
+                    return (
+                      <span key={slug}>
+                        {i > 0 && " · "}
+                        <Link href={`/blog/${slug}`} className="underline" style={{ color: accent }}>{p.title}</Link>
+                      </span>
+                    );
+                  })}
+                </p>
+              ) : null}
             </div>
           </section>
         )}

@@ -5,6 +5,7 @@ const FOOTER_COLS = [
   { title: "Services", links: [
     { label: "Digital Marketing", href: "/services/digital-marketing" },
     { label: "SEO", href: "/services/seo" },
+    { label: "SEM", href: "/services/sem" },
     { label: "Website Development", href: "/services/website-development" },
     { label: "AI Automation", href: "/services/ai-automation" },
     { label: "AI Training", href: "/services/ai-training" },
