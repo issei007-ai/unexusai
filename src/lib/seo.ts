@@ -4,6 +4,37 @@ import { SEO_GLOBAL_DEFAULTS } from "./cms-schema";
 
 export const SITE_URL = "https://www.unexusai.com";
 
+/** Raster logo for schema.org (Google wants a crawlable image, not inline SVG). */
+export const LOGO_URL = `${SITE_URL}/logo.png`;
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const FOUNDER_ID = `${SITE_URL}/#richa-gupta`;
+
+/** The logo as a schema.org ImageObject. */
+export const logoJsonLd = () => ({ "@type": "ImageObject", url: LOGO_URL });
+
+/** The publishing organisation, as referenced from articles and services. */
+const publisherJsonLd = () => ({ "@type": "Organization", "@id": ORG_ID, name: "Unexus AI", url: SITE_URL, logo: logoJsonLd() });
+
+/** Used when the CMS has no social links saved yet. */
+const DEFAULT_SAME_AS = [
+  "https://www.facebook.com/unexusai",
+  "https://www.instagram.com/unexusai",
+  "https://www.linkedin.com/company/unexusai/",
+];
+
+const KNOWS_ABOUT = [
+  "Digital Marketing",
+  "Search Engine Optimization",
+  "Search Engine Marketing",
+  "Generative Engine Optimization",
+  "Website Development",
+  "AI Automation",
+  "AI Training",
+  "Market Research",
+  "Paid Media",
+];
+
 export type GlobalSeo = typeof SEO_GLOBAL_DEFAULTS;
 
 /** The global SEO/social settings, merged over their defaults. */
@@ -14,6 +45,8 @@ export function getGlobalSeo(): Promise<GlobalSeo> {
 export interface PageSeo {
   /** Page title without the site-name suffix. Omit for the global default title. */
   title?: string;
+  /** Use `title` exactly as given, without the " — Unexus AI" suffix. */
+  absoluteTitle?: boolean;
   description?: string;
   /** Path from the site root, e.g. "/services/seo" — used for canonical + og:url. */
   path?: string;
@@ -31,7 +64,7 @@ export interface PageSeo {
 export async function buildMetadata(page: PageSeo = {}): Promise<Metadata> {
   const g = await getGlobalSeo();
   const siteName = g.siteName || "Unexus AI";
-  const title = page.title ? `${page.title} — ${siteName}` : g.defaultTitle || siteName;
+  const title = page.title ? (page.absoluteTitle ? page.title : `${page.title} — ${siteName}`) : g.defaultTitle || siteName;
   const description = page.description || g.defaultDescription || "";
   const url = page.path ? `${SITE_URL}${page.path}` : SITE_URL;
   // Falls back to the code-generated default (app/opengraph-image.tsx) so every
@@ -116,7 +149,7 @@ export function articleJsonLd(opts: {
     url: opts.url,
     mainEntityOfPage: opts.url,
     author: { "@type": "Person", name: opts.authorName || "Unexus AI" },
-    publisher: { "@type": "Organization", name: "Unexus AI" },
+    publisher: publisherJsonLd(),
   };
   if (opts.image) ld.image = opts.image;
   return ld;
@@ -135,7 +168,7 @@ export function serviceJsonLd(opts: {
     name: opts.name,
     description: opts.description,
     url: opts.url,
-    provider: { "@type": "Organization", name: opts.provider },
+    provider: { ...publisherJsonLd(), name: opts.provider },
   };
 }
 
@@ -169,27 +202,24 @@ export function faqJsonLd(faqs: { q: string; a: string }[]): Record<string, unkn
 }
 
 /**
- * Organization schema.org JSON-LD, from the global SEO section. Typed as
- * ProfessionalService (a LocalBusiness subtype) so AI/search engines get the
- * full entity: what we do, where, who founded it, and how to reach us.
+ * Organization schema.org JSON-LD, from the global SEO section (rendered on
+ * every page by the root layout). Other schema blocks point at it by @id.
  */
 export async function organizationJsonLd(): Promise<Record<string, unknown>> {
   const g = await getGlobalSeo();
-  const sameAs = Array.isArray(g.socialLinks) ? g.socialLinks.filter(Boolean) : [];
+  const saved = Array.isArray(g.socialLinks) ? g.socialLinks.filter(Boolean) : [];
+  const sameAs = saved.length ? saved : DEFAULT_SAME_AS;
   const areaServed = Array.isArray(g.areaServed) ? g.areaServed.filter(Boolean) : [];
   const ld: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
+    "@id": ORG_ID,
     name: g.organizationName || g.siteName || "Unexus AI",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
+    logo: g.organizationLogo ? { "@type": "ImageObject", url: g.organizationLogo } : logoJsonLd(),
   };
   if (g.organizationDescription) ld.description = g.organizationDescription;
-  if (g.organizationLogo) {
-    ld.logo = g.organizationLogo;
-    ld.image = g.organizationLogo;
-  }
-  if (g.organizationEmail) ld.email = g.organizationEmail;
-  if (g.organizationPhone) ld.telephone = g.organizationPhone;
+  if (g.founderName) ld.founder = { "@type": "Person", "@id": FOUNDER_ID, name: g.founderName, jobTitle: "Founder" };
   if (g.organizationCity || g.organizationCountry) {
     ld.address = {
       "@type": "PostalAddress",
@@ -197,9 +227,11 @@ export async function organizationJsonLd(): Promise<Record<string, unknown>> {
       ...(g.organizationCountry ? { addressCountry: g.organizationCountry } : {}),
     };
   }
-  if (areaServed.length) ld.areaServed = areaServed;
-  if (g.founderName) ld.founder = { "@type": "Person", name: g.founderName };
-  if (sameAs.length) ld.sameAs = sameAs;
+  if (g.organizationPhone) ld.telephone = g.organizationPhone;
+  if (g.organizationEmail) ld.email = g.organizationEmail;
+  ld.sameAs = sameAs;
+  if (areaServed.length) ld.areaServed = areaServed.map((name) => ({ "@type": "Country", name }));
+  ld.knowsAbout = KNOWS_ABOUT;
   return ld;
 }
 
@@ -210,8 +242,10 @@ export async function websiteJsonLd(): Promise<Record<string, unknown>> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": WEBSITE_ID,
     name,
-    url: SITE_URL,
-    publisher: { "@type": "Organization", name: g.organizationName || name },
+    url: `${SITE_URL}/`,
+    publisher: { "@id": ORG_ID },
+    inLanguage: "en",
   };
 }

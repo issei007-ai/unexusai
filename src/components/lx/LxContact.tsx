@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import LeadForm from "@/components/ui/LeadForm";
 import PhoneField from "@/components/ui/PhoneField";
 import { SERVICES } from "@/lib/constants";
@@ -14,10 +15,13 @@ export default function LxContact({
   heading = "Got a project in mind?",
   body = "Tell us a bit about where you are and where you'd like to get to. We'll come back with specific ideas, not a generic pitch.",
   defaultNeed,
+  children,
 }: {
   heading?: string;
   body?: string;
   defaultNeed?: string;
+  /** Extra copy or buttons shown under the body text. */
+  children?: ReactNode;
 }) {
   const needKey = (s: string) => s.split(" — ")[0].trim();
   const selectedNeed = defaultNeed
@@ -31,6 +35,7 @@ export default function LxContact({
           <p className="lx-lede" style={{ marginTop: "1.2rem" }}>
             {body}
           </p>
+          {children}
           <ul>
             {POINTS.map((p) => <li key={p}>{p}</li>)}
           </ul>
