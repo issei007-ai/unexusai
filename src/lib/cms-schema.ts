@@ -1623,3 +1623,262 @@ SECTIONS.push(
 export function getSectionSchema(key: string): CmsSection | undefined {
   return SECTIONS.find((s) => s.key === key);
 }
+
+// ═════════════════════════════════════════════════════════════════════════════
+// Homepage — SEO content (2026-10). The homepage reads these "home2.*" keys.
+// They are separate from the older "home.*" sections on purpose: those are
+// still used by other pages (testimonials, process, why, industries), and new
+// keys mean the new copy shows on launch instead of older saved CMS text.
+// ═════════════════════════════════════════════════════════════════════════════
+
+export const HOME2_META_DEFAULTS = {
+  metaTitle: "Unexus AI | AI-Powered Digital Growth Partner",
+  metaDescription:
+    "Unexus AI helps businesses grow with AI-powered digital marketing, SEO, GEO, Google Ads, website development, automation, and AI training.",
+};
+
+export const HOME2_HERO_DEFAULTS = {
+  headline: "Unexus AI: AI-Powered Digital Growth Partner",
+  sub: "In today’s fast-evolving market, traditional marketing is no longer enough. Unexus AI is your dedicated digital growth partner, helping B2B and forward-thinking businesses navigate the future of search and customer acquisition. By integrating AI-powered digital marketing, Generative Engine Optimization (GEO), website development, and advanced automation, we transform complex technology into measurable business growth.",
+  prompt: "Ready to future-proof your digital presence?",
+  ctaPrimary: "Book a Free Consultation",
+  ctaSecondary: "Explore Our Services",
+  trustLabel: "Our clients span industries and time zones.",
+};
+
+export const HOME2_STATS_DEFAULTS = {
+  title: "Experience You Can Build On",
+  intro: "We believe in data-driven decisions and transparent partnerships. Our team brings deep industry expertise to every project, ensuring your digital growth strategy is built on a foundation of proven success.",
+  items: [
+    "10+ Years of Industry Experience",
+    "80+ Businesses Served Globally",
+    "Active in 5 Countries and Markets",
+    "Comprehensive Suite of 8 Digital Services",
+    "Proven Expertise Across Diverse Industries",
+  ],
+};
+
+export const HOME2_CHALLENGES_DEFAULTS = {
+  title: "The Digital Growth Challenges Businesses Face Today",
+  intro: "Scaling a business online is harder than ever. Many businesses struggle to achieve sustainable growth due to fragmented strategies and changing algorithms. Are you facing:",
+  items: [
+    "Low online visibility in an increasingly crowded market?",
+    "Rising competition and skyrocketing, expensive advertising costs?",
+    "Poor-quality leads that drain your sales team’s time?",
+    "Low website conversions despite decent traffic?",
+    "Disconnected marketing channels that fail to work together?",
+    "Repetitive manual work that bottlenecks operational efficiency?",
+    "Difficulty adapting to AI-powered search and new consumer behaviors?",
+  ],
+  solution: "The Solution: Unexus AI cuts through the noise, replacing guesswork with a unified, AI-driven strategy designed for tangible outcomes.",
+};
+
+export const HOME2_SYSTEM_DEFAULTS = {
+  title: "Unexus AI Growth System",
+  paragraphs: [
+    "Growth doesn't happen in silos. The Unexus AI Growth System has one integrated growth system that seamlessly connects Strategy + SEO + GEO + Paid Ads + Website + AI + Automation + Data.",
+    "Instead of relying on disconnected solutions that dilute your budget, our holistic ecosystem ensures every digital touchpoint works in synergy. This integrated approach delivers better visibility, highly targeted customer acquisition, improved conversion rates, and the scalable growth your business needs to outpace the competition.",
+  ],
+};
+
+/** Card order matches SERVICES in lib/constants (the card links come from there). */
+export const HOME2_SERVICES_DEFAULTS = {
+  title: "Our Digital Growth Services",
+  items: [
+    { title: "Digital Marketing Services", desc: "We craft tailored marketing strategies that help businesses attract, engage, and convert the right audience, turning brand awareness into bottom-line revenue." },
+    { title: "SEO Services", desc: "Secure long-term search presence. Our SEO strategies improve organic visibility and drive highly relevant, high-intent traffic to your website." },
+    { title: "Google Ads / SEM", desc: "Reach customers exactly when they are ready to buy. We design paid search campaigns that generate measurable leads and maximize your return on ad spend (ROAS)." },
+    { title: "GEO Services (Generative Engine Optimization)", desc: "Future-proof your brand. We optimize your digital footprint to ensure high visibility across AI-powered search engines and answer platforms." },
+    { title: "Website Development", desc: "Your website is your best salesperson. We build modern, lightning-fast, and user-centric websites engineered specifically for lead generation and conversion." },
+    { title: "AI Automation", desc: "Reclaim your time. We implement smart AI and automation tools to streamline repetitive processes, drastically improving your team’s operational efficiency." },
+    { title: "AI Training", desc: "Empower your workforce. We provide practical AI training so your team can confidently leverage artificial intelligence in their daily workflows." },
+    { title: "Market Research", desc: "Never guess your next move. Our deep customer, competitor, and market research equips you with the data needed to make highly profitable growth decisions." },
+  ],
+};
+
+export const HOME2_GEO_DEFAULTS = {
+  title: "Is Your Business Really Ready for AI Search?",
+  paragraphs: [
+    "The way users find information is undergoing a massive shift. Consumers and B2B buyers are increasingly bypassing traditional search results, turning instead to AI platforms for instant research, deep analysis, and direct recommendations.",
+    "While traditional SEO focuses on ranking web pages on search engines like Google, GEO is the practice of optimizing your brand's presence so it is referenced, cited, and recommended by AI language models and conversational search engines.",
+    "If your digital growth strategy only accounts for traditional search, you are missing out on the next generation of online discovery. Unexus AI helps brands build authority and visibility across platforms like ChatGPT, Google's AI experiences (Gemini), and Perplexity.",
+    "We ensure your business is part of the AI conversation, positioning you as an authoritative answer when your target audience asks complex questions.",
+  ],
+};
+
+export const HOME2_INDUSTRIES_DEFAULTS = {
+  title: "Growth Strategies Built for Your Industry",
+  intro: "Different industries target distinct audiences with unique buying behaviors, pain points, and sales cycles. For example, B2B software requires long-term educational content and lead nurturing, whereas a local restaurant relies on immediate, location-based visibility and visual social media. Tailoring strategies ensures marketing efforts align with specific industry regulations, appropriate platforms, and the precise intent of the target customer, ultimately maximizing return on investment.",
+  lead: "We engineer bespoke strategies for sectors including:",
+  items: [
+    { title: "E-commerce", desc: "Driving product visibility, optimizing conversion rate funnels, and reducing cart abandonment." },
+    { title: "Healthcare & Wellness", desc: "Building patient trust, maintaining compliance, and capturing local search intent." },
+    { title: "Hospitality & F&B", desc: "Enhancing direct bookings, local SEO dominance, and reputation management." },
+    { title: "Real Estate", desc: "Generating high-quality buyer/investor leads through targeted SEM and immersive website experiences." },
+    { title: "B2B & Technology", desc: "Establishing topical authority, nurturing long sales cycles, and automating lead qualification." },
+  ],
+};
+
+export const HOME2_RESULTS_DEFAULTS = {
+  title: "Turning Strategy Into Measurable Results",
+  intro: "We don't just deliver services; we deliver business outcomes. Our focus remains strictly on metrics that matter to your bottom line:",
+  items: [
+    { title: "Increased Visibility", desc: "Dominating both traditional SERPs and AI-generated overviews." },
+    { title: "Qualified Leads", desc: "Shifting focus from raw traffic to high-intent customer acquisition." },
+    { title: "Website Conversions", desc: "Transforming passive visitors into active buyers." },
+    { title: "Process Efficiency", desc: "Saving hundreds of hours through intelligent AI automation." },
+  ],
+};
+
+export const HOME2_WHY_DEFAULTS = {
+  title: "Why You as a Business Choose Unexus AI",
+  items: [
+    { title: "Integrated Marketing + AI Approach", desc: "We don't separate tech from marketing; we blend them for maximum impact." },
+    { title: "Business-First Strategy", desc: "We focus on your revenue and growth goals, not just vanity metrics." },
+    { title: "AI-Ready Solutions", desc: "We future-proof your business against the rapidly changing digital landscape." },
+    { title: "Data-Driven Decision Making", desc: "Every move we make is backed by rigorous market research and analytics." },
+    { title: "Experienced Team", desc: "You work with seasoned experts dedicated to transparent communication." },
+    { title: "Customized Strategies", desc: "No cookie-cutter packages—only bespoke, long-term growth plans." },
+  ],
+};
+
+export const HOME2_PROCESS_DEFAULTS = {
+  title: "How We Work: The Path to Scalable Growth",
+  steps: [
+    { title: "Discover", desc: "We dive deep into your business model, market dynamics, target audience, and current challenges." },
+    { title: "Strategize", desc: "We identify untapped opportunities and architect a custom, step-by-step growth roadmap." },
+    { title: "Execute", desc: "Our team implements the selected marketing campaigns, technology integrations, and AI solutions." },
+    { title: "Optimize", desc: "We rigorously track performance data, A/B test, and continuously refine our approach for better ROI." },
+    { title: "Scale", desc: "Once we identify winning strategies, we expand them, building a scalable system for exponential growth." },
+  ],
+};
+
+export const HOME2_TESTIMONIALS_DEFAULTS = {
+  title: "What Our Clients Say About Us",
+  items: [
+    { quote: "Every order came from a walk-in or a WhatsApp message. Beyond a basic website, there was no way for new customers to actually find us", name: "Richies" },
+    { quote: "Our Shopping campaigns were scattered and the product feed had never really been cleaned up. We were getting 1.2x back and couldn't see where the budget was actually going.", name: "FlowerAura" },
+    { quote: "A generic landing page, leads that cost a fortune, and proposals that took half a day to put together. Most prospects dropped off long before we ever got to their roof.", name: "Awake Solar" },
+  ],
+};
+
+export const HOME2_STORY_DEFAULTS = {
+  title: "Unexus AI: Where Experience Meets Innovation",
+  paragraphs: [
+    "Unexus AI was founded on a simple vision: to bridge the gap between human strategic brilliance and cutting-edge artificial intelligence.",
+    "Our story started in 2015 with SE Digicon, an agency founded by Richa Gupta in India to deliver outcome-driven marketing over vanity metrics. After a decade of scaling 80+ global businesses across the US, UK, UAE, and India, the digital landscape shifted overnight.",
+    "AI changed how people search. Generative Engine Optimization (GEO) became the new standard. Traditional marketing playbooks stopped working. Instead of forcing old tactics into a new era, we evolved. Unexus AI was established in the UAE as a globally focused growth partner, built specifically to master the intersection of traditional digital marketing, AI innovation, and GEO.",
+  ],
+};
+
+export const HOME2_FAQ_DEFAULTS = {
+  title: "Frequently Asked Questions (FAQ)",
+  items: [
+    { q: "What services does Unexus AI provide?", a: "We offer a comprehensive suite of digital growth services, including SEO, Google Ads (SEM), Generative Engine Optimization (GEO), website development, AI automation, AI training, market research, and full-scale digital marketing strategies." },
+    { q: "How is GEO different from SEO?", a: "SEO focuses on ranking websites on traditional search engines like Google using keywords and backlinks. GEO focuses on structuring content and building authority so that AI models (like ChatGPT or Gemini) use your brand as a source in their generated answers." },
+    { q: "Why is AI search important for businesses?", a: "Consumers and B2B buyers are increasingly using AI platforms to research products and services. If your business is not optimized for AI search, you risk losing visibility to competitors who are." },
+    { q: "Do you provide SEO and Google Ads?", a: "Yes. We provide highly integrated SEO services for long-term organic growth, and Google Ads/SEM for immediate, targeted lead generation." },
+    { q: "Do you build business websites?", a: "Yes. We develop fast, modern, and conversion-optimized websites designed to act as the central hub of your digital growth strategy." },
+    { q: "What type of AI automation do you provide?", a: "We implement custom AI automation to streamline repetitive tasks, such as lead qualification, customer service workflows, data entry, and marketing outreach, improving overall business efficiency." },
+    { q: "Do you provide AI training?", a: "Yes. We offer hands-on AI training for businesses and their teams to help them integrate AI tools effectively into their daily operations." },
+    { q: "Do you work with businesses outside India?", a: "Yes, Unexus AI partners with businesses globally, delivering localized and international growth strategies." },
+    { q: "How does the consultation process work?", a: "Our free consultation involves a discussion about your current business challenges, an initial assessment of your digital presence, and an outline of potential growth opportunities." },
+    { q: "How can a business get started with Unexus AI?", a: "Simply reach out via our website to book a free discovery call. We will discuss your goals and determine how our integrated systems can help you scale." },
+  ],
+};
+
+export const HOME2_CTA_DEFAULTS = {
+  title: "Ready to Build a Smarter Growth Strategy?",
+  paragraphs: [
+    "Stop relying on outdated tactics and fragmented marketing channels. Whether you need to overcome current visibility challenges, explore AI-driven efficiencies, or build a robust, customized digital strategy from the ground up, Unexus AI is ready to help you scale.",
+    "Let’s identify your most profitable growth opportunities and put technology to work for your business.",
+  ],
+  ctaPrimary: "Book a Free Consultation",
+  ctaSecondary: "Talk to Our Team",
+};
+
+const titleDesc: CmsField[] = [
+  { name: "title", label: "Title", type: "text" },
+  { name: "desc", label: "Description", type: "textarea" },
+];
+
+SECTIONS.push(
+  { key: "home2.meta", label: "SEO title & description", group: "Homepage (new)", fields: [
+    { name: "metaTitle", label: "SEO title", type: "text", help: "Used exactly as written (no suffix added)." },
+    { name: "metaDescription", label: "Meta description", type: "textarea" },
+  ], defaults: HOME2_META_DEFAULTS },
+  { key: "home2.hero", label: "Hero", group: "Homepage (new)", fields: [
+    { name: "headline", label: "Headline (H1)", type: "text" },
+    { name: "sub", label: "Intro paragraph", type: "textarea" },
+    { name: "prompt", label: "Line above the buttons", type: "text" },
+    { name: "ctaPrimary", label: "Primary button", type: "text" },
+    { name: "ctaSecondary", label: "Secondary button", type: "text" },
+    { name: "trustLabel", label: "Client strip label", type: "text" },
+  ], defaults: HOME2_HERO_DEFAULTS },
+  { key: "home2.stats", label: "Experience stats", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "intro", label: "Intro", type: "textarea" },
+    { name: "items", label: "Stats (one per line — the number is highlighted)", type: "list" },
+  ], defaults: HOME2_STATS_DEFAULTS },
+  { key: "home2.challenges", label: "Growth challenges", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "intro", label: "Intro", type: "textarea" },
+    { name: "items", label: "Challenges (one per line)", type: "list" },
+    { name: "solution", label: "Solution line", type: "textarea" },
+  ], defaults: HOME2_CHALLENGES_DEFAULTS },
+  { key: "home2.system", label: "Growth system", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "paragraphs", label: "Paragraphs (one per line)", type: "list" },
+  ], defaults: HOME2_SYSTEM_DEFAULTS },
+  { key: "home2.services", label: "Services", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "items", label: "Service cards — keep the order", type: "items", itemLabel: "card", help: "Order: Digital Marketing, SEO, SEM, GEO, Website Development, AI Automation, AI Training, Market Research.", itemFields: titleDesc },
+  ], defaults: HOME2_SERVICES_DEFAULTS },
+  { key: "home2.geo", label: "AI search (GEO)", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "paragraphs", label: "Paragraphs (one per line)", type: "list" },
+  ], defaults: HOME2_GEO_DEFAULTS },
+  { key: "home2.industries", label: "Industries", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "intro", label: "Intro", type: "textarea" },
+    { name: "lead", label: "Line above the list", type: "text" },
+    { name: "items", label: "Industries", type: "items", itemLabel: "industry", itemFields: titleDesc },
+  ], defaults: HOME2_INDUSTRIES_DEFAULTS },
+  { key: "home2.results", label: "Results", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "intro", label: "Intro", type: "textarea" },
+    { name: "items", label: "Results", type: "items", itemLabel: "result", itemFields: titleDesc },
+  ], defaults: HOME2_RESULTS_DEFAULTS },
+  { key: "home2.why", label: "Why choose us", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "items", label: "Reasons", type: "items", itemLabel: "reason", itemFields: titleDesc },
+  ], defaults: HOME2_WHY_DEFAULTS },
+  { key: "home2.process", label: "How we work", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "steps", label: "Steps", type: "items", itemLabel: "step", itemFields: titleDesc },
+  ], defaults: HOME2_PROCESS_DEFAULTS },
+  { key: "home2.testimonials", label: "Client quotes", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "items", label: "Quotes", type: "items", itemLabel: "quote", itemFields: [
+      { name: "quote", label: "Quote", type: "textarea" },
+      { name: "name", label: "Client", type: "text" },
+    ] },
+  ], defaults: HOME2_TESTIMONIALS_DEFAULTS },
+  { key: "home2.story", label: "Our story", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "paragraphs", label: "Paragraphs (one per line)", type: "list" },
+  ], defaults: HOME2_STORY_DEFAULTS },
+  { key: "home2.faq", label: "FAQ", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "items", label: "Questions", type: "items", itemLabel: "question", help: "Also published as FAQ schema for Google.", itemFields: [
+      { name: "q", label: "Question", type: "text" },
+      { name: "a", label: "Answer", type: "textarea" },
+    ] },
+  ], defaults: HOME2_FAQ_DEFAULTS },
+  { key: "home2.cta", label: "Closing call to action", group: "Homepage (new)", fields: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "paragraphs", label: "Paragraphs (one per line)", type: "list" },
+    { name: "ctaPrimary", label: "Primary button", type: "text" },
+    { name: "ctaSecondary", label: "Secondary button", type: "text" },
+  ], defaults: HOME2_CTA_DEFAULTS },
+);
