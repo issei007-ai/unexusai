@@ -172,6 +172,13 @@ export default async function HomePage() {
               <h1 className="lx-h1 lx-h1--long lx-words">
                 <LxSplit text={hero.headline} />
               </h1>
+              {(hero.rotatingLines as string[])?.length > 0 && (
+                <p className="lx-hero__rotor lx-accent lx-rotor lx-rotor--in">
+                  {(hero.rotatingLines as string[]).map((line, k) => (
+                    <span key={line} style={{ ["--k" as string]: k }}>{line}</span>
+                  ))}
+                </p>
+              )}
               <p className="lx-lede lx-enter" style={{ ["--d" as string]: "120ms" }}>
                 {hero.sub}
               </p>

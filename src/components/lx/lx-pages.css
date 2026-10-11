@@ -356,3 +356,4 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
 .lx-faq details p { margin: 0 0 1.2rem; color: var(--lx-mute); line-height: 1.7; }
 @media (max-width: 900px) { .lx-faq { grid-template-columns: 1fr; } }
 .lx-sec--white .lx-faq details { background: var(--lx-bg); }
+.lx-hero__rotor { margin: -0.6rem 0 0; font-family: var(--lx-display); font-weight: 700; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.1; letter-spacing: -0.03em; }
