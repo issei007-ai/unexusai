@@ -1640,6 +1640,7 @@ export const HOME2_META_DEFAULTS = {
 
 export const HOME2_HERO_DEFAULTS = {
   headline: "Unexus AI: AI-Powered Digital Growth Partner",
+  rotatingLines: ["Strategy + SEO + GEO", "Paid Ads + Website", "AI + Automation + Data"],
   sub: "In today’s fast-evolving market, traditional marketing is no longer enough. Unexus AI is your dedicated digital growth partner, helping B2B and forward-thinking businesses navigate the future of search and customer acquisition. By integrating AI-powered digital marketing, Generative Engine Optimization (GEO), website development, and advanced automation, we transform complex technology into measurable business growth.",
   prompt: "Ready to future-proof your digital presence?",
   ctaPrimary: "Book a Free Consultation",
@@ -1810,6 +1811,7 @@ SECTIONS.push(
   ], defaults: HOME2_META_DEFAULTS },
   { key: "home2.hero", label: "Hero", group: "Homepage (new)", fields: [
     { name: "headline", label: "Headline (H1)", type: "text" },
+    { name: "rotatingLines", label: "Rotating line under the headline", type: "list", help: "One per row. They cycle under the H1 (not part of the H1)." },
     { name: "sub", label: "Intro paragraph", type: "textarea" },
     { name: "prompt", label: "Line above the buttons", type: "text" },
     { name: "ctaPrimary", label: "Primary button", type: "text" },
