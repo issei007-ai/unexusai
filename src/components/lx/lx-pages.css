@@ -356,3 +356,7 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
 .lx-faq details p { margin: 0 0 1.2rem; color: var(--lx-mute); line-height: 1.7; }
 @media (max-width: 900px) { .lx-faq { grid-template-columns: 1fr; } }
 .lx-sec--white .lx-faq details { background: var(--lx-bg); }
+
+/* Images inside article bodies */
+.lx-prose figure { margin: 2.2rem 0; }
+.lx-prose figure img { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--lx-line); background: #fff; }
