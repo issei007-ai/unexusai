@@ -597,6 +597,7 @@ SECTIONS.push(
         { name: "read", label: "Read time", type: "text" },
         { name: "accent", label: "Accent colour (hex)", type: "text" },
         { name: "metaTitle", label: "SEO title", type: "text" },
+        { name: "exactTitle", label: "Use SEO title exactly? (yes / blank)", type: "text", help: "Type yes to drop the “ — Unexus AI” suffix from this article's title." },
         { name: "metaDescription", label: "SEO description", type: "textarea" },
         { name: "body", label: "Body (HTML)", type: "textarea" },
       ] },

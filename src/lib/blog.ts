@@ -10,6 +10,8 @@ export type BlogPost = {
   read: string;
   accent: string;
   metaTitle: string;
+  /** "yes" = use metaTitle exactly, without the " — Unexus AI" suffix. */
+  exactTitle?: string;
   metaDescription: string;
   body: string; // HTML, rendered with the .prose-dark styles
 };

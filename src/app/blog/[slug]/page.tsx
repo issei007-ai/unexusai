@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: "Article — Unexus AI" };
   return buildMetadata({
     title: post.metaTitle,
+    absoluteTitle: /^yes$/i.test((post.exactTitle ?? "").trim()),
     description: post.metaDescription,
     path: `/blog/${slug}`,
     image: post.image,
