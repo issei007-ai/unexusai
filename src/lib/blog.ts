@@ -12,6 +12,9 @@ export type BlogPost = {
   metaTitle: string;
   /** "yes" = use metaTitle exactly, without the " — Unexus AI" suffix. */
   exactTitle?: string;
+  /** ISO publish / last-updated dates (YYYY-MM-DD) for schema and the "Updated" line. */
+  published?: string;
+  updated?: string;
   metaDescription: string;
   body: string; // HTML, rendered with the .prose-dark styles
 };

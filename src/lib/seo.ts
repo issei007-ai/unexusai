@@ -139,6 +139,11 @@ export function articleJsonLd(opts: {
   url: string;
   image?: string;
   authorName?: string;
+  /** Author profile page, e.g. /about/richa-gupta. */
+  authorUrl?: string;
+  /** ISO dates (YYYY-MM-DD). */
+  datePublished?: string;
+  dateModified?: string;
   type?: "BlogPosting" | "NewsArticle";
 }): Record<string, unknown> {
   const ld: Record<string, unknown> = {
@@ -148,10 +153,14 @@ export function articleJsonLd(opts: {
     description: opts.description,
     url: opts.url,
     mainEntityOfPage: opts.url,
-    author: { "@type": "Person", name: opts.authorName || "Unexus AI" },
+    author: opts.authorUrl
+      ? { "@type": "Person", "@id": `${opts.authorUrl}#person`, name: opts.authorName || "Unexus AI", url: opts.authorUrl }
+      : { "@type": "Person", name: opts.authorName || "Unexus AI" },
     publisher: publisherJsonLd(),
   };
   if (opts.image) ld.image = opts.image;
+  if (opts.datePublished) ld.datePublished = opts.datePublished;
+  if (opts.dateModified || opts.datePublished) ld.dateModified = opts.dateModified || opts.datePublished;
   return ld;
 }
 

@@ -594,6 +594,8 @@ SECTIONS.push(
         { name: "title", label: "Title", type: "text" },
         { name: "excerpt", label: "Excerpt", type: "textarea" },
         { name: "date", label: "Date", type: "text" },
+        { name: "published", label: "Published on (YYYY-MM-DD)", type: "text", help: "Exact date for Google and AI search (article schema)." },
+        { name: "updated", label: "Last updated (YYYY-MM-DD)", type: "text", help: "Set when you meaningfully revise the article. Shows “Updated …” on the page." },
         { name: "read", label: "Read time", type: "text" },
         { name: "accent", label: "Accent colour (hex)", type: "text" },
         { name: "metaTitle", label: "SEO title", type: "text" },
@@ -1885,3 +1887,38 @@ SECTIONS.push(
     { name: "ctaSecondary", label: "Secondary button", type: "text" },
   ], defaults: HOME2_CTA_DEFAULTS },
 );
+
+// ── Author profile: Richa Gupta (/about/richa-gupta) ─────────────────────────
+export const AUTHOR_RICHA_DEFAULTS = {
+  name: "Richa Gupta",
+  role: "Founder — Unexus AI & SE Digicon · Based in Dubai, UAE",
+  bio: "I've spent more than a decade in digital marketing and growth — performance marketing, SEO, e-commerce, CRO and retention — helping startups and brands across the Middle East and Asia scale on data rather than guesswork. These days my focus is the shift to an AI-first internet, where people increasingly find brands through ChatGPT, Gemini, and Perplexity instead of a page of Google results. I started Unexus AI to help businesses stay discoverable and competitive in that world: through GEO, AI-powered marketing, and the kind of hands-on AI training that actually gets teams using these tools day to day.",
+  story:
+    "In 2015, Richa Gupta founded SE Digicon in India — a digital marketing agency built around one belief: that businesses deserve marketing that produces real results, not vanity metrics. Over the next decade, SE Digicon worked with 80+ businesses across retail, hospitality, education, and enterprise — in India, the UAE, the UK, and the US. In the AI era she relaunched that experience as Unexus AI, registered in the UAE and focused on the intersection of digital marketing, AI, and GEO.",
+  expertise: [
+    "Generative Engine Optimization (GEO)",
+    "Search Engine Optimization (SEO)",
+    "Performance marketing",
+    "E-commerce growth",
+    "Conversion rate optimization (CRO)",
+    "Retention marketing",
+    "AI training for marketing teams",
+  ],
+  profiles: [] as string[],
+};
+
+SECTIONS.push({
+  key: "author.richa",
+  label: "Author profile — Richa Gupta",
+  group: "Blog",
+  fields: [
+    { name: "name", label: "Name", type: "text" },
+    { name: "role", label: "Role line", type: "text" },
+    { name: "photo", label: "Photo", type: "image", help: "Optional headshot. Also used in the author schema." },
+    { name: "bio", label: "Bio (first person)", type: "textarea" },
+    { name: "story", label: "Background", type: "textarea" },
+    { name: "expertise", label: "Areas of expertise (one per line)", type: "list" },
+    { name: "profiles", label: "Profile URLs (one per line)", type: "list", help: "LinkedIn, X, speaker pages. Feeds the Person schema 'sameAs', which helps Google and AI tools recognise her." },
+  ],
+  defaults: AUTHOR_RICHA_DEFAULTS,
+});
