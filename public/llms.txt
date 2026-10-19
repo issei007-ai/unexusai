@@ -2,19 +2,41 @@
 
 > AI-first digital marketing agency based in Dubai, UAE — GEO, SEO, paid media, website development, AI automation, and AI training for businesses across the UAE, India, and the wider Middle East. Founded by Richa Gupta; parent company SE Digicon has operated in India since 2015.
 
+Every link below is a Markdown copy of the page (same URL + `.md`). The homepage is at https://www.unexusai.com/index.html.md.
+
 ## Services
 
-- [Digital Marketing](https://www.unexusai.com/services/digital-marketing): SEO, GEO, paid media, email, and conversion tracking run as one connected system, measured on revenue.
-- [SEO — Search Engine Optimisation](https://www.unexusai.com/services/seo): Technical SEO, local SEO, keyword and content strategy, and link building that grows rankings and revenue.
-- [GEO — Generative Engine Optimisation](https://www.unexusai.com/services/geo): Getting a business recommended by ChatGPT, Perplexity, Gemini, and Claude — not just found on Google.
-- [Website Development](https://www.unexusai.com/services/website-development): Fast, conversion-focused websites built in Next.js.
-- [AI Automation](https://www.unexusai.com/services/ai-automation): AI agents, WhatsApp automation, RAG pipelines, and voice systems.
-- [AI Training](https://www.unexusai.com/services/ai-training): Hands-on AI training built around a team's real workflows.
-- [Market Research](https://www.unexusai.com/services/market-research): Audience research, competitor analysis, positioning, and market-entry research for the UAE and India.
+- [All services](https://www.unexusai.com/services.md): Overview of the eight services and how they connect.
+- [Digital Marketing](https://www.unexusai.com/services/digital-marketing.md): SEO, GEO, paid media, email, and conversion tracking run as one connected system, measured on revenue.
+- [SEO — Search Engine Optimisation](https://www.unexusai.com/services/seo.md): Technical SEO, local SEO, keyword and content strategy, and link building that grows rankings and revenue.
+- [SEM — Search Engine Marketing](https://www.unexusai.com/services/sem.md): Google Ads and paid search that turn clicks into tracked, profitable leads.
+- [GEO — Generative Engine Optimisation](https://www.unexusai.com/services/geo.md): Getting a business recommended by ChatGPT, Perplexity, Gemini, and Claude — not just found on Google.
+- [Website Development](https://www.unexusai.com/services/website-development.md): Fast, conversion-focused websites built in Next.js.
+- [AI Automation](https://www.unexusai.com/services/ai-automation.md): AI agents, WhatsApp automation, RAG pipelines, and voice systems.
+- [AI Training](https://www.unexusai.com/services/ai-training.md): Hands-on AI training built around a team's real workflows.
+- [Market Research](https://www.unexusai.com/services/market-research.md): Audience research, competitor analysis, positioning, and market-entry research for the UAE and India.
 
 ## Company
 
-- [About](https://www.unexusai.com/about): Ten years of digital marketing, relaunched for the AI era.
-- [Case Studies](https://www.unexusai.com/case-studies): Real client results across retail, hospitality, real estate, healthcare, and startups.
-- [Blog](https://www.unexusai.com/blog): Practical, no-hype articles on growth, AI, GEO, and marketing.
-- [Contact](https://www.unexusai.com/contact): richa@unexusai.com · +971 50 125 7204 · Dubai, UAE (also serving India and the wider Middle East).
+- [Home](https://www.unexusai.com/index.html.md): Who we are, the Unexus AI Growth System, industries, process, and FAQs.
+- [About](https://www.unexusai.com/about.md): Ten years of digital marketing, relaunched for the AI era.
+- [Case Studies](https://www.unexusai.com/case-studies.md): Real client results across retail, hospitality, real estate, healthcare, and startups.
+- [Contact](https://www.unexusai.com/contact.md): richa@unexusai.com · +971 50 125 7204 · Dubai, UAE (also serving India and the wider Middle East).
+- [Book a call](https://www.unexusai.com/book.md): Free 30-minute consultation with the founder.
+- [Free audit](https://www.unexusai.com/audit.md): Request a free audit of your website and marketing.
+
+## Blog
+
+- [Blog index](https://www.unexusai.com/blog.md): Practical, no-hype articles on growth, AI, GEO, and marketing.
+- [Why Search Intent Matters More Than Keywords in Modern SEO](https://www.unexusai.com/blog/search-intent-modern-seo.md): The four types of search intent and how to match content to them.
+- [How to Build a Digital Marketing Strategy That Actually Drives Business Growth](https://www.unexusai.com/blog/digital-marketing-strategy-business-growth.md): Goals, audience, channels, conversion paths, and KPIs in one plan.
+- [GEO, Explained Without the Hype](https://www.unexusai.com/blog/generative-engine-optimization-explained.md): What GEO is, how it differs from SEO, and what actually works.
+- [Why Marketers Are Dropping “Best-in-Class” Copy](https://www.unexusai.com/blog/best-in-class-marketing-shift.md): Why specific, provable claims outperform superlatives.
+- [How to Interview Customers Without Leading Them](https://www.unexusai.com/blog/how-to-interview-customers-without-leading-them.md): Asking questions that surface real buyer language.
+
+## Optional
+
+- [News](https://www.unexusai.com/news.md): Company and industry updates.
+- [Privacy Policy](https://www.unexusai.com/privacy-policy.md)
+- [Terms of Service](https://www.unexusai.com/terms-of-service.md)
+- [Cookie Policy](https://www.unexusai.com/cookie-policy.md)
