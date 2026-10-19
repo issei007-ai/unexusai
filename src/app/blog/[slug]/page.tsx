@@ -12,6 +12,16 @@ import { buildMetadata, articleJsonLd, breadcrumbJsonLd, faqJsonLd, faqsFromHtml
 
 export const dynamicParams = true;
 
+/** Accept only real YYYY-MM-DD dates from the CMS. */
+function isoDate(s?: string): string | undefined {
+  const v = (s ?? "").trim();
+  return /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) ? v : undefined;
+}
+
+function prettyDate(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+}
+
 async function getPosts(): Promise<BlogPost[]> {
   const data = await getSection("blog.posts", BLOG_POSTS_DEFAULTS);
   return data.items as BlogPost[];
@@ -49,6 +59,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     url,
     image: post.image,
     authorName: author,
+    authorUrl: author === "Richa Gupta" ? `${SITE_URL}/about/richa-gupta` : undefined,
+    datePublished: isoDate(post.published),
+    dateModified: isoDate(post.updated),
   });
   const crumbsLd = breadcrumbJsonLd([
     { name: "Home", url: SITE_URL },
@@ -69,7 +82,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </>
       }
     >
-      <LxPageHero eyebrow={post.cat} title={post.title} subtitle={`By ${author} · ${post.date} · ${post.read} read`} orbit={false} narrow />
+      <LxPageHero eyebrow={post.cat} title={post.title} subtitle={`By ${author} · ${post.date} · ${post.read} read${isoDate(post.updated) && post.updated !== post.published ? ` · Updated ${prettyDate(post.updated!)}` : ""}`} orbit={false} narrow />
 
       {post.image && (
         <div className="lx-wrap lx-article__hero">
@@ -83,6 +96,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="lx-wrap lx-article">
           <Link href="/blog" className="lx-link lx-link--back">← All articles</Link>
           <article className="lx-prose" dangerouslySetInnerHTML={{ __html: post.body }} />
+          {author === "Richa Gupta" && (
+            <aside className="lx-chal__fix" style={{ marginTop: "3rem" }}>
+              Written by <a href="/about/richa-gupta" style={{ color: "inherit", textDecoration: "underline" }}>Richa Gupta</a>, founder of Unexus AI and SE Digicon. A decade in performance marketing, SEO and GEO, now based in Dubai.
+            </aside>
+          )}
         </div>
       </section>
 

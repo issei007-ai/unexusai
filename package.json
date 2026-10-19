@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "node scripts/build-md.mjs || echo \"md refresh skipped\"",
+    "indexnow": "node scripts/indexnow.mjs",
     "start": "next start",
     "lint": "eslint"
   },

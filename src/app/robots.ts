@@ -10,11 +10,14 @@ const AI_BOTS = [
   "OAI-SearchBot", // ChatGPT search
   "ChatGPT-User", // ChatGPT live browsing
   "ClaudeBot", // Anthropic training
+  "Claude-SearchBot", // Claude search answers
+  "Claude-User", // Claude live browsing
   "Claude-Web", // Claude browsing
   "anthropic-ai",
   "PerplexityBot", // Perplexity index
   "Perplexity-User", // Perplexity live browsing
-  "Google-Extended", // Gemini / AI Overviews
+  "Google-Extended", // Gemini apps + training (AI Overviews follow Googlebot)
+  "Bingbot", // Bing + Microsoft Copilot
   "Applebot-Extended", // Apple Intelligence
   "CCBot", // Common Crawl (feeds many LLMs)
 ];
