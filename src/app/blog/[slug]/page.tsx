@@ -8,7 +8,7 @@ import LxContact from "@/components/lx/LxContact";
 import type { BlogPost } from "@/lib/blog";
 import { getSection } from "@/lib/cms";
 import { BLOG_POSTS_DEFAULTS } from "@/lib/cms-schema";
-import { buildMetadata, articleJsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { buildMetadata, articleJsonLd, breadcrumbJsonLd, faqJsonLd, faqsFromHtml, SITE_URL } from "@/lib/seo";
 
 export const dynamicParams = true;
 
@@ -55,6 +55,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     { name: "Blog", url: `${SITE_URL}/blog` },
     { name: post.title, url },
   ]);
+  const faqs = faqsFromHtml(post.body);
 
   return (
     <LxShell
@@ -62,6 +63,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }} />
+          {faqs.length > 0 && (
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />
+          )}
         </>
       }
     >

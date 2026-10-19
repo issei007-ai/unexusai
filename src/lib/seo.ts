@@ -186,6 +186,27 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]): Record
   };
 }
 
+/**
+ * Pull Q&A pairs out of an article body: the <h3>/<p> pairs under an <h2>
+ * that mentions "FAQ" or "Frequently Asked Questions", up to the next <h2>.
+ */
+export function faqsFromHtml(body: string): { q: string; a: string }[] {
+  const text = (s: string) =>
+    s.replace(/<[^>]+>/g, "").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const start = body.search(/<h2[^>]*>[^<]*(FAQ|Frequently Asked Questions)/i);
+  if (start < 0) return [];
+  let section = body.slice(start).replace(/^<h2[\s\S]*?<\/h2>/i, "");
+  const next = section.search(/<h2[\s>]/i);
+  if (next >= 0) section = section.slice(0, next);
+  const faqs: { q: string; a: string }[] = [];
+  for (const m of section.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[\s>]|$)/gi)) {
+    const q = text(m[1]);
+    const a = text(m[2]);
+    if (q && a) faqs.push({ q, a });
+  }
+  return faqs;
+}
+
 /** FAQPage schema.org JSON-LD from a list of Q&A pairs. */
 export function faqJsonLd(faqs: { q: string; a: string }[]): Record<string, unknown> {
   return {
