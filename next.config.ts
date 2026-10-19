@@ -63,7 +63,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "**.public.blob.vercel-storage.com", pathname: "/**" }],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // Markdown copies of each page (scripts/build-md.mjs) for LLM crawlers.
+      { source: "/:path*.md", headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }] },
+    ];
   },
 };
 
