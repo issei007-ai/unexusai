@@ -14,7 +14,7 @@ export const FOUNDER_ID = `${SITE_URL}/#richa-gupta`;
 export const logoJsonLd = () => ({ "@type": "ImageObject", url: LOGO_URL });
 
 /** The publishing organisation, as referenced from articles and services. */
-const publisherJsonLd = () => ({ "@type": "Organization", "@id": ORG_ID, name: "Unexus AI", url: SITE_URL, logo: logoJsonLd() });
+const publisherJsonLd = () => ({ "@type": "Organization", "@id": ORG_ID, name: "Unexus AI", url: `${SITE_URL}/`, logo: logoJsonLd() });
 
 /** Used when the CMS has no social links saved yet. */
 const DEFAULT_SAME_AS = [
