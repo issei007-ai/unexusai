@@ -147,6 +147,8 @@ Yes — when done correctly. Content that's structured for clarity, written with
 
 Start with structured content and direct answers, build topical authority through in-depth coverage, optimize headings for question-based queries, and increase credible brand mentions across the web. These practices improve both SEO and GEO performance simultaneously.
 
+Written by [Richa Gupta](https://www.unexusai.com/about/richa-gupta), founder of Unexus AI and SE Digicon. A decade in performance marketing, SEO and GEO, now based in Dubai.
+
 ## Want this kind of thinking applied to your business?
 
 Tell us where things feel stuck and we'll talk through what we'd do about it — no pitch, no pressure.

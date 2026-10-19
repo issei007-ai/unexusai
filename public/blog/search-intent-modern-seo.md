@@ -216,6 +216,8 @@ Search engines monitor user engagement signals like dwell time and bounce rates.
 
 Match the content format to the query type, address the user’s primary questions within the opening sections, utilize descriptive subheadings, and provide clear next steps tailored to their stage in the buying journey.
 
+Written by [Richa Gupta](https://www.unexusai.com/about/richa-gupta), founder of Unexus AI and SE Digicon. A decade in performance marketing, SEO and GEO, now based in Dubai.
+
 ## Want this kind of thinking applied to your business?
 
 Tell us where things feel stuck and we'll talk through what we'd do about it — no pitch, no pressure.

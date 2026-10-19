@@ -94,6 +94,8 @@ They tend to extract structured, specific claims — numbers, named proof points
 
 No. A misleading or cherry-picked statistic can be just as unreliable as a vague adjective — it only earns trust if it's actually verifiable.
 
+Written by [Richa Gupta](https://www.unexusai.com/about/richa-gupta), founder of Unexus AI and SE Digicon. A decade in performance marketing, SEO and GEO, now based in Dubai.
+
 ## Want this kind of thinking applied to your business?
 
 Tell us where things feel stuck and we'll talk through what we'd do about it — no pitch, no pressure.

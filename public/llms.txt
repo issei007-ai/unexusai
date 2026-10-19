@@ -20,6 +20,7 @@ Every link below is a Markdown copy of the page (same URL + `.md`). The homepage
 
 - [Home](https://www.unexusai.com/index.html.md): Who we are, the Unexus AI Growth System, industries, process, and FAQs.
 - [About](https://www.unexusai.com/about.md): Ten years of digital marketing, relaunched for the AI era.
+- [Richa Gupta, Founder](https://www.unexusai.com/about/richa-gupta.md): Founder of SE Digicon (2015) and Unexus AI; author of the blog.
 - [Case Studies](https://www.unexusai.com/case-studies.md): Real client results across retail, hospitality, real estate, healthcare, and startups.
 - [Contact](https://www.unexusai.com/contact.md): richa@unexusai.com · +971 50 125 7204 · Dubai, UAE (also serving India and the wider Middle East).
 - [Book a call](https://www.unexusai.com/book.md): Free 30-minute consultation with the founder.

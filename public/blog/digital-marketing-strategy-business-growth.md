@@ -252,6 +252,8 @@ Measure success through business-oriented KPIs such as Customer Acquisition Cost
 
 B2B companies typically invest between 5% and 10% of gross revenue into marketing, while high-growth businesses and B2C brands may allocate 12% to 20% depending on aggressive market expansion goals.
 
+Written by [Richa Gupta](https://www.unexusai.com/about/richa-gupta), founder of Unexus AI and SE Digicon. A decade in performance marketing, SEO and GEO, now based in Dubai.
+
 ## Want this kind of thinking applied to your business?
 
 Tell us where things feel stuck and we'll talk through what we'd do about it — no pitch, no pressure.
