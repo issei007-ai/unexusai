@@ -1,4 +1,5 @@
 "use client";
+import { trackLead } from "@/lib/track";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -195,6 +196,7 @@ export default function BookingScheduler({ source = "book" }: { source?: string 
         body: JSON.stringify({ type: "booking", source, name, email, phone: fullPhone, date, time, timezone: tz }),
       });
       if (!res.ok) throw new Error("Request failed");
+      trackLead("booking", source);
       router.push("/thank-you");
     } catch {
       setError("Couldn't book that just now. Please try again, or email us directly.");

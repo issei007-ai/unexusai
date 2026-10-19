@@ -1,4 +1,5 @@
 "use client";
+import { trackLead } from "@/lib/track";
 import { useEffect, useRef, useState } from "react";
 import { CHAT_FLOW, validateFlow } from "@/lib/chat-flow";
 import type { ChatAnswers, ChatOption } from "@/lib/chat-types";
@@ -276,6 +277,7 @@ export default function ChatWidget() {
         }),
       });
       if (!res.ok) throw new Error("failed");
+      trackLead(final.when ? "booking" : "lead", "chat");
       setTyping(false);
       goTo("done", final);
     } catch {

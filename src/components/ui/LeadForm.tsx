@@ -1,4 +1,5 @@
 "use client";
+import { trackLead } from "@/lib/track";
 import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { readAttribution } from "@/lib/attribution";
@@ -41,12 +42,7 @@ export default function LeadForm({ children, submitLabel = "Submit", note, sourc
         body: JSON.stringify({ ...data, ...attribution, source, type }),
       });
       if (!res.ok) throw new Error("Request failed");
-      // Conversion signal for GTM — configure a trigger on "generate_lead" to
-      // fire your Google Ads / GA4 conversion tags. No-ops if GTM isn't loaded
-      // (visitor declined cookies), so no tracking happens without consent.
-      const w = window as Window & { dataLayer?: Record<string, unknown>[] };
-      w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({ event: "generate_lead", lead_type: type, lead_source: source, ...attribution });
+      trackLead(type, source, attribution);
       router.push("/thank-you");
     } catch {
       setError("Something went wrong sending that. Please try again, or email us directly.");
