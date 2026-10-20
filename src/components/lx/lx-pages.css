@@ -361,3 +361,6 @@ html.lx-js [data-nav] [data-nav-menu] { background: #f3f4f7 !important; border-t
 .lx-prose figure { margin: 2.2rem 0; }
 .lx-prose figure img { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--lx-line); background: #fff; }
 .lx-hero__rotor { margin: -0.6rem 0 0; font-family: var(--lx-display); font-weight: 700; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.1; letter-spacing: -0.03em; }
+/* Article covers are often infographics: show the whole image, never crop. */
+.lx-article__hero .lx-fig { background: #fff; }
+.lx-article__hero .lx-fig img { object-fit: contain !important; }
