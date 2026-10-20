@@ -257,7 +257,8 @@ export default function LxScroll() {
               scrollTrigger: { trigger: fig, start: "top 95%", end: "top 45%", scrub: 0.6 },
             });
           }
-          if (img) {
+          // Article covers are often infographics: show them whole, no zoom.
+          if (img && !fig.closest(".lx-article__hero")) {
             // Scale always leaves (scale - 1) / 2 of spare image on each side,
             // which must cover the drift, or the frame's background shows.
             gsap.fromTo(img, { scale: 1.2, yPercent: -3 }, {
